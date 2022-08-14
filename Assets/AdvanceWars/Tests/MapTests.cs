@@ -71,14 +71,23 @@ namespace AdvanceWars.Tests
         public void RangeOfMovement_DoesNotReturnOccupiedPosition()
         {
             var sut = new Map(2, 2);
-            sut.Occupy(Vector2Int.up);
+            sut.Occupy(Vector2Int.up, new Unit());
 
             var result = sut.RangeOfMovement(Vector2Int.zero, 1);
 
             result.Should().NotContain(Vector2Int.up);
         }
 
-        //las unidades ocupan areas
+        [Test]
+        public void UnitRangeOfMovement()
+        {
+            var sut = new Map(3, 3);
+            var unit = new Unit();
+            sut.Occupy(Vector2Int.one, unit);
+            var result = sut.RangeOfMovement(unit);
+            result.Should().NotBeEmpty();
+        }
+
         //las unidaes aliadas te dejan pasar
         //las unidades enemigas, bloquean
         //coger el coste según el tipo en el terreno

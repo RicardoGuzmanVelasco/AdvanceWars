@@ -4,7 +4,8 @@
     {
         public class Space
         {
-            public bool HasUnit { get; init; }
+            public Unit Occupant { get; set; }
+            public bool HasUnit => Occupant != null;
         }
     }
 }

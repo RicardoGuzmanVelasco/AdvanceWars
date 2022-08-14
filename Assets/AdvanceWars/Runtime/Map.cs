@@ -43,9 +43,23 @@ namespace AdvanceWars.Runtime
             return coord.x >= 0 && coord.x < SizeX && coord.y >= 0 && coord.y < SizeY;
         }
 
-        public void Occupy(Vector2Int coord)
+        public void Occupy(Vector2Int coord, Unit unit)
         {
-            spaces[coord] = new Space { HasUnit = true };
+            Require(InsideBounds(coord)).True();
+            spaces[coord] = new Space { Occupant = unit };
+        }
+
+        public IEnumerable<Vector2Int> RangeOfMovement(Unit unit)
+        {
+            Require(WhereIs(unit)).Not.Null();
+            return new Vector2Int[1];
+        }
+
+        Space WhereIs(Unit unit)
+        {
+            return spaces.Values.SingleOrDefault(x => x.Occupant == unit);
         }
     }
+
+    public class Unit { }
 }
