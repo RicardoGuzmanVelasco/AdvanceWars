@@ -7,6 +7,8 @@ namespace AdvanceWars.Runtime
 {
     public record Map(int SizeX, int SizeY)
     {
+        readonly List<Vector2Int> occupiedCoords_MOCK = new List<Vector2Int>();
+        
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from)
         {
             return Enumerable.Empty<Vector2Int>();
@@ -26,7 +28,7 @@ namespace AdvanceWars.Runtime
             }
 
             availableCoordinates.Remove(from);
-            return availableCoordinates;
+            return availableCoordinates.Where(c => !occupiedCoords_MOCK.Contains(c));
         }
         
         [Pure] public IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
@@ -39,7 +41,10 @@ namespace AdvanceWars.Runtime
             return coord.x >= 0 && coord.x < SizeX && coord.y >= 0 && coord.y < SizeY;
         }
 
-
+        public void Occupy(Vector2Int coord)
+        {
+            occupiedCoords_MOCK.Add(coord);
+        }
     }
 
     public static class CartesianExtensions

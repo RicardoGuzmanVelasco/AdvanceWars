@@ -59,11 +59,30 @@ namespace AdvanceWars.Tests
             result.Should().Contain(Vector2Int.up);
             result.Should().Contain(Vector2Int.right);
         }
+        
+        [Test]
+        public void RangeOfMovement_WhenRangeIsOne_DoesNotReturnSelfPosition()
+        {
+            var sut = new Map(2, 2);
+            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
+            result.Should().NotContain(Vector2Int.zero);
+        }
+
+        //nunca devuelve una posición ocupada
+        [Test]
+        public void RangeOfMovement_DoesNotReturnOccupiedPosition()
+        {
+            var sut = new Map(2, 2);
+            sut.Occupy(Vector2Int.up);
+            
+            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
+            
+            result.Should().NotContain(Vector2Int.up);
+        }
+        
         //coger el coste según el tipo en el terreno
         //el mapa tiene spaces
         //
-        //nunca devuelve una posición ocupada
-            //nunca devuelve su misma posicion
         //cosas de costes
         //
     }
