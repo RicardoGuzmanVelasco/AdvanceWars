@@ -1,5 +1,4 @@
-﻿using System;
-using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
@@ -13,7 +12,7 @@ namespace AdvanceWars.Tests
         public void Map_WithSizeOne_ReturnsEmpty()
         {
             var sut = new Map(1, 1);
-            var result = sut.RangeOfMovement(Vector2Int.zero);
+            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
             result.Should().BeEmpty();
         }
 
@@ -59,7 +58,7 @@ namespace AdvanceWars.Tests
             result.Should().Contain(Vector2Int.up);
             result.Should().Contain(Vector2Int.right);
         }
-        
+
         [Test]
         public void RangeOfMovement_WhenRangeIsOne_DoesNotReturnSelfPosition()
         {
@@ -68,18 +67,17 @@ namespace AdvanceWars.Tests
             result.Should().NotContain(Vector2Int.zero);
         }
 
-        //nunca devuelve una posición ocupada
         [Test]
         public void RangeOfMovement_DoesNotReturnOccupiedPosition()
         {
             var sut = new Map(2, 2);
             sut.Occupy(Vector2Int.up);
-            
+
             var result = sut.RangeOfMovement(Vector2Int.zero, 1);
-            
+
             result.Should().NotContain(Vector2Int.up);
         }
-        
+
         //coger el coste según el tipo en el terreno
         //el mapa tiene spaces
         //

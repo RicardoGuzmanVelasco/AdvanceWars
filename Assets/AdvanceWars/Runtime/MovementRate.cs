@@ -1,4 +1,4 @@
-﻿using RGV.DesignByContract.Runtime;
+﻿using static RGV.DesignByContract.Runtime.Precondition;
 
 namespace AdvanceWars.Runtime
 {
@@ -8,15 +8,15 @@ namespace AdvanceWars.Runtime
 
         MovementRate(int value)
         {
-            Precondition.Require(value).Not.Negative();
+            Require(value).Not.Negative();
             this.value = value;
         }
-        
+
         public static implicit operator MovementRate(int rate)
         {
             return new MovementRate(rate);
         }
-        
+
         public static implicit operator int(MovementRate rate)
         {
             return rate.value;

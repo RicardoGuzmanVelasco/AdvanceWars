@@ -2,19 +2,18 @@
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using static RGV.DesignByContract.Runtime.Precondition;
 
 namespace AdvanceWars.Runtime
 {
     public record Map(int SizeX, int SizeY)
     {
         readonly List<Vector2Int> occupiedCoords_MOCK = new List<Vector2Int>();
-        
-        public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from)
-        {
-            return Enumerable.Empty<Vector2Int>();
-        }
+
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
         {
+            Require(InsideBounds(from)).True();
+
             var availableCoordinates = new List<Vector2Int>();
             availableCoordinates.Add(from);
             for(int i = 0; i < rate; i++)
@@ -24,15 +23,18 @@ namespace AdvanceWars.Runtime
                 {
                     currentRangeCoordinates.AddRange(AdjacentsOf(coordinates));
                 }
+
                 availableCoordinates.AddRange(currentRangeCoordinates.Where(x => !availableCoordinates.Contains(x)));
             }
 
             availableCoordinates.Remove(from);
             return availableCoordinates.Where(c => !occupiedCoords_MOCK.Contains(c));
         }
-        
-        [Pure] public IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
+
+        [Pure, NotNull]
+        IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
         {
+            Require(InsideBounds(coord)).True();
             return coord.CoordsAdjacentsOf().Where(InsideBounds);
         }
 
