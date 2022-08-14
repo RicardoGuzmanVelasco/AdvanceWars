@@ -81,14 +81,17 @@ namespace AdvanceWars.Tests
         [Test]
         public void UnitRangeOfMovement()
         {
-            var sut = new Map(3, 3);
             var unit = new Unit();
+            var sut = new Map(3, 3);
             sut.Occupy(Vector2Int.one, unit);
+
             var result = sut.RangeOfMovement(unit);
+
             result.Should().NotBeEmpty();
         }
 
-        //las unidaes aliadas te dejan pasar
+
+        //las unidaes aliadas te dejan pasar 
         //las unidades enemigas, bloquean
         //coger el coste según el tipo en el terreno
         //el mapa tiene spaces

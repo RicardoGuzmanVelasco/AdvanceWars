@@ -60,6 +60,4 @@ namespace AdvanceWars.Runtime
             return spaces.Values.SingleOrDefault(x => x.Occupant == unit);
         }
     }
-
-    public class Unit { }
 }
