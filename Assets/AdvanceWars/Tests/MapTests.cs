@@ -78,6 +78,9 @@ namespace AdvanceWars.Tests
             result.Should().NotContain(Vector2Int.up);
         }
 
+        //las unidades ocupan areas
+        //las unidaes aliadas te dejan pasar
+        //las unidades enemigas, bloquean
         //coger el coste según el tipo en el terreno
         //el mapa tiene spaces
         //

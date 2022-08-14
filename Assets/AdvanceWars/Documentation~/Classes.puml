@@ -1,0 +1,15 @@
+﻿@startuml
+skin rose
+
+class Map
+class Space
+class Coord <<(T, orange)>>
+
+Map +-- Space
+(Map, Space) .. Coord
+
+Space o-- Terrain
+Space o-- Unit : 0..1
+Space o-- Building : 0..1
+
+@enduml

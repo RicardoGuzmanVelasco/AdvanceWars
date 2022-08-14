@@ -6,9 +6,9 @@ using static RGV.DesignByContract.Runtime.Precondition;
 
 namespace AdvanceWars.Runtime
 {
-    public record Map(int SizeX, int SizeY)
+    public partial record Map(int SizeX, int SizeY)
     {
-        readonly List<Vector2Int> occupiedCoords_MOCK = new List<Vector2Int>();
+        readonly Dictionary<Vector2Int, Space> spaces = new Dictionary<Vector2Int, Space>();
 
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
         {
@@ -28,7 +28,7 @@ namespace AdvanceWars.Runtime
             }
 
             availableCoordinates.Remove(from);
-            return availableCoordinates.Where(c => !occupiedCoords_MOCK.Contains(c));
+            return availableCoordinates.Where(c => !spaces.ContainsKey(c));
         }
 
         [Pure, NotNull]
@@ -45,7 +45,7 @@ namespace AdvanceWars.Runtime
 
         public void Occupy(Vector2Int coord)
         {
-            occupiedCoords_MOCK.Add(coord);
+            spaces[coord] = new Space { HasUnit = true };
         }
     }
 }
