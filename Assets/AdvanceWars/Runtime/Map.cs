@@ -14,6 +14,8 @@ namespace AdvanceWars.Runtime
         {
             Require(InsideBounds(from)).True();
 
+            var targetUnit = UnitIn(from);
+
             var availableCoordinates = new List<Vector2Int>();
             availableCoordinates.Add(from);
             for(int i = 0; i < rate; i++)
@@ -29,6 +31,13 @@ namespace AdvanceWars.Runtime
 
             availableCoordinates.Remove(from);
             return availableCoordinates.Where(c => !spaces.ContainsKey(c));
+        }
+
+        Unit UnitIn(Vector2Int coord)
+        {
+            return spaces.ContainsKey(coord)
+                ? spaces[coord].Occupant
+                : Unit.Null;
         }
 
         [Pure, NotNull]
@@ -52,12 +61,17 @@ namespace AdvanceWars.Runtime
         public IEnumerable<Vector2Int> RangeOfMovement(Unit unit)
         {
             Require(WhereIs(unit)).Not.Null();
-            return new Vector2Int[1];
+            return RangeOfMovement(CoordOf(WhereIs(unit)), unit.MovementRate);
         }
 
         Space WhereIs(Unit unit)
         {
             return spaces.Values.SingleOrDefault(x => x.Occupant == unit);
+        }
+
+        Vector2Int CoordOf(Space space)
+        {
+            return spaces.Single(x => x.Value == space).Key;
         }
     }
 }

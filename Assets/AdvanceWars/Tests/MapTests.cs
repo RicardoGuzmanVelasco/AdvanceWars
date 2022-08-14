@@ -90,8 +90,29 @@ namespace AdvanceWars.Tests
             result.Should().NotBeEmpty();
         }
 
+        [Test, Ignore("TODO")]
+        public void EnemyUnitBlocksTheWay()
+        {
+            var friend = new Unit { Motherland = new Nation("Friend") };
+            var enemy = new Unit { Motherland = new Nation("Enemy") };
+            var sut = new Map(1, 3);
+            sut.Occupy(Vector2Int.zero, friend);
+            sut.Occupy(Vector2Int.up, enemy);
 
-        //las unidaes aliadas te dejan pasar 
+            var result = sut.RangeOfMovement(friend);
+
+            result.Should().BeEmpty();
+        }
+
+        [Test]
+        public void SpaceIsHostile_WhetherOccupiedBy_anEnemy()
+        {
+            var friend = new Unit { Motherland = new Nation("Friend") };
+            var enemy = new Unit { Motherland = new Nation("Enemy") };
+            var sut = new Map.Space { Occupant = enemy };
+            sut.IsHostileTo(friend).Should().BeTrue();
+        }
+
         //las unidades enemigas, bloquean
         //coger el coste según el tipo en el terreno
         //el mapa tiene spaces

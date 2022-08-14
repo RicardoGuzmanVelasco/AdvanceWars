@@ -13,14 +13,16 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
 
             new Unit { Motherland = new Nation("Friend") }
-                .IsFriendly(new Unit { Motherland = new Nation("Friend") })
+                .IsFriend(new Unit { Motherland = new Nation("Friend") })
                 .Should().BeTrue();
 
             new Unit { Motherland = new Nation("Friend") }
-                .IsFriendly(new Unit { Motherland = new Nation("Enemy") })
+                .IsFriend(new Unit { Motherland = new Nation("Enemy") })
                 .Should().BeFalse();
         }
 
         //"Coalición" es un conjunto de naciones aliadas, para cuando haya 2vs2.
+        //Apátrida: una unidad sin nación. 
+        //2 apatridas no deberian compartir nacion
     }
 }
