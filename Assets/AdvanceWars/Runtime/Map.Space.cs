@@ -11,6 +11,8 @@
             {
                 return HasUnit && Occupant.IsEnemy(unit);
             }
+
+            public bool IsCrossableBy(Unit unit) => !IsHostileTo(unit);
         }
     }
 }

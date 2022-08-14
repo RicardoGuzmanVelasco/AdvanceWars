@@ -1,7 +1,7 @@
-﻿using AdvanceWars.Runtime;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
+using static AdvanceWars.Tests.UnitBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -12,12 +12,12 @@ namespace AdvanceWars.Tests
         {
             using var _ = new AssertionScope();
 
-            new Unit { Motherland = new Nation("Friend") }
-                .IsFriend(new Unit { Motherland = new Nation("Friend") })
+            Infantry().Friend().Build()
+                .IsFriend(Infantry().Friend().Build())
                 .Should().BeTrue();
 
-            new Unit { Motherland = new Nation("Friend") }
-                .IsFriend(new Unit { Motherland = new Nation("Enemy") })
+            Infantry().Friend().Build()
+                .IsFriend(Infantry().Enemy().Build())
                 .Should().BeFalse();
         }
 

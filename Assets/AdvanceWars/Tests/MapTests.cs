@@ -3,6 +3,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
+using static AdvanceWars.Tests.UnitBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -71,7 +72,7 @@ namespace AdvanceWars.Tests
         public void RangeOfMovement_DoesNotReturnOccupiedPosition()
         {
             var sut = new Map(2, 2);
-            sut.Occupy(Vector2Int.up, new Unit());
+            sut.Put(Vector2Int.up, new Unit());
 
             var result = sut.RangeOfMovement(Vector2Int.zero, 1);
 
@@ -81,43 +82,39 @@ namespace AdvanceWars.Tests
         [Test]
         public void UnitRangeOfMovement()
         {
-            var unit = new Unit();
+            var unit = Unit().Build();
             var sut = new Map(3, 3);
-            sut.Occupy(Vector2Int.one, unit);
+            sut.Put(Vector2Int.one, unit);
 
             var result = sut.RangeOfMovement(unit);
 
             result.Should().NotBeEmpty();
         }
 
-        [Test, Ignore("TODO")]
+        [Test]
         public void EnemyUnitBlocksTheWay()
         {
-            var friend = new Unit { Motherland = new Nation("Friend") };
-            var enemy = new Unit { Motherland = new Nation("Enemy") };
+            var friend = Infantry().Friend().Build();
             var sut = new Map(1, 3);
-            sut.Occupy(Vector2Int.zero, friend);
-            sut.Occupy(Vector2Int.up, enemy);
+            sut.Put(Vector2Int.zero, friend);
+            sut.Put(Vector2Int.up, Infantry().Enemy().Build());
 
-            var result = sut.RangeOfMovement(friend);
-
-            result.Should().BeEmpty();
+            sut.RangeOfMovement(friend)
+                .Should().BeEmpty();
         }
 
         [Test]
         public void SpaceIsHostile_WhetherOccupiedBy_anEnemy()
         {
-            var friend = new Unit { Motherland = new Nation("Friend") };
-            var enemy = new Unit { Motherland = new Nation("Enemy") };
-            var sut = new Map.Space { Occupant = enemy };
-            sut.IsHostileTo(friend).Should().BeTrue();
+            var friend = Infantry().Friend().Build();
+            var sut = new Map.Space { Occupant = Infantry().Enemy().Build() };
+
+            sut.IsHostileTo(friend)
+                .Should().BeTrue();
         }
 
-        //las unidades enemigas, bloquean
+        //duplicacion espacios y bounds. Nullcheck espacio en range of movement
         //coger el coste según el tipo en el terreno
-        //el mapa tiene spaces
-        //
         //cosas de costes
-        //
     }
 }

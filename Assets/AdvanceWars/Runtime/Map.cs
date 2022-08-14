@@ -10,27 +10,40 @@ namespace AdvanceWars.Runtime
     {
         readonly Dictionary<Vector2Int, Space> spaces = new Dictionary<Vector2Int, Space>();
 
+        public void Put(Vector2Int coord, Unit unit)
+        {
+            Require(InsideBounds(coord)).True();
+            spaces[coord] = new Space { Occupant = unit };
+        }
+
+        public IEnumerable<Vector2Int> RangeOfMovement(Unit unit)
+        {
+            Require(WhereIs(unit)).Not.Null();
+            return RangeOfMovement(CoordOf(WhereIs(unit)), unit.MovementRate);
+        }
+
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
         {
             Require(InsideBounds(from)).True();
 
             var targetUnit = UnitIn(from);
 
-            var availableCoordinates = new List<Vector2Int>();
-            availableCoordinates.Add(from);
+            var availableCoords = new List<Vector2Int>();
+            availableCoords.Add(from);
             for(int i = 0; i < rate; i++)
             {
-                var currentRangeCoordinates = new List<Vector2Int>();
-                foreach(var coordinates in availableCoordinates)
+                var currentRangeCoords = new List<Vector2Int>();
+                foreach(var coords in availableCoords)
                 {
-                    currentRangeCoordinates.AddRange(AdjacentsOf(coordinates));
+                    currentRangeCoords.AddRange(AdjacentsOf(coords)
+                        .Where(c => !spaces.ContainsKey(c) || spaces[c].IsCrossableBy(targetUnit)));
                 }
 
-                availableCoordinates.AddRange(currentRangeCoordinates.Where(x => !availableCoordinates.Contains(x)));
+                availableCoords.AddRange(currentRangeCoords.Where(x => !availableCoords.Contains(x)));
             }
 
-            availableCoordinates.Remove(from);
-            return availableCoordinates.Where(c => !spaces.ContainsKey(c));
+            availableCoords.Remove(from);
+            return availableCoords.Where(c => !spaces.ContainsKey(c));
         }
 
         Unit UnitIn(Vector2Int coord)
@@ -50,18 +63,6 @@ namespace AdvanceWars.Runtime
         bool InsideBounds(Vector2Int coord)
         {
             return coord.x >= 0 && coord.x < SizeX && coord.y >= 0 && coord.y < SizeY;
-        }
-
-        public void Occupy(Vector2Int coord, Unit unit)
-        {
-            Require(InsideBounds(coord)).True();
-            spaces[coord] = new Space { Occupant = unit };
-        }
-
-        public IEnumerable<Vector2Int> RangeOfMovement(Unit unit)
-        {
-            Require(WhereIs(unit)).Not.Null();
-            return RangeOfMovement(CoordOf(WhereIs(unit)), unit.MovementRate);
         }
 
         Space WhereIs(Unit unit)
