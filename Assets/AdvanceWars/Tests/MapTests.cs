@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace AdvanceWars.Tests
 {
-    public class MovementTests
+    public class MapTests
     {
         [Test]
         public void Map_WithSizeOne_ReturnsEmpty()
