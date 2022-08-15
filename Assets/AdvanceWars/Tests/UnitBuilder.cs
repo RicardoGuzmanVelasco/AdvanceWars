@@ -6,6 +6,7 @@ namespace AdvanceWars.Tests
     {
         string nationId = "";
         int movementRate = 1;
+        string propulsionId = "";
 
         public static UnitBuilder Unit() => new UnitBuilder();
         public static UnitBuilder Infantry() => new UnitBuilder { movementRate = 3 };
@@ -19,9 +20,15 @@ namespace AdvanceWars.Tests
             return this;
         }
 
-        public UnitBuilder WithMovementRate(int movementRate)
+        public UnitBuilder WithMoveRate(int movementRate)
         {
             this.movementRate = movementRate;
+            return this;
+        }
+
+        public UnitBuilder WithPropulsion(string propulsionId)
+        {
+            this.propulsionId = propulsionId;
             return this;
         }
 
@@ -29,8 +36,9 @@ namespace AdvanceWars.Tests
         {
             return new Unit
             {
-                Motherland = new Nation(nationId),
-                MovementRate = movementRate
+                AllegianceTo = new Nation(nationId),
+                MovementRate = movementRate,
+                Propulsion = new Propulsion(propulsionId)
             };
         }
     }

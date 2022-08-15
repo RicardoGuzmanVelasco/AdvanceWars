@@ -1,9 +1,11 @@
-﻿using AdvanceWars.Runtime;
+﻿using System.Collections.Generic;
+using AdvanceWars.Runtime;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.UnitBuilder;
+using Terrain = AdvanceWars.Runtime.Terrain;
 
 namespace AdvanceWars.Tests
 {
@@ -113,6 +115,48 @@ namespace AdvanceWars.Tests
                 .Should().BeTrue();
         }
 
+        [Test]
+        public void NonDefinedPropulsions_CostOne()
+        {
+            var sut = new Terrain(new Dictionary<Propulsion, int> { { new Propulsion("NotA"), 2 } });
+            var propulsion = new Propulsion("A");
+            sut.MoveCostOf(propulsion).Should().Be(1);
+        }
+
+        [Test]
+        public void RangeOfMovement_DelimitedBy_UnitMoveRate()
+        {
+            var sut = new Map(1, 6);
+            var unit = Unit().WithMoveRate(2).Build();
+            sut.Put(Vector2Int.zero, unit);
+
+            var result = sut.RangeOfMovement(unit);
+
+            result.Should().HaveCount(2);
+        }
+
+        [Test]
+        public void METHOD()
+        {
+            //Arrange
+            var unit = Infantry().WithPropulsion("A").Build();
+            var sut = new Map(1, 3);
+
+            sut.Put(Vector2Int.zero, unit);
+            sut.Put(Vector2Int.up, new Terrain(new[] { new Propulsion("A") }));
+
+            //Act
+            var result = sut.RangeOfMovement(unit);
+
+            //Assert
+            result.Should().BeEmpty();
+        }
+
+        //public space at
+        //no deberia de haber set en el terreno
+        //Movement Cost
+        //Movement Type es Propulsion
+        //Movement Rate es Mobility
         //duplicacion espacios y bounds. Nullcheck espacio en range of movement
         //coger el coste según el tipo en el terreno
         //cosas de costes

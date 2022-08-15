@@ -2,11 +2,12 @@
 {
     public class Unit
     {
-        public Nation Motherland { get; init; }
+        public Nation AllegianceTo { get; init; }
         public MovementRate MovementRate { get; init; }
+        public Propulsion Propulsion { get; init; }
 
         public bool IsEnemy(Unit other) => !IsFriend(other);
-        public bool IsFriend(Unit other) => Motherland == other.Motherland;
+        public bool IsFriend(Unit other) => AllegianceTo == other.AllegianceTo;
 
         public static Unit Null => new NoUnit();
 

@@ -12,8 +12,22 @@ namespace AdvanceWars.Runtime
 
         public void Put(Vector2Int coord, Unit unit)
         {
+            CreateSpace(coord);
+            spaces[coord].Occupant = unit;
+        }
+
+        public void Put(Vector2Int coord, Terrain terrain)
+        {
+            CreateSpace(coord);
+            spaces[coord].Terrain = terrain;
+        }
+
+        private void CreateSpace(Vector2Int coord)
+        {
             Require(InsideBounds(coord)).True();
-            spaces[coord] = new Space { Occupant = unit };
+
+            if(!spaces.ContainsKey(coord))
+                spaces.Add(coord, new Space());
         }
 
         public IEnumerable<Vector2Int> RangeOfMovement(Unit unit)
@@ -43,7 +57,7 @@ namespace AdvanceWars.Runtime
             }
 
             availableCoords.Remove(from);
-            return availableCoords.Where(c => !spaces.ContainsKey(c));
+            return availableCoords.Where(c => !spaces.ContainsKey(c) || !spaces[c].IsOccupied);
         }
 
         Unit UnitIn(Vector2Int coord)

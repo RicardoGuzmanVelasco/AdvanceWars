@@ -1,15 +1,25 @@
 ﻿@startuml
 skin rose
 
+class Propulsion <<(T, Orange)>>
+class Terrain{
+    +MoveCostOf(:Propulsion):int
+}
+class Unit
+class MovementRate <<(T, Orange)>>
+class Nation <<(T, Orange)>>
 class Map
 class Space
 class Coord <<(T, orange)>>
 
+Unit --> Propulsion
+Unit --> MovementRate
 Map +-- Space
 (Map, Space) .. Coord
-
-Space o-- Terrain
+Space --> Terrain
+Terrain --> Propulsion : costs
+Unit --> Nation
 Space o-- Unit : 0..1
-Space o-- Building : 0..1
+Building -u-|> Terrain
 
 @enduml
