@@ -30,6 +30,11 @@ namespace AdvanceWars.Runtime
         };
 
         internal class NoBatallion : Batallion { }
+
+        public int BaseDamageTo(Unit other)
+        {
+            return Unit.Weapon.BaseDamageTo(other);
+        }
     }
 
     public record Nation(string Id);

@@ -8,6 +8,7 @@ namespace AdvanceWars.Tests
         int movementRate = 1;
         string propulsionId = "";
         int forces = 100;
+        Weapon weapon;
 
         public static BatallionBuilder Batallion() => new BatallionBuilder();
         public static BatallionBuilder Infantry() => new BatallionBuilder { movementRate = 3 };
@@ -39,6 +40,12 @@ namespace AdvanceWars.Tests
             return this;
         }
 
+        public BatallionBuilder WithWeapon(Weapon weapon)
+        {
+            this.weapon = weapon;
+            return this;
+        }
+
         public Batallion Build()
         {
             return new Batallion
@@ -48,6 +55,7 @@ namespace AdvanceWars.Tests
                 {
                     Mobility = movementRate,
                     Propulsion = new Propulsion(propulsionId),
+                    Weapon = weapon
                 },
                 Forces = forces
             };

@@ -42,18 +42,18 @@ namespace AdvanceWars.Tests
         [TestCase(9, .1f)]
         public void OffensiveEffectivity_Derives_FromForces(int offForces, float expected)
         {
-            var sut = new Something
+            var sut = new Offensive
             (
                 attacker: Batallion().WithForces(offForces).Build(),
                 defender: Batallion.Null
             );
-            sut.OffensiveEffectivity.Should().Be(expected);
+            sut.Effectivity.Should().Be(expected);
         }
 
         [Test]
         public void DamageReduction_WhenTerrain_DoesntCover()
         {
-            var sut = new Something
+            var sut = new Offensive
             (
                 attacker: Batallion.Null,
                 defender: Batallion().WithForces(100).Build()
@@ -65,13 +65,43 @@ namespace AdvanceWars.Tests
         [TestCase(1, 50, 0.95f)]
         public void DamageReduction_WhenTerrain_Cover(int defensiveRating, int forces, float expected)
         {
-            var sut = new Something
+            var sut = new Offensive
             (
                 attacker: Batallion.Null,
                 defender: Batallion().WithForces(forces).Build(),
                 battlefield: new Terrain(defensiveRating)
             );
             sut.DamageReductionMultiplier.Should().Be(expected);
+        }
+
+        [Test]
+        public void BaseDamage_ObtainedFromWeapon()
+        {
+            var sut = Batallion().WithWeapon(
+                new Weapon(
+                    new Dictionary<Unit, int>
+                    {
+                        { new Unit(), 10 }
+                    }
+                )).Build();
+            sut.BaseDamageTo(new Unit()).Should().Be(10);
+        }
+
+        [Test]
+        public void METHOD()
+        {
+            var sut = new Offensive(
+                attacker: Batallion().WithWeapon(
+                    new Weapon(
+                        new Dictionary<Unit, int>
+                        {
+                            { Batallion().Build().Unit, 100 }
+                        }
+                    )).WithForces(100).Build(),
+                defender: Batallion().WithForces(50).Build(),
+                battlefield: new Terrain(1)
+            );
+            sut.Damage().Should().Be(95);
         }
     }
 }
