@@ -10,10 +10,10 @@ namespace AdvanceWars.Runtime
     {
         readonly Dictionary<Vector2Int, Space> spaces = new Dictionary<Vector2Int, Space>();
 
-        public void Put(Vector2Int coord, Unit unit)
+        public void Put(Vector2Int coord, Batallion batallion)
         {
             CreateSpace(coord);
-            spaces[coord].Occupant = unit;
+            spaces[coord].Occupant = batallion;
         }
 
         public void Put(Vector2Int coord, Terrain terrain)
@@ -30,17 +30,17 @@ namespace AdvanceWars.Runtime
                 spaces.Add(coord, new Space());
         }
 
-        public IEnumerable<Vector2Int> RangeOfMovement(Unit unit)
+        public IEnumerable<Vector2Int> RangeOfMovement(Batallion batallion)
         {
-            Require(WhereIs(unit)).Not.Null();
-            return RangeOfMovement(CoordOf(WhereIs(unit)), unit.MovementRate);
+            Require(WhereIs(batallion)).Not.Null();
+            return RangeOfMovement(CoordOf(WhereIs(batallion)), batallion.MovementRate);
         }
 
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
         {
             Require(InsideBounds(from)).True();
 
-            var targetUnit = UnitIn(from);
+            var targetBatallion = BatallionIn(from);
 
             var availableCoords = new List<Vector2Int>();
             availableCoords.Add(from);
@@ -50,11 +50,11 @@ namespace AdvanceWars.Runtime
                 foreach(var coords in availableCoords)
                 {
                     //Esto es un mockeo para que solo devuelva vacío en cuanto haya un bloqueo de la propulsión.
-                    var isBlocker = TerrainIn(coords).MoveCostOf(targetUnit.Propulsion) == int.MaxValue;
+                    var isBlocker = TerrainIn(coords).MoveCostOf(targetBatallion.Propulsion) == int.MaxValue;
                     if(isBlocker)
                         return Enumerable.Empty<Vector2Int>();
                     currentRangeCoords.AddRange(AdjacentsOf(coords)
-                        .Where(c => !spaces.ContainsKey(c) || spaces[c].IsCrossableBy(targetUnit)));
+                        .Where(c => !spaces.ContainsKey(c) || spaces[c].IsCrossableBy(targetBatallion)));
                 }
 
                 availableCoords.AddRange(currentRangeCoords.Where(x => !availableCoords.Contains(x)));
@@ -64,11 +64,11 @@ namespace AdvanceWars.Runtime
             return availableCoords.Where(c => !spaces.ContainsKey(c) || !spaces[c].IsOccupied);
         }
 
-        Unit UnitIn(Vector2Int coord)
+        Batallion BatallionIn(Vector2Int coord)
         {
             return spaces.ContainsKey(coord)
                 ? spaces[coord].Occupant
-                : Unit.Null;
+                : Batallion.Null;
         }
 
         Terrain TerrainIn(Vector2Int coord)
@@ -90,9 +90,9 @@ namespace AdvanceWars.Runtime
             return coord.x >= 0 && coord.x < SizeX && coord.y >= 0 && coord.y < SizeY;
         }
 
-        Space WhereIs(Unit unit)
+        Space WhereIs(Batallion batallion)
         {
-            return spaces.Values.SingleOrDefault(x => x.Occupant == unit);
+            return spaces.Values.SingleOrDefault(x => x.Occupant == batallion);
         }
 
         Vector2Int CoordOf(Space space)

@@ -5,15 +5,15 @@
         public class Space
         {
             public Terrain Terrain { get; set; } = Terrain.Null; //TODO: debería ser init.
-            public Unit Occupant { get; set; } = Unit.Null;
-            public bool IsOccupied => Occupant is not Unit.NoUnit;
+            public Batallion Occupant { get; set; } = Batallion.Null;
+            public bool IsOccupied => Occupant is not Batallion.NoBatallion;
 
-            public bool IsHostileTo(Unit unit)
+            public bool IsHostileTo(Batallion batallion)
             {
-                return IsOccupied && Occupant.IsEnemy(unit);
+                return IsOccupied && Occupant.IsEnemy(batallion);
             }
 
-            public bool IsCrossableBy(Unit unit) => !IsHostileTo(unit);
+            public bool IsCrossableBy(Batallion batallion) => !IsHostileTo(batallion);
         }
     }
 }

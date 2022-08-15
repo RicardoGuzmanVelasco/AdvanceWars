@@ -8,6 +8,7 @@
         }
 
         public string Id { get; }
+        public static Propulsion None => new Propulsion("");
 
         public override string ToString() => $"{Id}";
     }

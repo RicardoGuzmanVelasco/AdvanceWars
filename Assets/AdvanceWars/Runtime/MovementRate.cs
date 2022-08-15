@@ -22,6 +22,8 @@ namespace AdvanceWars.Runtime
             return rate.value;
         }
 
+        public static MovementRate None => 0;
+
         public override string ToString() => value.ToString();
     }
 }

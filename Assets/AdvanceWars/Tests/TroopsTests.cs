@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
-using static AdvanceWars.Tests.UnitBuilder;
+using static AdvanceWars.Tests.BatallionBuilder;
 
 namespace AdvanceWars.Tests
 {

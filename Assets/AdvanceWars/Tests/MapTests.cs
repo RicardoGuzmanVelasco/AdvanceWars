@@ -4,7 +4,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
-using static AdvanceWars.Tests.UnitBuilder;
+using static AdvanceWars.Tests.BatallionBuilder;
 using Terrain = AdvanceWars.Runtime.Terrain;
 
 namespace AdvanceWars.Tests
@@ -74,7 +74,7 @@ namespace AdvanceWars.Tests
         public void RangeOfMovement_DoesNotReturnOccupiedPosition()
         {
             var sut = new Map(2, 2);
-            sut.Put(Vector2Int.up, new Unit());
+            sut.Put(Vector2Int.up, Batallion().Build());
 
             var result = sut.RangeOfMovement(Vector2Int.zero, 1);
 
@@ -84,7 +84,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void UnitRangeOfMovement()
         {
-            var unit = Unit().Build();
+            var unit = Batallion().Build();
             var sut = new Map(3, 3);
             sut.Put(Vector2Int.one, unit);
 
@@ -127,7 +127,7 @@ namespace AdvanceWars.Tests
         public void RangeOfMovement_DelimitedBy_UnitMoveRate()
         {
             var sut = new Map(1, 6);
-            var unit = Unit().WithMoveRate(2).Build();
+            var unit = Batallion().WithMoveRate(2).Build();
             sut.Put(Vector2Int.zero, unit);
 
             var result = sut.RangeOfMovement(unit);
@@ -136,7 +136,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void METHOD()
+        public void Unit_CannotCross_BlockerTerrain()
         {
             //Arrange
             var unit = Infantry().WithPropulsion("A").Build();
@@ -152,6 +152,7 @@ namespace AdvanceWars.Tests
             result.Should().BeEmpty();
         }
 
+        //no exponer unit en batallion
         //eliminar el problema de tener que estar comprobando si existe el espacio.
         //O bien iniciar los espacios o bien estructura para que se inicien lazy al acceder a ellos.
         //el caso de blocker ahora mismo está mockeado.
