@@ -8,6 +8,8 @@ namespace AdvanceWars.Runtime
     {
         readonly Dictionary<Propulsion, int> costs = new Dictionary<Propulsion, int>();
 
+        public int DefensiveRating { get; init; }
+
         public Terrain(Dictionary<Propulsion, int> costs)
             : this(costs, Enumerable.Empty<Propulsion>()) { }
 
@@ -22,6 +24,11 @@ namespace AdvanceWars.Runtime
             this.costs = new Dictionary<Propulsion, int>(costs);
             foreach(var propulsion in blocked)
                 this.costs[propulsion] = int.MaxValue;
+        }
+
+        public Terrain(int defensiveRating)
+        {
+            DefensiveRating = defensiveRating;
         }
 
         public int MoveCostOf(Propulsion propulsion)

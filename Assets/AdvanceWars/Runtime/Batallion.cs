@@ -8,8 +8,8 @@ namespace AdvanceWars.Runtime
         public Nation AllegianceTo { get; init; }
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
-        public int Strength { get; set; }
-        public int Platoons => Math.Max(1, Strength / 10);
+        public int Forces { get; set; }
+        public int Platoons => Math.Max(1, Forces / 10);
         public bool IsEnemy(Batallion other) => !IsFriend(other);
         public bool IsFriend(Batallion other) => AllegianceTo == other.AllegianceTo;
 
