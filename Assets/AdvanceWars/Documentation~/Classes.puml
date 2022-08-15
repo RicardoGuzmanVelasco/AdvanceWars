@@ -5,7 +5,7 @@ class Propulsion <<(T, Orange)>>
 class Terrain{
     +MoveCostOf(:Propulsion):int
 }
-class Unit
+class Unit <<(T, Orange)>>
 class MovementRate <<(T, Orange)>>
 class Nation <<(T, Orange)>>
 class Map

@@ -4,7 +4,7 @@
     {
         public Unit Unit { get; init; }
         public Nation AllegianceTo { get; init; }
-        public MovementRate MovementRate => Unit.MovementRate;
+        public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
 
         public bool IsEnemy(Batallion other) => !IsFriend(other);
@@ -13,7 +13,7 @@
         public override string ToString()
         {
             return @$"{nameof(AllegianceTo)}: {AllegianceTo},
-                    {nameof(Unit.MovementRate)}: {Unit.MovementRate},
+                    {nameof(Unit.Mobility)}: {Unit.Mobility},
                     {nameof(Unit.Propulsion)}: {Unit.Propulsion}";
         }
 
@@ -21,7 +21,7 @@
         {
             Unit = new Unit
             {
-                MovementRate = MovementRate.None,
+                Mobility = MovementRate.None,
                 Propulsion = Propulsion.None
             }
         };

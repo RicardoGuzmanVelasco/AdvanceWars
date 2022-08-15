@@ -39,7 +39,7 @@ namespace AdvanceWars.Tests
                 AllegianceTo = new Nation(nationId),
                 Unit = new Unit
                 {
-                    MovementRate = movementRate,
+                    Mobility = movementRate,
                     Propulsion = new Propulsion(propulsionId)
                 }
             };

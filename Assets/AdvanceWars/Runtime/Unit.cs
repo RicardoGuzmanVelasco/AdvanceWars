@@ -1,8 +1,8 @@
 ﻿namespace AdvanceWars.Runtime
 {
-    public class Unit
+    public record Unit
     {
-        public MovementRate MovementRate { get; init; }
+        public MovementRate Mobility { get; init; }
         public Propulsion Propulsion { get; init; }
     }
 }
