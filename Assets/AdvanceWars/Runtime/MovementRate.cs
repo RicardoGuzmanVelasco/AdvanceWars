@@ -21,5 +21,7 @@ namespace AdvanceWars.Runtime
         {
             return rate.value;
         }
+
+        public override string ToString() => value.ToString();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AdvanceWars.Runtime
 {
-    public struct Propulsion
+    public readonly struct Propulsion
     {
         public Propulsion(string propulsionId)
         {
@@ -8,5 +8,7 @@
         }
 
         public string Id { get; }
+
+        public override string ToString() => $"{Id}";
     }
 }
