@@ -29,10 +29,10 @@ namespace AdvanceWars.Tests
         [TestCase(40, 4)]
         [TestCase(48, 4)]
         [TestCase(9, 1)]
-        public void Effectivity_IsDerivated_FromStrength(int strength, int effectivity)
+        public void Platoons_IsDerivated_FromStrength(int strength, int effectivity)
         {
             var sut = BatallionBuilder.Batallion().WithStrength(strength).Build();
-            sut.Effectivity.Should().Be(effectivity);
+            sut.Platoons.Should().Be(effectivity);
         }
     }
 }
