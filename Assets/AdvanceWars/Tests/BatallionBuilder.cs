@@ -7,6 +7,7 @@ namespace AdvanceWars.Tests
         string nationId = "";
         int movementRate = 1;
         string propulsionId = "";
+        int strength = 100;
 
         public static BatallionBuilder Batallion() => new BatallionBuilder();
         public static BatallionBuilder Infantry() => new BatallionBuilder { movementRate = 3 };
@@ -32,6 +33,12 @@ namespace AdvanceWars.Tests
             return this;
         }
 
+        public BatallionBuilder WithStrength(int strength)
+        {
+            this.strength = strength;
+            return this;
+        }
+
         public Batallion Build()
         {
             return new Batallion
@@ -40,8 +47,9 @@ namespace AdvanceWars.Tests
                 Unit = new Unit
                 {
                     Mobility = movementRate,
-                    Propulsion = new Propulsion(propulsionId)
-                }
+                    Propulsion = new Propulsion(propulsionId),
+                },
+                Strength = strength
             };
         }
     }
