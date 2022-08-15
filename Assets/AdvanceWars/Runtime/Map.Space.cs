@@ -4,7 +4,7 @@
     {
         public class Space
         {
-            public Terrain Terrain { get; set; } //TODO: debería ser init.
+            public Terrain Terrain { get; set; } = Terrain.Null; //TODO: debería ser init.
             public Unit Occupant { get; set; } = Unit.Null;
             public bool IsOccupied => Occupant is not Unit.NoUnit;
 

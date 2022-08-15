@@ -6,7 +6,7 @@ namespace AdvanceWars.Runtime
 {
     public class Terrain
     {
-        readonly Dictionary<Propulsion, int> costs;
+        readonly Dictionary<Propulsion, int> costs = new Dictionary<Propulsion, int>();
 
         public Terrain(Dictionary<Propulsion, int> costs)
             : this(costs, Enumerable.Empty<Propulsion>()) { }
@@ -28,5 +28,7 @@ namespace AdvanceWars.Runtime
         {
             return costs.ContainsKey(propulsion) ? costs[propulsion] : 1;
         }
+
+        public static Terrain Null { get; } = new Terrain(new Dictionary<Propulsion, int>());
     }
 }

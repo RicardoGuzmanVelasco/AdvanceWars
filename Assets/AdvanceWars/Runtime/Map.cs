@@ -49,6 +49,10 @@ namespace AdvanceWars.Runtime
                 var currentRangeCoords = new List<Vector2Int>();
                 foreach(var coords in availableCoords)
                 {
+                    //Esto es un mockeo para que solo devuelva vacío en cuanto haya un bloqueo de la propulsión.
+                    var isBlocker = TerrainIn(coords).MoveCostOf(targetUnit.Propulsion) == int.MaxValue;
+                    if(isBlocker)
+                        return Enumerable.Empty<Vector2Int>();
                     currentRangeCoords.AddRange(AdjacentsOf(coords)
                         .Where(c => !spaces.ContainsKey(c) || spaces[c].IsCrossableBy(targetUnit)));
                 }
@@ -65,6 +69,13 @@ namespace AdvanceWars.Runtime
             return spaces.ContainsKey(coord)
                 ? spaces[coord].Occupant
                 : Unit.Null;
+        }
+
+        Terrain TerrainIn(Vector2Int coord)
+        {
+            return spaces.ContainsKey(coord)
+                ? spaces[coord].Terrain
+                : Terrain.Null;
         }
 
         [Pure, NotNull]
