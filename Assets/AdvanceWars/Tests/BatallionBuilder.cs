@@ -7,7 +7,7 @@ namespace AdvanceWars.Tests
         string nationId = "";
         int forces = 100;
 
-        Unit fromUnit = new Unit
+        Unit fromUnit = new Unit //Reuse unit builder.
         {
             Mobility = 1,
             Propulsion = new Propulsion(""),
@@ -17,12 +17,18 @@ namespace AdvanceWars.Tests
         #region ObjectMothers
         public static BatallionBuilder Batallion() => new BatallionBuilder();
         public static BatallionBuilder Infantry() => new BatallionBuilder { fromUnit = new Unit { Mobility = 3 } };
-
-        public BatallionBuilder Friend() => WithNation("Friend");
-        public BatallionBuilder Enemy() => WithNation("Enemy");
         #endregion
 
         #region Fluent API
+        public BatallionBuilder Friend() => WithNation("Friend");
+        public BatallionBuilder Enemy() => WithNation("Enemy");
+
+        public BatallionBuilder Of(Unit unit)
+        {
+            fromUnit = unit;
+            return this;
+        }
+
         public BatallionBuilder WithNation(string id)
         {
             nationId = id;
