@@ -2,7 +2,7 @@
 
 namespace AdvanceWars.Tests
 {
-    public class BatallionBuilder
+    internal class BatallionBuilder
     {
         string nationId = "";
         int forces = 100;

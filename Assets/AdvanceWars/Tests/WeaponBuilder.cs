@@ -3,7 +3,7 @@ using AdvanceWars.Runtime;
 
 namespace AdvanceWars.Tests
 {
-    public class WeaponBuilder
+    internal class WeaponBuilder
     {
         readonly Dictionary<Unit, int> damages = new Dictionary<Unit, int>();
 
