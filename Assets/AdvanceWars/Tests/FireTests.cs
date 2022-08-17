@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.BatallionBuilder;
+using static AdvanceWars.Tests.TerrainBuilder;
 using static AdvanceWars.Tests.WeaponBuilder;
 using Batallion = AdvanceWars.Runtime.Batallion;
 
@@ -11,22 +11,20 @@ namespace AdvanceWars.Tests
     public class FireTests
     {
         [Test]
-        public void DefaultBaseDamage_IsZero()
+        public void Weapon_DoesNoDamage_ByDefault()
         {
-            var sut = new Weapon(new Dictionary<Unit, int>());
-            var target = new Unit();
-
-            sut.BaseDamageTo(target).Should().Be(0);
+            Weapon().Build()
+                .BaseDamageTo(new Unit())
+                .Should().Be(0);
         }
 
         [Test]
         public void AssignedBaseDamage_IsGreaterThanZero()
         {
-            var sut = new Weapon(new Dictionary<Unit, int>()
-            {
-                { new Unit(), 10 }
-            });
-            sut.BaseDamageTo(new Unit()).Should().Be(10);
+            var sut = Weapon().WithDamage(new Unit(), 10).Build();
+
+            sut.BaseDamageTo(new Unit())
+                .Should().Be(10);
         }
 
         [TestCase(40, 4)]
@@ -70,7 +68,7 @@ namespace AdvanceWars.Tests
             (
                 attacker: Batallion.Null,
                 defender: Batallion().WithForces(forces).Build(),
-                battlefield: new Terrain(defensiveRating)
+                battlefield: Terrain().WithDefense(defensiveRating).Build()
             );
             sut.DamageReductionMultiplier.Should().Be(expected);
         }
@@ -78,14 +76,13 @@ namespace AdvanceWars.Tests
         [Test]
         public void BaseDamage_ObtainedFromWeapon()
         {
-            var sut = Batallion().WithWeapon(
-                new Weapon(
-                    new Dictionary<Unit, int>
-                    {
-                        { new Unit(), 10 }
-                    }
-                )).Build();
-            sut.BaseDamageTo(new Unit()).Should().Be(10);
+            var sut = Batallion()
+                .WithWeapon
+                    (Weapon().WithDamage(new Unit(), 10).Build())
+                .Build();
+
+            sut.BaseDamageTo(new Unit())
+                .Should().Be(10);
         }
 
         [Test]
@@ -93,12 +90,10 @@ namespace AdvanceWars.Tests
         {
             var weapon = Weapon().WithDamage(Batallion().Build().Unit, 100).Build();
             var unit = UnitBuilder.Unit()...;
-            var terrain = TerrainBuilder.Terrain()...;
-            //var batallion = BatallionBuilder.FromUnit().WithWeapon(result)...;
             var sut = new Offensive(
                 attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
                 defender: Batallion().WithForces(50).Build(),
-                battlefield: new Terrain(1)
+                battlefield: Terrain().WithDefense(1).Build()
             );
             sut.Damage().Should().Be(95);
         }
