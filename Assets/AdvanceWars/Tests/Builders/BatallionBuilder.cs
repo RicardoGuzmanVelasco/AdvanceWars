@@ -47,6 +47,12 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public BatallionBuilder WithPropulsion(Propulsion propulsion)
+        {
+            fromUnit = fromUnit with { Propulsion = propulsion };
+            return this;
+        }
+
         public BatallionBuilder WithForces(int count)
         {
             forces = count;

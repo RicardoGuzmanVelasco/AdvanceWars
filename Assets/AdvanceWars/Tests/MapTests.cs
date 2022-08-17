@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BatallionBuilder;
-using Terrain = AdvanceWars.Runtime.Terrain;
+using static AdvanceWars.Tests.Builders.TerrainBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -118,9 +117,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void NonDefinedPropulsions_CostOne()
         {
-            var sut = new Terrain(new Dictionary<Propulsion, int> { { new Propulsion("NotA"), 2 } });
-            var propulsion = new Propulsion("A");
-            sut.MoveCostOf(propulsion).Should().Be(1);
+            var sut = Terrain().WithCost(new Propulsion("NotA"), 2).Build();
+            sut.MoveCostOf(new Propulsion("A")).Should().Be(1);
         }
 
         [Test]
@@ -139,11 +137,12 @@ namespace AdvanceWars.Tests
         public void Unit_CannotCross_BlockerTerrain()
         {
             //Arrange
-            var unit = Infantry().WithPropulsion("A").Build();
+            var blockedProp = new Propulsion("Whatever");
+            var unit = Infantry().WithPropulsion(blockedProp).Build();
             var sut = new Map(1, 3);
 
             sut.Put(Vector2Int.zero, unit);
-            sut.Put(Vector2Int.up, new Terrain(new[] { new Propulsion("A") }));
+            sut.Put(Vector2Int.up, Terrain().WithBlocked(blockedProp).Build());
 
             //Act
             var result = sut.RangeOfMovement(unit);
