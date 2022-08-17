@@ -23,13 +23,19 @@ namespace AdvanceWars.Runtime
                    AllegianceTo.Equals(other.AllegianceTo);
         }
 
-        public override string ToString()
+        public int BaseDamageTo(Unit other)
         {
-            return @$"{nameof(AllegianceTo)}: {AllegianceTo},
-                    {nameof(Unit.Mobility)}: {Unit.Mobility},
-                    {nameof(Unit.Propulsion)}: {Unit.Propulsion}";
+            return Unit.BaseDamageTo(other);
         }
 
+        #region Formatting
+        public override string ToString()
+        {
+            return $"{nameof(Unit)}: {Unit}, {nameof(AllegianceTo)}: {AllegianceTo}, {nameof(Forces)}: {Forces}";
+        }
+        #endregion
+
+        #region NullObjectPattern
         public static Batallion Null => new NoBatallion
         {
             Unit = new Unit
@@ -40,10 +46,6 @@ namespace AdvanceWars.Runtime
         };
 
         internal class NoBatallion : Batallion { }
-
-        public int BaseDamageTo(Unit other)
-        {
-            return Unit.Weapon.BaseDamageTo(other);
-        }
+        #endregion
     }
 }

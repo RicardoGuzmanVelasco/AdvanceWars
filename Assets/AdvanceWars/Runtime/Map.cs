@@ -33,7 +33,7 @@ namespace AdvanceWars.Runtime
         public IEnumerable<Vector2Int> RangeOfMovement(Batallion batallion)
         {
             Require(WhereIs(batallion)).Not.Null();
-            return RangeOfMovement(@from: CoordOf(WhereIs(batallion)), rate: batallion.MovementRate);
+            return RangeOfMovement(from: CoordOf(WhereIs(batallion)), rate: batallion.MovementRate);
         }
 
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
