@@ -5,58 +5,61 @@ namespace AdvanceWars.Tests
     public class BatallionBuilder
     {
         string nationId = "";
-        int movementRate = 1;
-        string propulsionId = "";
         int forces = 100;
-        Weapon weapon;
 
+        Unit fromUnit = new Unit
+        {
+            Mobility = 1,
+            Propulsion = new Propulsion(""),
+            Weapon = null
+        };
+
+        #region ObjectMothers
         public static BatallionBuilder Batallion() => new BatallionBuilder();
-        public static BatallionBuilder Infantry() => new BatallionBuilder { movementRate = 3 };
+        public static BatallionBuilder Infantry() => new BatallionBuilder { fromUnit = new Unit { Mobility = 3 } };
 
         public BatallionBuilder Friend() => WithNation("Friend");
         public BatallionBuilder Enemy() => WithNation("Enemy");
+        #endregion
 
-        public BatallionBuilder WithNation(string nationId)
+        #region Fluent API
+        public BatallionBuilder WithNation(string id)
         {
-            this.nationId = nationId;
+            nationId = id;
             return this;
         }
 
         public BatallionBuilder WithMoveRate(int movementRate)
         {
-            this.movementRate = movementRate;
+            fromUnit = fromUnit with { Mobility = movementRate };
             return this;
         }
 
         public BatallionBuilder WithPropulsion(string propulsionId)
         {
-            this.propulsionId = propulsionId;
+            fromUnit = fromUnit with { Propulsion = new Propulsion(propulsionId) };
             return this;
         }
 
-        public BatallionBuilder WithForces(int forces)
+        public BatallionBuilder WithForces(int count)
         {
-            this.forces = forces;
+            forces = count;
             return this;
         }
 
         public BatallionBuilder WithWeapon(Weapon weapon)
         {
-            this.weapon = weapon;
+            fromUnit = fromUnit with { Weapon = weapon };
             return this;
         }
+        #endregion
 
         public Batallion Build()
         {
             return new Batallion
             {
                 AllegianceTo = new Nation(nationId),
-                Unit = new Unit
-                {
-                    Mobility = movementRate,
-                    Propulsion = new Propulsion(propulsionId),
-                    Weapon = weapon
-                },
+                Unit = fromUnit,
                 Forces = forces
             };
         }
