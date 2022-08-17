@@ -1,6 +1,6 @@
 ﻿using AdvanceWars.Runtime;
 
-namespace AdvanceWars.Tests
+namespace AdvanceWars.Tests.Builders
 {
     internal class UnitBuilder
     {

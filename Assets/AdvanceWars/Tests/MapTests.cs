@@ -4,7 +4,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
-using static AdvanceWars.Tests.BatallionBuilder;
+using static AdvanceWars.Tests.Builders.BatallionBuilder;
 using Terrain = AdvanceWars.Runtime.Terrain;
 
 namespace AdvanceWars.Tests

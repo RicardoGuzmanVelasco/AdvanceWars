@@ -1,10 +1,10 @@
 ﻿using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
-using static AdvanceWars.Tests.BatallionBuilder;
-using static AdvanceWars.Tests.TerrainBuilder;
-using static AdvanceWars.Tests.UnitBuilder;
-using static AdvanceWars.Tests.WeaponBuilder;
+using static AdvanceWars.Tests.Builders.BatallionBuilder;
+using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using static AdvanceWars.Tests.Builders.UnitBuilder;
+using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Batallion = AdvanceWars.Runtime.Batallion;
 
 namespace AdvanceWars.Tests

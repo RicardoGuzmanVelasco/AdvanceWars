@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AdvanceWars.Runtime;
 
-namespace AdvanceWars.Tests
+namespace AdvanceWars.Tests.Builders
 {
     internal class WeaponBuilder
     {
