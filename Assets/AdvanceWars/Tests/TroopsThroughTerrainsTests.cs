@@ -42,15 +42,5 @@ namespace AdvanceWars.Tests
             //Assert
             result.Should().BeEmpty();
         }
-
-
-        //no exponer unit en batallion
-        //eliminar el problema de tener que estar comprobando si existe el espacio.
-        //O bien iniciar los espacios o bien estructura para que se inicien lazy al acceder a ellos.
-        //el caso de blocker ahora mismo está mockeado.
-        //public space at
-        //no deberia de haber set en el terreno
-        //Movement Cost
-        //duplicacion espacios y bounds. Nullcheck espacio en range of movement
     }
 }
