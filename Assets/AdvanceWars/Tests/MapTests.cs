@@ -1,6 +1,5 @@
 ﻿using AdvanceWars.Runtime;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BatallionBuilder;
@@ -11,62 +10,64 @@ namespace AdvanceWars.Tests
     public class MapTests
     {
         [Test]
-        public void Map_WithSizeOne_ReturnsEmpty()
+        public void Map_WithSizeOne_HasNoRangeOfMovement()
         {
-            var sut = new Map(1, 1);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
-            result.Should().BeEmpty();
+            new Map(1, 1)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 1)
+                .Should().BeEmpty();
         }
 
         [Test]
-        public void RangeOfMovement_WhenRateIsZero_ReturnsEmpty()
+        public void IfNoMovementRate_ThenNoRangeOfMovement()
         {
-            var sut = new Map(1, 2);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 0);
-            result.Should().BeEmpty();
+            new Map(1, 2)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 0)
+                .Should().BeEmpty();
         }
 
         [Test]
-        public void RangeOfMovement_WhenRateIsGreaterThanZero_DoesNotReturnEmpty()
+        public void IfThereIsSpaceAndMovementRate_ThenThereIsRangeOfMovement()
         {
-            var sut = new Map(1, 2);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
-            result.Should().NotBeEmpty();
+            new Map(1, 2)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 1)
+                .Should().NotBeEmpty();
         }
 
         [Test]
-        public void RangeOfMovement_WhenRangeIsOne_DoesNotReturnDiagonalTiles()
+        public void WithMovementRate1_RangeOfMovementDoesNotIncludeDiagonals()
         {
-            var sut = new Map(2, 2);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
-            result.Should().NotContain(Vector2Int.one);
+            new Map(2, 2)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 1)
+                .Should().NotContain(Vector2Int.one);
         }
 
         [Test]
-        public void RangeOfMovement_WhenRangeIsTwo_ReturnsDiagonalTiles()
+        public void WithMovementRateGreaterThan1_RangeOfMovementIncludesDiagonals()
         {
-            var sut = new Map(2, 2);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 2);
-            result.Should().Contain(Vector2Int.one);
+            new Map(2, 2)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 2)
+                .Should().Contain(Vector2Int.one);
         }
 
         [Test]
-        public void RangeOfMovement_WhenRangeIsOne_ReturnsAdjacents()
+        public void IfThereIsSpaceAndMovementRate_ThenRangeOfMovementIncludesAdjacents()
         {
-            var sut = new Map(2, 2);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
-
-            using var _ = new AssertionScope();
-            result.Should().Contain(Vector2Int.up);
-            result.Should().Contain(Vector2Int.right);
+            new Map(2, 2)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 1)
+                .Should()
+                .Contain(Vector2Int.up).And.Contain(Vector2Int.right);
         }
 
         [Test]
-        public void RangeOfMovement_WhenRangeIsOne_DoesNotReturnSelfPosition()
+        public void RangeOfMovement_NeverIncludesOriginalPosition()
         {
-            var sut = new Map(2, 2);
-            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
-            result.Should().NotContain(Vector2Int.zero);
+            new Map(2, 2)
+                .RangeOfMovement(from: Vector2Int.zero, rate: 1)
+                .Should().NotContain(Vector2Int.zero);
+
+            new Map(3, 3)
+                .RangeOfMovement(from: Vector2Int.one, rate: 4)
+                .Should().NotContain(Vector2Int.one);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace AdvanceWars.Tests
             var sut = new Map(2, 2);
             sut.Put(Vector2Int.up, Batallion().Build());
 
-            var result = sut.RangeOfMovement(Vector2Int.zero, 1);
+            var result = sut.RangeOfMovement(from: Vector2Int.zero, rate: 1);
 
             result.Should().NotContain(Vector2Int.up);
         }
@@ -158,10 +159,6 @@ namespace AdvanceWars.Tests
         //public space at
         //no deberia de haber set en el terreno
         //Movement Cost
-        //Movement Type es Propulsion
-        //Movement Rate es Mobility
         //duplicacion espacios y bounds. Nullcheck espacio en range of movement
-        //coger el coste según el tipo en el terreno
-        //cosas de costes
     }
 }

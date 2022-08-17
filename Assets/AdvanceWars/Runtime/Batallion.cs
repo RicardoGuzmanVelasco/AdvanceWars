@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime
 {
@@ -6,12 +7,21 @@ namespace AdvanceWars.Runtime
     {
         public Unit Unit { get; init; }
         public Nation AllegianceTo { get; init; }
+        public int Forces { get; set; }
+
+        public int Platoons => Math.Max(1, Forces / 10);
+
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
-        public int Forces { get; set; }
-        public int Platoons => Math.Max(1, Forces / 10);
-        public bool IsEnemy(Batallion other) => !IsFriend(other);
-        public bool IsFriend(Batallion other) => AllegianceTo == other.AllegianceTo;
+
+        public bool IsEnemy([NotNull] Batallion other) => !IsFriend(other);
+
+        public bool IsFriend([NotNull] Batallion other)
+        {
+            return !other.AllegianceTo.IsStateless &&
+                   !AllegianceTo.IsStateless &&
+                   AllegianceTo.Equals(other.AllegianceTo);
+        }
 
         public override string ToString()
         {
@@ -36,6 +46,4 @@ namespace AdvanceWars.Runtime
             return Unit.Weapon.BaseDamageTo(other);
         }
     }
-
-    public record Nation(string Id);
 }

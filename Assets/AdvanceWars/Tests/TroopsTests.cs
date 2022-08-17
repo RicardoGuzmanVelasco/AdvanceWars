@@ -8,16 +8,24 @@ namespace AdvanceWars.Tests
     public class TroopsTests
     {
         [Test]
-        public void aUnit_IsFriendly_WhetherSameMotherland()
+        public void anyTroop_IsFriendly_WhetherSameNation()
         {
             using var _ = new AssertionScope();
 
-            Infantry().Friend().Build()
-                .IsFriend(Infantry().Friend().Build())
+            Infantry().WithNation("aNation").Build()
+                .IsFriend(Batallion().WithNation("aNation").Build())
                 .Should().BeTrue();
 
-            Infantry().Friend().Build()
-                .IsFriend(Infantry().Enemy().Build())
+            Infantry().WithNation("aNation").Build()
+                .IsFriend(Batallion().WithNation("notSameNation").Build())
+                .Should().BeFalse();
+        }
+
+        [Test]
+        public void TwoStatelessTroops_AreNotFriends_EachOther()
+        {
+            Infantry().WithNation(null).Build()
+                .IsFriend(Batallion().WithNation(null).Build())
                 .Should().BeFalse();
         }
 
