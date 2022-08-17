@@ -3,6 +3,7 @@ using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.BatallionBuilder;
+using static AdvanceWars.Tests.WeaponBuilder;
 using Batallion = AdvanceWars.Runtime.Batallion;
 
 namespace AdvanceWars.Tests
@@ -90,14 +91,12 @@ namespace AdvanceWars.Tests
         [Test]
         public void METHOD()
         {
+            var weapon = Weapon().WithDamage(Batallion().Build().Unit, 100).Build();
+            var unit = UnitBuilder.Unit()...;
+            var terrain = TerrainBuilder.Terrain()...;
+            //var batallion = BatallionBuilder.FromUnit().WithWeapon(result)...;
             var sut = new Offensive(
-                attacker: Batallion().WithWeapon(
-                    new Weapon(
-                        new Dictionary<Unit, int>
-                        {
-                            { Batallion().Build().Unit, 100 }
-                        }
-                    )).WithForces(100).Build(),
+                attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
                 defender: Batallion().WithForces(50).Build(),
                 battlefield: new Terrain(1)
             );
