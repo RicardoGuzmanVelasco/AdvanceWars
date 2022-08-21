@@ -107,7 +107,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void AttackerVanishesTheDefender()
         {
-            var weapon = Weapon().WithDamage(new Armor(), 100).Build();
+            var weapon = Weapon().MaxDmgTo(new Armor()).Build();
 
             var sut = new Offensive
             (
@@ -132,6 +132,40 @@ namespace AdvanceWars.Tests
                 battlefield: Terrain().WithDefense(1).Build()
             );
             sut.Outcome().Should().BeEquivalentTo(defender.WithForces(10).Build());
+        }
+
+        [Test]
+        public void CombatHasOutcomesForAttackAndCounterAttack()
+        {
+            var attacking = new TheaterOps(
+                battlefield: Terrain().Build(),
+                troop: Batallion().WithWeapon(Weapon().Build()).Build());
+            var defending = new TheaterOps(battlefield: Terrain().Build(), troop: Batallion().Build());
+            var sut = new Combat(attacking, defending);
+
+            var result = sut.PredictOutcome();
+
+            result.Attacker.Should().NotBeNull();
+            result.Defender.Should().NotBeNull();
+        }
+
+        [Test]
+        public void CombatWithAttackerVanish_HasAttackOutcomeOfNullBatallion()
+        {
+            var attacking = new TheaterOps(
+                battlefield: Terrain().Build(),
+                troop: Batallion().WithWeapon(Weapon().MaxDmgTo(new Armor()).Build()).Build());
+
+            var defending = new TheaterOps(
+                battlefield: Terrain().Build(),
+                troop: Batallion().Build());
+
+            var sut = new Combat(attacking, defending);
+
+            var result = sut.PredictOutcome();
+
+            result.Attacker.Should().BeEquivalentTo(Batallion.Null);
+            result.Defender.Should().NotBeNull();
         }
     }
 }
