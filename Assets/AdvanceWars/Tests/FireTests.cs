@@ -102,5 +102,32 @@ namespace AdvanceWars.Tests
             );
             sut.Damage.Should().Be(95);
         }
+
+        [Test]
+        public void ahshdhsrhjkas()
+        {
+            var weapon = Weapon().WithDamage(Batallion().Build().Unit, 100).Build();
+            var sut = new Offensive(
+                attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
+                defender: Batallion().WithForces(50).Build(),
+                battlefield: Terrain().WithDefense(1).Build()
+            );
+
+            sut.Outcome().Should().BeEquivalentTo(Batallion.Null);
+        }
+
+        [Test]
+        public void jsjsjdhbghda()
+        {
+            var weapon = Weapon().WithDamage(Batallion().Build().Unit, 100).Build();
+
+            var sut = new Offensive(
+                attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
+                defender: Batallion().WithForces(100).Build(),
+                battlefield: Terrain().WithDefense(1).Build()
+            );
+
+            sut.Outcome().Forces.Should().Be(10);
+        }
     }
 }

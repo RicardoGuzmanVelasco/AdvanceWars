@@ -30,5 +30,17 @@ namespace AdvanceWars.Runtime
                 Effectivity *
                 DamageReductionMultiplier
             );
+
+        public Batallion Outcome()
+        {
+            var resultForces = defender.Forces - Damage;
+            if(resultForces <= 0)
+                return Batallion.Null;
+
+            var result = defender.Clone();
+            result.Forces = resultForces;
+
+            return result;
+        }
     }
 }

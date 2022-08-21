@@ -47,5 +47,10 @@ namespace AdvanceWars.Runtime
 
         internal class NoBatallion : Batallion { }
         #endregion
+
+        public Batallion Clone()
+        {
+            return MemberwiseClone() as Batallion;
+        }
     }
 }
