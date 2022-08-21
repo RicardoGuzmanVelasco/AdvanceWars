@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "BoundfoxStudios.FluentAssertions",
-        "AdvanceWars.Runtime"
+        "AdvanceWars.Runtime",
+        "AdvanceWars.DataStructures"
     ],
     "includePlatforms": [
         "Editor"

@@ -2,7 +2,8 @@
     "name": "AdvanceWars.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:4f3166ce75f1424a9d8c84f49b07f6c9"
+        "GUID:4f3166ce75f1424a9d8c84f49b07f6c9",
+        "GUID:59ce1e4b6f7a46b3a7a8f25669596277"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
