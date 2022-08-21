@@ -18,5 +18,10 @@ namespace AdvanceWars.Runtime
         {
             return damages.ContainsKey(target) ? damages[target] : 0;
         }
+
+        public override string ToString()
+        {
+            return damages.GetHashCode().ToString();
+        }
     }
 }

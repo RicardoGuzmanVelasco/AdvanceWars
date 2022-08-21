@@ -1,4 +1,5 @@
 ﻿using AdvanceWars.Runtime;
+using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.BatallionBuilder;
@@ -94,7 +95,8 @@ namespace AdvanceWars.Tests
         public void FinalDamage_FromFormula()
         {
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
-            var sut = new Offensive(
+            var sut = new Offensive
+            (
                 attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
                 defender: Batallion().WithForces(50).Build(),
                 battlefield: Terrain().WithDefense(1).Build()
@@ -107,27 +109,29 @@ namespace AdvanceWars.Tests
         {
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
 
-            var sut = new Offensive(
+            var sut = new Offensive
+            (
                 attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
                 defender: Batallion().WithForces(50).Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
 
-            sut.Outcome().Should().BeEquivalentTo(Batallion.Null, because: "the ");
+            sut.Outcome().Should().BeEquivalentTo(Batallion.Null);
         }
 
         [Test]
         public void AttackerDamagesDefender()
         {
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
+            var defender = Batallion().Of(UnitBuilder.Unit().Build()).WithForces(100);
 
-            var sut = new Offensive(
+            var sut = new Offensive
+            (
                 attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
-                defender: Batallion().WithForces(100).Build(),
+                defender: defender.Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
-
-            sut.Outcome().Forces.Should().Be(10);
+            sut.Outcome().Should().BeEquivalentTo(defender.WithForces(10).Build());
         }
     }
 }
