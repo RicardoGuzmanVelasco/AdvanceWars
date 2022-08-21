@@ -11,14 +11,14 @@
             this.defendingTheaterOps = defendingTheaterOps;
         }
 
-        public (Batallion Attacker, Batallion Defender) PredictOutcome()
+        public (Battalion Attacker, Battalion Defender) PredictOutcome()
         {
             var attack = new Offensive(
                 attacker: this.attackingTheaterOps.Troops,
                 defender: this.defendingTheaterOps.Troops,
                 battlefield: this.attackingTheaterOps.Battlefield);
 
-            return (new Batallion(), attack.Outcome());
+            return (new Battalion(), attack.Outcome());
         }
     }
 }

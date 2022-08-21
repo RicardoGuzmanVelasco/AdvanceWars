@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime
 {
-    public class Batallion
+    public class Battalion
     {
         public Unit Unit { get; init; }
         public Nation AllegianceTo { get; init; }
@@ -14,9 +14,9 @@ namespace AdvanceWars.Runtime
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
 
-        public bool IsEnemy([NotNull] Batallion other) => !IsFriend(other);
+        public bool IsEnemy([NotNull] Battalion other) => !IsFriend(other);
 
-        public bool IsFriend([NotNull] Batallion other)
+        public bool IsFriend([NotNull] Battalion other)
         {
             return !other.AllegianceTo.IsStateless &&
                    !AllegianceTo.IsStateless &&
@@ -36,7 +36,7 @@ namespace AdvanceWars.Runtime
         #endregion
 
         #region NullObjectPattern
-        public static Batallion Null => new NoBatallion
+        public static Battalion Null => new NoBattalion
         {
             Unit = new Unit
             {
@@ -45,12 +45,12 @@ namespace AdvanceWars.Runtime
             }
         };
 
-        internal class NoBatallion : Batallion { }
+        internal class NoBattalion : Battalion { }
         #endregion
 
-        public Batallion Clone()
+        public Battalion Clone()
         {
-            return MemberwiseClone() as Batallion;
+            return MemberwiseClone() as Battalion;
         }
     }
 }

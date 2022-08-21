@@ -4,13 +4,13 @@ namespace AdvanceWars.Runtime
 {
     public class TheaterOps
     {
-        public Batallion Troops { get; }
+        public Battalion Troops { get; }
         public Terrain Battlefield { get; }
 
-        public TheaterOps(Terrain battlefield, Batallion troop)
+        public TheaterOps(Terrain battlefield, Battalion troop)
         {
             Require(battlefield.Equals(Terrain.Null)).False();
-            Require(troop.Equals(Batallion.Null)).False();
+            Require(troop.Equals(Battalion.Null)).False();
 
             Battlefield = battlefield;
             Troops = troop;

@@ -12,8 +12,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void SpaceIsHostile_WhetherOccupiedBy_anEnemy()
         {
-            var friend = BatallionBuilder.Infantry().Friend().Build();
-            var sut = new Map.Space { Occupant = BatallionBuilder.Infantry().Enemy().Build() };
+            var friend = BattalionBuilder.Infantry().Friend().Build();
+            var sut = new Map.Space { Occupant = BattalionBuilder.Infantry().Enemy().Build() };
 
             sut.IsHostileTo(friend)
                 .Should().BeTrue();
@@ -31,7 +31,7 @@ namespace AdvanceWars.Tests
         {
             //Arrange
             var blockedProp = new Propulsion("Whatever");
-            var unit = BatallionBuilder.Infantry().WithPropulsion(blockedProp).Build();
+            var unit = BattalionBuilder.Infantry().WithPropulsion(blockedProp).Build();
             var sut = new Map(1, 3);
 
             sut.Put(Vector2Int.zero, unit);

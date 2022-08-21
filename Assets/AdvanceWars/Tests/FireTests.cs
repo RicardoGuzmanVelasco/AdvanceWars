@@ -2,10 +2,10 @@
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
-using static AdvanceWars.Tests.Builders.BatallionBuilder;
+using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
-using Batallion = AdvanceWars.Runtime.Batallion;
+using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
 {
@@ -33,7 +33,7 @@ namespace AdvanceWars.Tests
         [TestCase(9, 1)]
         public void Platoons_Derives_FromForces(int forces, int effectivity)
         {
-            Batallion().WithForces(forces).Build()
+            Battalion().WithForces(forces).Build()
                 .Platoons
                 .Should().Be(effectivity);
         }
@@ -45,8 +45,8 @@ namespace AdvanceWars.Tests
         {
             new Offensive
                 (
-                    attacker: Batallion().WithForces(offForces).Build(),
-                    defender: Batallion.Null
+                    attacker: Battalion().WithForces(offForces).Build(),
+                    defender: Battalion.Null
                 )
                 .Effectivity
                 .Should().Be(expected);
@@ -57,8 +57,8 @@ namespace AdvanceWars.Tests
         {
             new Offensive
                 (
-                    attacker: Batallion.Null,
-                    defender: Batallion().WithForces(100).Build()
+                    attacker: Battalion.Null,
+                    defender: Battalion().WithForces(100).Build()
                 )
                 .DamageReductionMultiplier
                 .Should().Be(1);
@@ -70,8 +70,8 @@ namespace AdvanceWars.Tests
         {
             new Offensive
                 (
-                    attacker: Batallion.Null,
-                    defender: Batallion().WithForces(forces).Build(),
+                    attacker: Battalion.Null,
+                    defender: Battalion().WithForces(forces).Build(),
                     battlefield: Terrain().WithDefense(defensiveRating).Build()
                 )
                 .DamageReductionMultiplier
@@ -82,7 +82,7 @@ namespace AdvanceWars.Tests
         public void BaseDamage_ObtainedFromWeapon()
         {
             var theSameArmor = new Armor();
-            var sut = Batallion()
+            var sut = Battalion()
                 .WithWeapon
                     (Weapon().WithDamage(theSameArmor, 10).Build())
                 .Build();
@@ -97,8 +97,8 @@ namespace AdvanceWars.Tests
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
             var sut = new Offensive
             (
-                attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
-                defender: Batallion().WithForces(50).Build(),
+                attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
+                defender: Battalion().WithForces(50).Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
             sut.Damage.Should().Be(95);
@@ -111,23 +111,23 @@ namespace AdvanceWars.Tests
 
             var sut = new Offensive
             (
-                attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
-                defender: Batallion().WithForces(50).Build(),
+                attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
+                defender: Battalion().WithForces(50).Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
 
-            sut.Outcome().Should().BeEquivalentTo(Batallion.Null);
+            sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
         }
 
         [Test]
         public void AttackerDamagesDefender()
         {
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
-            var defender = Batallion().Of(UnitBuilder.Unit().Build()).WithForces(100);
+            var defender = Battalion().Of(UnitBuilder.Unit().Build()).WithForces(100);
 
             var sut = new Offensive
             (
-                attacker: Batallion().WithWeapon(weapon).WithForces(100).Build(),
+                attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
                 defender: defender.Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
@@ -139,8 +139,8 @@ namespace AdvanceWars.Tests
         {
             var attacking = new TheaterOps(
                 battlefield: Terrain().Build(),
-                troop: Batallion().WithWeapon(Weapon().Build()).Build());
-            var defending = new TheaterOps(battlefield: Terrain().Build(), troop: Batallion().Build());
+                troop: Battalion().WithWeapon(Weapon().Build()).Build());
+            var defending = new TheaterOps(battlefield: Terrain().Build(), troop: Battalion().Build());
             var sut = new Combat(attacking, defending);
 
             var result = sut.PredictOutcome();
@@ -154,18 +154,18 @@ namespace AdvanceWars.Tests
         {
             var attacking = new TheaterOps(
                 battlefield: Terrain().Build(),
-                troop: Batallion().WithWeapon(Weapon().MaxDmgTo(new Armor()).Build()).Build());
+                troop: Battalion().WithWeapon(Weapon().MaxDmgTo(new Armor()).Build()).Build());
 
             var defending = new TheaterOps(
                 battlefield: Terrain().Build(),
-                troop: Batallion().Build());
+                troop: Battalion().Build());
 
             var sut = new Combat(attacking, defending);
 
             var result = sut.PredictOutcome();
 
-            result.Attacker.Should().NotBeEquivalentTo(Batallion.Null);
-            result.Defender.Should().BeEquivalentTo(Batallion.Null);
+            result.Attacker.Should().NotBeEquivalentTo(Battalion.Null);
+            result.Defender.Should().BeEquivalentTo(Battalion.Null);
         }
     }
 }

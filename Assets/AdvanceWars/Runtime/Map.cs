@@ -11,9 +11,9 @@ namespace AdvanceWars.Runtime
     {
         readonly LazyBoard<Space> spaces = new LazyBoard<Space>();
 
-        public void Put(Vector2Int coord, Batallion batallion)
+        public void Put(Vector2Int coord, Battalion battalion)
         {
-            spaces[coord].Occupant = batallion;
+            spaces[coord].Occupant = battalion;
         }
 
         public void Put(Vector2Int coord, Terrain terrain)
@@ -22,10 +22,10 @@ namespace AdvanceWars.Runtime
         }
 
         [NotNull]
-        public IEnumerable<Vector2Int> RangeOfMovement(Batallion batallion)
+        public IEnumerable<Vector2Int> RangeOfMovement(Battalion battalion)
         {
-            Require(WhereIs(batallion)).Not.Null();
-            return RangeOfMovement(from: CoordOf(WhereIs(batallion)), rate: batallion.MovementRate);
+            Require(WhereIs(battalion)).Not.Null();
+            return RangeOfMovement(from: CoordOf(WhereIs(battalion)), rate: battalion.MovementRate);
         }
 
         [NotNull]
@@ -33,7 +33,7 @@ namespace AdvanceWars.Runtime
         {
             Require(InsideBounds(from)).True();
 
-            var targetBatallion = spaces[from].Occupant;
+            var targetBattalion = spaces[from].Occupant;
 
             var availableCoords = new List<Vector2Int>();
             availableCoords.Add(from);
@@ -43,11 +43,11 @@ namespace AdvanceWars.Runtime
                 foreach(var coords in availableCoords)
                 {
                     //Esto es un mockeo para que solo devuelva vacío en cuanto haya un bloqueo de la propulsión.
-                    var isBlocker = spaces[coords].Terrain.MoveCostOf(targetBatallion.Propulsion) == int.MaxValue;
+                    var isBlocker = spaces[coords].Terrain.MoveCostOf(targetBattalion.Propulsion) == int.MaxValue;
                     if(isBlocker)
                         return Enumerable.Empty<Vector2Int>();
                     currentRangeCoords.AddRange(AdjacentsOf(coords)
-                        .Where(c => spaces[c].IsCrossableBy(targetBatallion)));
+                        .Where(c => spaces[c].IsCrossableBy(targetBattalion)));
                 }
 
                 availableCoords.AddRange(currentRangeCoords.Where(x => !availableCoords.Contains(x)));
@@ -73,9 +73,9 @@ namespace AdvanceWars.Runtime
         }
 
         [CanBeNull]
-        Space WhereIs(Batallion batallion)
+        Space WhereIs(Battalion battalion)
         {
-            return spaces.Values.SingleOrDefault(x => x.Occupant == batallion);
+            return spaces.Values.SingleOrDefault(x => x.Occupant == battalion);
         }
 
         Vector2Int CoordOf([NotNull] Space space)

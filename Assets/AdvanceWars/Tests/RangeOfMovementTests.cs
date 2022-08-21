@@ -2,7 +2,7 @@
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
-using static AdvanceWars.Tests.Builders.BatallionBuilder;
+using static AdvanceWars.Tests.Builders.BattalionBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -74,7 +74,7 @@ namespace AdvanceWars.Tests
         {
             var occupiedPos = Vector2Int.up;
             var sut = new Map(2, 2);
-            sut.Put(occupiedPos, Batallion().Build());
+            sut.Put(occupiedPos, Battalion().Build());
 
             sut.RangeOfMovement(from: Vector2Int.zero, rate: 1)
                 .Should().NotContain(occupiedPos);
@@ -83,7 +83,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void RangeOfMovement_isAlsoComputable_FromTroops()
         {
-            var troop = Batallion().Build();
+            var troop = Battalion().Build();
             var sut = new Map(3, 3);
             sut.Put(Vector2Int.one, troop);
 
@@ -106,7 +106,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void MovementRate_Limits_RangeOfMovement()
         {
-            var troop = Batallion().WithMoveRate(2).Build();
+            var troop = Battalion().WithMoveRate(2).Build();
             var sut = new Map(1, 6);
             sut.Put(Vector2Int.zero, troop);
 

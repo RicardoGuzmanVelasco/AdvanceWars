@@ -2,7 +2,7 @@
 
 namespace AdvanceWars.Tests.Builders
 {
-    internal class BatallionBuilder
+    internal class BattalionBuilder
     {
         string nationId = "";
         int forces = 100;
@@ -15,60 +15,60 @@ namespace AdvanceWars.Tests.Builders
         };
 
         #region ObjectMothers
-        public static BatallionBuilder Batallion() => new BatallionBuilder();
-        public static BatallionBuilder Infantry() => new BatallionBuilder { fromUnit = new Unit { Mobility = 3 } };
+        public static BattalionBuilder Battalion() => new BattalionBuilder();
+        public static BattalionBuilder Infantry() => new BattalionBuilder { fromUnit = new Unit { Mobility = 3 } };
         #endregion
 
         #region Fluent API
-        public BatallionBuilder Friend() => WithNation("Friend");
-        public BatallionBuilder Enemy() => WithNation("Enemy");
+        public BattalionBuilder Friend() => WithNation("Friend");
+        public BattalionBuilder Enemy() => WithNation("Enemy");
 
-        public BatallionBuilder Of(Unit unit)
+        public BattalionBuilder Of(Unit unit)
         {
             fromUnit = unit;
             return this;
         }
 
-        public BatallionBuilder WithNation(string id)
+        public BattalionBuilder WithNation(string id)
         {
             nationId = id;
             return this;
         }
 
-        public BatallionBuilder WithMoveRate(int movementRate)
+        public BattalionBuilder WithMoveRate(int movementRate)
         {
             fromUnit = fromUnit with { Mobility = movementRate };
             return this;
         }
 
-        public BatallionBuilder WithPropulsion(string propulsionId)
+        public BattalionBuilder WithPropulsion(string propulsionId)
         {
             fromUnit = fromUnit with { Propulsion = new Propulsion(propulsionId) };
             return this;
         }
 
-        public BatallionBuilder WithPropulsion(Propulsion propulsion)
+        public BattalionBuilder WithPropulsion(Propulsion propulsion)
         {
             fromUnit = fromUnit with { Propulsion = propulsion };
             return this;
         }
 
-        public BatallionBuilder WithForces(int count)
+        public BattalionBuilder WithForces(int count)
         {
             forces = count;
             return this;
         }
 
-        public BatallionBuilder WithWeapon(Weapon weapon)
+        public BattalionBuilder WithWeapon(Weapon weapon)
         {
             fromUnit = fromUnit with { Weapon = weapon };
             return this;
         }
         #endregion
 
-        public Batallion Build()
+        public Battalion Build()
         {
-            return new Batallion
+            return new Battalion
             {
                 AllegianceTo = new Nation(nationId),
                 Unit = fromUnit,
