@@ -154,18 +154,18 @@ namespace AdvanceWars.Tests
         {
             var attacking = new TheaterOps(
                 battlefield: Terrain().Build(),
-                troop: Battalion().WithWeapon(Weapon().MaxDmgTo(new Armor()).Build()).Build());
+                troop: Battalion().WithWeapon(Weapon().MaxDmgTo(new Armor("DefenderArmor")).Build()).Build());
 
             var defending = new TheaterOps(
                 battlefield: Terrain().Build(),
-                troop: Battalion().Build());
+                troop: Battalion().Of(new Unit() { Armor = new Armor("DefenderAmor") }).Build());
 
             var sut = new Combat(attacking, defending);
 
             var result = sut.PredictOutcome();
 
-            result.Attacker.Should().NotBeEquivalentTo(Battalion.Null);
-            result.Defender.Should().BeEquivalentTo(Battalion.Null);
+            result.Attacker.Should().NotBe(Battalion.Null);
+            result.Defender.Should().Be(Battalion.Null);
         }
     }
 }

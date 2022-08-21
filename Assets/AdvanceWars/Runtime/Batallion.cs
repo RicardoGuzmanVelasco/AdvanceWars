@@ -5,7 +5,7 @@ namespace AdvanceWars.Runtime
 {
     public class Battalion
     {
-        public Unit Unit { get; init; }
+        public Unit Unit { get; init; } = Unit.Null;
         public Nation AllegianceTo { get; init; }
         public int Forces { get; set; }
 
@@ -36,16 +36,18 @@ namespace AdvanceWars.Runtime
         #endregion
 
         #region NullObjectPattern
-        public static Battalion Null => new NoBattalion
+        public static Battalion Null { get; } = new NoBattalion
         {
-            Unit = new Unit
-            {
-                Mobility = MovementRate.None,
-                Propulsion = Propulsion.None
-            }
+            Unit = Unit.Null
         };
 
-        internal class NoBattalion : Battalion { }
+        internal class NoBattalion : Battalion
+        {
+            public override string ToString()
+            {
+                return "NoBattalion";
+            }
+        }
         #endregion
 
         public Battalion Clone()

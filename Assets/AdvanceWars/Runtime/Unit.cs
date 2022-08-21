@@ -15,5 +15,11 @@ namespace AdvanceWars.Runtime
             Require(other).Not.Null();
             return Weapon.BaseDamageTo(other);
         }
+
+        public static Unit Null { get; } = new Unit
+        {
+            Mobility = MovementRate.None,
+            Propulsion = Propulsion.None
+        };
     }
 }
