@@ -6,20 +6,18 @@ using UnityEngine;
 
 namespace AdvanceWars.Tests.DataStructures
 {
-    public class xcvsdvsdasljkfdheiufghkudffTests
+    public class LazyBoardTests
     {
         [Test]
         public void IsEmptyOnCreation()
         {
-            var sut = new LazyBoard<Map.Space>();
-            sut.Should().BeEmpty();
+            new LazyBoard<Map.Space>().Should().BeEmpty();
         }
 
         [Test]
         public void CreatesAdHoc()
         {
-            var sut = new LazyBoard<Map.Space>();
-            sut[Vector2Int.zero].Should().NotBeNull();
+            new LazyBoard<Map.Space>()[Vector2Int.zero].Should().NotBeNull();
         }
 
         [Test]
@@ -44,7 +42,8 @@ namespace AdvanceWars.Tests.DataStructures
         {
             var sut = new LazyBoard<Map.Space>();
             Map.Space space = sut[Vector2Int.one];
-            sut.CoordsOf(space).Should().Be(Vector2Int.one);
+            sut.CoordsOf(space)
+                .Should().Be(Vector2Int.one);
         }
     }
 }
