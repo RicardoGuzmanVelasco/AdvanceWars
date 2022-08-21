@@ -6,15 +6,15 @@ namespace AdvanceWars.Runtime
 {
     public class Weapon
     {
-        readonly Dictionary<Unit, int> damages;
+        readonly Dictionary<Armor, int> damages;
 
-        public Weapon(Dictionary<Unit, int> damages)
+        public Weapon(Dictionary<Armor, int> damages)
         {
             Require(damages.Values.All(x => x > 0)).True();
             this.damages = damages;
         }
 
-        public int BaseDamageTo(Unit target)
+        public int BaseDamageTo(Armor target)
         {
             return damages.ContainsKey(target) ? damages[target] : 0;
         }

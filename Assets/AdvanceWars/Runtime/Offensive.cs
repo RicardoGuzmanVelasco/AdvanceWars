@@ -26,7 +26,7 @@ namespace AdvanceWars.Runtime
         public int Damage =>
             Mathf.RoundToInt
             (
-                attacker.BaseDamageTo(defender.Unit) *
+                attacker.BaseDamageTo(defender.Unit.Armor) *
                 Effectivity *
                 DamageReductionMultiplier
             );

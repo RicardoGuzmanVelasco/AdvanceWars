@@ -5,16 +5,16 @@ namespace AdvanceWars.Tests.Builders
 {
     internal class WeaponBuilder
     {
-        readonly Dictionary<Unit, int> damages = new Dictionary<Unit, int>();
+        readonly Dictionary<Armor, int> damages = new Dictionary<Armor, int>();
 
         #region ObjectMothers
         public static WeaponBuilder Weapon() => new WeaponBuilder();
         #endregion
 
         #region FluentAPI
-        public WeaponBuilder WithDamage(Unit unit, int damage)
+        public WeaponBuilder WithDamage(Armor armor, int damage)
         {
-            damages[unit] = damage;
+            damages[armor] = damage;
             return this;
         }
         #endregion

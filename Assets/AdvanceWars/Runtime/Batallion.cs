@@ -23,7 +23,7 @@ namespace AdvanceWars.Runtime
                    AllegianceTo.Equals(other.AllegianceTo);
         }
 
-        public int BaseDamageTo(Unit other)
+        public int BaseDamageTo(Armor other)
         {
             return Unit.BaseDamageTo(other);
         }
