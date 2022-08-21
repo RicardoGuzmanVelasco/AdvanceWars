@@ -18,7 +18,7 @@
                 defender: this.defendingTheaterOps.Troops,
                 battlefield: this.attackingTheaterOps.Battlefield);
 
-            return (attack.Outcome(), new Batallion());
+            return (new Batallion(), attack.Outcome());
         }
     }
 }

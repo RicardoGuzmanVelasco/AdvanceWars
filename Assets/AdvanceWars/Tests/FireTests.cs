@@ -150,7 +150,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void CombatWithAttackerVanish_HasAttackOutcomeOfNullBatallion()
+        public void CombatWithAttackerVanish_HasNullDefenderOutcome()
         {
             var attacking = new TheaterOps(
                 battlefield: Terrain().Build(),
@@ -164,8 +164,8 @@ namespace AdvanceWars.Tests
 
             var result = sut.PredictOutcome();
 
-            result.Attacker.Should().BeEquivalentTo(Batallion.Null);
-            result.Defender.Should().NotBeNull();
+            result.Attacker.Should().NotBeEquivalentTo(Batallion.Null);
+            result.Defender.Should().BeEquivalentTo(Batallion.Null);
         }
     }
 }
