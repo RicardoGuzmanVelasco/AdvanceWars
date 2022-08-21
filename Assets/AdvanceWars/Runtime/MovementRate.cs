@@ -1,4 +1,4 @@
-﻿using static RGV.DesignByContract.Runtime.Precondition;
+﻿using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {

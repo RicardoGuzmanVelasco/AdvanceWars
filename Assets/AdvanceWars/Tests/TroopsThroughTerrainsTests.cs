@@ -3,6 +3,7 @@ using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
+using static AdvanceWars.Tests.Builders.TerrainBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -21,7 +22,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void NonDefinedPropulsions_CostOne()
         {
-            var sut = TerrainBuilder.Terrain().WithCost(new Propulsion("NotA"), 2).Build();
+            var sut = Terrain().WithCost(new Propulsion("NotA"), 2).Build();
             sut.MoveCostOf(new Propulsion("A")).Should().Be(1);
         }
 
@@ -34,7 +35,7 @@ namespace AdvanceWars.Tests
             var sut = new Map(1, 3);
 
             sut.Put(Vector2Int.zero, unit);
-            sut.Put(Vector2Int.up, TerrainBuilder.Terrain().WithBlocked(blockedProp).Build());
+            sut.Put(Vector2Int.up, Terrain().WithBlocked(blockedProp).Build());
 
             //Act
             var result = sut.RangeOfMovement(unit);
