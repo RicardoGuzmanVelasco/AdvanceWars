@@ -100,7 +100,7 @@ namespace AdvanceWars.Tests
                 defender: Batallion().WithForces(50).Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
-            sut.Damage().Should().Be(95);
+            sut.Damage.Should().Be(95);
         }
     }
 }
