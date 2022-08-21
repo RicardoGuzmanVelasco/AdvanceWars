@@ -3,7 +3,11 @@ skin rose
 
 class Propulsion <<(T, Orange)>>
 class Terrain{
-    +MoveCostOf(:Propulsion):int
+    +defensiveRating: int {[0,5]}
+    +MoveCostOf(:Propulsion): int
+}
+class Batallion{
+    +forces: int
 }
 class Unit <<(T, Orange)>>
 class MovementRate <<(T, Orange)>>
@@ -11,6 +15,11 @@ class Nation <<(T, Orange)>>
 class Map
 class Space
 class Coord <<(T, orange)>>
+package Fire{
+class Offensive{
++Damage: int
+}
+}
 
 Unit --> Propulsion
 Unit --> MovementRate
@@ -18,8 +27,12 @@ Map +-- Space
 (Map, Space) .. Coord
 Space --> Terrain
 Terrain --> Propulsion : costs
-Unit --> Nation
-Space o-- Unit : 0..1
+Batallion --> Nation
+Space o-- Batallion : 0..1
+Batallion --> Unit
 Building -u-|> Terrain
+
+Offensive o--- "2" Batallion : attacker\ndefender
+Offensive o--- Terrain : battefield
 
 @enduml
