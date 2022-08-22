@@ -163,7 +163,7 @@ namespace AdvanceWars.Tests
             var defending = new TheaterOps
             (
                 battlefield: Terrain().Build(),
-                troop: Battalion().WithArmor("DefenderAmor").Build()
+                troop: Battalion().WithArmor("DefenderArmor").Build()
             );
 
             var sut = new Combat(attacking, defending);
