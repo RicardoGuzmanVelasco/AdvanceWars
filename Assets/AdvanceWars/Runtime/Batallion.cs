@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime
 {
-    public class Battalion
+    public partial class Battalion
     {
         public Unit Unit { get; init; } = Unit.Null;
         public Nation AllegianceTo { get; init; }
@@ -28,31 +28,16 @@ namespace AdvanceWars.Runtime
             return Unit.BaseDamageTo(other);
         }
 
+        public Battalion Clone()
+        {
+            return MemberwiseClone() as Battalion;
+        }
+
         #region Formatting
         public override string ToString()
         {
             return $"{nameof(Unit)}: {Unit}, {nameof(AllegianceTo)}: {AllegianceTo}, {nameof(Forces)}: {Forces}";
         }
         #endregion
-
-        #region NullObjectPattern
-        public static Battalion Null { get; } = new NoBattalion
-        {
-            Unit = Unit.Null
-        };
-
-        internal class NoBattalion : Battalion
-        {
-            public override string ToString()
-            {
-                return "NoBattalion";
-            }
-        }
-        #endregion
-
-        public Battalion Clone()
-        {
-            return MemberwiseClone() as Battalion;
-        }
     }
 }

@@ -73,10 +73,11 @@ namespace AdvanceWars.Runtime
         }
 
         [CanBeNull]
-        Space WhereIs(Battalion battalion)
+        public Space WhereIs(Battalion battalion)
         {
             return spaces.Values.SingleOrDefault(x => x.Occupant == battalion);
         }
+
 
         Vector2Int CoordOf([NotNull] Space space)
         {

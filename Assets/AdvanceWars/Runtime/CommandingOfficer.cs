@@ -13,10 +13,14 @@ namespace AdvanceWars.Runtime
         {
             Require(battalion.Equals(Battalion.Null)).False();
 
-            if(ExecutedManeuversOf(battalion).Any(x => x.Is(Tactic.Wait)))
-                return Enumerable.Empty<Tactic>();
+            return HasAlready(battalion, Tactic.Wait)
+                ? Enumerable.Empty<Tactic>()
+                : TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
+        }
 
-            return TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
+        bool HasAlready(Battalion battalion, Tactic tactic)
+        {
+            return ExecutedManeuversOf(battalion).Any(x => x.Is(tactic));
         }
 
         IEnumerable<Maneuver> ExecutedManeuversOf(Battalion battalion)

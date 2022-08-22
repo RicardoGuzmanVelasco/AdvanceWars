@@ -144,8 +144,8 @@ namespace AdvanceWars.Tests
 
             var result = sut.PredictOutcome();
 
-            result.Attacker.Should().NotBeNull();
-            result.Defender.Should().NotBeNull();
+            result.Atk.Should().NotBeNull();
+            result.Def.Should().NotBeNull();
         }
 
         [Test]
@@ -170,8 +170,8 @@ namespace AdvanceWars.Tests
 
             var result = sut.PredictOutcome();
 
-            result.Attacker.Should().NotBe(Battalion.Null);
-            result.Defender.Should().Be(Battalion.Null);
+            result.Atk.Should().NotBe(Battalion.Null);
+            result.Def.Should().Be(Battalion.Null);
         }
 
         [Test]
@@ -196,7 +196,7 @@ namespace AdvanceWars.Tests
             var result = sut.PredictOutcome();
 
             //Assert
-            result.Defender.Should().NotBe(Battalion.Null);
+            result.Def.Should().NotBe(Battalion.Null);
         }
 
         [Test]
@@ -221,7 +221,7 @@ namespace AdvanceWars.Tests
             var result = sut.PredictOutcome();
 
             //Assert
-            result.Attacker.Should().Be(Battalion.Null);
+            result.Atk.Should().Be(Battalion.Null);
         }
 
         [Test]
@@ -246,7 +246,7 @@ namespace AdvanceWars.Tests
             var result = sut.PredictOutcome();
 
             //Assert
-            result.Attacker.Should().NotBe(Battalion.Null);
+            result.Atk.Should().NotBe(Battalion.Null);
         }
 
         [Test]

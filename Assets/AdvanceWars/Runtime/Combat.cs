@@ -2,29 +2,29 @@
 {
     public class Combat
     {
-        readonly TheaterOps attackingTheaterOps;
-        readonly TheaterOps defendingTheaterOps;
+        readonly TheaterOps atk;
+        readonly TheaterOps def;
 
-        public Combat(TheaterOps attackingTheaterOps, TheaterOps defendingTheaterOps)
+        public Combat(TheaterOps atk, TheaterOps def)
         {
-            this.attackingTheaterOps = attackingTheaterOps;
-            this.defendingTheaterOps = defendingTheaterOps;
+            this.atk = atk;
+            this.def = def;
         }
 
-        public (Battalion Attacker, Battalion Defender) PredictOutcome()
+        public (Battalion Atk, Battalion Def) PredictOutcome()
         {
             var attack = new Offensive
             (
-                attacker: this.attackingTheaterOps.Troops,
-                defender: this.defendingTheaterOps.Troops,
-                battlefield: this.defendingTheaterOps.Battlefield
+                attacker: this.atk.Troops,
+                defender: this.def.Troops,
+                battlefield: this.def.Battlefield
             );
 
             var counterAttack = new Offensive
             (
                 attacker: attack.Outcome(),
-                defender: this.attackingTheaterOps.Troops,
-                battlefield: this.attackingTheaterOps.Battlefield
+                defender: this.atk.Troops,
+                battlefield: this.atk.Battlefield
             );
 
             return (counterAttack.Outcome(), attack.Outcome());
