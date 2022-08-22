@@ -31,7 +31,7 @@ namespace AdvanceWars.Runtime
             executedThisTurn.Add(command);
         }
 
-        private IEnumerable<Tactic> TacticsOf(Battalion batallion)
+        private IEnumerable<Tactic> TacticsOf(Battalion battalion)
         {
             return new List<Tactic> { Tactic.Wait(), Tactic.Fire() };
         }
