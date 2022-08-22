@@ -6,7 +6,7 @@ class Terrain{
     +defensiveRating: int {[0,5]}
     +MoveCostOf(:Propulsion): int
 }
-class Batallion{
+class Battalion{
     +forces: int
 }
 class Unit <<(T, Orange)>>
@@ -27,12 +27,12 @@ Map +-- Space
 (Map, Space) .. Coord
 Space --> Terrain
 Terrain --> Propulsion : costs
-Batallion --> Nation
-Space o-- Batallion : 0..1
-Batallion --> Unit
+Battalion --> Nation
+Space o-- Battalion : 0..1
+Battalion --> Unit
 Building -u-|> Terrain
 
-Offensive o--- "2" Batallion : attacker\ndefender
-Offensive o--- Terrain : battefield
+Offensive o--- "2" Battalion : attacker\ndefender
+Offensive o--- Terrain : battlefield
 
 @enduml
