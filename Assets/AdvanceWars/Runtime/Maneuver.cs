@@ -5,7 +5,7 @@ namespace AdvanceWars.Runtime
 {
     public class Maneuver
     {
-        public Battalion Performer { get; set; }
+        public Battalion Performer { get; }
         public Tactic Origin { get; }
 
         #region Ctor/FactoryMethods
@@ -18,13 +18,23 @@ namespace AdvanceWars.Runtime
 
         public static Maneuver Wait([NotNull] Battalion performer)
         {
-            return new Maneuver(performer, Tactic.Wait());
+            return new Maneuver(performer, Tactic.Wait);
         }
 
         public static Maneuver Fire([NotNull] Battalion performer)
         {
-            return new Maneuver(performer, Tactic.Fire());
+            return new Maneuver(performer, Tactic.Fire);
+        }
+
+        public static Maneuver Move([NotNull] Battalion battalion)
+        {
+            return new Maneuver(battalion, Tactic.Move);
         }
         #endregion
+
+        public bool Is(Tactic tactic)
+        {
+            return Origin.Equals(tactic);
+        }
     }
 }

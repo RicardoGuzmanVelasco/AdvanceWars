@@ -1,24 +1,20 @@
 ﻿namespace AdvanceWars.Runtime
 {
-    public struct Tactic
+    public readonly struct Tactic
     {
-        public static Tactic Wait()
-        {
-            return new Tactic("Wait");
-        }
+        string Id { get; init; }
 
         Tactic(string id)
         {
             Id = id;
         }
 
-        public string Id { get; init; }
+        #region Factory methods
+        public static Tactic Wait => new Tactic("Wait");
+        public static Tactic Fire => new Tactic("Fire");
+        public static Tactic Move => new Tactic("Move");
+        #endregion
 
         public override string ToString() => Id;
-
-        public static Tactic Fire()
-        {
-            return new Tactic("Fire");
-        }
     }
 }

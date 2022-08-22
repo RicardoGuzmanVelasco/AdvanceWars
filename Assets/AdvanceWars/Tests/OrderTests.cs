@@ -19,28 +19,26 @@ namespace AdvanceWars.Tests
             sut.AvailableTacticsOf(battalion).Should().BeEmpty();
         }
 
-        //Aquí nos preguntamos si no debería ser que al hacer Fire se haga después automáticamente el Wait.
         [Test]
-        public void AfterFireManeuver_WaitIsStillPossible()
+        public void AfterFireManeuver_AutoWait()
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
             sut.Order(Maneuver.Fire(battalion));
 
-            sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Wait()).And.HaveCount(1);
+            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
         }
 
         [Test]
-        public void DosComandos_TEMPPPPPPPPPPPPPPPPPPP()
+        public void Troops_CanFire_AfterMove()
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Fire(battalion));
-            sut.Order(Maneuver.Wait(battalion));
+            sut.Order(Maneuver.Move(battalion));
 
-            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
+            sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
         }
     }
 }

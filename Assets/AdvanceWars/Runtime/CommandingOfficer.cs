@@ -13,7 +13,7 @@ namespace AdvanceWars.Runtime
         {
             Require(battalion.Equals(Battalion.Null)).False();
 
-            if(ExecutedManeuversOf(battalion).Any(x => x.Origin.Equals(Tactic.Wait())))
+            if(ExecutedManeuversOf(battalion).Any(x => x.Is(Tactic.Wait)))
                 return Enumerable.Empty<Tactic>();
 
             return TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
@@ -32,11 +32,19 @@ namespace AdvanceWars.Runtime
         public void Order(Maneuver command)
         {
             executedThisTurn.Add(command);
+
+            if(command.Is(Tactic.Fire))
+                executedThisTurn.Add(Maneuver.Wait(command.Performer));
         }
 
-        private IEnumerable<Tactic> TacticsOf(Battalion battalion)
+        IEnumerable<Tactic> TacticsOf(Battalion battalion)
         {
-            return new List<Tactic> { Tactic.Wait(), Tactic.Fire() };
+            return new List<Tactic>
+            {
+                Tactic.Wait,
+                Tactic.Fire,
+                Tactic.Move
+            };
         }
     }
 }
