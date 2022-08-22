@@ -13,17 +13,20 @@ namespace AdvanceWars.Runtime
         {
             Require(batallion.Equals(Battalion.Null)).False();
 
-            if(executedThisTurn.Any(x => x.Performer.Equals(batallion) && x.Origin.Equals(Tactic.Wait())))
-            {
+            if(ExecutedManeuversOf(batallion).Any(x => x.Origin.Equals(Tactic.Wait())))
                 return Enumerable.Empty<Tactic>();
-            }
 
-            return TacticsOf(batallion).Except(UsedThisTurn(batallion));
+            return TacticsOf(batallion).Except(ExecutedThisTurn(batallion));
         }
 
-        IEnumerable<Tactic> UsedThisTurn(Battalion batallion)
+        IEnumerable<Maneuver> ExecutedManeuversOf(Battalion batallion)
         {
-            return executedThisTurn.Where(x => x.Performer.Equals(batallion)).Select(x => x.Origin);
+            return executedThisTurn.Where(m => m.Performer.Equals(batallion));
+        }
+
+        IEnumerable<Tactic> ExecutedThisTurn(Battalion batallion)
+        {
+            return ExecutedManeuversOf(batallion).Select(x => x.Origin);
         }
 
         public void Order(Maneuver command)
