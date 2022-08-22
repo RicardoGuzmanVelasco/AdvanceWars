@@ -15,14 +15,32 @@ class Nation <<(T, Orange)>>
 class Map
 class Space
 class Coord <<(T, orange)>>
+class Armor <<(T, Orange)>>
+class Weapon <<(T, Orange)>>
+
+package Orders{
+class Tactic <<(T, Orange)>>
+class Maneuver
+class X
+}
+
 package Fire{
+class Combat
 class Offensive{
 +Damage: int
 }
+class TheaterOps
+
+Combat *.. "2" Offensive : attack\ncounterattack
+Combat *-- "2" TheaterOps : attacking\ndefending
+
+TheaterOps --> Terrain : battlefield
+TheaterOps --> Battalion : troops
 }
 
 Unit --> Propulsion
 Unit --> MovementRate
+Unit --> Armor
 Map +-- Space
 (Map, Space) .. Coord
 Space --> Terrain
@@ -31,8 +49,13 @@ Battalion --> Nation
 Space o-- Battalion : 0..1
 Battalion --> Unit
 Building -u-|> Terrain
+Unit --> Weapon
+Weapon --> Armor : damagesTo
 
 Offensive o--- "2" Battalion : attacker\ndefender
 Offensive o--- Terrain : battlefield
+X o-- Maneuver
+Maneuver --> Battalion
+Maneuver --> Tactic
 
 @enduml
