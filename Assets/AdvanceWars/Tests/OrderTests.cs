@@ -9,7 +9,7 @@ namespace AdvanceWars.Tests
     public class OrderTests
     {
         [Test]
-        public void AvailableTacticsOfNewBatallion_IsNotEmpty()
+        public void AvailableTacticsOf_NewBatallion_IsNotEmpty()
         {
             var sut = new CommandingOfficer();
             var batallion = Battalion().Build();
