@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
@@ -6,34 +7,25 @@ namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
-        IList<Maneuver> executedThisTurn = new List<Maneuver>();
-        Dictionary<Battalion, List<Tactic>> tactics = new Dictionary<Battalion, List<Tactic>>();
+        readonly IList<Maneuver> executedThisTurn = new List<Maneuver>();
 
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion batallion)
         {
             Require(batallion.Equals(Battalion.Null)).False();
+            return TacticsOf(batallion).Except(UsedThisTurn(batallion));
+        }
 
-            if(!tactics.ContainsKey(batallion))
-                tactics[batallion] = new List<Tactic> { Tactic.Wait() };
-
-            return tactics[batallion];
+        IEnumerable<Tactic> UsedThisTurn(Battalion batallion)
+        {
+            return executedThisTurn.Where(x => x.Performer.Equals(batallion)).Select(x => x.Origin);
         }
 
         public void Order(Maneuver command)
         {
-            if(!tactics.ContainsKey(command.Performer))
-                tactics[command.Performer] = new List<Tactic>() { Tactic.Wait() };
-
             executedThisTurn.Add(command);
-            tactics[command.Performer].Remove(command.Origin);
         }
 
         private IEnumerable<Tactic> TacticsOf(Battalion batallion)
-        {
-            return new List<Tactic> { Tactic.Wait(), Tactic.Fire() };
-        }
-
-        public IEnumerable<Tactic> Something(Battalion battalion)
         {
             return new List<Tactic> { Tactic.Wait() };
         }
