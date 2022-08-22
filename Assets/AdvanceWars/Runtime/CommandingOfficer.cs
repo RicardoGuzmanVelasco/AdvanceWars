@@ -9,7 +9,7 @@ namespace AdvanceWars.Runtime
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion batallion)
         {
             Require(batallion.Equals(Battalion.Null)).False();
-            yield return new Tactic();
+            yield return new Tactic("Wait");
         }
 
         public void Order(Maneuver command)

@@ -9,20 +9,20 @@ namespace AdvanceWars.Tests
     public class OrderTests
     {
         [Test]
-        public void AvailableTacticsOf_NewBatallion_IsNotEmpty()
+        public void DefaultBattallion_CanOnlyWait()
         {
             var sut = new CommandingOfficer();
-            var batallion = Battalion().Build();
-            sut.AvailableTacticsOf(batallion).Should().NotBeEmpty();
+            var battalion = Battalion().Build();
+            sut.AvailableTacticsOf(battalion).Should().Contain(new Tactic("Wait")).And.HaveCount(1);
         }
 
         [Test]
         public void Order_aManeuver()
         {
             var sut = new CommandingOfficer();
-            var batallion = Battalion().Build();
+            var battalion = Battalion().Build();
 
-            sut.Order(new Maneuver(batallion));
+            sut.Order(new Maneuver(battalion));
 
             sut.Maneuvers.Should().ContainSingle();
         }
