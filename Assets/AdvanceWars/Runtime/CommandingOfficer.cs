@@ -9,24 +9,24 @@ namespace AdvanceWars.Runtime
     {
         readonly IList<Maneuver> executedThisTurn = new List<Maneuver>();
 
-        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion batallion)
+        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
         {
-            Require(batallion.Equals(Battalion.Null)).False();
+            Require(battalion.Equals(Battalion.Null)).False();
 
-            if(ExecutedManeuversOf(batallion).Any(x => x.Origin.Equals(Tactic.Wait())))
+            if(ExecutedManeuversOf(battalion).Any(x => x.Origin.Equals(Tactic.Wait())))
                 return Enumerable.Empty<Tactic>();
 
-            return TacticsOf(batallion).Except(ExecutedThisTurn(batallion));
+            return TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
         }
 
-        IEnumerable<Maneuver> ExecutedManeuversOf(Battalion batallion)
+        IEnumerable<Maneuver> ExecutedManeuversOf(Battalion battalion)
         {
-            return executedThisTurn.Where(m => m.Performer.Equals(batallion));
+            return executedThisTurn.Where(m => m.Performer.Equals(battalion));
         }
 
-        IEnumerable<Tactic> ExecutedThisTurn(Battalion batallion)
+        IEnumerable<Tactic> ExecutedThisTurn(Battalion battalion)
         {
-            return ExecutedManeuversOf(batallion).Select(x => x.Origin);
+            return ExecutedManeuversOf(battalion).Select(x => x.Origin);
         }
 
         public void Order(Maneuver command)

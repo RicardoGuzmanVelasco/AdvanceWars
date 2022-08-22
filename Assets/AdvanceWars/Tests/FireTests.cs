@@ -250,14 +250,14 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void NoBatallion_Offensive_ToBatallion()
+        public void NoBattalion_Offensive_ToBattalion()
         {
             var sut = new Offensive(Battalion.Null, Battalion().Build());
             sut.Outcome().Should().NotBeNull();
         }
 
         [Test]
-        public void NoBatallion_Offensive_NoBatallion()
+        public void NoBattalion_Offensive_NoBattalion()
         {
             var sut = new Offensive(Battalion.Null, Battalion.Null);
             sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
