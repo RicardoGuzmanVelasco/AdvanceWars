@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
-        public IEnumerable<Tactic> AvailableTacticsOf(Battalion batallion)
+        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion batallion)
         {
+            Require(batallion.Equals(Battalion.Null)).False();
             yield return new Tactic();
         }
 
