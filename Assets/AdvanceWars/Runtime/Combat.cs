@@ -13,12 +13,21 @@
 
         public (Battalion Attacker, Battalion Defender) PredictOutcome()
         {
-            var attack = new Offensive(
+            var attack = new Offensive
+            (
                 attacker: this.attackingTheaterOps.Troops,
                 defender: this.defendingTheaterOps.Troops,
-                battlefield: this.attackingTheaterOps.Battlefield);
+                battlefield: this.defendingTheaterOps.Battlefield
+            );
 
-            return (new Battalion(), attack.Outcome());
+            var counterAttack = new Offensive
+            (
+                attacker: attack.Outcome(),
+                defender: this.attackingTheaterOps.Troops,
+                battlefield: this.attackingTheaterOps.Battlefield
+            );
+
+            return (counterAttack.Outcome(), attack.Outcome());
         }
     }
 }

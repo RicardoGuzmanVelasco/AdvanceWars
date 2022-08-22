@@ -7,7 +7,7 @@ namespace AdvanceWars.Runtime
     {
         public Unit Unit { get; init; } = Unit.Null;
         public Nation AllegianceTo { get; init; }
-        public int Forces { get; set; }
+        public int Forces { get; set; } = 100;
 
         public int Platoons => Math.Max(1, Forces / 10);
 

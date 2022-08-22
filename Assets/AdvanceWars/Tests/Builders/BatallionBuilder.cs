@@ -37,12 +37,6 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public BattalionBuilder WithPropulsion(string propulsionId)
-        {
-            fromUnit.With(new Propulsion(propulsionId));
-            return this;
-        }
-
         public BattalionBuilder WithArmor(string armorId)
         {
             fromUnit.With(new Armor(armorId));
