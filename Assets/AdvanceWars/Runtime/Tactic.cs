@@ -1,4 +1,9 @@
 ﻿namespace AdvanceWars.Runtime
 {
-    public class Tactic { }
+    public struct Tactic
+    {
+        public string Id { get; init; }
+
+        public override string ToString() => Id;
+    }
 }
