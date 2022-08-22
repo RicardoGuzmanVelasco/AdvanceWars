@@ -13,7 +13,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
-            sut.AvailableTacticsOf(battalion).Should().Contain(new Tactic("Wait")).And.HaveCount(1);
+            sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Wait()).And.HaveCount(1);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void METHOD()
+        public void CanNotPerformSameTacticTwice()
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();

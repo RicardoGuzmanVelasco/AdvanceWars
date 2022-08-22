@@ -13,7 +13,7 @@ namespace AdvanceWars.Runtime
         {
             Require(batallion.Equals(Battalion.Null)).False();
 
-            var defaultWait = new Tactic("Wait");
+            var defaultWait = Tactic.Wait();
 
             if(!tactics.ContainsKey(batallion))
                 tactics[batallion] = new List<Tactic> { defaultWait };

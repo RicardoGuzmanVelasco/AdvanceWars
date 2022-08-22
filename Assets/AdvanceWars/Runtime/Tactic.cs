@@ -2,7 +2,12 @@
 {
     public struct Tactic
     {
-        public Tactic(string id)
+        public static Tactic Wait()
+        {
+            return new Tactic("Wait");
+        }
+
+        Tactic(string id)
         {
             Id = id;
         }
