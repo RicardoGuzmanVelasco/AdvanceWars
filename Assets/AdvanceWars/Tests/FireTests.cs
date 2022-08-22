@@ -173,5 +173,94 @@ namespace AdvanceWars.Tests
             result.Attacker.Should().NotBe(Battalion.Null);
             result.Defender.Should().Be(Battalion.Null);
         }
+
+        [Test]
+        public void CombatWithNotVanisherAttacker_HasNotNullDefenderOutcome()
+        {
+            //Arrange
+            var attacking = new TheaterOps
+            (
+                battlefield: Terrain().Build(),
+                troop: Battalion().Build()
+            );
+
+            var defending = new TheaterOps
+            (
+                battlefield: Terrain().Build(),
+                troop: Battalion().WithArmor("DefenderArmor").Build()
+            );
+
+            var sut = new Combat(attacking, defending);
+
+            //Act
+            var result = sut.PredictOutcome();
+
+            //Assert
+            result.Defender.Should().NotBe(Battalion.Null);
+        }
+
+        [Test]
+        public void CombatWithVanisherDefender_HasNullAttackerOutcome()
+        {
+            //Arrange
+            var attacking = new TheaterOps
+            (
+                battlefield: Terrain().Build(),
+                troop: Battalion().WithArmor("Atk").Build()
+            );
+
+            var defending = new TheaterOps
+            (
+                battlefield: Terrain().Build(),
+                troop: Battalion().WithWeapon(Weapon().MaxDmgTo("Atk").Build()).Build()
+            );
+
+            var sut = new Combat(attacking, defending);
+
+            //Act
+            var result = sut.PredictOutcome();
+
+            //Assert
+            result.Attacker.Should().Be(Battalion.Null);
+        }
+
+        [Test]
+        public void CombatWithNotVanisherDefender_HasNotNullDefenderOutcome()
+        {
+            //Arrange
+            var attacking = new TheaterOps
+            (
+                battlefield: Terrain().Build(),
+                troop: Battalion().WithArmor("Atk").Build()
+            );
+
+            var defending = new TheaterOps
+            (
+                battlefield: Terrain().Build(),
+                troop: Battalion().WithArmor("DefenderArmor").Build()
+            );
+
+            var sut = new Combat(attacking, defending);
+
+            //Act
+            var result = sut.PredictOutcome();
+
+            //Assert
+            result.Attacker.Should().NotBe(Battalion.Null);
+        }
+
+        [Test]
+        public void NoBatallion_Offensive_ToBatallion()
+        {
+            var sut = new Offensive(Battalion.Null, Battalion().Build());
+            sut.Outcome().Should().NotBeNull();
+        }
+
+        [Test]
+        public void NoBatallion_Offensive_NoBatallion()
+        {
+            var sut = new Offensive(Battalion.Null, Battalion.Null);
+            sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
+        }
     }
 }

@@ -33,6 +33,9 @@ namespace AdvanceWars.Runtime
 
         public Battalion Outcome()
         {
+            if(attacker.Equals(Battalion.Null))
+                return defender.Clone();
+
             var resultForces = defender.Forces - Damage;
             if(resultForces <= 0)
                 return Battalion.Null;
