@@ -21,7 +21,8 @@ class Weapon <<(T, Orange)>>
 package Orders{
 class Tactic <<(T, Orange)>>
 class Maneuver
-class X
+class TargetingManeuver
+class CommandingOfficer
 }
 
 package Fire{
@@ -30,12 +31,6 @@ class Offensive{
 +Damage: int
 }
 class TheaterOps
-
-Combat *.. "2" Offensive : attack\ncounterattack
-Combat *-- "2" TheaterOps : attacking\ndefending
-
-TheaterOps --> Terrain : battlefield
-TheaterOps --> Battalion : troops
 }
 
 Unit --> Propulsion
@@ -54,8 +49,22 @@ Weapon --> Armor : damagesTo
 
 Offensive o--- "2" Battalion : attacker\ndefender
 Offensive o--- Terrain : battlefield
-X o-- Maneuver
-Maneuver --> Battalion
+
+CommandingOfficer *-- "0..*" Maneuver
+
+CommandingOfficer ..> Battalion
+CommandingOfficer ..> Tactic
+TargetingManeuver -u-|> Maneuver
+TargetingManeuver o-- Battalion : target
+Maneuver o-- Battalion : performer
 Maneuver --> Tactic
+
+Unit ..> Tactic : ¿? (cycle)
+
+Combat *.. "2" Offensive : attack\ncounterattack
+Combat *-- "2" TheaterOps : attacking\ndefending
+
+TheaterOps --> Terrain : battlefield
+TheaterOps --> Battalion : troops
 
 @enduml
