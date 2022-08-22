@@ -8,6 +8,9 @@ namespace AdvanceWars.Runtime
         public Maneuver([NotNull] Battalion performer)
         {
             Require(performer.Equals(Battalion.Null)).False();
+            Performer = performer;
         }
+
+        public Battalion Performer { get; set; }
     }
 }

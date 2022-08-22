@@ -6,17 +6,25 @@ namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
+        public IList<Maneuver> Maneuvers { get; } = new List<Maneuver>();
+        Dictionary<Battalion, List<Tactic>> tactics = new Dictionary<Battalion, List<Tactic>>();
+
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion batallion)
         {
             Require(batallion.Equals(Battalion.Null)).False();
-            yield return new Tactic("Wait");
+
+            var defaultWait = new Tactic("Wait");
+
+            if(!tactics.ContainsKey(batallion))
+                tactics[batallion] = new List<Tactic> { defaultWait };
+
+            return tactics[batallion];
         }
 
         public void Order(Maneuver command)
         {
+            tactics[command.Performer] = new List<Tactic>();
             Maneuvers.Add(command);
         }
-
-        public IList<Maneuver> Maneuvers { get; } = new List<Maneuver>();
     }
 }

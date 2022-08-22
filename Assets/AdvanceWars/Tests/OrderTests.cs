@@ -26,5 +26,16 @@ namespace AdvanceWars.Tests
 
             sut.Maneuvers.Should().ContainSingle();
         }
+
+        [Test]
+        public void METHOD()
+        {
+            var sut = new CommandingOfficer();
+            var battalion = Battalion().Build();
+
+            sut.Order(new Maneuver(battalion));
+
+            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
+        }
     }
 }
