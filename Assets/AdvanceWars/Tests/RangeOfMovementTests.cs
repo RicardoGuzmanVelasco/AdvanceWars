@@ -83,7 +83,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void RangeOfMovement_isAlsoComputable_FromTroops()
         {
-            var troop = Battalion().Build();
+            var troop = Infantry().Build();
             var sut = new Map(3, 3);
             sut.Put(Vector2Int.one, troop);
 

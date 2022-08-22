@@ -1,4 +1,5 @@
 ﻿using AdvanceWars.Runtime;
+using static AdvanceWars.Tests.Builders.UnitBuilder;
 
 namespace AdvanceWars.Tests.Builders
 {
@@ -7,25 +8,20 @@ namespace AdvanceWars.Tests.Builders
         string nationId = "";
         int forces = 100;
 
-        Unit fromUnit = new Unit //Reuse unit builder.
-        {
-            Mobility = 1,
-            Propulsion = new Propulsion(""),
-            Weapon = null
-        };
+        UnitBuilder fromUnit = Unit();
 
         #region ObjectMothers
         public static BattalionBuilder Battalion() => new BattalionBuilder();
-        public static BattalionBuilder Infantry() => new BattalionBuilder { fromUnit = new Unit { Mobility = 3 } };
+        public static BattalionBuilder Infantry() => new BattalionBuilder { fromUnit = Unit().WithMobility(3) };
         #endregion
 
         #region Fluent API
         public BattalionBuilder Friend() => WithNation("Friend");
         public BattalionBuilder Enemy() => WithNation("Enemy");
 
-        public BattalionBuilder Of(Unit unit)
+        public BattalionBuilder Of(UnitBuilder unitBuilder)
         {
-            fromUnit = unit;
+            fromUnit = unitBuilder;
             return this;
         }
 
@@ -37,19 +33,25 @@ namespace AdvanceWars.Tests.Builders
 
         public BattalionBuilder WithMoveRate(int movementRate)
         {
-            fromUnit = fromUnit with { Mobility = movementRate };
+            fromUnit.WithMobility(movementRate);
             return this;
         }
 
         public BattalionBuilder WithPropulsion(string propulsionId)
         {
-            fromUnit = fromUnit with { Propulsion = new Propulsion(propulsionId) };
+            fromUnit.With(new Propulsion(propulsionId));
+            return this;
+        }
+
+        public BattalionBuilder WithArmor(string armorId)
+        {
+            fromUnit.With(new Armor(armorId));
             return this;
         }
 
         public BattalionBuilder WithPropulsion(Propulsion propulsion)
         {
-            fromUnit = fromUnit with { Propulsion = propulsion };
+            fromUnit.With(propulsion);
             return this;
         }
 
@@ -61,7 +63,7 @@ namespace AdvanceWars.Tests.Builders
 
         public BattalionBuilder WithWeapon(Weapon weapon)
         {
-            fromUnit = fromUnit with { Weapon = weapon };
+            fromUnit.With(weapon);
             return this;
         }
         #endregion
@@ -71,7 +73,7 @@ namespace AdvanceWars.Tests.Builders
             return new Battalion
             {
                 AllegianceTo = new Nation(nationId),
-                Unit = fromUnit,
+                Unit = fromUnit.Build(),
                 Forces = forces
             };
         }

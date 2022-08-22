@@ -81,13 +81,12 @@ namespace AdvanceWars.Tests
         [Test]
         public void BaseDamage_ObtainedFromWeapon()
         {
-            var theSameArmor = new Armor();
             var sut = Battalion()
                 .WithWeapon
-                    (Weapon().WithDamage(theSameArmor, 10).Build())
+                    (Weapon().WithDamage(new Armor(), 10).Build())
                 .Build();
 
-            sut.BaseDamageTo(theSameArmor)
+            sut.BaseDamageTo(new Armor())
                 .Should().Be(10);
         }
 
@@ -107,23 +106,23 @@ namespace AdvanceWars.Tests
         [Test]
         public void AttackerVanishesTheDefender()
         {
-            var weapon = Weapon().MaxDmgTo(new Armor()).Build();
+            var weapon = Weapon().MaxDmgTo("SameArmor").Build();
 
             var sut = new Offensive
             (
                 attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
-                defender: Battalion().WithForces(50).Build(),
+                defender: Battalion().WithForces(50).WithArmor("SameArmor").Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
 
-            sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
+            sut.Outcome().Should().Be(Battalion.Null);
         }
 
         [Test]
         public void AttackerDamagesDefender()
         {
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
-            var defender = Battalion().Of(UnitBuilder.Unit().Build()).WithForces(100);
+            var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
 
             var sut = new Offensive
             (
@@ -150,15 +149,22 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void CombatWithAttackerVanish_HasNullDefenderOutcome()
+        public void CombatWithVanisherAttacker_HasNullDefenderOutcome()
         {
-            var attacking = new TheaterOps(
+            var attacking = new TheaterOps
+            (
                 battlefield: Terrain().Build(),
-                troop: Battalion().WithWeapon(Weapon().MaxDmgTo(new Armor("DefenderArmor")).Build()).Build());
+                troop: Battalion().WithWeapon
+                (
+                    Weapon().MaxDmgTo("DefenderArmor").Build()
+                ).Build()
+            );
 
-            var defending = new TheaterOps(
+            var defending = new TheaterOps
+            (
                 battlefield: Terrain().Build(),
-                troop: Battalion().Of(new Unit() { Armor = new Armor("DefenderAmor") }).Build());
+                troop: Battalion().WithArmor("DefenderAmor").Build()
+            );
 
             var sut = new Combat(attacking, defending);
 

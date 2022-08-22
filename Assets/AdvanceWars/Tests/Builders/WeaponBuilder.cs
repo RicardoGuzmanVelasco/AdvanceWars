@@ -18,9 +18,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public WeaponBuilder MaxDmgTo(Armor armor)
+        public WeaponBuilder MaxDmgTo(string armorId)
         {
-            damages[armor] = int.MaxValue;
+            damages[new Armor(armorId)] = int.MaxValue;
             return this;
         }
         #endregion

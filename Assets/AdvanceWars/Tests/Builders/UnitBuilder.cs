@@ -6,6 +6,7 @@ namespace AdvanceWars.Tests.Builders
     {
         MovementRate mobility = 0;
         Propulsion propulsion = new Propulsion("");
+        Armor armor = new Armor("");
         Weapon weapon = WeaponBuilder.Weapon().Build();
 
         #region ObjectMothers
@@ -33,6 +34,12 @@ namespace AdvanceWars.Tests.Builders
             this.weapon = weapon;
             return this;
         }
+
+        public UnitBuilder With(Armor armor)
+        {
+            this.armor = armor;
+            return this;
+        }
         #endregion
 
         public Unit Build()
@@ -40,6 +47,7 @@ namespace AdvanceWars.Tests.Builders
             return new Unit
             {
                 Mobility = mobility,
+                Armor = armor,
                 Propulsion = propulsion,
                 Weapon = weapon
             };

@@ -1,14 +1,19 @@
-﻿namespace AdvanceWars.Runtime
+﻿using JetBrains.Annotations;
+using static RGV.DesignByContract.Runtime.Contract;
+
+namespace AdvanceWars.Runtime
 {
-    public readonly struct Armor
+    public record Armor
     {
-        public Armor(string id)
+        public string Id { get; }
+
+        public Armor() : this("") { }
+
+        public Armor([NotNull] string id)
         {
+            Require(id).Not.Null();
             Id = id;
         }
-
-        public string Id { get; }
-        public static Armor None => new Armor("");
 
         public override string ToString() => $"{Id}";
     }
