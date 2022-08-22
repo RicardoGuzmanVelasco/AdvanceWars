@@ -12,6 +12,12 @@ namespace AdvanceWars.Runtime
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion batallion)
         {
             Require(batallion.Equals(Battalion.Null)).False();
+
+            if(executedThisTurn.Any(x => x.Performer.Equals(batallion) && x.Origin.Equals(Tactic.Wait())))
+            {
+                return Enumerable.Empty<Tactic>();
+            }
+
             return TacticsOf(batallion).Except(UsedThisTurn(batallion));
         }
 
@@ -27,7 +33,7 @@ namespace AdvanceWars.Runtime
 
         private IEnumerable<Tactic> TacticsOf(Battalion batallion)
         {
-            return new List<Tactic> { Tactic.Wait() };
+            return new List<Tactic> { Tactic.Wait(), Tactic.Fire() };
         }
     }
 }

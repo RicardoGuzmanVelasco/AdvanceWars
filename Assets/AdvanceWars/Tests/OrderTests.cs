@@ -9,6 +9,7 @@ namespace AdvanceWars.Tests
     public class OrderTests
     {
         [Test]
+        [Ignore("VALORAR")]
         public void DefaultBattalion_CanOnlyWait()
         {
             var sut = new CommandingOfficer();
