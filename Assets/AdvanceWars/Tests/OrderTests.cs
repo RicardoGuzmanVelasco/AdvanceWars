@@ -23,11 +23,12 @@ namespace AdvanceWars.Tests
         public void AfterFireManeuver_AutoWait()
         {
             var sut = new CommandingOfficer();
-            var battalion = Battalion().Build();
+            var performer = Battalion().Build();
+            var target = Battalion().Build();
 
-            sut.Order(Maneuver.Fire(battalion));
+            sut.Order(Maneuver.Fire(performer, target));
 
-            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
+            sut.AvailableTacticsOf(performer).Should().BeEmpty();
         }
 
         [Test]
@@ -36,7 +37,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Move(battalion));
+            sut.Order(Maneuver.Move(battalion, new Map.Space()));
 
             sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
         }
