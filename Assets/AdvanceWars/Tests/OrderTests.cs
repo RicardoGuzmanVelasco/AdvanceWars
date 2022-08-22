@@ -9,15 +9,6 @@ namespace AdvanceWars.Tests
     public class OrderTests
     {
         [Test]
-        [Ignore("VALORAR")]
-        public void DefaultBattalion_CanOnlyWait()
-        {
-            var sut = new CommandingOfficer();
-            var battalion = Battalion().Build();
-            sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Wait()).And.HaveCount(1);
-        }
-
-        [Test]
         public void CanNotPerform_anyManeuver_afterWait()
         {
             var sut = new CommandingOfficer();
