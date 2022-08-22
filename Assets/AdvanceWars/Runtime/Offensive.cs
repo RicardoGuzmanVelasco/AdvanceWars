@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
 
         public Offensive([NotNull] Battalion attacker, [NotNull] Battalion defender, Terrain battlefield = null)
         {
-            Require(attacker.Equals(defender)).False();
+            Require(attacker.Equals(Battalion.Null) || !attacker.Equals(defender)).True();
             battlefield ??= Terrain.Null;
 
             this.battlefield = battlefield;
