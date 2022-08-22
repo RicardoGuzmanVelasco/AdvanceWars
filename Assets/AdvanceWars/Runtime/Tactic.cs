@@ -15,5 +15,10 @@
         public string Id { get; init; }
 
         public override string ToString() => Id;
+
+        public static Tactic Fire()
+        {
+            return new Tactic("Fire");
+        }
     }
 }

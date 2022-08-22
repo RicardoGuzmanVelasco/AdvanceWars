@@ -9,7 +9,7 @@ namespace AdvanceWars.Tests
     public class OrderTests
     {
         [Test]
-        public void DefaultBattallion_CanOnlyWait()
+        public void DefaultBattalion_CanOnlyWait()
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
@@ -17,23 +17,36 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void Order_aManeuver()
+        public void CanNotPerform_anyManeuver_afterWait()
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(new Maneuver(battalion));
+            sut.Order(Maneuver.Wait(battalion));
 
-            sut.Maneuvers.Should().ContainSingle();
+            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
+        }
+
+        //Aquí nos preguntamos si no debería ser que al hacer Fire se haga después automáticamente el Wait.
+        [Test]
+        public void AfterFireManeuver_WaitIsStillPossible()
+        {
+            var sut = new CommandingOfficer();
+            var battalion = Battalion().Build();
+
+            sut.Order(Maneuver.Fire(battalion));
+
+            sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Wait()).And.HaveCount(1);
         }
 
         [Test]
-        public void CanNotPerformSameTacticTwice()
+        public void DosComandos_TEMPPPPPPPPPPPPPPPPPPP()
         {
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(new Maneuver(battalion));
+            sut.Order(Maneuver.Fire(battalion));
+            sut.Order(Maneuver.Wait(battalion));
 
             sut.AvailableTacticsOf(battalion).Should().BeEmpty();
         }
