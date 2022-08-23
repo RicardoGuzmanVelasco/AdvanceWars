@@ -1,0 +1,39 @@
+﻿@startuml
+skin rose
+
+boundary Input
+control Control 
+
+Input -> Control : cursor a izq
+Control -> Cursor : off
+Control -> Cursor : izq
+Cursor -> Cursor : x = x-1
+Control -> Cursor : on
+Control --> Input
+
+...
+
+Input -> Control : final de turno
+Control -> Cursor : off
+Control -> Day : end
+
+Day -> Day : siguiente turno
+activate Day
+create Co1
+Day -> Co1 : acaba tu turno
+create Co2
+Day -> Co2 : empieza tu turno 
+Day -> Day : CO activo = Co2
+deactivate Day
+
+Day --> Control
+Control -> Cursor : on
+Control -> Day : ¿qué nación está activa?
+Day -> Co2 : ¿cuál es tu nación?
+create nation2
+Co2 -> nation2
+Co2 --> Day : nation2
+Day --> Control : nation2
+Control -> Player1 : disable
+Control -> Player2 : enable
+@enduml
