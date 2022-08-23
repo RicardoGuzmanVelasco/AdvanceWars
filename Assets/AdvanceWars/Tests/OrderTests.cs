@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
 {
@@ -141,6 +142,21 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
             atk.Forces.Should().BeLessOrEqualTo(0);
             map.WhereIs(atk).Should().BeNull();
+        }
+
+        [Test]
+        public void ApplyMovement_ForAdjacentSpace()
+        {
+            var map = new Map(1, 2);
+            var battalion = Battalion().Build();
+            map.Put(Vector2Int.zero, battalion);
+
+            var sut = Maneuver.Move(battalion, map.OfCoords(Vector2Int.up));
+            sut.Apply(map);
+
+            using var _ = new AssertionScope();
+            map.OfCoords(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
+            map.WhereIs(battalion).Should().Be(map.OfCoords(Vector2Int.up));
         }
     }
 }

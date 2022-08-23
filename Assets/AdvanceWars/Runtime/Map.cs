@@ -57,6 +57,11 @@ namespace AdvanceWars.Runtime
             return availableCoords.Where(c => !spaces[c].IsOccupied);
         }
 
+        public Space OfCoords(Vector2Int coords)
+        {
+            return spaces[coords];
+        }
+
         [Pure, NotNull]
         IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
         {
