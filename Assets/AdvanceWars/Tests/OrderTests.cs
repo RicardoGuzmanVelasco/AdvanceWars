@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using AdvanceWars.Runtime;
 using AdvanceWars.Tests.Builders;
+using AdvanceWars.Tests.Doubles;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
@@ -21,7 +22,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Wait(battalion));
+            sut.Order(Maneuver.Wait(battalion), map: default);
 
             sut.AvailableTacticsOf(battalion).Should().BeEmpty();
         }
@@ -31,9 +32,8 @@ namespace AdvanceWars.Tests
         {
             var sut = new CommandingOfficer();
             var performer = Battalion().Build();
-            var target = Battalion().Build();
 
-            sut.Order(Maneuver.Fire(performer, target));
+            sut.Order(FakeManeuver.Fire(performer), map: default);
 
             sut.AvailableTacticsOf(performer).Should().BeEmpty();
         }
@@ -44,7 +44,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Move(battalion, Enumerable.Empty<Map.Space>()));
+            sut.Order(FakeManeuver.Move(battalion), map: default);
 
             sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
         }
@@ -182,6 +182,17 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
             map.OfCoords(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
             map.WhereIs(battalion).Should().Be(map.OfCoords(new Vector2Int(0, 2)));
+        }
+
+        [Test]
+        public void CommandingOfficer_OrdersManouvers()
+        {
+            var sut = new CommandingOfficer();
+            var maneuverMock = Substitute.For<IManeuver>();
+
+            sut.Order(maneuverMock, map: default);
+
+            maneuverMock.ReceivedWithAnyArgs().Apply(default);
         }
     }
 }

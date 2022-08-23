@@ -7,7 +7,7 @@ namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
-        readonly IList<Maneuver> executedThisTurn = new List<Maneuver>();
+        readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
         {
@@ -23,7 +23,7 @@ namespace AdvanceWars.Runtime
             return ExecutedManeuversOf(battalion).Any(x => x.Is(tactic));
         }
 
-        IEnumerable<Maneuver> ExecutedManeuversOf(Battalion battalion)
+        IEnumerable<IManeuver> ExecutedManeuversOf(Battalion battalion)
         {
             return executedThisTurn.Where(m => m.Performer.Equals(battalion));
         }
@@ -33,12 +33,13 @@ namespace AdvanceWars.Runtime
             return ExecutedManeuversOf(battalion).Select(x => x.Origin);
         }
 
-        public void Order(Maneuver command)
+        public void Order(IManeuver maneuver, Map map)
         {
-            executedThisTurn.Add(command);
+            maneuver.Apply(map);
+            executedThisTurn.Add(maneuver);
 
-            if(command.Is(Tactic.Fire))
-                executedThisTurn.Add(Maneuver.Wait(command.Performer));
+            if(maneuver.Is(Tactic.Fire))
+                executedThisTurn.Add(Maneuver.Wait(maneuver.Performer));
         }
 
         IEnumerable<Tactic> TacticsOf(Battalion battalion)
