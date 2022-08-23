@@ -51,5 +51,10 @@ namespace AdvanceWars.Runtime
                 Tactic.Move
             };
         }
+
+        public void BeginTurn()
+        {
+            executedThisTurn.Clear();
+        }
     }
 }

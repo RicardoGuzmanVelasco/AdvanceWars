@@ -194,5 +194,17 @@ namespace AdvanceWars.Tests
 
             maneuverMock.ReceivedWithAnyArgs().Apply(default);
         }
+
+        [Test]
+        public void AfterBeginTurn_AllTacticsAreAvailableAgain()
+        {
+            var sut = new CommandingOfficer();
+            var battalion = Battalion().Build();
+
+            sut.Order(Maneuver.Wait(battalion), map: default);
+            sut.BeginTurn();
+
+            sut.AvailableTacticsOf(battalion).Should().NotBeEmpty();
+        }
     }
 }
