@@ -1,4 +1,6 @@
-﻿using AdvanceWars.Runtime;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AdvanceWars.Runtime;
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -6,6 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
 {
@@ -41,7 +44,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer();
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Move(battalion, new Map.Space()));
+            sut.Order(Maneuver.Move(battalion, Enumerable.Empty<Map.Space>()));
 
             sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
         }
@@ -141,6 +144,44 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
             atk.Forces.Should().BeLessOrEqualTo(0);
             map.WhereIs(atk).Should().BeNull();
+        }
+
+        [Test]
+        public void ApplyMovement_ForAdjacentSpace()
+        {
+            var map = new Map(1, 2);
+            var battalion = Battalion().Build();
+            map.Put(Vector2Int.zero, battalion);
+
+            var itinerary = new List<Map.Space> { map.OfCoords(Vector2Int.up) };
+
+            var sut = Maneuver.Move(battalion, itinerary);
+            sut.Apply(map);
+
+            using var _ = new AssertionScope();
+            map.OfCoords(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
+            map.WhereIs(battalion).Should().Be(map.OfCoords(Vector2Int.up));
+        }
+
+        [Test]
+        public void ApplyMovement_ForMultipleSpace()
+        {
+            var map = new Map(1, 3);
+            var battalion = Battalion().Build();
+            map.Put(Vector2Int.zero, battalion);
+
+            var itinerary = new List<Map.Space>
+            {
+                map.OfCoords(new Vector2Int(0, 1)),
+                map.OfCoords(new Vector2Int(0, 2))
+            };
+
+            var sut = Maneuver.Move(battalion, itinerary);
+            sut.Apply(map);
+
+            using var _ = new AssertionScope();
+            map.OfCoords(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
+            map.WhereIs(battalion).Should().Be(map.OfCoords(new Vector2Int(0, 2)));
         }
     }
 }

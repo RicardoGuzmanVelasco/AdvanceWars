@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
@@ -26,9 +27,9 @@ namespace AdvanceWars.Runtime
             return new TargetingManeuver(performer, Tactic.Fire, target);
         }
 
-        public static Maneuver Move([NotNull] Battalion battalion, Map.Space space)
+        public static Maneuver Move([NotNull] Battalion battalion, IEnumerable<Map.Space> itinerary)
         {
-            return new PositionalManeuver(battalion, Tactic.Move, space);
+            return new MovementManeuver(battalion, Tactic.Move, itinerary);
         }
         #endregion
 
