@@ -33,7 +33,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var troop = Battalion().Build();
 
-            sut.Order(new FakeManeuver(Tactic.Fire, troop));
+            sut.Order(new DummyManeuver(Tactic.Fire, troop));
 
             sut.AvailableTacticsOf(troop).Should().BeEmpty();
         }
@@ -44,7 +44,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var troop = Battalion().Build();
 
-            sut.Order(new FakeManeuver(Tactic.Move, troop));
+            sut.Order(new DummyManeuver(Tactic.Move, troop));
 
             sut.AvailableTacticsOf(troop).Should().Contain(Tactic.Fire);
         }

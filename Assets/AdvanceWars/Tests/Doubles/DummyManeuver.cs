@@ -2,9 +2,9 @@
 
 namespace AdvanceWars.Tests.Doubles
 {
-    internal class FakeManeuver : Maneuver
+    internal class DummyManeuver : Maneuver
     {
-        internal FakeManeuver(Tactic origin, Battalion performer)
+        internal DummyManeuver(Tactic origin, Battalion performer)
             : base(performer, origin) { }
 
         public override void Apply(Map map) { }
