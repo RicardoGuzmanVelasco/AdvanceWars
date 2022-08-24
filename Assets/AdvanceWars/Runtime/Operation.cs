@@ -8,7 +8,7 @@ namespace AdvanceWars.Runtime
 {
     public class Operation
     {
-        public event Action<Nation, int> NewTurnOfDay;
+        public event Action<NewTurnOfDayArgs> NewTurnOfDay;
 
         readonly RotarySwitch<CommandingOfficer> officers;
 
@@ -16,7 +16,7 @@ namespace AdvanceWars.Runtime
         {
             Require(commandingOfficers.Any()).True();
             officers = new RotarySwitch<CommandingOfficer>(commandingOfficers);
-            NewTurnOfDay += (_, _) => { };
+            NewTurnOfDay += _ => { };
         }
 
         public int Day => officers.Round;
@@ -26,7 +26,19 @@ namespace AdvanceWars.Runtime
         {
             officers.Next();
             ActiveCommandingOfficer.BeginTurn();
-            NewTurnOfDay!.Invoke(ActiveCommandingOfficer.Motherland, Day);
+            NewTurnOfDay!.Invoke(new NewTurnOfDayArgs(ActiveCommandingOfficer.Motherland, Day));
+        }
+    }
+
+    public struct NewTurnOfDayArgs
+    {
+        public Nation Nation { get; }
+        public int Day { get; }
+
+        public NewTurnOfDayArgs(Nation nation, int day)
+        {
+            Nation = nation;
+            Day = day;
         }
     }
 }

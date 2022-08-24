@@ -84,13 +84,13 @@ namespace AdvanceWars.Tests
             };
 
             var sut = new Operation(commandingOfficers);
-            sut.NewTurnOfDay += (nation, day) =>
-            {
-                nation.Id.Should().Be("B");
-                day.Should().Be(1);
-            };
 
+            using var monitoredSut = sut.Monitor();
             sut.NextTurn();
+
+            monitoredSut
+                .Should().Raise(nameof(sut.NewTurnOfDay))
+                .WithArgs<NewTurnOfDayArgs>(args => args.Nation.Id.Equals("B") && args.Day.Equals(1));
         }
 
         //TODO:
