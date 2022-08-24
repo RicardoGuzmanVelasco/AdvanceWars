@@ -74,25 +74,6 @@ namespace AdvanceWars.Tests
             sut.Day.Should().Be(2);
         }
 
-        [Test]
-        public void NewTurnOfDay_IsRaised_OnNewTurn()
-        {
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Of(new Nation("A")).Build(),
-                CommandingOfficer().Of(new Nation("B")).Build()
-            };
-
-            var sut = new Operation(commandingOfficers);
-
-            using var monitoredSut = sut.Monitor();
-            sut.NextTurn();
-
-            monitoredSut
-                .Should().Raise(nameof(sut.NewTurnOfDay))
-                .WithArgs<NewTurnOfDayArgs>(args => args.Nation.Id.Equals("B") && args.Day.Equals(1));
-        }
-
         //TODO:
         //When turn starts, it starts Commanding Officer Turn. Implementation test
     }

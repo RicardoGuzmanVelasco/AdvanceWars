@@ -8,7 +8,7 @@ namespace AdvanceWars.Runtime
 {
     public class Operation
     {
-        public event Action<NewTurnOfDayArgs> NewTurnOfDay;
+        public event Action<NewTurnOfDayArgs> NewTurnOfDay = _ => { };
 
         readonly RotarySwitch<CommandingOfficer> officers;
 
@@ -16,7 +16,6 @@ namespace AdvanceWars.Runtime
         {
             Require(commandingOfficers.Any()).True();
             officers = new RotarySwitch<CommandingOfficer>(commandingOfficers);
-            NewTurnOfDay += _ => { };
         }
 
         public int Day => officers.Round;
