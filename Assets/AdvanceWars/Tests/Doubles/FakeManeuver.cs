@@ -5,12 +5,12 @@ namespace AdvanceWars.Tests.Doubles
 {
     public static class FakeManeuverBuilder
     {
-        public static IManeuver FakeFire([NotNull] Battalion performer)
+        public static Maneuver FakeFire([NotNull] Battalion performer)
         {
             return new FakeManeuver(performer, Tactic.Fire);
         }
 
-        public static IManeuver FakeMove([NotNull] Battalion performer)
+        public static Maneuver FakeMove([NotNull] Battalion performer)
         {
             return new FakeManeuver(performer, Tactic.Move);
         }
@@ -19,6 +19,8 @@ namespace AdvanceWars.Tests.Doubles
         {
             public FakeManeuver(Battalion performer, Tactic origin)
                 : base(performer, origin) { }
+
+            public override void Apply(Map map) { }
         }
     }
 }

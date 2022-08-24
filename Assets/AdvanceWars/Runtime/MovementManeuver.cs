@@ -8,9 +8,8 @@ namespace AdvanceWars.Runtime
     {
         IEnumerable<Map.Space> Itinerary { get; }
 
-        public MovementManeuver([NotNull] Battalion performer, Tactic origin,
-            [NotNull] IEnumerable<Map.Space> itinerary)
-            : base(performer, origin)
+        protected internal MovementManeuver([NotNull] Battalion performer, [NotNull] IEnumerable<Map.Space> itinerary)
+            : base(performer, Tactic.Move)
         {
             Itinerary = itinerary;
         }

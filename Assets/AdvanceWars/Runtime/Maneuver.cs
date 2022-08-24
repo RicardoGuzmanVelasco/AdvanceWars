@@ -4,7 +4,7 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
-    public class Maneuver : IManeuver
+    public abstract class Maneuver : IManeuver
     {
         public Battalion Performer { get; }
         public Tactic Origin { get; }
@@ -19,17 +19,17 @@ namespace AdvanceWars.Runtime
 
         public static IManeuver Wait([NotNull] Battalion performer)
         {
-            return new Maneuver(performer, Tactic.Wait);
+            return new WaitManeuver(performer);
         }
 
         public static IManeuver Fire([NotNull] Battalion performer, [NotNull] Battalion target)
         {
-            return new TargetingManeuver(performer, Tactic.Fire, target);
+            return new FireManeuver(performer, target);
         }
 
         public static IManeuver Move([NotNull] Battalion battalion, IEnumerable<Map.Space> itinerary)
         {
-            return new MovementManeuver(battalion, Tactic.Move, itinerary);
+            return new MovementManeuver(battalion, itinerary);
         }
         #endregion
 
@@ -38,6 +38,6 @@ namespace AdvanceWars.Runtime
             return Origin.Equals(tactic);
         }
 
-        public virtual void Apply(Map map) { }
+        public abstract void Apply(Map map);
     }
 }

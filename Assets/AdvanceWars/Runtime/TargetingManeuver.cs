@@ -2,7 +2,7 @@
 
 namespace AdvanceWars.Runtime
 {
-    public class TargetingManeuver : Maneuver
+    public abstract class TargetingManeuver : Maneuver
     {
         Battalion Target { get; }
 
