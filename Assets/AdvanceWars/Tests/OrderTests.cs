@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AdvanceWars.Runtime;
 using AdvanceWars.Tests.Builders;
+using AdvanceWars.Tests.Doubles;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NSubstitute;
@@ -8,7 +9,6 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
-using static AdvanceWars.Tests.Doubles.FakeManeuverBuilder;
 using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
@@ -31,22 +31,22 @@ namespace AdvanceWars.Tests
         public void AfterFireManeuver_AutoWait()
         {
             var sut = new CommandingOfficer(map: default);
-            var performer = Battalion().Build();
+            var troop = Battalion().Build();
 
-            sut.Order(FakeFire(performer));
+            sut.Order(new FakeManeuver(Tactic.Fire, troop));
 
-            sut.AvailableTacticsOf(performer).Should().BeEmpty();
+            sut.AvailableTacticsOf(troop).Should().BeEmpty();
         }
 
         [Test]
         public void Troops_CanFire_AfterMove()
         {
             var sut = new CommandingOfficer(map: default);
-            var battalion = Battalion().Build();
+            var troop = Battalion().Build();
 
-            sut.Order(FakeMove(battalion));
+            sut.Order(new FakeManeuver(Tactic.Move, troop));
 
-            sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
+            sut.AvailableTacticsOf(troop).Should().Contain(Tactic.Fire);
         }
 
         [Test]
