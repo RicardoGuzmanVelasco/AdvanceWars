@@ -20,17 +20,17 @@ namespace AdvanceWars.Tests
         [Test]
         public void SecondCommandingOfficer_GoesAfterTheFirst()
         {
-            var commandingOfficers = new List<CommandingOfficer>()
+            var commandingOfficers = new[]
             {
-                new CommandingOfficer(),
-                new CommandingOfficer()
+                new CommandingOfficer(new Nation("1")),
+                new CommandingOfficer(new Nation("2"))
             };
             var operation = new Operation(commandingOfficers);
             var sut = new Cursor(operation);
 
             sut.EndTurn();
 
-            operation.ActiveCommandingOfficer.Should().Be(commandingOfficers.ElementAt(1));
+            operation.ActiveCommandingOfficer.Should().Be(commandingOfficers[1]);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void OperationStartsAtDayOne()
         {
-            var sut = new Operation(new List<CommandingOfficer>());
+            var sut = new Operation(new[] { new CommandingOfficer() });
             sut.Day.Should().Be(1);
         }
 

@@ -1,27 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdvanceWars.Runtime.DataStructures;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
     public class Operation
     {
-        readonly CommandingOfficer[] commandingOfficers;
-        int currentTurn;
+        readonly RotarySwitch<CommandingOfficer> officers;
 
         public Operation(IEnumerable<CommandingOfficer> commandingOfficers)
         {
-            this.commandingOfficers = commandingOfficers.ToArray();
+            Require(commandingOfficers.Any()).True();
+            officers = new RotarySwitch<CommandingOfficer>(commandingOfficers);
         }
 
-        public CommandingOfficer ActiveCommandingOfficer => commandingOfficers[currentTurn];
-        public int Day { get; private set; } = 1;
+        public int Day => officers.Round;
+        public CommandingOfficer ActiveCommandingOfficer => officers.Current;
 
         public void NextTurn()
         {
-            currentTurn = (currentTurn + 1) % commandingOfficers.Length;
+            officers.Next();
             ActiveCommandingOfficer.BeginTurn();
-            if(currentTurn == 0)
-                Day++;
         }
     }
 }

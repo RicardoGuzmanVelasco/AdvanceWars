@@ -7,10 +7,16 @@ namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
+        readonly Nation Motherland;
         readonly Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
-        public CommandingOfficer() : this(default) { }
+        public CommandingOfficer(Nation from) : this(default(Map))
+        {
+            Motherland = from;
+        }
+
+        public CommandingOfficer() : this(default(Map)) { }
 
         public CommandingOfficer(Map map)
         {
@@ -63,6 +69,12 @@ namespace AdvanceWars.Runtime
         public void BeginTurn()
         {
             executedThisTurn.Clear();
+            //maniobras automáticas. Sacar el clear al EndTurn.
+        }
+
+        public override string ToString()
+        {
+            return $"from {Motherland}";
         }
     }
 }
