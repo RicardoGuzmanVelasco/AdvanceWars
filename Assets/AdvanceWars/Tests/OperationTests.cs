@@ -3,6 +3,7 @@ using System.Linq;
 using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
+using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -11,7 +12,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void FirstActiveCommandingOfficer_IsTheFirst()
         {
-            var commandingOfficers = new[] { new CommandingOfficer() };
+            var commandingOfficers = new[] { CommandingOfficer().Build() };
             var sut = new Operation(commandingOfficers);
 
             sut.ActiveCommandingOfficer.Should().Be(commandingOfficers.First());
@@ -22,8 +23,8 @@ namespace AdvanceWars.Tests
         {
             var commandingOfficers = new[]
             {
-                new CommandingOfficer(new Nation("1")),
-                new CommandingOfficer(new Nation("2"))
+                CommandingOfficer().Of(new Nation("1")).Build(),
+                CommandingOfficer().Of(new Nation("2")).Build()
             };
             var operation = new Operation(commandingOfficers);
             var sut = new Cursor(operation);
@@ -38,8 +39,8 @@ namespace AdvanceWars.Tests
         {
             var commandingOfficers = new List<CommandingOfficer>()
             {
-                new CommandingOfficer(),
-                new CommandingOfficer()
+                CommandingOfficer().Build(),
+                CommandingOfficer().Build()
             };
             var operation = new Operation(commandingOfficers);
             var sut = new Cursor(operation);
@@ -53,7 +54,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void OperationStartsAtDayOne()
         {
-            var sut = new Operation(new[] { new CommandingOfficer() });
+            var sut = new Operation(new[] { CommandingOfficer().Build() });
             sut.Day.Should().Be(1);
         }
 
@@ -62,8 +63,8 @@ namespace AdvanceWars.Tests
         {
             var commandingOfficers = new[]
             {
-                new CommandingOfficer(),
-                new CommandingOfficer()
+                CommandingOfficer().Build(),
+                CommandingOfficer().Build()
             };
             var sut = new Operation(commandingOfficers);
 

@@ -8,6 +8,7 @@ using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
+using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using Battalion = AdvanceWars.Runtime.Battalion;
 
@@ -19,7 +20,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void CanNotPerform_anyManeuver_afterWait()
         {
-            var sut = new CommandingOfficer(map: default);
+            var sut = CommandingOfficer().Build();
             var battalion = Battalion().Build();
 
             sut.Order(Maneuver.Wait(battalion));
@@ -30,7 +31,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterFireManeuver_AutoWait()
         {
-            var sut = new CommandingOfficer(map: default);
+            var sut = CommandingOfficer().Build();
             var troop = Battalion().Build();
 
             sut.Order(new DummyManeuver(Tactic.Fire, troop));
@@ -41,7 +42,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void Troops_CanFire_AfterMove()
         {
-            var sut = new CommandingOfficer(map: default);
+            var sut = CommandingOfficer().Build();
             var troop = Battalion().Build();
 
             sut.Order(new DummyManeuver(Tactic.Move, troop));
@@ -187,7 +188,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void CommandingOfficer_OrdersManouvers()
         {
-            var sut = new CommandingOfficer(map: default);
+            var sut = CommandingOfficer().Build();
             var maneuverMock = Substitute.For<IManeuver>();
 
             sut.Order(maneuverMock);
@@ -198,7 +199,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterBeginTurn_AllTacticsAreAvailableAgain()
         {
-            var sut = new CommandingOfficer(map: default);
+            var sut = CommandingOfficer().Build();
             var battalion = Battalion().Build();
 
             sut.Order(Maneuver.Wait(battalion));

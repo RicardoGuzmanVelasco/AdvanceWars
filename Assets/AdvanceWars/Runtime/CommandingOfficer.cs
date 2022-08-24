@@ -7,19 +7,13 @@ namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
-        readonly Nation Motherland;
+        readonly Nation motherland;
         readonly Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
-        public CommandingOfficer(Nation from) : this(default(Map))
+        public CommandingOfficer(Nation from, Map map)
         {
-            Motherland = from;
-        }
-
-        public CommandingOfficer() : this(default(Map)) { }
-
-        public CommandingOfficer(Map map)
-        {
+            this.motherland = from;
             this.map = map;
         }
 
@@ -74,7 +68,7 @@ namespace AdvanceWars.Runtime
 
         public override string ToString()
         {
-            return $"from {Motherland}";
+            return $"from {motherland}";
         }
     }
 }
