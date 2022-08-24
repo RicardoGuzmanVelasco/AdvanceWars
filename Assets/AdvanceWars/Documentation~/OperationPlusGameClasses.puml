@@ -2,19 +2,17 @@
 allowmixing
 skin rose
 
-class Cursor
-class Operation
-
-class Game
-class Player
-
 control Control
 
-Game --> "2..*" Player
-Nation -- (Game, Player)
+Game - "2..*" Player
+(Player, Game) - Nation
 
 Game --> Operation
 Game --> Cursor
+Game --> Map
 
 Control --> Game
+
+Operation *-- "1 per player" CO
+CO --> Nation
 @enduml

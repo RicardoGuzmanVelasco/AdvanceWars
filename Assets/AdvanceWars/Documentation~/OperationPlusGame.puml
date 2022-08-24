@@ -4,68 +4,73 @@ skin rose
 boundary Input
 control Control 
 
-Input -> Control : cursor a izq
-Control -> Game
-
-activate Game
-participant Player1
-participant Player2
-
-Game -> Cursor : off
-Game -> Cursor : izq
-Cursor -> Cursor : x = x-1
-Game -> Cursor : on
-return
-
-Control --> Input
-
-...
-
-Input -> Control : final de turno
-Control -> Game
-activate Game
-Game -> Cursor : off
-Game -> Operation
-
-Operation -> Operation : siguiente turno
-activate Operation
-create Co1
-Operation -> Co1 : acaba tu turno
-Co1 -> Co1 : descartar las maniobras
-
-alt ¿es el último?(co activo)
-Operation -> Operation : incrementar día
-Operation --> Control : evento de nuevo día
-ref over Control : UI animación nuevo día
+group Otras órdenes [Ejemplo: mover cursor a izq antes de fin de turno]
+    Input -> Control : cursor a izq
+    Control -> Game
+    
+    activate Game
+    participant Player1
+    participant Player2
+    
+    
+    Game -> Cursor : off
+    Game -> Cursor : izq
+    Cursor -> Cursor : x = x-1
+    Game -> Cursor : on
+    return
+    
+    Control --> Input
 end
 
-Control --> Operation : recuperamos el flujo :)
-create Co2
-Operation -> Co2 : empieza tu turno 
-Operation -> Operation : CO activo = Co2
-Co2 -> Co2 : maniobras automáticas 
-
-Co2 --> Operation
-Operation --> Game
-deactivate Operation
-return
-ref over Control, Co2 : presentación de las maniobras automáticas
-
 ...
 
-Control -> Game : empezar siguiente turno
-activate Game
-Game -> Cursor : on
-Game -> Operation : ¿qué nación está activa?
-Operation -> Co2 : ¿cuál es tu nación?
-create nation2
-Co2 -> nation2
-Co2 --> Operation : nation2
-Operation --> Game : nation2
-Game -> Game : le toca al Player de esta Nación (nation2)
-create Player1
-Game -> Player1 : disable
-create Player2
-Game -> Player2 : enable
-return
+group Final de turno
+    Input -> Control : final de turno
+    Control -> Game
+    activate Game
+    Game -> Cursor : off
+    Game -> Operation
+    
+    Operation -> Operation : siguiente turno
+    activate Operation
+    create Co1
+    Operation -> Co1 : acaba tu turno
+    Co1 -> Co1 : descartar las maniobras
+    
+    alt ¿es el último?(co activo)
+    Operation -> Operation : incrementar día
+    Operation --> Control : evento de nuevo día
+    ref over Control : UI animación nuevo día
+    end
+    
+    Control --> Operation : recuperamos el flujo :)
+    create Co2
+    Operation -> Co2 : empieza tu turno 
+    Operation -> Operation : CO activo = Co2
+    Co2 -> Co2 : maniobras automáticas 
+    
+    Co2 --> Operation
+    Operation --> Game
+    deactivate Operation
+    return
+    ref over Control, Co2 : presentación de las maniobras automáticas
+    
+    ...
+    
+    Control -> Game : empezar siguiente turno
+    activate Game
+    Game -> Cursor : on
+    Game -> Operation : ¿qué nación está activa?
+    Operation -> Co2 : ¿cuál es tu nación?
+    create nation2
+    Co2 -> nation2
+    Co2 --> Operation : nation2
+    Operation --> Game : nation2
+    Game -> Game : le toca al Player de esta Nación (nation2)
+    create Player1
+    Game -> Player1 : disable
+    create Player2
+    Game -> Player2 : enable
+    return
+end
 @enduml
