@@ -1,0 +1,20 @@
+﻿@startuml
+allowmixing
+skin rose
+
+class Cursor
+class Operation
+
+class Game
+class Player
+
+control Control
+
+Game --> "2..*" Player
+Nation -- (Game, Player)
+
+Game --> Operation
+Game --> Cursor
+
+Control --> Game
+@enduml
