@@ -37,11 +37,9 @@ group Final de turno
     Operation -> Co1 : acaba tu turno
     Co1 -> Co1 : descartar las maniobras
     
-    alt ¿es el último?(co activo)
-    Operation -> Operation : incrementar día
-    Operation --> Control : evento de nuevo día
-    ref over Control : UI animación nuevo día
-    end
+    Operation -> Operation : incrementar turno
+    Operation --> Control : evento de nuevo turno
+    ref over Control : UI animación nuevo turno
     
     Control --> Operation : recuperamos el flujo :)
     create Co2
