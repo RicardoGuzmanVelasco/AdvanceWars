@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AdvanceWars.Runtime;
 using AdvanceWars.Tests.Builders;
-using AdvanceWars.Tests.Doubles;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NSubstitute;
@@ -9,6 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using static AdvanceWars.Tests.Doubles.FakeManeuverBuilder;
 using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
@@ -33,7 +33,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var performer = Battalion().Build();
 
-            sut.Order(FakeManeuver.Fire(performer));
+            sut.Order(FakeFire(performer));
 
             sut.AvailableTacticsOf(performer).Should().BeEmpty();
         }
@@ -44,7 +44,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
-            sut.Order(FakeManeuver.Move(battalion));
+            sut.Order(FakeMove(battalion));
 
             sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
         }

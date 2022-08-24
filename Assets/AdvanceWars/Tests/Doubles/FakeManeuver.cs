@@ -3,19 +3,22 @@ using JetBrains.Annotations;
 
 namespace AdvanceWars.Tests.Doubles
 {
-    public class FakeManeuver : Maneuver
+    public static class FakeManeuverBuilder
     {
-        FakeManeuver(Battalion performer, Tactic origin)
-            : base(performer, origin) { }
-
-        public static FakeManeuver Fire([NotNull] Battalion performer)
+        public static IManeuver FakeFire([NotNull] Battalion performer)
         {
             return new FakeManeuver(performer, Tactic.Fire);
         }
 
-        public static FakeManeuver Move([NotNull] Battalion performer)
+        public static IManeuver FakeMove([NotNull] Battalion performer)
         {
             return new FakeManeuver(performer, Tactic.Move);
+        }
+
+        class FakeManeuver : Maneuver
+        {
+            public FakeManeuver(Battalion performer, Tactic origin)
+                : base(performer, origin) { }
         }
     }
 }
