@@ -65,13 +65,76 @@ namespace AdvanceWars.Tests
             };
 
             var sut = new Game(commandingOfficers, players);
+            var monitoredSut = sut.Monitor();
             sut.EndCurrentTurn();
             sut.BeginNextTurn();
 
             sut.ActivePlayer.Id.Should().Be("B");
-            sut.CursorIsEnabled.Should().BeTrue();
+
+            monitoredSut.Should().Raise(nameof(sut.CursorEnableChanged))
+                .WithArgs<bool>(enabled => enabled);
         }
 
-        //cursor tiene que estar activo. llevar a otro test.
+        [Test]
+        public void WhenAlreadyEnabled_CursorCanNotBeEnabled()
+        {
+            var anyPlayers = new Dictionary<Nation, Player>()
+            {
+                { new Nation("A"), new Player { Id = "A" } },
+            };
+
+            var sut = new Game(CommandingOfficers(1), anyPlayers);
+
+            sut.BeginNextTurn();
+            var monitoredSut = sut.Monitor();
+            sut.BeginNextTurn();
+
+            monitoredSut.Should().NotRaise(nameof(sut.CursorEnableChanged));
+        }
+
+        [Test]
+        public void WhenAlreadyDisabled_CursorCanNotBeDisabled()
+        {
+            var anyPlayers = new Dictionary<Nation, Player>()
+            {
+                { new Nation("A"), new Player { Id = "A" } },
+            };
+
+            var sut = new Game(CommandingOfficers(1), anyPlayers);
+
+            sut.EndCurrentTurn();
+            var monitoredSut = sut.Monitor();
+            sut.EndCurrentTurn();
+
+            monitoredSut.Should().NotRaise(nameof(sut.CursorEnableChanged));
+        }
+
+        // ¿Debería el evento de estar en el Cursor y tener un puente en el Game?
+        [Test]
+        public void OnGameBegin_CursorEnabledChanged_ShouldBeRaised()
+        {
+            var sut = new Game(CommandingOfficers(1), new Dictionary<Nation, Player>());
+
+            var monitoredSut = sut.Monitor();
+
+            sut.Begin();
+
+            monitoredSut.Should().Raise(nameof(sut.CursorEnableChanged))
+                .WithArgs<bool>(enabled => enabled);
+        }
+
+        // Implicitamente estamos testeando que no se haga begin 2 veces, aunque estemos
+        // testeando el cursor. Cuidao.
+        [Test]
+        public void GameShouldNotBeginTwice()
+        {
+            var sut = new Game(CommandingOfficers(1), new Dictionary<Nation, Player>());
+
+            sut.Begin();
+            var monitoredSut = sut.Monitor();
+            sut.Begin();
+
+            monitoredSut.Should().NotRaise(nameof(sut.CursorEnableChanged));
+        }
     }
 }
