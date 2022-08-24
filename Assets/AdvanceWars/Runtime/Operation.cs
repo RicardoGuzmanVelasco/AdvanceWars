@@ -21,7 +21,9 @@ namespace AdvanceWars.Runtime
         public int Day => officers.Round;
         public CommandingOfficer ActiveCommandingOfficer => officers.Current;
 
-        public void NextTurn()
+        public void BeginTurn() { }
+
+        public void EndTurn()
         {
             officers.Next();
             ActiveCommandingOfficer.BeginTurn();

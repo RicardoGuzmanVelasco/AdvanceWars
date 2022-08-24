@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
@@ -12,64 +11,50 @@ namespace AdvanceWars.Tests
         [Test]
         public void FirstActiveCommandingOfficer_IsTheFirst()
         {
-            var commandingOfficers = new[] { CommandingOfficer().Build() };
-            var sut = new Operation(commandingOfficers);
+            var officers = CommandingOfficers(1);
+            var sut = new Operation(officers);
 
-            sut.ActiveCommandingOfficer.Should().Be(commandingOfficers.First());
+            sut.ActiveCommandingOfficer.Should().Be(officers.First());
         }
 
         [Test]
         public void SecondCommandingOfficer_GoesAfterTheFirst()
         {
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Of(new Nation("1")).Build(),
-                CommandingOfficer().Of(new Nation("2")).Build()
-            };
-            var operation = new Operation(commandingOfficers);
-            var sut = new Cursor(operation);
+            var officers = CommandingOfficers(2);
+            var sut = new Operation(officers);
 
             sut.EndTurn();
 
-            operation.ActiveCommandingOfficer.Should().Be(commandingOfficers[1]);
+            sut.ActiveCommandingOfficer.Should().Be(officers[1]);
         }
 
         [Test]
         public void AfterLast_ActiveCommandingOfficerIsTheFirstAgain()
         {
-            var commandingOfficers = new List<CommandingOfficer>()
-            {
-                CommandingOfficer().Build(),
-                CommandingOfficer().Build()
-            };
-            var operation = new Operation(commandingOfficers);
-            var sut = new Cursor(operation);
+            var officers = CommandingOfficers(2);
+            var sut = new Operation(officers);
 
             sut.EndTurn();
             sut.EndTurn();
 
-            operation.ActiveCommandingOfficer.Should().Be(commandingOfficers.First());
+            sut.ActiveCommandingOfficer.Should().Be(officers.First());
         }
 
         [Test]
         public void OperationStartsAtDayOne()
         {
-            var sut = new Operation(new[] { CommandingOfficer().Build() });
+            var sut = new Operation(CommandingOfficers(1));
             sut.Day.Should().Be(1);
         }
 
         [Test]
         public void WhenEveryTurnEnds_aNewDayStarts()
         {
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Build(),
-                CommandingOfficer().Build()
-            };
+            var commandingOfficers = CommandingOfficers(2);
             var sut = new Operation(commandingOfficers);
 
-            sut.NextTurn();
-            sut.NextTurn();
+            sut.EndTurn();
+            sut.EndTurn();
 
             sut.Day.Should().Be(2);
         }
