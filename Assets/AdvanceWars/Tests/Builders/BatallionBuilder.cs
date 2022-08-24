@@ -16,8 +16,8 @@ namespace AdvanceWars.Tests.Builders
         #endregion
 
         #region Fluent API
-        public BattalionBuilder Friend() => WithNation("Friend");
-        public BattalionBuilder Enemy() => WithNation("Enemy");
+        public BattalionBuilder Friend() => WithNation("IsFriend");
+        public BattalionBuilder Enemy() => WithNation("IsEnemy");
 
         public BattalionBuilder Of(UnitBuilder unitBuilder)
         {
@@ -66,7 +66,7 @@ namespace AdvanceWars.Tests.Builders
         {
             return new Battalion
             {
-                AllegianceTo = new Nation(nationId),
+                Motherland = new Nation(nationId),
                 Unit = fromUnit.Build(),
                 Forces = forces
             };

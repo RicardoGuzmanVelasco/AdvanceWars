@@ -5,16 +5,27 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
-    public class CommandingOfficer
+    public class CommandingOfficer : IAllegiance
     {
-        readonly Nation motherland;
         readonly Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
+        public Nation Motherland { get; }
+
         public CommandingOfficer(Nation from, Map map)
         {
-            this.motherland = from;
+            this.Motherland = from;
             this.map = map;
+        }
+
+        public bool IsFriend(IAllegiance other)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool IsEnemy(IAllegiance other)
+        {
+            throw new System.NotImplementedException();
         }
 
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
@@ -68,7 +79,7 @@ namespace AdvanceWars.Runtime
 
         public override string ToString()
         {
-            return $"from {motherland}";
+            return $"from {Motherland}";
         }
     }
 }

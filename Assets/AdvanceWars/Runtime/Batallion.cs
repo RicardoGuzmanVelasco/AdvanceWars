@@ -1,12 +1,12 @@
 ﻿using System;
-using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime
 {
-    public partial class Battalion
+    public partial class Battalion : IAllegiance
     {
         public Unit Unit { get; init; } = Unit.Null;
-        public Nation AllegianceTo { get; init; }
+        public Nation Motherland { get; init; }
+
         public int Forces { get; set; } = 100;
 
         public int Platoons => Math.Max(1, Forces / 10);
@@ -14,13 +14,13 @@ namespace AdvanceWars.Runtime
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
 
-        public bool IsEnemy([NotNull] Battalion other) => !IsFriend(other);
+        public bool IsEnemy(IAllegiance other) => !IsFriend(other);
 
-        public bool IsFriend([NotNull] Battalion other)
+        public bool IsFriend(IAllegiance other)
         {
-            return !other.AllegianceTo.IsStateless &&
-                   !AllegianceTo.IsStateless &&
-                   AllegianceTo.Equals(other.AllegianceTo);
+            return !other.Motherland.IsStateless &&
+                   !Motherland.IsStateless &&
+                   Motherland.Equals(other.Motherland);
         }
 
         public int BaseDamageTo(Armor other)
@@ -36,7 +36,7 @@ namespace AdvanceWars.Runtime
         #region Formatting
         public override string ToString()
         {
-            return $"{nameof(Unit)}: {Unit}, {nameof(AllegianceTo)}: {AllegianceTo}, {nameof(Forces)}: {Forces}";
+            return $"{nameof(Unit)}: {Unit}, {nameof(Motherland)}: {Motherland}, {nameof(Forces)}: {Forces}";
         }
         #endregion
     }
