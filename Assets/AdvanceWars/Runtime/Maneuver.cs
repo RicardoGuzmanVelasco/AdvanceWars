@@ -29,7 +29,7 @@ namespace AdvanceWars.Runtime
 
         public static IManeuver Move([NotNull] Battalion battalion, IEnumerable<Map.Space> itinerary)
         {
-            return new MovementManeuver(battalion, Tactic.Move, itinerary);
+            return new PositionalManeuver(battalion, Tactic.Move, space);
         }
         #endregion
 
