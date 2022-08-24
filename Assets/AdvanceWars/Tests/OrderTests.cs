@@ -19,7 +19,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void CanNotPerform_anyManeuver_afterWait()
         {
-            var sut = new CommandingOfficer();
+            var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
             sut.Order(Maneuver.Wait(battalion), map: default);
@@ -30,7 +30,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterFireManeuver_AutoWait()
         {
-            var sut = new CommandingOfficer();
+            var sut = new CommandingOfficer(map: default);
             var performer = Battalion().Build();
 
             sut.Order(FakeManeuver.Fire(performer), map: default);
@@ -41,7 +41,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void Troops_CanFire_AfterMove()
         {
-            var sut = new CommandingOfficer();
+            var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
             sut.Order(FakeManeuver.Move(battalion), map: default);
@@ -187,7 +187,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void CommandingOfficer_OrdersManouvers()
         {
-            var sut = new CommandingOfficer();
+            var sut = new CommandingOfficer(map: default);
             var maneuverMock = Substitute.For<IManeuver>();
 
             sut.Order(maneuverMock, map: default);
@@ -198,7 +198,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterBeginTurn_AllTacticsAreAvailableAgain()
         {
-            var sut = new CommandingOfficer();
+            var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
             sut.Order(Maneuver.Wait(battalion), map: default);

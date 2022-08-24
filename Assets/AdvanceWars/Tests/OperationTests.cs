@@ -11,10 +11,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void FirstActiveCommandingOfficer_IsTheFirst()
         {
-            var commandingOfficers = new List<CommandingOfficer>()
-            {
-                new CommandingOfficer()
-            };
+            var commandingOfficers = new[] { new CommandingOfficer() };
             var sut = new Operation(commandingOfficers);
 
             sut.ActiveCommandingOfficer.Should().Be(commandingOfficers.First());
@@ -63,7 +60,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void WhenEveryTurnEnds_aNewDayStarts()
         {
-            var commandingOfficers = new List<CommandingOfficer>()
+            var commandingOfficers = new[]
             {
                 new CommandingOfficer(),
                 new CommandingOfficer()
@@ -75,5 +72,8 @@ namespace AdvanceWars.Tests
 
             sut.Day.Should().Be(2);
         }
+
+        //TODO:
+        //When turn starts, it starts Commanding Officer Turn. Implementation test
     }
 }

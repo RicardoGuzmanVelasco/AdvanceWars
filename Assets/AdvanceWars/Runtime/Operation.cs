@@ -14,12 +14,12 @@ namespace AdvanceWars.Runtime
         }
 
         public CommandingOfficer ActiveCommandingOfficer => commandingOfficers[currentTurn];
-        public int Day { get; set; } = 1;
+        public int Day { get; private set; } = 1;
 
         public void NextTurn()
         {
             currentTurn = (currentTurn + 1) % commandingOfficers.Length;
-
+            ActiveCommandingOfficer.BeginTurn();
             if(currentTurn == 0)
                 Day++;
         }

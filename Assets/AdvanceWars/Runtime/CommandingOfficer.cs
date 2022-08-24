@@ -9,6 +9,9 @@ namespace AdvanceWars.Runtime
     {
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
+        public CommandingOfficer() : this(default) { }
+        public CommandingOfficer(Map map) { }
+
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
         {
             Require(battalion.Equals(Battalion.Null)).False();
