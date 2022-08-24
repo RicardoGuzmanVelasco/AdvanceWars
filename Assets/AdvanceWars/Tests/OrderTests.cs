@@ -22,7 +22,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Wait(battalion), map: default);
+            sut.Order(Maneuver.Wait(battalion));
 
             sut.AvailableTacticsOf(battalion).Should().BeEmpty();
         }
@@ -33,7 +33,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var performer = Battalion().Build();
 
-            sut.Order(FakeManeuver.Fire(performer), map: default);
+            sut.Order(FakeManeuver.Fire(performer));
 
             sut.AvailableTacticsOf(performer).Should().BeEmpty();
         }
@@ -44,7 +44,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
-            sut.Order(FakeManeuver.Move(battalion), map: default);
+            sut.Order(FakeManeuver.Move(battalion));
 
             sut.AvailableTacticsOf(battalion).Should().Contain(Tactic.Fire);
         }
@@ -190,7 +190,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var maneuverMock = Substitute.For<IManeuver>();
 
-            sut.Order(maneuverMock, map: default);
+            sut.Order(maneuverMock);
 
             maneuverMock.ReceivedWithAnyArgs().Apply(default);
         }
@@ -201,7 +201,7 @@ namespace AdvanceWars.Tests
             var sut = new CommandingOfficer(map: default);
             var battalion = Battalion().Build();
 
-            sut.Order(Maneuver.Wait(battalion), map: default);
+            sut.Order(Maneuver.Wait(battalion));
             sut.BeginTurn();
 
             sut.AvailableTacticsOf(battalion).Should().NotBeEmpty();

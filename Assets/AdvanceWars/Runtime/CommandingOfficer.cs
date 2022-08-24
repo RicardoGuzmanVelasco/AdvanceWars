@@ -7,10 +7,15 @@ namespace AdvanceWars.Runtime
 {
     public class CommandingOfficer
     {
+        readonly Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
         public CommandingOfficer() : this(default) { }
-        public CommandingOfficer(Map map) { }
+
+        public CommandingOfficer(Map map)
+        {
+            this.map = map;
+        }
 
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
         {
@@ -36,7 +41,7 @@ namespace AdvanceWars.Runtime
             return ExecutedManeuversOf(battalion).Select(x => x.Origin);
         }
 
-        public void Order(IManeuver maneuver, Map map)
+        public void Order(IManeuver maneuver)
         {
             maneuver.Apply(map);
             executedThisTurn.Add(maneuver);
