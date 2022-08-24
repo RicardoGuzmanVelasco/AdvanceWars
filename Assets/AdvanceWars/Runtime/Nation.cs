@@ -2,7 +2,7 @@
 {
     public readonly struct Nation
     {
-        string Id { get; init; }
+        public string Id { get; init; }
 
         public Nation(string id)
         {
