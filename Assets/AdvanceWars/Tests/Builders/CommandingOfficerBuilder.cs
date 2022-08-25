@@ -6,7 +6,7 @@ namespace AdvanceWars.Tests.Builders
     internal class CommandingOfficerBuilder
     {
         readonly Map map = default;
-        Nation nation = default;
+        Nation nation;
 
         #region ObjectMothers
         public static CommandingOfficerBuilder CommandingOfficer() => new CommandingOfficerBuilder();

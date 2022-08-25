@@ -16,8 +16,8 @@ namespace AdvanceWars.Runtime
 
         public override void Apply(Map map)
         {
-            map.WhereIs(Performer)!.Occupant = Battalion.Null;
-            Itinerary.Last().Occupant = Performer;
+            map.WhereIs(Performer)!.Unoccupy();
+            Itinerary.Last().Occupy(Performer);
         }
     }
 }

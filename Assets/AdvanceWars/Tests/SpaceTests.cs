@@ -13,7 +13,7 @@ namespace AdvanceWars.Tests
             var sut = new Map.Space();
             var building = new Building(siegePoints: 11);
             sut.Terrain = building;
-            sut.Occupant = BattalionBuilder.Battalion().WithPlatoons(8).Build();
+            sut.Occupy(BattalionBuilder.Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
 
@@ -26,11 +26,11 @@ namespace AdvanceWars.Tests
             var sut = new Map.Space
             {
                 Terrain = new Building(siegePoints: 11),
-                Occupant = BattalionBuilder.Battalion().WithPlatoons(8).Build()
             };
+            sut.Occupy(BattalionBuilder.Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
-            sut.UnOccupy();
+            sut.Unoccupy();
 
             (sut.Terrain as Building).SiegePoints.Should().Be(11);
         }
@@ -40,7 +40,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map.Space();
             sut.Terrain = new Building(siegePoints: 11);
-            sut.Occupant = BattalionBuilder.Battalion().WithPlatoons(8).Build();
+            sut.Occupy(BattalionBuilder.Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
 

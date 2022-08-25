@@ -13,7 +13,9 @@ namespace AdvanceWars.Tests
         public void SpaceIsHostile_WhetherOccupiedBy_anEnemy()
         {
             var friend = BattalionBuilder.Infantry().Friend().Build();
-            var sut = new Map.Space { Occupant = BattalionBuilder.Infantry().Enemy().Build() };
+            var space = new Map.Space();
+            space.Occupy(BattalionBuilder.Infantry().Enemy().Build());
+            var sut = space;
 
             sut.IsHostileTo(friend)
                 .Should().BeTrue();

@@ -7,7 +7,9 @@ namespace AdvanceWars.Runtime
         public class Space
         {
             public Terrain Terrain { get; set; } = Terrain.Null;
-            public Battalion Occupant { get; set; } = Battalion.Null;
+
+            public Battalion Occupant { get; private set; } = Battalion.Null;
+
             public bool IsOccupied => Occupant is not Battalion.NoBattalion;
 
             public bool IsHostileTo(Battalion battalion)
@@ -15,12 +17,17 @@ namespace AdvanceWars.Runtime
                 return IsOccupied && Occupant.IsEnemy(battalion);
             }
 
-            //TODO: RENAME?
-            public void UnOccupy()
+            public void Occupy(Battalion occupant)
+            {
+                Occupant = occupant;
+                //todo cosas.
+            }
+
+            public void Unoccupy()
             {
                 Occupant = Battalion.Null;
 
-                var building = (Terrain as Building);
+                var building = Terrain as Building;
                 building?.LiftSiege();
             }
 
@@ -32,7 +39,7 @@ namespace AdvanceWars.Runtime
 
                 Occupant.Forces = forcesAfter;
                 if(Occupant.Forces <= 0)
-                    Occupant = Battalion.Null;
+                    Unoccupy();
             }
 
             public void Besiege()

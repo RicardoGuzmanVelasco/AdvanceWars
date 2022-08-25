@@ -13,7 +13,7 @@ namespace AdvanceWars.Runtime
 
         public void Put(Vector2Int coord, Battalion battalion)
         {
-            spaces[coord].Occupant = battalion;
+            spaces[coord].Occupy(battalion);
         }
 
         public void Put(Vector2Int coord, Terrain terrain)
