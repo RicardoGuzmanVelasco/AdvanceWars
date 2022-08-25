@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
-using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using static AdvanceWars.Tests.Builders.GameBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -11,17 +10,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void NewTurnOfDay_IsRaised_AfterTurnEnds()
         {
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Of(new Nation("A")).Build(),
-                CommandingOfficer().Of(new Nation("B")).Build()
-            };
-
-            var players = new Dictionary<Nation, Player>
-            {
-                { new Nation("A"), new Player { Id = "A" } },
-            };
-            var sut = new Game(commandingOfficers, players);
+            var sut = Game().WithNations("A", "B").Began().Build();
 
             using var monitoredSut = sut.Monitor();
             sut.EndCurrentTurn();
@@ -32,39 +21,18 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void OnFirstTurn_TheFirstPlayerIsTheActiveOne()
+        public void WhenGameBegins_ThePlayerAssociatedToTheFirstCommandingOfficer_IsTheActiveOne()
         {
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Of(new Nation("A")).Build(),
-                CommandingOfficer().Of(new Nation("B")).Build()
-            };
-            var players = new Dictionary<Nation, Player>()
-            {
-                { new Nation("A"), new Player { Id = "A" } },
-                { new Nation("B"), new Player { Id = "B" } }
-            };
-
-            var sut = new Game(commandingOfficers, players);
+            var sut = Game().WithNations("A", "B").Began().Build();
 
             sut.ActivePlayer.Id.Should().Be("A");
         }
 
         [Test]
-        public void AfterBegin_aNewTurn_NextPlayerIsTheActiveOne()
+        public void OnNextTurn_NextPlayerIsTheActiveOne()
         {
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Of(new Nation("A")).Build(),
-                CommandingOfficer().Of(new Nation("B")).Build()
-            };
-            var players = new Dictionary<Nation, Player>()
-            {
-                { new Nation("A"), new Player { Id = "A" } },
-                { new Nation("B"), new Player { Id = "B" } }
-            };
+            var sut = Game().WithNations("A", "B").Began().Build();
 
-            var sut = new Game(commandingOfficers, players);
             var monitoredSut = sut.Monitor();
             sut.EndCurrentTurn();
             sut.BeginNextTurn();
@@ -78,12 +46,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void WhenAlreadyEnabled_CursorCanNotBeEnabled()
         {
-            var anyPlayers = new Dictionary<Nation, Player>()
-            {
-                { new Nation("A"), new Player { Id = "A" } },
-            };
-
-            var sut = new Game(CommandingOfficers(1), anyPlayers);
+            var sut = Game().Of(1).Began().Build();
 
             sut.BeginNextTurn();
             var monitoredSut = sut.Monitor();
@@ -95,12 +58,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void WhenAlreadyDisabled_CursorCanNotBeDisabled()
         {
-            var anyPlayers = new Dictionary<Nation, Player>()
-            {
-                { new Nation("A"), new Player { Id = "A" } },
-            };
-
-            var sut = new Game(CommandingOfficers(1), anyPlayers);
+            var sut = Game().Of(1).Began().Build();
 
             sut.EndCurrentTurn();
             var monitoredSut = sut.Monitor();
@@ -109,11 +67,10 @@ namespace AdvanceWars.Tests
             monitoredSut.Should().NotRaise(nameof(sut.CursorEnableChanged));
         }
 
-        // ¿Debería el evento de estar en el Cursor y tener un puente en el Game?
         [Test]
         public void OnGameBegin_CursorEnabledChanged_ShouldBeRaised()
         {
-            var sut = new Game(CommandingOfficers(1), new Dictionary<Nation, Player>());
+            var sut = Game().Of(1).Build();
 
             var monitoredSut = sut.Monitor();
 
@@ -128,9 +85,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void GameShouldNotBeginTwice()
         {
-            var sut = new Game(CommandingOfficers(1), new Dictionary<Nation, Player>());
+            var sut = Game().Of(1).Began().Build();
 
-            sut.Begin();
             var monitoredSut = sut.Monitor();
             sut.Begin();
 
