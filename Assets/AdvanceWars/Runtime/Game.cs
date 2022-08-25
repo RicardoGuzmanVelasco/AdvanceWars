@@ -8,19 +8,23 @@ namespace AdvanceWars.Runtime
 {
     public class Game
     {
-        public event Action<bool> CursorEnableChanged = _ => { };
-
-        readonly IDictionary<Nation, Player> players;
-        readonly Operation operation;
-        readonly Cursor cursor;
-
-        public Player ActivePlayer => players[operation.ActiveCommandingOfficer.Motherland];
+        public event Action<bool> CursorEnableChanged
+        {
+            add => cursor.CursorEnableChanged += value;
+            remove => cursor.CursorEnableChanged -= value;
+        }
 
         public event Action<NewTurnOfDayArgs> NewTurnOfDay
         {
             add => operation.NewTurnOfDay += value;
             remove => operation.NewTurnOfDay -= value;
         }
+
+        readonly IDictionary<Nation, Player> players;
+        readonly Operation operation;
+        readonly Cursor cursor;
+
+        public Player ActivePlayer => players[operation.ActiveCommandingOfficer.Motherland];
 
         public Game(IEnumerable<CommandingOfficer> officers, [NotNull] IDictionary<Nation, Player> players)
         {
@@ -34,37 +38,19 @@ namespace AdvanceWars.Runtime
 
         public void Begin()
         {
-            EnableCursor();
-        }
-
-        void EnableCursor()
-        {
-            if(cursor.Enabled)
-                return;
-
-            cursor.Enabled = true;
-            CursorEnableChanged.Invoke(cursor.Enabled);
+            cursor.EnableCursor();
         }
 
         public void EndCurrentTurn()
         {
-            DisableCursor();
+            cursor.DisableCursor();
 
             operation.EndTurn();
         }
 
-        void DisableCursor()
-        {
-            if(!cursor.Enabled)
-                return;
-
-            cursor.Enabled = false;
-            CursorEnableChanged.Invoke(cursor.Enabled);
-        }
-
         public void BeginNextTurn()
         {
-            EnableCursor();
+            cursor.EnableCursor();
 
             operation.BeginTurn();
         }
