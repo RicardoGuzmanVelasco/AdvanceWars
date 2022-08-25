@@ -45,6 +45,7 @@
 
 ### Features para hacer
 
+* Mergear Battalions.
 * Niebla de guerra.
   * Visibilidad de casillas por terreno.
   * Concepto de visibilidad en las unidades.
