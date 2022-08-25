@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime
 {
-    public class Building
+    public class Building : Terrain
     {
-        public int SiegePoints { get; private set; }
+        public int SiegePoints { get; set; }
         int MaxSiegePoints { get; }
 
         Nation owner;
@@ -39,6 +39,11 @@ namespace AdvanceWars.Runtime
             return resultPoints == 0
                 ? new Building(MaxSiegePoints, besieger.Motherland)
                 : new Building(resultPoints, owner);
+        }
+
+        public void LiftSiege()
+        {
+            SiegePoints = MaxSiegePoints;
         }
     }
 }

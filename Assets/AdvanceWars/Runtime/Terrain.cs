@@ -10,6 +10,8 @@ namespace AdvanceWars.Runtime
 
         public int DefensiveRating { get; init; }
 
+        public Terrain() { }
+
         public Terrain(Dictionary<Propulsion, int> costs)
             : this(costs, Enumerable.Empty<Propulsion>()) { }
 

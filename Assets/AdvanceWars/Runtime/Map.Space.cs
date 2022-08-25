@@ -15,6 +15,15 @@ namespace AdvanceWars.Runtime
                 return IsOccupied && Occupant.IsEnemy(battalion);
             }
 
+            //TODO: RENAME?
+            public void UnOccupy()
+            {
+                Occupant = Battalion.Null;
+
+                var building = (Terrain as Building);
+                building?.LiftSiege();
+            }
+
             public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
 
             public void ReportCasualties(int forcesAfter)
@@ -24,6 +33,16 @@ namespace AdvanceWars.Runtime
                 Occupant.Forces = forcesAfter;
                 if(Occupant.Forces <= 0)
                     Occupant = Battalion.Null;
+            }
+
+            public void Besiege()
+            {
+                Require(IsOccupied).True();
+
+                var building = (Terrain as Building);
+                var outcome = building.SiegeOutcome(Occupant);
+                building.SiegePoints = outcome.SiegePoints;
+                // TODO: Require(IsHostileTo(Occupant)).True();
             }
         }
     }
