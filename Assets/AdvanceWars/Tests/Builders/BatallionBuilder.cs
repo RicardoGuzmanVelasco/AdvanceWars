@@ -55,6 +55,18 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public BattalionBuilder WithInfiniteForces()
+        {
+            forces = int.MaxValue;
+            return this;
+        }
+
+        public BattalionBuilder WithPlatoons(int count)
+        {
+            forces = 10 * count;
+            return this;
+        }
+
         public BattalionBuilder WithWeapon(Weapon weapon)
         {
             fromUnit.With(weapon);
