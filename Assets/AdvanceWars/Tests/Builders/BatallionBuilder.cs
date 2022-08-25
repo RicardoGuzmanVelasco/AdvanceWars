@@ -16,7 +16,7 @@ namespace AdvanceWars.Tests.Builders
         #endregion
 
         #region Fluent API
-        public BattalionBuilder Friend() => WithNation("IsFriend");
+        public BattalionBuilder Friend() => WithNation("IsAlly");
         public BattalionBuilder Enemy() => WithNation("IsEnemy");
 
         public BattalionBuilder Of(UnitBuilder unitBuilder)

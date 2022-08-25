@@ -18,7 +18,7 @@ namespace AdvanceWars.Runtime
             this.map = map;
         }
 
-        public bool IsFriend(IAllegiance other)
+        public bool IsAlly(IAllegiance other)
         {
             throw new System.NotImplementedException();
         }

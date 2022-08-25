@@ -1,7 +1,7 @@
 ﻿using AdvanceWars.Runtime;
-using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
+using static AdvanceWars.Tests.Builders.BattalionBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -13,7 +13,7 @@ namespace AdvanceWars.Tests
             var sut = new Map.Space();
             var building = new Building(siegePoints: 11);
             sut.Terrain = building;
-            sut.Occupy(BattalionBuilder.Battalion().WithPlatoons(8).Build());
+            sut.Occupy(Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
 
@@ -27,7 +27,7 @@ namespace AdvanceWars.Tests
             {
                 Terrain = new Building(siegePoints: 11),
             };
-            sut.Occupy(BattalionBuilder.Battalion().WithPlatoons(8).Build());
+            sut.Occupy(Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
             sut.Unoccupy();
@@ -40,13 +40,35 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map.Space();
             sut.Terrain = new Building(siegePoints: 11);
-            sut.Occupy(BattalionBuilder.Battalion().WithPlatoons(8).Build());
+            sut.Occupy(Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
 
             (sut.Terrain as Building).SiegePoints.Should().Be(3);
         }
 
-        //hostil el terreno o por ocupante
+        [Test]
+        public void SomethingReturnsTrueWhenBuildingInSpaceIsEnemyOfOccupant()
+        {
+            var sut = new Map.Space
+            {
+                Terrain = new Building(default, new Nation("A"))
+            };
+            sut.Occupy(Battalion().WithNation("notA").Build());
+
+            sut.ThereIsAnOccupantEnemyToTheTerrainOwner.Should().BeTrue();
+        }
+
+        [Test]
+        public void SomethingReturnsFalseWhenBuildingInSpaceIsAllyOfOccupant()
+        {
+            var sut = new Map.Space
+            {
+                Terrain = new Building(default, new Nation("A"))
+            };
+            sut.Occupy(Battalion().WithNation("A").Build());
+
+            sut.ThereIsAnOccupantEnemyToTheTerrainOwner.Should().BeFalse();
+        }
     }
 }

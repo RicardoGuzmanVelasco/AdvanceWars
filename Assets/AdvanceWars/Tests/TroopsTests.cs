@@ -13,11 +13,11 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
 
             Infantry().WithNation("aNation").Build()
-                .IsFriend(Battalion().WithNation("aNation").Build())
+                .IsAlly(Battalion().WithNation("aNation").Build())
                 .Should().BeTrue();
 
             Infantry().WithNation("aNation").Build()
-                .IsFriend(Battalion().WithNation("notSameNation").Build())
+                .IsAlly(Battalion().WithNation("notSameNation").Build())
                 .Should().BeFalse();
         }
 
@@ -25,7 +25,7 @@ namespace AdvanceWars.Tests
         public void TwoStatelessTroops_AreNotFriends_EachOther()
         {
             Infantry().WithNation(null).Build()
-                .IsFriend(Battalion().WithNation(null).Build())
+                .IsAlly(Battalion().WithNation(null).Build())
                 .Should().BeFalse();
         }
     }

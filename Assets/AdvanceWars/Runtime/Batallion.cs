@@ -14,9 +14,9 @@ namespace AdvanceWars.Runtime
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
 
-        public bool IsEnemy(IAllegiance other) => !IsFriend(other);
+        public bool IsEnemy(IAllegiance other) => !IsAlly(other);
 
-        public bool IsFriend(IAllegiance other)
+        public bool IsAlly(IAllegiance other)
         {
             return !other.Motherland.IsStateless &&
                    !Motherland.IsStateless &&

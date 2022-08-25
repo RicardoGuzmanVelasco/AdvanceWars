@@ -12,7 +12,16 @@ namespace AdvanceWars.Runtime
 
             public bool IsOccupied => Occupant is not Battalion.NoBattalion;
 
-            public bool IsHostileTo(Battalion battalion)
+            public bool ThereIsAnOccupantEnemyToTheTerrainOwner
+            {
+                get
+                {
+                    Require(Terrain is Building).True();
+                    return (Terrain as Building).RelationshipWith(Occupant) is DiplomaticRelation.Enemy;
+                }
+            }
+
+            public bool IsOccupiedByEnemyOf(Battalion battalion)
             {
                 return IsOccupied && Occupant.IsEnemy(battalion);
             }
@@ -31,7 +40,7 @@ namespace AdvanceWars.Runtime
                 building?.LiftSiege();
             }
 
-            public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
+            public bool IsCrossableBy(Battalion battalion) => !IsOccupiedByEnemyOf(battalion);
 
             public void ReportCasualties(int forcesAfter)
             {
@@ -49,7 +58,7 @@ namespace AdvanceWars.Runtime
                 var building = (Terrain as Building);
                 var outcome = building.SiegeOutcome(Occupant);
                 building.SiegePoints = outcome.SiegePoints;
-                // TODO: Require(IsHostileTo(Occupant)).True();
+                // TODO: Require(IsOccupiedByEnemyOf(Occupant)).True();
             }
         }
     }
