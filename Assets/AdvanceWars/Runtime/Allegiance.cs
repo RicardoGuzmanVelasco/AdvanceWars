@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
         public bool IsNeutral(Allegiance other) => RelationshipWith(other) is DiplomaticRelation.Neutral;
 
         [Pure]
-        public DiplomaticRelation RelationshipWith([NotNull] Allegiance other)
+        DiplomaticRelation RelationshipWith([NotNull] Allegiance other)
         {
             if(other.Motherland.IsStateless || Motherland.IsStateless)
                 return DiplomaticRelation.Neutral;
@@ -20,6 +20,13 @@ namespace AdvanceWars.Runtime
                 return DiplomaticRelation.Ally;
             else
                 return DiplomaticRelation.Enemy;
+        }
+
+        enum DiplomaticRelation
+        {
+            Neutral,
+            Ally,
+            Enemy
         }
     }
 }

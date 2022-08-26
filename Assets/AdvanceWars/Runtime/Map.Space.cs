@@ -17,7 +17,7 @@ namespace AdvanceWars.Runtime
                 get
                 {
                     Require(Terrain is Building).True();
-                    return (Terrain as Building).RelationshipWith(Occupant) is DiplomaticRelation.Enemy;
+                    return (Terrain as Building).IsEnemy(Occupant);
                 }
             }
 

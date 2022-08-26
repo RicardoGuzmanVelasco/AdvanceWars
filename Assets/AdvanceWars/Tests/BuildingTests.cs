@@ -16,7 +16,7 @@ namespace AdvanceWars.Tests
             var result = sut.SiegeOutcome(besieger: battalion);
 
             result.SiegePoints.Should().Be(19);
-            result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Neutral);
+            result.IsNeutral(battalion).Should().BeTrue();
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace AdvanceWars.Tests
             var result = sut.SiegeOutcome(besieger: battalion);
 
             result.SiegePoints.Should().Be(19);
-            result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Enemy);
+            result.IsEnemy(battalion).Should().BeTrue();
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace AdvanceWars.Tests
             var result = sut.SiegeOutcome(besieger: battalion);
 
             result.SiegePoints.Should().Be(20);
-            result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Ally);
+            result.IsAlly(battalion).Should().BeTrue();
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace AdvanceWars.Tests
             var result = sut.SiegeOutcome(besieger: battalion);
 
             result.SiegePoints.Should().Be(20);
-            result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Ally);
+            result.IsAlly(battalion).Should().BeTrue();
         }
     }
 }
