@@ -4,7 +4,7 @@
 
 ### Intenciones
 
-- [ ]  Crear maniobra de asedio.
+- [X]  Crear maniobra de asedio.
 - [X]  Digitalizar TO-DO list no digitalizada hasta ahora.
 
 ### Conclusiones
@@ -14,3 +14,4 @@
 - En el futuro tendremos problemas con la diferenciación de Ally y Self al tener los bandos.
 - (Alejandro) Uso de Null pattern únicamente por conveniencia de los tests es raro: Battalion, Map, Space, etc.
 - Clases parciales mezcladas con internas resulta confuso debido a los NullObjectPattern: Map y Space.
+- Duda: ¿Mover clases de directorio es una chore o refactoring?
