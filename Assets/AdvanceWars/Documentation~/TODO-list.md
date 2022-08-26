@@ -48,6 +48,7 @@
 ### Riesgos
 
 * Si atacas y te matan en el contrataque, puede ser problemático (o no) que se llame a una maniobra de Wait sobre ti (esa maniobra se llama automáticamente tras el Fire).
+* Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero. Habrá que añadir un método Self.
 * Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
   * Se ha discutido pero no se ha llegado a nada en claro.
 
