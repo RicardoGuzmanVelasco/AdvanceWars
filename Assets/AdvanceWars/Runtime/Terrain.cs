@@ -4,7 +4,7 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
-    public class Terrain
+    public class Terrain : Allegiance
     {
         readonly Dictionary<Propulsion, int> costs = new Dictionary<Propulsion, int>();
 
@@ -24,6 +24,7 @@ namespace AdvanceWars.Runtime
             Require(costs.Values.All(x => x >= 0)).True();
 
             this.costs = new Dictionary<Propulsion, int>(costs);
+
             foreach(var propulsion in blocked)
                 this.costs[propulsion] = int.MaxValue;
         }

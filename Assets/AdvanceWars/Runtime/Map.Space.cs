@@ -21,9 +21,9 @@ namespace AdvanceWars.Runtime
                 }
             }
 
-            public bool IsOccupiedByEnemyOf(Battalion battalion)
+            public bool IsOccupiedByEnemyOf(Allegiance other)
             {
-                return IsOccupied && Occupant.IsEnemy(battalion);
+                return IsOccupied && Occupant.IsEnemy(other);
             }
 
             public void Occupy(Battalion occupant)
@@ -40,7 +40,7 @@ namespace AdvanceWars.Runtime
                 building?.LiftSiege();
             }
 
-            public bool IsCrossableBy(Battalion battalion) => !IsOccupiedByEnemyOf(battalion);
+            public bool IsCrossableBy(Allegiance battalion) => !IsOccupiedByEnemyOf(battalion);
 
             public void ReportCasualties(int forcesAfter)
             {

@@ -5,12 +5,10 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
-    public class CommandingOfficer : IAllegiance
+    public class CommandingOfficer : Allegiance
     {
         readonly Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
-
-        public Nation Motherland { get; }
 
         public CommandingOfficer(Nation from, Map map)
         {
@@ -18,17 +16,17 @@ namespace AdvanceWars.Runtime
             this.map = map;
         }
 
-        public bool IsAlly(IAllegiance other)
+        public override bool IsAlly(Allegiance other)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool IsEnemy(IAllegiance other)
+        public override bool IsEnemy(Allegiance other)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
+        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Allegiance battalion)
         {
             Require(battalion.Equals(Battalion.Null)).False();
 
@@ -37,17 +35,17 @@ namespace AdvanceWars.Runtime
                 : TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
         }
 
-        bool HasAlready(Battalion battalion, Tactic tactic)
+        bool HasAlready(Allegiance battalion, Tactic tactic)
         {
             return ExecutedManeuversOf(battalion).Any(x => x.Is(tactic));
         }
 
-        IEnumerable<IManeuver> ExecutedManeuversOf(Battalion battalion)
+        IEnumerable<IManeuver> ExecutedManeuversOf(Allegiance battalion)
         {
             return executedThisTurn.Where(m => m.Performer.Equals(battalion));
         }
 
-        IEnumerable<Tactic> ExecutedThisTurn(Battalion battalion)
+        IEnumerable<Tactic> ExecutedThisTurn(Allegiance battalion)
         {
             return ExecutedManeuversOf(battalion).Select(x => x.Origin);
         }
@@ -61,7 +59,7 @@ namespace AdvanceWars.Runtime
                 executedThisTurn.Add(Maneuver.Wait(maneuver.Performer));
         }
 
-        IEnumerable<Tactic> TacticsOf(Battalion battalion)
+        IEnumerable<Tactic> TacticsOf(Allegiance battalion)
         {
             return new List<Tactic>
             {

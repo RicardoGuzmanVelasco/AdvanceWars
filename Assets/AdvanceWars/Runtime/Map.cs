@@ -78,7 +78,7 @@ namespace AdvanceWars.Runtime
         }
 
         [CanBeNull]
-        public Space WhereIs(Battalion battalion)
+        public Space WhereIs(Allegiance battalion)
         {
             return spaces.Values.SingleOrDefault(x => x.Occupant == battalion);
         }

@@ -2,10 +2,9 @@
 
 namespace AdvanceWars.Runtime
 {
-    public partial class Battalion : IAllegiance
+    public partial class Battalion : Allegiance
     {
         public Unit Unit { get; init; } = Unit.Null;
-        public Nation Motherland { get; init; }
 
         public int Forces { get; set; } = 100;
 
@@ -13,15 +12,6 @@ namespace AdvanceWars.Runtime
 
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
-
-        public bool IsEnemy(IAllegiance other) => !IsAlly(other);
-
-        public bool IsAlly(IAllegiance other)
-        {
-            return !other.Motherland.IsStateless &&
-                   !Motherland.IsStateless &&
-                   Motherland.Equals(other.Motherland);
-        }
 
         public int BaseDamageTo(Armor other)
         {

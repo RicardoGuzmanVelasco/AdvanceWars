@@ -8,8 +8,6 @@ namespace AdvanceWars.Runtime
         public int SiegePoints { get; set; }
         int MaxSiegePoints { get; }
 
-        Nation owner;
-
         public Building(int siegePoints)
         {
             MaxSiegePoints = SiegePoints = siegePoints;
@@ -17,18 +15,7 @@ namespace AdvanceWars.Runtime
 
         public Building(int siegePoints, Nation owner) : this(siegePoints)
         {
-            this.owner = owner;
-        }
-
-        [Pure]
-        public DiplomaticRelation RelationshipWith([NotNull] Battalion other)
-        {
-            if(other.Motherland.Equals(owner))
-                return DiplomaticRelation.Ally;
-            if(other.Motherland.IsStateless || owner.IsStateless)
-                return DiplomaticRelation.Neutral;
-            else
-                return DiplomaticRelation.Enemy;
+            Motherland = owner;
         }
 
         [Pure]
@@ -38,7 +25,7 @@ namespace AdvanceWars.Runtime
 
             return resultPoints == 0
                 ? new Building(MaxSiegePoints, besieger.Motherland)
-                : new Building(resultPoints, owner);
+                : new Building(resultPoints, Motherland);
         }
 
         public void LiftSiege()
