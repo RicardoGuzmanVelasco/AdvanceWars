@@ -7,7 +7,6 @@
 - No debería de haber set en el terreno.
 - Duplicación espacios/bounds.
 - Hay un problema con los nullobjectpatterns.
-
   - No puede/debe instanciarse más de un objecto del mismo NullOjectPattern.
     - Esto lo explica bien Martin Fowler en el PoEAA en el capítulo Special Case.
     - Eso se resuelve quitando operador => y poniendo {get;} =.
@@ -17,10 +16,12 @@
 - Hay que hacer builders aún de cosas como TheatreOps.
 - Redondear 0.05 los outcomes de ataques y tal.
 - Posible composición: teatro de operaciones se compone de espacio.
-
   - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
+- Renombrar Building por Property, respetando el diagarama.
+- Añadir maneuvers existentes al diagrama del modelo de dominio.
+- Separar diagrama del modelo de dominio en varios para mejorar legibilidad.
 
 ### WIP
 
@@ -45,6 +46,8 @@
 ### Riesgos
 
 * Si atacas y te matan en el contrataque, puede ser problemático (o no) que se llame a una maniobra de Wait sobre ti (esa maniobra se llama automáticamente tras el Fire).
+* Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
+  * Se ha discutido pero no se ha llegado a nada en claro.
 
 ### Features para hacer
 
