@@ -7,6 +7,7 @@
 - No debería de haber set en el terreno.
 - Duplicación espacios/bounds.
 - Hay un problema con los nullobjectpatterns.
+
   - No puede/debe instanciarse más de un objecto del mismo NullOjectPattern.
     - Esto lo explica bien Martin Fowler en el PoEAA en el capítulo Special Case.
     - Eso se resuelve quitando operador => y poniendo {get;} =.
@@ -16,6 +17,7 @@
 - Hay que hacer builders aún de cosas como TheatreOps.
 - Redondear 0.05 los outcomes de ataques y tal.
 - Posible composición: teatro de operaciones se compone de espacio.
+
   - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
@@ -24,8 +26,13 @@
 - Separar diagrama del modelo de dominio en varios para mejorar legibilidad.
 - (Alejandro) Uso de Null pattern únicamente por conveniencia de los tests: Battalion, Map, Space, etc.
 - Clases parciales mezcladas con internas resulta confuso: Map y Space.
+- Duplicación WhereIs(Batallion) en las maniobras. ¿Usar Space como parámetro en vez de un performer?
+- No se debe poder levantar un asedio, si no se esta asediando.
+  - Añadir property que compruebe si está siendo asediado (puntos de asedio < puntos de asedio máximos)
 
 ### WIP
+
+* Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
 
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
@@ -51,6 +58,10 @@
 * Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero. Habrá que añadir un método Self.
 * Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
   * Se ha discutido pero no se ha llegado a nada en claro.
+
+### Tests
+
+- No se puede levantar un asedio, si no se esta asediando.
 
 ### Features para hacer
 
