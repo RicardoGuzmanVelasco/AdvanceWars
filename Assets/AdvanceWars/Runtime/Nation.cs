@@ -1,4 +1,6 @@
-﻿namespace AdvanceWars.Runtime
+﻿using static RGV.DesignByContract.Runtime.Contract;
+
+namespace AdvanceWars.Runtime
 {
     public readonly struct Nation
     {
@@ -6,11 +8,11 @@
 
         public Nation(string id)
         {
-            // TODO: Contract.Require(string.IsNullOrWhiteSpace(id)).False();
+            Require(id).Not.NullOrWhiteSpace();
             Id = id;
         }
 
-        public bool IsStateless => this.Equals(new Nation(null));
+        public static Nation Stateless => new Nation();
 
         public override string ToString()
         {

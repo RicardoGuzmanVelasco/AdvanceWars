@@ -14,7 +14,7 @@ namespace AdvanceWars.Runtime
         [Pure]
         DiplomaticRelation RelationshipWith([NotNull] Allegiance other)
         {
-            if(other.Motherland.IsStateless || Motherland.IsStateless)
+            if(other.Motherland.Equals(Nation.Stateless) || Motherland.Equals(Nation.Stateless))
                 return DiplomaticRelation.Neutral;
             if(other.Motherland.Equals(Motherland))
                 return DiplomaticRelation.Ally;

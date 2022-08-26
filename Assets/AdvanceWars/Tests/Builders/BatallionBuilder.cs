@@ -78,7 +78,7 @@ namespace AdvanceWars.Tests.Builders
         {
             return new Battalion
             {
-                Motherland = nationId == "" ? new Nation() : new Nation(nationId),
+                Motherland = nationId == "" ? Nation.Stateless : new Nation(nationId),
                 Unit = fromUnit.Build(),
                 Forces = forces
             };

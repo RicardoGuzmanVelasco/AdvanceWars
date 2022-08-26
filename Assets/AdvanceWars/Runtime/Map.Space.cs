@@ -12,12 +12,12 @@ namespace AdvanceWars.Runtime
 
             public bool IsOccupied => Occupant != Battalion.Null;
 
-            public bool ThereIsAnOccupantEnemyToTheTerrainOwner
+            public bool IsBesiegable
             {
                 get
                 {
                     Require(Terrain is Building).True();
-                    return Terrain.IsEnemy(Occupant);
+                    return !Terrain.IsAlly(Occupant);
                 }
             }
 

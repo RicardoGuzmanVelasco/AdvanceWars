@@ -48,7 +48,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void SomethingReturnsTrueWhenBuildingInSpaceIsEnemyOfOccupant()
+        public void BesiegableWhenBuildingIsEnemyOfOccupant()
         {
             var sut = new Map.Space
             {
@@ -56,11 +56,23 @@ namespace AdvanceWars.Tests
             };
             sut.Occupy(Battalion().WithNation("notA").Build());
 
-            sut.ThereIsAnOccupantEnemyToTheTerrainOwner.Should().BeTrue();
+            sut.IsBesiegable.Should().BeTrue();
         }
 
         [Test]
-        public void SomethingReturnsFalseWhenBuildingInSpaceIsAllyOfOccupant()
+        public void BesiegableWhenBuildingIsNeutral()
+        {
+            var sut = new Map.Space
+            {
+                Terrain = new Building(default, Nation.Stateless)
+            };
+            sut.Occupy(Battalion().WithNation("Whatnot").Build());
+
+            sut.IsBesiegable.Should().BeTrue();
+        }
+
+        [Test]
+        public void UnbesiegableWhenBuildingInSpaceIsAllyOfOccupant()
         {
             var sut = new Map.Space
             {
@@ -68,7 +80,7 @@ namespace AdvanceWars.Tests
             };
             sut.Occupy(Battalion().WithNation("A").Build());
 
-            sut.ThereIsAnOccupantEnemyToTheTerrainOwner.Should().BeFalse();
+            sut.IsBesiegable.Should().BeFalse();
         }
     }
 }
