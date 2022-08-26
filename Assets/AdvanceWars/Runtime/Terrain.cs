@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
@@ -10,13 +11,11 @@ namespace AdvanceWars.Runtime
 
         public int DefensiveRating { get; init; }
 
-        public Terrain() { }
+        #region Ctors /FactoryMethods
+        protected Terrain() { }
 
-        public Terrain(Dictionary<Propulsion, int> costs)
+        Terrain(Dictionary<Propulsion, int> costs)
             : this(costs, Enumerable.Empty<Propulsion>()) { }
-
-        public Terrain(IEnumerable<Propulsion> blocked)
-            : this(new Dictionary<Propulsion, int>(), blocked) { }
 
         public Terrain(Dictionary<Propulsion, int> costs, IEnumerable<Propulsion> blocked)
         {
@@ -29,16 +28,23 @@ namespace AdvanceWars.Runtime
                 this.costs[propulsion] = int.MaxValue;
         }
 
-        public Terrain(int defensiveRating)
-        {
-            DefensiveRating = defensiveRating;
-        }
+        public static Terrain Null { get; } = new Terrain(new Dictionary<Propulsion, int>());
+        #endregion
 
         public int MoveCostOf(Propulsion propulsion)
         {
             return costs.ContainsKey(propulsion) ? costs[propulsion] : 1;
         }
 
-        public static Terrain Null { get; } = new Terrain(new Dictionary<Propulsion, int>());
+        public int SiegePoints { get; set; } = int.MaxValue;
+        protected int MaxSiegePoints { get; init; }
+
+        [Pure]
+        public virtual Building SiegeOutcome([NotNull] Battalion besieger)
+        {
+            return Building.Unbesiegable;
+        }
+
+        public virtual void LiftSiege() { }
     }
 }

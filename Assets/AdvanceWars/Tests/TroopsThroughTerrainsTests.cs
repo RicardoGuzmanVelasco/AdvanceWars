@@ -17,7 +17,7 @@ namespace AdvanceWars.Tests
             space.Occupy(BattalionBuilder.Infantry().Enemy().Build());
             var sut = space;
 
-            sut.IsOccupiedByEnemyOf(friend)
+            sut.IsHostileTo(friend)
                 .Should().BeTrue();
         }
 

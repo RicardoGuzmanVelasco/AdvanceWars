@@ -1,0 +1,46 @@
+﻿@startuml
+skin rose
+
+class Space
+class Battalion
+class Enemy
+class Neutral
+class Ally
+class Hostile
+
+Space -r-> Battalion : occupant
+
+Enemy -u-|> Battalion
+Ally -u-|> Battalion
+Neutral -u-|> Battalion
+
+Hostile -u-|> Space
+Hostile .r.> Enemy : occupant is
+
+newpage
+skin rose
+
+class Terrain
+class Building
+class Space
+class Battalion
+class Enemy
+class Neutral
+class Ally
+class Besiegable{
+==
+{Besiegable.Terrain is Building}
+{Besiegable.Battalion is not Ally of Besiegable.Terrain}
+}
+
+Space <|-- Besiegable
+
+Space -l-> Battalion : occupant
+
+Enemy -u-|> Battalion
+Ally -u-|> Battalion
+Neutral -u-|> Battalion
+
+Space --> Terrain
+Terrain <|-- Building 
+@enduml

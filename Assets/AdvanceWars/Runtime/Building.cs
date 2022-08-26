@@ -1,14 +1,10 @@
 ﻿using System;
-using JetBrains.Annotations;
-using RGV.DesignByContract.Runtime;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
     public class Building : Terrain
     {
-        public int SiegePoints { get; set; }
-        int MaxSiegePoints { get; }
-
         public Building(int siegePoints)
         {
             MaxSiegePoints = SiegePoints = siegePoints;
@@ -19,10 +15,9 @@ namespace AdvanceWars.Runtime
             Motherland = owner;
         }
 
-        [Pure]
-        public Building SiegeOutcome([NotNull] Battalion besieger)
+        public override Building SiegeOutcome(Battalion besieger)
         {
-            Contract.Require(besieger.IsAlly(this)).False();
+            Require(besieger.IsAlly(this)).False();
 
             var resultPoints = Math.Max(0, SiegePoints - besieger.Platoons);
 
@@ -31,9 +26,18 @@ namespace AdvanceWars.Runtime
                 : new Building(resultPoints, Motherland);
         }
 
-        public void LiftSiege()
+        public override void LiftSiege()
         {
             SiegePoints = MaxSiegePoints;
         }
+
+        #region Special Cases
+        internal static Building Unbesiegable { get; } = new UnbesiegableSpecialCase();
+
+        public class UnbesiegableSpecialCase : Building
+        {
+            public UnbesiegableSpecialCase() : base(int.MaxValue) { }
+        }
+        #endregion
     }
 }

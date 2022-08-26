@@ -10,18 +10,26 @@ namespace AdvanceWars.Runtime
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
 
-            public bool IsOccupied => Occupant is not Battalion.NoBattalion;
+            public bool IsOccupied => Occupant != Battalion.Null;
 
             public bool ThereIsAnOccupantEnemyToTheTerrainOwner
             {
                 get
                 {
                     Require(Terrain is Building).True();
-                    return (Terrain as Building).IsEnemy(Occupant);
+                    return Terrain.IsEnemy(Occupant);
                 }
             }
 
-            public bool IsOccupiedByEnemyOf(Allegiance other)
+            public void Besiege()
+            {
+                Require(IsOccupied).True();
+
+                var outcome = Terrain.SiegeOutcome(Occupant);
+                Terrain.SiegePoints = outcome.SiegePoints;
+            }
+
+            public bool IsHostileTo(Allegiance other)
             {
                 return IsOccupied && Occupant.IsEnemy(other);
             }
@@ -29,18 +37,15 @@ namespace AdvanceWars.Runtime
             public void Occupy(Battalion occupant)
             {
                 Occupant = occupant;
-                //todo cosas.
             }
 
             public void Unoccupy()
             {
                 Occupant = Battalion.Null;
-
-                var building = Terrain as Building;
-                building?.LiftSiege();
+                Terrain.LiftSiege();
             }
 
-            public bool IsCrossableBy(Allegiance battalion) => !IsOccupiedByEnemyOf(battalion);
+            public bool IsCrossableBy(Allegiance battalion) => !IsHostileTo(battalion);
 
             public void ReportCasualties(int forcesAfter)
             {
@@ -49,16 +54,6 @@ namespace AdvanceWars.Runtime
                 Occupant.Forces = forcesAfter;
                 if(Occupant.Forces <= 0)
                     Unoccupy();
-            }
-
-            public void Besiege()
-            {
-                Require(IsOccupied).True();
-
-                var building = (Terrain as Building);
-                var outcome = building.SiegeOutcome(Occupant);
-                building.SiegePoints = outcome.SiegePoints;
-                // TODO: Require(IsOccupiedByEnemyOf(Occupant)).True();
             }
         }
     }
