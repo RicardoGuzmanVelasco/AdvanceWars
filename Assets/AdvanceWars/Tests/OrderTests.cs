@@ -20,8 +20,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void CanNotPerform_anyManeuver_afterWait()
         {
-            var sut = CommandingOfficer().Build();
-            var battalion = Battalion().Build();
+            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var battalion = Battalion().WithNation("aNation").Build();
 
             sut.Order(Maneuver.Wait(battalion));
 
@@ -31,8 +31,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterFireManeuver_AutoWait()
         {
-            var sut = CommandingOfficer().Build();
-            var troop = Battalion().Build();
+            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var troop = Battalion().WithNation("aNation").Build();
 
             sut.Order(new DummyManeuver(Tactic.Fire, troop));
 
@@ -188,8 +188,11 @@ namespace AdvanceWars.Tests
         [Test]
         public void CommandingOfficer_OrdersManouvers()
         {
-            var sut = CommandingOfficer().Build();
+            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var battalion = Battalion().WithNation("aNation").Build();
+
             var maneuverMock = Substitute.For<IManeuver>();
+            maneuverMock.Performer.Returns(battalion);
 
             sut.Order(maneuverMock);
 

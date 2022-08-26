@@ -45,6 +45,8 @@ namespace AdvanceWars.Runtime
 
         public void Order(IManeuver maneuver)
         {
+            Require(maneuver.Performer.IsAlly(this)).True();
+
             maneuver.Apply(map);
             executedThisTurn.Add(maneuver);
 
