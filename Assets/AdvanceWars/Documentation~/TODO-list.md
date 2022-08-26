@@ -22,6 +22,8 @@
 - Renombrar Building por Property, respetando el diagarama.
 - Añadir maneuvers existentes al diagrama del modelo de dominio.
 - Separar diagrama del modelo de dominio en varios para mejorar legibilidad.
+- (Alejandro) Uso de Null pattern únicamente por conveniencia de los tests: Battalion, Map, Space, etc.
+- Clases parciales mezcladas con internas resulta confuso: Map y Space.
 
 ### WIP
 
