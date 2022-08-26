@@ -24,6 +24,7 @@ namespace AdvanceWars.Runtime
             public void Besiege()
             {
                 Require(IsOccupied).True();
+                Require(IsBesiegable).True();
 
                 var outcome = Terrain.SiegeOutcome(Occupant);
                 Terrain.SiegePoints = outcome.SiegePoints;
@@ -36,11 +37,13 @@ namespace AdvanceWars.Runtime
 
             public void Occupy(Battalion occupant)
             {
+                Require(IsOccupied).False();
                 Occupant = occupant;
             }
 
             public void Unoccupy()
             {
+                Require(IsOccupied).True();
                 Occupant = Battalion.Null;
                 Terrain.LiftSiege();
             }
