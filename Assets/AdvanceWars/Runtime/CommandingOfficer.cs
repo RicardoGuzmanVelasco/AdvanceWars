@@ -51,12 +51,17 @@ namespace AdvanceWars.Runtime
 
         IEnumerable<Tactic> TacticsOf(Allegiance battalion)
         {
-            return new List<Tactic>
+            var tactics = new List<Tactic>
             {
                 Tactic.Wait,
                 Tactic.Fire,
                 Tactic.Move
             };
+
+            if(map.WhereIs(battalion).IsBesiegable)
+                tactics.Add(Tactic.Siege);
+
+            return tactics;
         }
 
         public void BeginTurn()

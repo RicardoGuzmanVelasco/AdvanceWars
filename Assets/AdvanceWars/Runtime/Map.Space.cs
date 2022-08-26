@@ -4,7 +4,7 @@ namespace AdvanceWars.Runtime
 {
     public partial record Map
     {
-        public class Space
+        public partial class Space
         {
             public Terrain Terrain { get; set; } = Terrain.Null;
 
@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
 
             public bool IsOccupied => Occupant != Battalion.Null;
 
-            public bool IsBesiegable
+            public virtual bool IsBesiegable
             {
                 get
                 {

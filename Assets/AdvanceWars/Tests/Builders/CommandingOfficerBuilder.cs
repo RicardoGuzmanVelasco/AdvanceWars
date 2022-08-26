@@ -5,7 +5,7 @@ namespace AdvanceWars.Tests.Builders
 {
     internal class CommandingOfficerBuilder
     {
-        readonly Map map = default;
+        Map map = Map.Null;
         Nation nation;
 
         #region ObjectMothers
@@ -24,7 +24,14 @@ namespace AdvanceWars.Tests.Builders
 
         public CommandingOfficerBuilder Of(Nation motherland)
         {
-            this.nation = motherland;
+            nation = motherland;
+
+            return this;
+        }
+
+        public CommandingOfficerBuilder WithMap(Map map)
+        {
+            this.map = map;
 
             return this;
         }

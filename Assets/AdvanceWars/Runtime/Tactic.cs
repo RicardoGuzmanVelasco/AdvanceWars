@@ -2,7 +2,7 @@
 {
     public readonly struct Tactic
     {
-        string Id { get; init; }
+        string Id { get; }
 
         Tactic(string id)
         {
@@ -13,6 +13,7 @@
         public static Tactic Wait => new Tactic("Wait");
         public static Tactic Fire => new Tactic("Fire");
         public static Tactic Move => new Tactic("Move");
+        public static Tactic Siege => new Tactic("Siege");
         #endregion
 
         public override string ToString() => Id;
