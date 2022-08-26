@@ -40,5 +40,25 @@ namespace AdvanceWars.Tests
             sut.AvailableTacticsOf(battalion)
                 .Should().NotContain(Tactic.Siege);
         }
+
+        [Test]
+        public void SiegeManeuverIsApplied()
+        {
+            var battalion = Battalion().WithNation("ally").WithPlatoons(1).Build();
+            var building = new Building(siegePoints: 20, owner: new Nation("enemy"));
+
+            var map = new Map(1, 1);
+            map.Put(Vector2Int.zero, building);
+            map.Put(Vector2Int.zero, battalion);
+
+            var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
+
+            var maneuver = Maneuver.Siege(battalion);
+
+            sut.Order(maneuver);
+
+            building.SiegePoints
+                .Should().Be(19);
+        }
     }
 }

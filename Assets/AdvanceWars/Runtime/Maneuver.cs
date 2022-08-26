@@ -31,6 +31,11 @@ namespace AdvanceWars.Runtime
         {
             return new MovementManeuver(battalion, itinerary);
         }
+
+        public static IManeuver Siege([NotNull] Battalion battalion)
+        {
+            return new SiegeManeuver(battalion);
+        }
         #endregion
 
         public bool Is(Tactic tactic)
