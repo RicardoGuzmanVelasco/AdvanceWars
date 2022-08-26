@@ -42,8 +42,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void Troops_CanFire_AfterMove()
         {
-            var sut = CommandingOfficer().Build();
-            var troop = Battalion().Build();
+            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var troop = Battalion().WithNation("aNation").Build();
 
             sut.Order(new DummyManeuver(Tactic.Move, troop));
 
@@ -199,13 +199,22 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterBeginTurn_AllTacticsAreAvailableAgain()
         {
-            var sut = CommandingOfficer().Build();
-            var battalion = Battalion().Build();
+            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var battalion = Battalion().WithNation("aNation").Build();
 
             sut.Order(Maneuver.Wait(battalion));
             sut.BeginTurn();
 
             sut.AvailableTacticsOf(battalion).Should().NotBeEmpty();
+        }
+
+        [Test]
+        public void AvailableTacticsOf_NonAllyUnit_IsEmpty()
+        {
+            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var battalion = Battalion().WithNation("anotherNation").Build();
+
+            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
         }
     }
 }

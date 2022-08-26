@@ -20,6 +20,9 @@ namespace AdvanceWars.Runtime
         {
             Require(battalion.Equals(Battalion.Null)).False();
 
+            if(!battalion.IsAlly(this))
+                return Enumerable.Empty<Tactic>();
+
             return HasAlready(battalion, Tactic.Wait)
                 ? Enumerable.Empty<Tactic>()
                 : TacticsOf(battalion).Except(ExecutedThisTurn(battalion));

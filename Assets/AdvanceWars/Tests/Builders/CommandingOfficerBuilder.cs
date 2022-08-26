@@ -36,6 +36,13 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public CommandingOfficerBuilder WithNation(string nation)
+        {
+            this.nation = new Nation(nation);
+
+            return this;
+        }
+
         public CommandingOfficer Build()
         {
             return new CommandingOfficer(from: nation, map);

@@ -12,14 +12,14 @@ namespace AdvanceWars.Tests
         [Test]
         public void SiegeTacticIsAvailable_WhenBuildingIsBesiegableByBattalion()
         {
-            var battalion = Battalion().WithNation("aNation").Build();
-            var building = new Building(siegePoints: 20, owner: new Nation("anotherNation"));
+            var battalion = Battalion().WithNation("ally").Build();
+            var building = new Building(siegePoints: 20, owner: new Nation("enemy"));
 
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, building);
             map.Put(Vector2Int.zero, battalion);
 
-            var sut = CommandingOfficer().WithMap(map).Build();
+            var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
             sut.AvailableTacticsOf(battalion)
                 .Should().Contain(Tactic.Siege);
