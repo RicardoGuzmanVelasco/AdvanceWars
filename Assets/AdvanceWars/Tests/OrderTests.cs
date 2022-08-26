@@ -55,7 +55,7 @@ namespace AdvanceWars.Tests
         {
             var anyArmor = new Armor("Any");
             var atk = Battalion()
-                .Friend()
+                .Ally()
                 .WithArmor("Any")
                 .WithWeapon(WeaponBuilder.Weapon().WithDamage(anyArmor, 100).Build())
                 .WithForces(200)
@@ -86,7 +86,7 @@ namespace AdvanceWars.Tests
         public void ApplyFire_VanisherAttacker()
         {
             var atk = Battalion()
-                .Friend()
+                .Ally()
                 .WithArmor("Other")
                 .WithWeapon(WeaponBuilder.Weapon().MaxDmgTo("Any").Build())
                 .WithForces(200)
@@ -119,7 +119,7 @@ namespace AdvanceWars.Tests
         public void ApplyFire_VanisherDefender()
         {
             var def = Battalion()
-                .Friend()
+                .Ally()
                 .WithArmor("Other")
                 .WithWeapon(WeaponBuilder.Weapon().MaxDmgTo("Any").Build())
                 .WithForces(200)

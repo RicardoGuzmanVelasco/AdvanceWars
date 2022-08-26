@@ -94,7 +94,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void EnemyBlocksTheWay_SoRangeOfMovementStopsOnEnemy()
         {
-            var aTroop = Infantry().Friend().Build();
+            var aTroop = Infantry().Ally().Build();
             var sut = new Map(1, 3);
             sut.Put(Vector2Int.zero, aTroop);
             sut.Put(Vector2Int.up, Infantry().Enemy().Build());

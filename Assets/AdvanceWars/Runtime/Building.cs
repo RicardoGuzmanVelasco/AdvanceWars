@@ -1,5 +1,6 @@
 ﻿using System;
 using JetBrains.Annotations;
+using RGV.DesignByContract.Runtime;
 
 namespace AdvanceWars.Runtime
 {
@@ -21,6 +22,8 @@ namespace AdvanceWars.Runtime
         [Pure]
         public Building SiegeOutcome([NotNull] Battalion besieger)
         {
+            Contract.Require(besieger.IsAlly(this)).False();
+
             var resultPoints = Math.Max(0, SiegePoints - besieger.Platoons);
 
             return resultPoints == 0

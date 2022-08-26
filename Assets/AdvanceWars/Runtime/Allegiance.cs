@@ -5,12 +5,11 @@ namespace AdvanceWars.Runtime
     public abstract class Allegiance
     {
         public Nation Motherland { get; init; }
-        public virtual bool IsEnemy(Allegiance other) => !IsAlly(other);
+        public bool IsEnemy(Allegiance other) => RelationshipWith(other) is DiplomaticRelation.Enemy;
 
-        public virtual bool IsAlly(Allegiance other)
-        {
-            return RelationshipWith(other) is DiplomaticRelation.Ally;
-        }
+        public bool IsAlly(Allegiance other) => RelationshipWith(other) is DiplomaticRelation.Ally;
+
+        public bool IsNeutral(Allegiance other) => RelationshipWith(other) is DiplomaticRelation.Neutral;
 
         [Pure]
         public DiplomaticRelation RelationshipWith([NotNull] Allegiance other)

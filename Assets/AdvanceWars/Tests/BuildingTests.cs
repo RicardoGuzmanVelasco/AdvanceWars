@@ -8,7 +8,7 @@ namespace AdvanceWars.Tests
     public class BuildingTests
     {
         [Test]
-        public void BuildingReceiveSiegeDamage()
+        public void NeutralBuildingReceiveSiegeDamage()
         {
             var sut = new Building(siegePoints: 20);
             var battalion = Battalion().WithNation("A").WithPlatoons(1).Build();
@@ -17,6 +17,18 @@ namespace AdvanceWars.Tests
 
             result.SiegePoints.Should().Be(19);
             result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Neutral);
+        }
+
+        [Test]
+        public void EnemyBuildingReceiveSiegeDamage()
+        {
+            var sut = new Building(siegePoints: 20, owner: new Nation("Enemy"));
+            var battalion = Battalion().WithNation("Ally").WithPlatoons(1).Build();
+
+            var result = sut.SiegeOutcome(besieger: battalion);
+
+            result.SiegePoints.Should().Be(19);
+            result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Enemy);
         }
 
         [Test]
@@ -41,25 +53,6 @@ namespace AdvanceWars.Tests
 
             result.SiegePoints.Should().Be(20);
             result.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Ally);
-        }
-
-        [Test]
-        public void DiplomaticRelationshipWithSameNation_IsOfAllies()
-        {
-            var sut = new Building(siegePoints: 20, owner: new Nation("A"));
-            var battalion = Battalion().WithNation("A").Build();
-
-            sut.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Ally);
-        }
-
-        [TestCase("aNation", "anotherNation")]
-        [TestCase("aNation", "yetAnotherNation")]
-        public void DiplomaticRelationshipWithAnotherNation_IsOfEnemies(string aNationId, string anotherNationId)
-        {
-            var sut = new Building(siegePoints: 20, owner: new Nation(aNationId));
-            var battalion = Battalion().WithNation(anotherNationId).Build();
-
-            sut.RelationshipWith(battalion).Should().Be(DiplomaticRelation.Enemy);
         }
     }
 }

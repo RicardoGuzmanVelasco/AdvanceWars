@@ -2,10 +2,11 @@
 {
     public readonly struct Nation
     {
-        public string Id { get; init; }
+        public string Id { get; }
 
         public Nation(string id)
         {
+            // TODO: Contract.Require(string.IsNullOrWhiteSpace(id)).False();
             Id = id;
         }
 

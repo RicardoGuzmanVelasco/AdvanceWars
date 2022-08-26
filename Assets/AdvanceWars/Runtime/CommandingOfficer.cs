@@ -16,16 +16,6 @@ namespace AdvanceWars.Runtime
             this.map = map;
         }
 
-        public override bool IsAlly(Allegiance other)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override bool IsEnemy(Allegiance other)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Allegiance battalion)
         {
             Require(battalion.Equals(Battalion.Null)).False();
