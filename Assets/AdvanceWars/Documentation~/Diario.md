@@ -12,7 +12,6 @@
 - Ahora al llamar al AvailableTacticsOf de un batallón, devuelve empty si el batallón no es aliado
 - Se ha añadido una precondición en el Order del CommandingOfficer para que no deje ordenar maniobras con Performer no aliados.
 - Se han añadido varias precondiciones a los spaces.
-
 - En el futuro tendremos problemas con la diferenciación de Ally y Self al tener los bandos.
 - (Alejandro) Uso de Null pattern únicamente por conveniencia de los tests es raro: Battalion, Map, Space, etc.
 - Clases parciales mezcladas con internas resulta confuso debido a los NullObjectPattern: Map y Space.
@@ -26,10 +25,10 @@
 
 ### Intenciones
 
-- Lo primero, voy a ordenar la lista de cosas por hacer, porque veo cosas duplicadas y fuera de sitio.
-- Voy a crear un documento con dos propósitos:
+- [X]  Lo primero, voy a ordenar la lista de cosas por hacer, porque veo cosas duplicadas y fuera de sitio.
+- [ ]  Voy a crear un documento con dos propósitos:
   - almacenar aquello que cada persona quiera aportar a la retro;
   - almacenar aquello que cada persona quiera que se discuta en las reuniones de diseño;
-- Quiero revisar el código nuevo a partir de su test hasta saber si debo o no añadir más casos de testing.
-- Antes de ello me gustaría reducir inventario de refactoring.
-- Trataré de revisar la documentación y acercarla al código.
+- [ ]  Quiero revisar el código nuevo a partir de su test hasta saber si debo o no añadir más casos de testing.
+- [ ]  Antes de ello me gustaría reducir inventario de refactoring.
+- [ ]  Trataré de revisar la documentación y acercarla al código.
