@@ -20,6 +20,9 @@
   - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
+    
+- Sacar abstracción [número máximo, número actual] (¿reutilizar gauge?)
+    - Es para el MAxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
 
 ### Docs
 
@@ -52,11 +55,9 @@
 * Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero. Habrá que añadir un método Self.
 * Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
   * Se ha discutido pero no se ha llegado a nada en claro.
+* Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio.
 
 ### Tests
-
-- No se puede levantar un asedio cuando no se está asediando.
-  - Un batallón ocupante de un espacio con un edificio, siempre intenta levantar el asedio al salir.
 
 ### Features para hacer
 

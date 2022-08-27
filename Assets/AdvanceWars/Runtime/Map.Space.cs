@@ -44,8 +44,10 @@ namespace AdvanceWars.Runtime
             public void Unoccupy()
             {
                 Require(IsOccupied).True();
+
                 Occupant = Battalion.Null;
-                Terrain.LiftSiege();
+                if(Terrain.IsUnderSiege)
+                    Terrain.LiftSiege();
             }
 
             public bool IsCrossableBy(Allegiance battalion) => !IsHostileTo(battalion);

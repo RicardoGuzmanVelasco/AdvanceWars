@@ -41,4 +41,9 @@
   - ¡Ole!
 - Me he planteado si, en el constructor de Offensive, no será mejor relegar al cliente que el atacante no sea nulo.
   - Eso facilitaba el contrato, que quedaría con dos precondiciones claras.
-  - Sin embargo parece una API muy straightforward tal como está (null no hace daño), así que lo he dejado así. 
+  - Sin embargo parece una API muy straightforward tal como está (null no hace daño), así que lo he dejado así.
+- He acometido lo de que no se pueda levantar un asedio que no se inició.
+  - Añadiendo la precondición directamente ha funcionado.
+  - Eso me ha llevado a pensar que nos faltan test donde se use Unoccupy sin haber iniciado asedio.
+  - Lo he creado y efectivamente ha fallado.
+  - He resuelto el test haciendo algo que se propuso en algún momento: preguntando al Terrain si está bajo asedio.

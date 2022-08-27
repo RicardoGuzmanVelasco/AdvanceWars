@@ -3,17 +3,21 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
-    public class Building : Terrain
+    public partial class Building : Terrain
     {
-        public Building(int siegePoints)
-        {
-            MaxSiegePoints = SiegePoints = siegePoints;
-        }
+        readonly int maxSiegePoints;
 
         public Building(int siegePoints, Nation owner) : this(siegePoints)
         {
             Motherland = owner;
         }
+
+        public Building(int siegePoints)
+        {
+            maxSiegePoints = SiegePoints = siegePoints;
+        }
+
+        public override bool IsUnderSiege => maxSiegePoints > SiegePoints;
 
         public override Building SiegeOutcome(Battalion besieger)
         {
@@ -22,22 +26,14 @@ namespace AdvanceWars.Runtime
             var resultPoints = Math.Max(0, SiegePoints - besieger.Platoons);
 
             return resultPoints == 0
-                ? new Building(MaxSiegePoints, besieger.Motherland)
+                ? new Building(maxSiegePoints, besieger.Motherland)
                 : new Building(resultPoints, Motherland);
         }
 
         public override void LiftSiege()
         {
-            SiegePoints = MaxSiegePoints;
+            Require(SiegePoints).LesserThan(maxSiegePoints);
+            SiegePoints = maxSiegePoints;
         }
-
-        #region Special Cases
-        internal static Building Unbesiegable { get; } = new UnbesiegableSpecialCase();
-
-        public class UnbesiegableSpecialCase : Building
-        {
-            public UnbesiegableSpecialCase() : base(int.MaxValue) { }
-        }
-        #endregion
     }
 }

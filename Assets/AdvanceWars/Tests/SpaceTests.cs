@@ -86,5 +86,17 @@ namespace AdvanceWars.Tests
 
             sut.IsBesiegable.Should().BeFalse();
         }
+
+        [Test]
+        public void anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding()
+        {
+            var sut = new Map.Space
+            {
+                Terrain = Building().Build()
+            };
+            sut.Occupy(Battalion().WithPlatoons(8).Build());
+
+            sut.Unoccupy();
+        }
     }
 }
