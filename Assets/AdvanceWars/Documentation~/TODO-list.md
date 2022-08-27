@@ -8,13 +8,11 @@
 - Duplicación espacios/bounds.
 
 - Hay un problema con los nullobjectpatterns.
-  - No puede/debe instanciarse más de un objecto del mismo NullOjectPattern.
+  - No puede/debe instanciarse más de un objecto del mismo NullObjectPattern.
     - Esto lo explica bien Martin Fowler en el PoEAA en el capítulo Special Case.
     - Eso se resuelve quitando operador => y poniendo {get;} =.
       - Aun así está fallando la igualdad a veces.
       - Ejemplo: BattalionNull vs BattalionNull.
-  
-- Hay que hacer builders aún de cosas como TheatreOps.
 
 - Redondear 0.05 los outcomes de ataques y tal.
 
@@ -22,9 +20,6 @@
   - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
-    
-- Renombrar Building por Property, respetando el diagarama.
-- Duplicación WhereIs(Batallion) en las maniobras. ¿Usar Space como parámetro en vez de un performer?
 
 ### Docs
 
