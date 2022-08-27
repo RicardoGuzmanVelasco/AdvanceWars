@@ -4,8 +4,13 @@
 
 ### Ricardo
 
+Trataré de leer todo muy rápido de inicio y luego ahondar en cada cosa.
+Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se avanza en los temas.
+
 - El proceso tiene un vacío. Propongo: cuando el último del ciclo termina, debería avisar al resto antes de que se haga la retro, para que estos tengan opción a leer cambios que no han visto y añadir lo que consideren a la retro.
   - Esto lo añadiré a Epistolary Programming Explained (Second Edition), no preocuparse.
+
+- Propongo repasar toda la lista de TODO para borrar aquello que haya quedado viejo o poco plausible (para eso está el control de versiones).
 
 - No creo que la documentación técnica haya que actualizarla exhaustivamente. Si acaso, de vez en cuando tras grandes features.
   - ¿Hacemos una carpeta solo para los diagramas, subcarpeta de documentación?
