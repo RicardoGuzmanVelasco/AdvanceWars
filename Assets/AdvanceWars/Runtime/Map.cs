@@ -66,7 +66,7 @@ namespace AdvanceWars.Runtime
         IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
         {
             Require(InsideBounds(coord)).True();
-            return coord.CoordsAdjacentsOf().Where(InsideBounds);
+            return coord.AdjacentsCoords().Where(InsideBounds);
         }
 
         bool InsideBounds(Vector2Int coord)

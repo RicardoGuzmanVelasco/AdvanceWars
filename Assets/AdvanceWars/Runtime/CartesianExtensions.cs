@@ -5,7 +5,7 @@ namespace AdvanceWars.Runtime
 {
     public static class CartesianExtensions
     {
-        public static IEnumerable<Vector2Int> CoordsAdjacentsOf(this Vector2Int from)
+        public static IEnumerable<Vector2Int> AdjacentsCoords(this Vector2Int from)
         {
             return new[]
             {
