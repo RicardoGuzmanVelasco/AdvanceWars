@@ -6,29 +6,31 @@
 - public space at
 - No debería de haber set en el terreno.
 - Duplicación espacios/bounds.
-- Hay un problema con los nullobjectpatterns.
 
+- Hay un problema con los nullobjectpatterns.
   - No puede/debe instanciarse más de un objecto del mismo NullOjectPattern.
     - Esto lo explica bien Martin Fowler en el PoEAA en el capítulo Special Case.
     - Eso se resuelve quitando operador => y poniendo {get;} =.
       - Aun así está fallando la igualdad a veces.
       - Ejemplo: BattalionNull vs BattalionNull.
   - También podríamos usar el INull que dice Fowler para resolver los == con is INull y tal.
+  
 - Hay que hacer builders aún de cosas como TheatreOps.
-- Redondear 0.05 los outcomes de ataques y tal.
-- Posible composición: teatro de operaciones se compone de espacio.
 
+- Redondear 0.05 los outcomes de ataques y tal.
+
+- Posible composición: teatro de operaciones se compone de espacio.
   - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
+    
 - Renombrar Building por Property, respetando el diagarama.
+- Duplicación WhereIs(Batallion) en las maniobras. ¿Usar Space como parámetro en vez de un performer?
+
+### Docs
+
 - Añadir maneuvers existentes al diagrama del modelo de dominio.
 - Separar diagrama del modelo de dominio en varios para mejorar legibilidad.
-- (Alejandro) Uso de Null pattern únicamente por conveniencia de los tests: Battalion, Map, Space, etc.
-- Clases parciales mezcladas con internas resulta confuso: Map y Space.
-- Duplicación WhereIs(Batallion) en las maniobras. ¿Usar Space como parámetro en vez de un performer?
-- No se debe poder levantar un asedio, si no se esta asediando.
-  - Añadir property que compruebe si está siendo asediado (puntos de asedio < puntos de asedio máximos)
 
 ### WIP
 
@@ -49,8 +51,6 @@
       - Player humano, player de la máquina que puede ser más o menos agresivo, tonto, etc.
   - Esto nos lleva a que ahora mismo hay una duplicidad muy rara y tonta en los test porque coincide nación con id y además ya coincide de por sí nación del batallón con la del player y blablablá.
     - Esa API se puede mejorar.
-- No se debería levantar un asedio cuando no se está asediando.
-  - Un batallón ocupante de un espacio con un edificio, siempre intenta levantar el asedio al salir.
 
 ### Riesgos
 
@@ -61,7 +61,8 @@
 
 ### Tests
 
-- No se puede levantar un asedio, si no se esta asediando.
+- No se puede levantar un asedio cuando no se está asediando.
+  - Un batallón ocupante de un espacio con un edificio, siempre intenta levantar el asedio al salir.
 
 ### Features para hacer
 
