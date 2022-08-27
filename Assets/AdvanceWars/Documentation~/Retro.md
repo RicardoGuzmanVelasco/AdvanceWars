@@ -56,3 +56,5 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 - (copiado de TODO list): Renombrar Building por Property, respetando el diagrama.
   - ¿Y si lo que se cambia es el diagrama y la noción de "tipo de edificio"?
   - A fin de cuentas, property fue un término que introdujimos nosotros. A la vista está que no cuajó en el imaginario del equipo.
+
+- Creo que Origin como rol de la táctica en la maniobra es un nombre desacertado. Todos nos hemos equivocado ya en diferentes ocasiones al ir al usarlo.
