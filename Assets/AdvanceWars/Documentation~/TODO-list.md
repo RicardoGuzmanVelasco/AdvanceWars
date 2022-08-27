@@ -8,11 +8,7 @@
 - Duplicación espacios/bounds.
 
 - Hay un problema con los nullobjectpatterns.
-  - No puede/debe instanciarse más de un objecto del mismo NullObjectPattern.
-    - Esto lo explica bien Martin Fowler en el PoEAA en el capítulo Special Case.
-    - Eso se resuelve quitando operador => y poniendo {get;} =.
-      - Aun así está fallando la igualdad a veces.
-      - Ejemplo: BattalionNull vs BattalionNull.
+  - Está fallando la igualdad a veces. Ejemplo: BattalionNull vs BattalionNull.
 
 - Redondear 0.05 los outcomes de ataques y tal.
 
@@ -21,8 +17,8 @@
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
     
-- Sacar abstracción [número máximo, número actual] (¿reutilizar gauge?)
-    - Es para el MAxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
+- Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
+    - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
 
 ### Docs
 

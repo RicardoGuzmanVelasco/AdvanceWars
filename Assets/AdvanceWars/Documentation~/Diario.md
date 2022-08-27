@@ -23,13 +23,16 @@
 
 ## Ricardo
 
+Duración: ~3h.
+
 ### Intenciones
 
 - [X]  Lo primero, voy a ordenar la lista de cosas por hacer, porque veo cosas duplicadas y fuera de sitio.
 - [x]  Voy a crear un documento con dos propósitos:
-  - almacenar aquello que cada persona quiera aportar a la retro;
-  - almacenar aquello que cada persona quiera que se discuta en las reuniones de diseño;
-- [ ]  Quiero revisar el código nuevo a partir de su test hasta saber si debo o no añadir más casos de testing.
+- almacenar aquello que cada persona quiera aportar a la retro;
+- almacenar aquello que cada persona quiera que se discuta en las reuniones de diseño;
+- [x]  Quiero revisar el código nuevo a partir de su test
+  - [ ] hasta saber si debo o no añadir más casos de testing.
 - [x]  Antes de ello me gustaría reducir inventario de refactoring.
 - [ ]  Trataré de revisar la documentación y acercarla al código.
 
@@ -47,3 +50,6 @@
   - Eso me ha llevado a pensar que nos faltan test donde se use Unoccupy sin haber iniciado asedio.
   - Lo he creado y efectivamente ha fallado.
   - He resuelto el test haciendo algo que se propuso en algún momento: preguntando al Terrain si está bajo asedio.
+- He dejado para el final lo de la documentación para no hacer trabajo en balde y al final no me ha dado tiempo.
+- Aunque he revisado el código que se añadió, no he llegado a profundizar en sobre si añadir o no más casos de test.
+  - A fin de cuentas, como vosotros veríais en el día 0, todo está delegado a otras clases y por tanto se supone que a otros test.
