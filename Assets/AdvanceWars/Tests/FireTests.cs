@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using static AdvanceWars.Tests.Builders.TheaterOpsBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Battalion = AdvanceWars.Runtime.Battalion;
 
@@ -123,7 +124,6 @@ namespace AdvanceWars.Tests
         {
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
             var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
-
             var sut = new Offensive
             (
                 attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
@@ -136,11 +136,14 @@ namespace AdvanceWars.Tests
         [Test]
         public void CombatHasOutcomesForAttackAndCounterAttack()
         {
-            var attacking = new TheaterOps(
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithWeapon(Weapon().Build()).Build());
-            var defending = new TheaterOps(battlefield: Terrain().Build(), troop: Battalion().Build());
-            var sut = new Combat(attacking, defending);
+            var atk = TheaterOps().Who
+            (
+                Battalion().WithWeapon
+                (
+                    Weapon().Build()
+                ).Build()
+            ).Build();
+            var sut = new Combat(atk, def: TheaterOps().Build());
 
             var result = sut.PredictOutcome();
 
@@ -151,25 +154,11 @@ namespace AdvanceWars.Tests
         [Test]
         public void CombatWithVanisherAttacker_HasNullDefenderOutcome()
         {
-            var attacking = new TheaterOps
-            (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithWeapon
-                (
-                    Weapon().MaxDmgTo("DefenderArmor").Build()
-                ).Build()
-            );
-
-            var defending = new TheaterOps
-            (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithArmor("DefenderArmor").Build()
-            );
-
+            var defending = TheaterOps().Build();
+            var attacking = TheaterOps().WithVanisherOf(defending).Build();
             var sut = new Combat(attacking, defending);
 
             var result = sut.PredictOutcome();
-
             result.Atk.Should().NotBe(Battalion.Null);
             result.Def.Should().Be(Battalion.Null);
         }
@@ -177,75 +166,39 @@ namespace AdvanceWars.Tests
         [Test]
         public void CombatWithNotVanisherAttacker_HasNotNullDefenderOutcome()
         {
-            //Arrange
-            var attacking = new TheaterOps
+            var sut = new Combat
             (
-                battlefield: Terrain().Build(),
-                troop: Battalion().Build()
+                atk: TheaterOps().Build(),
+                def: TheaterOps().Who(Battalion().WithArmor("aGoodArmor!").Build()).Build()
             );
 
-            var defending = new TheaterOps
-            (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithArmor("DefenderArmor").Build()
-            );
-
-            var sut = new Combat(attacking, defending);
-
-            //Act
             var result = sut.PredictOutcome();
 
-            //Assert
             result.Def.Should().NotBe(Battalion.Null);
         }
 
         [Test]
         public void CombatWithVanisherDefender_HasNullAttackerOutcome()
         {
-            //Arrange
-            var attacking = new TheaterOps
-            (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithArmor("Atk").Build()
-            );
+            var atk = TheaterOps().Build();
+            var sut = new Combat(atk, def: TheaterOps().WithVanisherOf(atk).Build());
 
-            var defending = new TheaterOps
-            (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithWeapon(Weapon().MaxDmgTo("Atk").Build()).Build()
-            );
-
-            var sut = new Combat(attacking, defending);
-
-            //Act
             var result = sut.PredictOutcome();
 
-            //Assert
             result.Atk.Should().Be(Battalion.Null);
         }
 
         [Test]
         public void CombatWithNotVanisherDefender_HasNotNullDefenderOutcome()
         {
-            //Arrange
-            var attacking = new TheaterOps
+            var sut = new Combat
             (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithArmor("Atk").Build()
+                atk: TheaterOps().Who(Battalion().WithArmor("aGoodArmor!").Build()).Build(),
+                def: TheaterOps().Who(Battalion().WithArmor("alsoGoodArmor!").Build()).Build()
             );
 
-            var defending = new TheaterOps
-            (
-                battlefield: Terrain().Build(),
-                troop: Battalion().WithArmor("DefenderArmor").Build()
-            );
-
-            var sut = new Combat(attacking, defending);
-
-            //Act
             var result = sut.PredictOutcome();
 
-            //Assert
             result.Atk.Should().NotBe(Battalion.Null);
         }
 

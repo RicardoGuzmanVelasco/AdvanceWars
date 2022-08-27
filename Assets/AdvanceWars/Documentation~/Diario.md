@@ -26,11 +26,11 @@
 ### Intenciones
 
 - [X]  Lo primero, voy a ordenar la lista de cosas por hacer, porque veo cosas duplicadas y fuera de sitio.
-- [ ]  Voy a crear un documento con dos propósitos:
+- [x]  Voy a crear un documento con dos propósitos:
   - almacenar aquello que cada persona quiera aportar a la retro;
   - almacenar aquello que cada persona quiera que se discuta en las reuniones de diseño;
 - [ ]  Quiero revisar el código nuevo a partir de su test hasta saber si debo o no añadir más casos de testing.
-- [ ]  Antes de ello me gustaría reducir inventario de refactoring.
+- [x]  Antes de ello me gustaría reducir inventario de refactoring.
 - [ ]  Trataré de revisar la documentación y acercarla al código.
 
 ### Conclusiones

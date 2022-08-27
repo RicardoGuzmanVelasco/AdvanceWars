@@ -13,7 +13,6 @@
     - Eso se resuelve quitando operador => y poniendo {get;} =.
       - Aun así está fallando la igualdad a veces.
       - Ejemplo: BattalionNull vs BattalionNull.
-  - También podríamos usar el INull que dice Fowler para resolver los == con is INull y tal.
   
 - Hay que hacer builders aún de cosas como TheatreOps.
 
