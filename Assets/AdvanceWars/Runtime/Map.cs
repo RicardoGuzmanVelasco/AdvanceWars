@@ -78,9 +78,9 @@ namespace AdvanceWars.Runtime
         }
 
         [CanBeNull]
-        public virtual Space WhereIs(Allegiance battalion)
+        public virtual Space WhereIs(Allegiance what)
         {
-            return spaces.Values.SingleOrDefault(x => x.Occupant == battalion);
+            return spaces.Values.SingleOrDefault(x => x.Occupant == what);
         }
 
         Vector2Int CoordOf([NotNull] Space space)

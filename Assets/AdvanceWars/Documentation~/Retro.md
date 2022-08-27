@@ -15,7 +15,11 @@
   - Líneas fuera de categoría.
 - Discusión propuesta respecto a convenir el formato del diario.
   - Yo creo que está bien como está y que no debe usarse para mucho más que eso. Por evitar burocracia que no queremos.
+- Me resulta curioso cómo pueden diferir las estrategias del NullObjectPattern.Por ejemplo:
+  - en clases y records a veces se crea caso especial hijo y otras (Unit, Terrain, v. g.) se construye en factory method con valores por defecto sin más.
+  - en structs como MovRate o Propulsion lo hemos hecho con valores distintos ya que una es un int = 0 (su default) y otra con string = empty (su default sería el nulo).
 
+- Hay una charla rica a este respecto: si se usa intensivamente diseño por contrato ¿pierde fuerza el NullObjectPattern?
 ## Diseño
 
 ### Ricardo

@@ -18,7 +18,7 @@ namespace AdvanceWars.Runtime
 
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Allegiance battalion)
         {
-            Require(battalion.Equals(Battalion.Null)).False();
+            Require(battalion is INull).False();
 
             if(!battalion.IsAlly(this))
                 return Enumerable.Empty<Tactic>();

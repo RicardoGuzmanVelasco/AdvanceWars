@@ -7,9 +7,13 @@
             Id = propulsionId;
         }
 
-        public string Id { get; }
         public static Propulsion None => new Propulsion("");
 
-        public override string ToString() => $"{Id}";
+        string Id { get; }
+
+        public override string ToString()
+        {
+            return this.Equals(None) ? "None" : $"{Id}";
+        }
     }
 }

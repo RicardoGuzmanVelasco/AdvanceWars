@@ -10,7 +10,7 @@ namespace AdvanceWars.Runtime
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
 
-            public bool IsOccupied => Occupant != Battalion.Null;
+            public bool IsOccupied => Occupant is not INull;
 
             public virtual bool IsBesiegable
             {

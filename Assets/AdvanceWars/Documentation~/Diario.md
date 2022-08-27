@@ -32,3 +32,13 @@
 - [ ]  Quiero revisar el código nuevo a partir de su test hasta saber si debo o no añadir más casos de testing.
 - [ ]  Antes de ello me gustaría reducir inventario de refactoring.
 - [ ]  Trataré de revisar la documentación y acercarla al código.
+
+### Conclusiones
+
+- He dudado si funcionaría la precondición del ctor de TheaterOps con Terrain.
+  - He escrito un test de regresión de prueba y sin embargo no saltaba el rojo.
+  - Se debía a haber usado el flightweight para el Terrain.Null, como decía Fowler.
+  - ¡Ole!
+- Me he planteado si, en el constructor de Offensive, no será mejor relegar al cliente que el atacante no sea nulo.
+  - Eso facilitaba el contrato, que quedaría con dos precondiciones claras.
+  - Sin embargo parece una API muy straightforward tal como está (null no hace daño), así que lo he dejado así. 

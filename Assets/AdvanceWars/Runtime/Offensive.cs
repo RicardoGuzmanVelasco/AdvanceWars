@@ -10,9 +10,14 @@ namespace AdvanceWars.Runtime
         readonly Battalion defender;
         readonly Terrain battlefield;
 
-        public Offensive([NotNull] Battalion attacker, [NotNull] Battalion defender, Terrain battlefield = null)
+        public Offensive
+        (
+            [NotNull] Battalion attacker,
+            [NotNull] Battalion defender,
+            [CanBeNull] Terrain battlefield = null
+        )
         {
-            Require(attacker.Equals(Battalion.Null) || !attacker.Equals(defender)).True();
+            Require(attacker is INull || !attacker.Equals(defender)).True();
             battlefield ??= Terrain.Null;
 
             this.battlefield = battlefield;
@@ -33,7 +38,7 @@ namespace AdvanceWars.Runtime
 
         public Battalion Outcome()
         {
-            if(attacker.Equals(Battalion.Null))
+            if(attacker is INull)
                 return defender.Clone();
 
             var resultForces = defender.Forces - Damage;
