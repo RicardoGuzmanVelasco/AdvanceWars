@@ -46,6 +46,7 @@ namespace AdvanceWars.Runtime
                 Require(IsOccupied).True();
 
                 Occupant = Battalion.Null;
+                
                 if(Terrain.IsUnderSiege)
                     Terrain.LiftSiege();
             }

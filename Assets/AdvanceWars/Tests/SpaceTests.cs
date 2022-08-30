@@ -88,13 +88,13 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding()
+        public void anEnemyOccupant_Leaves_WithoutStartingAnySiege_OverTheBuilding()
         {
             var sut = new Map.Space
             {
                 Terrain = Building().Build()
             };
-            sut.Occupy(Battalion().WithPlatoons(8).Build());
+            sut.Occupy(Battalion().Build());
 
             sut.Unoccupy();
         }
