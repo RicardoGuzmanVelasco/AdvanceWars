@@ -68,3 +68,4 @@ Duración:
 ### Conclusiones
 
 - Añado a `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding` un Should().NotThrow<Exception>() para declarar intencionalidad y evitar futuras confusiones.
+- La precondición sobre IsUnderSiege es redundante, ya que ya no se muestra como disponible la Tactic de Asediar. La dejo por cuestiones comunicativas.

@@ -186,7 +186,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void CommandingOfficer_OrdersManouvers()
+        public void CommandingOfficer_OrdersManeuvers()
         {
             var sut = CommandingOfficer().WithNation("aNation").Build();
             var battalion = Battalion().WithNation("aNation").Build();
