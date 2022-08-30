@@ -1,4 +1,5 @@
 ﻿using System;
+using RGV.DesignByContract.Runtime;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
@@ -17,7 +18,15 @@ namespace AdvanceWars.Runtime
             maxSiegePoints = SiegePoints = siegePoints;
         }
 
-        public override bool IsUnderSiege => maxSiegePoints > SiegePoints;
+        public override bool IsUnderSiege
+        {
+            get
+            {
+                Require(this.Equals(new UnbesiegableSpecialCase())).False();
+                
+                return maxSiegePoints > SiegePoints;
+            }
+        }
 
         public override Building SiegeOutcome(Battalion besieger)
         {

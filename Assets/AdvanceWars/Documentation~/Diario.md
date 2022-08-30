@@ -62,7 +62,7 @@ Duración:
 
 - [ ] Mergear Batallones.
 - [x] Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
-- [ ] Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
+- [x] Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
   - La definición de un Building como Unbesiegable de que `maxSiegePoints == int.MaxValue` no cumple con la query `IsUnderSiege => maxSiegePoints > SiegePoints;`
 
 ### Conclusiones
