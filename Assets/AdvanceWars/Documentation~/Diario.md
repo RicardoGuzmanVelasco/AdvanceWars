@@ -53,3 +53,16 @@ Duración: ~3h.
 - He dejado para el final lo de la documentación para no hacer trabajo en balde y al final no me ha dado tiempo.
 - Aunque he revisado el código que se añadió, no he llegado a profundizar en sobre si añadir o no más casos de test.
   - A fin de cuentas, como vosotros veríais en el día 0, todo está delegado a otras clases y por tanto se supone que a otros test.
+
+# Alejandro
+
+Duración:
+
+### Intenciones
+
+- [ ] Mergear Batallones.
+- [ ] Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
+- [ ] Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
+  - La definición de un Building como Unbesiegable de que `maxSiegePoints == int.MaxValue` no cumple con la query `IsUnderSiege => maxSiegePoints > SiegePoints;`
+
+### Conclusiones
