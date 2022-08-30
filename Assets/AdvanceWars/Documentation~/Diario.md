@@ -56,16 +56,17 @@ Duración: ~3h.
 
 # Alejandro
 
-Duración:
+Duración: ~3h.
 
 ### Intenciones
 
-- [ ] Mergear Batallones.
 - [x] Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
 - [x] Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
   - La definición de un Building como Unbesiegable de que `maxSiegePoints == int.MaxValue` no cumple con la query `IsUnderSiege => maxSiegePoints > SiegePoints;`
+- [ ] Mergear Batallones.
 
 ### Conclusiones
 
 - Añado a `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding` un Should().NotThrow<Exception>() para declarar intencionalidad y evitar futuras confusiones.
 - La precondición sobre IsUnderSiege es redundante, ya que ya no se muestra como disponible la Tactic de Asediar. La dejo por cuestiones comunicativas.
+- He mirado lo de mergear Batallones, pero en el de GBA no he visto tal mecánica; me falta conocimiento del dominio. Habría que definir esto.

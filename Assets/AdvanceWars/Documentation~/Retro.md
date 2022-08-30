@@ -58,3 +58,7 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
   - A fin de cuentas, property fue un término que introdujimos nosotros. A la vista está que no cuajó en el imaginario del equipo.
 
 - Creo que Origin como rol de la táctica en la maniobra es un nombre desacertado. Todos nos hemos equivocado ya en diferentes ocasiones al ir al usarlo.
+
+### Alejandro
+
+- ¿Leer la correspondencia que recibes entra dentro de la Duración?
