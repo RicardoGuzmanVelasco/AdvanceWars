@@ -26,6 +26,22 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
+        public void SiegeTacticIsNotAvailable_ForUnbesiegableBuildings()
+        {
+            var unbesiegableBuilding = new Building.UnbesiegableSpecialCase();
+            var battalion = Battalion().Build();
+
+            var map = new Map(1, 1);
+            map.Put(Vector2Int.zero, unbesiegableBuilding);
+            map.Put(Vector2Int.zero, battalion);
+
+            var sut = CommandingOfficer().WithMap(map).Build();
+
+            sut.AvailableTacticsOf(battalion)
+                .Should().NotContain(Tactic.Siege);
+        }
+
+        [Test]
         public void SiegeTacticIsNotAvailable_WhenBuildingIsNotBesiegableByBattalion()
         {
             var battalion = Battalion().WithNation("sameNation").Build();
@@ -53,9 +69,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            var maneuver = Maneuver.Siege(battalion);
-
-            sut.Order(maneuver);
+            sut.Order(Maneuver.Siege(battalion));
 
             building.SiegePoints
                 .Should().Be(19);

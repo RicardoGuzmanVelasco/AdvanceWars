@@ -20,12 +20,14 @@ namespace AdvanceWars.Runtime
         {
             Require(battalion is INull).False();
 
-            if(!battalion.IsAlly(this))
+            if(!battalion.IsAlly(this) || HasAlready(battalion, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
+            
+            var availableTactics = TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
 
-            return HasAlready(battalion, Tactic.Wait)
-                ? Enumerable.Empty<Tactic>()
-                : TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
+            return !map.WhereIs(battalion)!.IsBesiegable 
+                ? availableTactics.Except(new List<Tactic> { Tactic.Siege }) 
+                : availableTactics;
         }
 
         bool HasAlready(Allegiance battalion, Tactic tactic)
