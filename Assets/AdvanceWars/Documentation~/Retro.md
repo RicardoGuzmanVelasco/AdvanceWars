@@ -27,6 +27,11 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
   - en clases y records a veces se crea caso especial hijo y otras (Unit, Terrain, v. g.) se construye en factory method con valores por defecto sin más.
   - en structs como MovRate o Propulsion lo hemos hecho con valores distintos ya que una es un int = 0 (su default) y otra con string = empty (su default sería el nulo).
 
+- A propósito del tema NullObjectPattern tras la sesión de Alejando:
+  - Se ha usado de una manera que, además de (en mi opinión) no ser correcta, difiere del uso que se ha dado en el resto de lugares.
+    - Se trata de mantener público el caso especial Unbesiegable y sobreescribir su igualdad.
+    - En lugar de no exponer esa clase y hacer flightweight su factory method a través de la clase que la contiene.
+
 - Al respecto del problema para separar entre aliado y propio,
   - creo que es una muy buena puntualización;
   - sin embargo, como se dice, creo que es algo a obviar salvo, y solo salvo, por la mecánica de los "bandos".
