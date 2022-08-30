@@ -1,4 +1,5 @@
-﻿using AdvanceWars.Runtime;
+﻿using System;
+using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
@@ -96,7 +97,9 @@ namespace AdvanceWars.Tests
             };
             sut.Occupy(Battalion().Build());
 
-            sut.Unoccupy();
+            Action sutInvocation = () => sut.Unoccupy();
+
+            sutInvocation.Should().NotThrow<Exception>();
         }
     }
 }

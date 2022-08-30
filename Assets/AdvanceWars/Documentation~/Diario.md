@@ -61,8 +61,10 @@ Duración:
 ### Intenciones
 
 - [ ] Mergear Batallones.
-- [ ] Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
+- [x] Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
 - [ ] Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
   - La definición de un Building como Unbesiegable de que `maxSiegePoints == int.MaxValue` no cumple con la query `IsUnderSiege => maxSiegePoints > SiegePoints;`
 
 ### Conclusiones
+
+- Añado a `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding` un Should().NotThrow<Exception>() para declarar intencionalidad y evitar futuras confusiones.
