@@ -93,5 +93,5 @@ Duración: 3h
 * Creo que se podria mover la comprobacion si una tactica es posible para un batallon del commanding officer a la tactica. Aunque no lo he hecho por falta de tiempo
 * No me ha dado tiempo a exponer la Unit en Batallion.
 * Se me ha alargado más de lo que pensaba el rango de ataque por la parte de las maniobras, lo subestimé
-* Se ha dejado un test en rojo que comprueba que un Battalion sin arma puede recibir una orden de disparo.
+* Se ha dejado un test en rojo que comprueba que un Battalion sin arma puede recibir una orden de disparo. Probablemente cuando se arregle este test, peten unos cuantos mas, pero habra que definirles el arma. => Cosa que me hace pensar que el rango es del arma? Todavia no lo tengo claro
 * Como he puesto en la parte de la retro, no entiendo la duplicidad de archivos
