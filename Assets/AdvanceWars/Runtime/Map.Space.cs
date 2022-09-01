@@ -16,10 +16,7 @@ namespace AdvanceWars.Runtime
             {
                 get
                 {
-                    Require(Terrain is Building).True();
-                    
-                    return !(Terrain as Building)!.Equals(new Building.UnbesiegableSpecialCase())
-                        && !Terrain.IsAlly(Occupant);
+                    return Terrain is Building building && !building.Equals(new Building.UnbesiegableSpecialCase()) && !building.IsAlly(Occupant);
                 }
             }
 
