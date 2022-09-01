@@ -2,6 +2,7 @@
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
+using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.TheaterOpsBuilder;
@@ -214,6 +215,62 @@ namespace AdvanceWars.Tests
         {
             var sut = new Offensive(Battalion.Null, Battalion.Null);
             sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
+        }
+
+        
+        // O X O 
+        // X B X 
+
+        [Test]
+        public void Map_RangeOfFire_WithRangeOne()
+        {
+            var sut = new Map(3, 2);
+            var result = sut.RangeOfFire(new Vector2Int(1, 0), 1);
+            result.Should().BeEquivalentTo(new Vector2Int[]
+            {
+                Vector2Int.zero, 
+                new Vector2Int(2, 0),
+                Vector2Int.one,  
+            });
+        }
+        
+        
+        // O O X O O
+        // O X X X O
+        // X X B X X
+        // O X X X O
+        // O O X O O
+        [Test]
+        public void Map_RangeOfFire_WithRangeTwo()
+        {
+            var sut = new Map(5, 5);
+            var result = sut.RangeOfFire(new Vector2Int(2, 2), 2);
+            result.Should().BeEquivalentTo(new Vector2Int[]
+            {
+                new Vector2Int(2, 0),
+                new Vector2Int(1, 1),
+                new Vector2Int(2, 1),
+                new Vector2Int(3, 1),
+                new Vector2Int(0, 2),
+                new Vector2Int(1, 2),
+                new Vector2Int(3, 2),
+                new Vector2Int(4, 2),
+                new Vector2Int(1, 3),
+                new Vector2Int(2, 3),
+                new Vector2Int(3, 3),
+                new Vector2Int(2, 4),
+            });
+        }
+
+        [Test]
+        public void Map_RangeOfFire_WithMinRangeTwo_andMaxRangeTwo()
+        {
+            var sut = new Map(1, 3);
+            var result = sut.RangeOfFire(new Vector2Int(0, 0), 2, 2);
+            result.Should().BeEquivalentTo(new Vector2Int[]
+            {
+                new Vector2Int(0, 2)
+            });
         }
     }
 }

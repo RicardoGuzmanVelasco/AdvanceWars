@@ -10,6 +10,7 @@ namespace AdvanceWars.Runtime
     public partial record Map(int SizeX, int SizeY)
     {
         readonly LazyBoard<Space> spaces = new LazyBoard<Space>();
+        private IEnumerable<Vector2Int> newCoords;
 
         public void Put(Vector2Int coord, Battalion battalion)
         {
@@ -86,6 +87,37 @@ namespace AdvanceWars.Runtime
         Vector2Int CoordOf([NotNull] Space space)
         {
             return spaces.CoordsOf(space);
+        }
+
+        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, uint maxRange)
+        {
+            return RangeOfFire(from, 0, maxRange);
+        }
+
+        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, uint minRange, uint maxRange)
+        {
+            var coordsInsideMaxRange = new List<Vector2Int>();
+            var coordsOutsideMinRange = new List<Vector2Int>();
+
+            coordsInsideMaxRange.Add(from);
+            for(int i = 1; i <= maxRange; i++)
+            {
+                var currentRangeCoords = new List<Vector2Int>();
+                foreach(var coords in coordsInsideMaxRange)
+                {
+                    currentRangeCoords.AddRange(AdjacentsOf(coords));
+                }
+
+                newCoords = currentRangeCoords.Where(x => !coordsInsideMaxRange.Contains(x));
+                
+                if (i < minRange)
+                {
+                    coordsOutsideMinRange.AddRange(newCoords);
+                }
+                coordsInsideMaxRange.AddRange(newCoords);
+            }
+
+            return coordsInsideMaxRange.Where(x => x != from && !coordsOutsideMinRange.Contains(x));
         }
     }
 }

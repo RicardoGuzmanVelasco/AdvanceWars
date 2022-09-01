@@ -28,12 +28,14 @@ Duración: ~3h.
 ### Intenciones
 
 - [X]  Lo primero, voy a ordenar la lista de cosas por hacer, porque veo cosas duplicadas y fuera de sitio.
-- [x]  Voy a crear un documento con dos propósitos:
+- [X]  Voy a crear un documento con dos propósitos:
+
 - almacenar aquello que cada persona quiera aportar a la retro;
 - almacenar aquello que cada persona quiera que se discuta en las reuniones de diseño;
-- [x]  Quiero revisar el código nuevo a partir de su test
-  - [ ] hasta saber si debo o no añadir más casos de testing.
-- [x]  Antes de ello me gustaría reducir inventario de refactoring.
+
+- [X]  Quiero revisar el código nuevo a partir de su test
+  - [ ]  hasta saber si debo o no añadir más casos de testing.
+- [X]  Antes de ello me gustaría reducir inventario de refactoring.
 - [ ]  Trataré de revisar la documentación y acercarla al código.
 
 ### Conclusiones
@@ -60,13 +62,27 @@ Duración: ~3h.
 
 ### Intenciones
 
-- [x] Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
-- [x] Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
+- [X]  Revisar `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding`: no tiene aserciones.
+- [X]  Revisar que un UnbesiegableBuilding no puede ser, efectivamente, asediable.
   - La definición de un Building como Unbesiegable de que `maxSiegePoints == int.MaxValue` no cumple con la query `IsUnderSiege => maxSiegePoints > SiegePoints;`
-- [ ] Mergear Batallones.
+- [ ]  Mergear Batallones.
 
 ### Conclusiones
 
 - Añado a `anEnemyOccupant_Leaves_WithoutStartAnySiege_OverTheBuilding` un Should().NotThrow<Exception>() para declarar intencionalidad y evitar futuras confusiones.
 - La precondición sobre IsUnderSiege es redundante, ya que ya no se muestra como disponible la Tactic de Asediar. La dejo por cuestiones comunicativas.
 - He mirado lo de mergear Batallones, pero en el de GBA no he visto tal mecánica; me falta conocimiento del dominio. Habría que definir esto.
+
+# Culo
+
+Duración:
+
+### Intenciones
+
+- [ ]  No exponer Unit en Batallion
+- [ ]  La orden de disparar no aparece si la unidad no tiene armas.
+- [ ]  Hacer rango de ataque y condición de poder realizar maniobra de ataque
+
+  - [ ]  Preveo que va a haber mucha responsabilidad en el Commanding Officer para comprobar si una táctica es válida o no. A lo mejor ese comportamiento puede ser de la Táctica.
+
+### Conclusiones

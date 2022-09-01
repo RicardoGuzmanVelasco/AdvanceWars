@@ -6,19 +6,18 @@
 - public space at
 - No debería de haber set en el terreno.
 - Duplicación espacios/bounds.
-
 - Hay un problema con los nullobjectpatterns.
+
   - Está fallando la igualdad a veces. Ejemplo: BattalionNull vs BattalionNull.
-
 - Redondear 0.05 los outcomes de ataques y tal.
-
 - Posible composición: teatro de operaciones se compone de espacio.
+
   - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
     - Se gana en semántica y en acercamiento al dominio.
     - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
-    
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
-    - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
+
+  - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
 
 ### Docs
 
@@ -28,6 +27,7 @@
 ### WIP
 
 * Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
+* No tenemos definido el comportamiento de que una unidad no tenga un arma.
 
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
