@@ -42,6 +42,26 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 - La confianza al tirar los test de que no he roto nada vuestro que desconozco (o nuestro anterior que sí conozco) es EXTREMA. ¡¡¡!!!
 - Hay una charla rica: si se usa intensivamente diseño por contrato ¿pierde fuerza el NullObjectPattern?
 
+
+- Creo que la idea de representar el tablero mediante comentarios es muy buena pero ¡se puede aprovechar pa hacer un builder con ella! 
+  - Es algo que Luis hizo en el tic-tac-toe y me reventó la cabeza, me parece genial.
+  - En C# se haría con las verbatim strings estas que saltan de línea, @"".
+- Creo que en las tácticas no debería ir la decisión sobre cuándo una táctica es potencialmente disponible o no.
+  - Porque la táctica tiene naturaleza de tipo y además va a tener que recibir muchos datos no-por-constructor.
+  - Porque va a dificultar bastante el uso de las tácticas, imho.
+  - Sí que me parece buena idea sacarlo a algún sitio X.
+- El uso de uint para marcar invariante de no negativo me pareció una buena idea en su momento pero lo acabé descartando.
+  - Incluso Microsoft, con sus dos..., lo mencionaba en un artículo de su blog. Pero no sé dónde lo vi.
+  - Decían que el convenio tácito es tan de usar int sin más, que lo desaconsejaban para invariantes y lo dejaban solo para una cuestión de rendimiento, red y demás.
+  - Además, en Unity en concreto se da esta problemática del convenio tácito porque esas clases ni serializan entonces vas a tener que estar haciendo moldes desde int y tal todo el rato.
+  - Cuando yo lo intenté (en el trabajo) fue por eso por lo que lo acabé descartando. Incomodas con esa API porque la haces aparatosa para el cliente.
+- Existen precondiciones de comparables (mayor que, menor o igual...).
+
+- Diferencia entre retro y conclusiones:
+  - Pretendía que las conclusiones fueran un comentario a las propias intenciones de uno mismo al empezar la sesión.
+  - A la retro van cosas más generales para mejorar el proceso o el conocimiento tribal.
+- Cuestión de dominio: ¿no es el rango de disparo, como el de movimiento, igual en las dos dimensiones?
+
 ### Culo
 
 ## Diseño
@@ -68,6 +88,10 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
   - ¿Y si lo que se cambia es el diagrama y la noción de "tipo de edificio"?
   - A fin de cuentas, property fue un término que introdujimos nosotros. A la vista está que no cuajó en el imaginario del equipo.
 - Creo que Origin como rol de la táctica en la maniobra es un nombre desacertado. Todos nos hemos equivocado ya en diferentes ocasiones al ir al usarlo.
+- No entiendo qué son newCoordinates en un mapa (quiero indirectamente decir que debemos mejorar el nombre).
+- Sacar métodos como CoordsInsideRange de mapa (son extensiones matemáticas puras).
+- MinMaxRange en el ataque de la unidad es un intervalo.
+- Precondición al rango de fuego de un batallón por si no está en el mapa ¿no?
 
 ### Alejandro
 
