@@ -96,6 +96,9 @@ namespace AdvanceWars.Runtime
 
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int minRange, int maxRange)
         {
+            Require(minRange <= maxRange).True();
+            Require(maxRange >= 1).True();
+            
             var coordsOutsideMinRange = CoordsInsideRange(from, minRange - 1);
 
             var coordsInsideMaxRange = CoordsInsideRange(from, maxRange);
