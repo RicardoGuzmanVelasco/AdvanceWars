@@ -140,5 +140,20 @@ namespace AdvanceWars.Tests
         
             sut.AvailableTacticsOf(allyBattalion).Should().NotContain(Tactic.Fire);
         }
+
+        [Test]
+        public void CanNotFire_WhenDoesNotHaveAWeapon()
+        {
+            var allyBattalion = Battalion().WithNation("ally").WithWeapon(Weapon.Null).WithPlatoons(1).WithRange(1, 1).Build();
+            var enemyBattalion = Battalion().WithNation("enemy").WithPlatoons(1).Build();
+        
+            var map = new Map(1, 2);
+            map.Put(Vector2Int.zero, allyBattalion);
+            map.Put(Vector2Int.up, enemyBattalion);
+        
+            var sut = CommandingOfficer().WithNation("enemy").WithMap(map).Build();
+        
+            sut.AvailableTacticsOf(allyBattalion).Should().NotContain(Tactic.Fire);
+        }
     }
 }
