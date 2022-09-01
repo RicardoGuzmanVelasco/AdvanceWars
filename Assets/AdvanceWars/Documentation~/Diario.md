@@ -89,6 +89,7 @@ Duración: 3h
 
 * No me gusta como se ha quedado un test de rango de disparo. Me gustaría ver cómo lo haríais.
 * El commanding officer estaba comprobando 2 veces si la casilla era besiegable, lo añadió Ricardo, a qué se debe eso? Al quitar la comprobación no peta ningún test.
+  * Responde Ricardo: creo que te refieres al commit 48ff016bc4d1929804056aa0dbc761d4cb3b1f5b; no es mío. Antes había que no hubiese esperado ya.
 * Se ha definido como rango minimo y maximo 1 por defecto en el unit builder. Petaba una precondicion en la comprobacion de un test de si se podia asediar o no.
 * Creo que se podria mover la comprobacion si una tactica es posible para un batallon del commanding officer a la tactica. Aunque no lo he hecho por falta de tiempo
 * No me ha dado tiempo a exponer la Unit en Batallion.
