@@ -111,7 +111,7 @@ namespace AdvanceWars.Runtime
             return coordsInsideMaxRange.Where(x => x != from && !coordsOutsideMinRange.Contains(x));
         }
 
-        private List<Vector2Int> CoordsInsideRange(Vector2Int from, int range)
+        private IEnumerable<Vector2Int> CoordsInsideRange(Vector2Int from, int range)
         {
             var coordsInsideRange = new List<Vector2Int> {from};
 
