@@ -86,3 +86,6 @@ Duración:
   - [ ]  Preveo que va a haber mucha responsabilidad en el Commanding Officer para comprobar si una táctica es válida o no. A lo mejor ese comportamiento puede ser de la Táctica.
 
 ### Conclusiones
+
+* No me gusta como se ha quedado un test de rango de disparo. Me gustaría ver cómo lo haríais.
+*

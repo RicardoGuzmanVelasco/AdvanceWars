@@ -12,6 +12,8 @@ namespace AdvanceWars.Runtime
 
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
+        public int MinRange => Unit.MinRange;
+        public int MaxRange => Unit.MaxRange;
 
         public int BaseDamageTo(Armor other)
         {

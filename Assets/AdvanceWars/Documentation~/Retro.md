@@ -79,3 +79,6 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 * Habría que mover los tests del mapa al una clase tests de mapa
 * No entiendo qué va en la parte de la retro y qué parte en conclusiones, no es lo mismo?
 * Refactor: Duplicidad entre RangeOfFire y RangeOfMovement?
+* MinRange - MaxRange vs RangeeOfFire
+* Refactor: Crear Range con min y max value para que la unit no tenga 2 enteros.
+* Refactor: Borrar overload de RangeOfFire que solo tiene maxRange?

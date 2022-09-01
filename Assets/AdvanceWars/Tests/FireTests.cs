@@ -272,5 +272,19 @@ namespace AdvanceWars.Tests
                 new Vector2Int(0, 2)
             });
         }
+        
+        [Test]
+        public void RangeOfFireOfBattalion()
+        {
+            var sut = new Map(1, 3);
+            var battalion = Battalion().WithRange(2, 2).Build();
+            
+            sut.Put(Vector2Int.zero, battalion);
+            var result = sut.RangeOfFire(battalion);
+            result.Should().BeEquivalentTo(new Vector2Int[]
+            {
+                new Vector2Int(0, 2)
+            });
+        }
     }
 }

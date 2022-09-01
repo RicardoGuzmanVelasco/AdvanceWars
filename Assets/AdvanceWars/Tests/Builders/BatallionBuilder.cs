@@ -72,6 +72,12 @@ namespace AdvanceWars.Tests.Builders
             fromUnit.With(weapon);
             return this;
         }
+        
+        public BattalionBuilder WithRange(int minRange, int maxRange)
+        {
+            fromUnit.WithRange(minRange, maxRange);
+            return this;
+        }
         #endregion
 
         public Battalion Build()

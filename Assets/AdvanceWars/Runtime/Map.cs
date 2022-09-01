@@ -89,6 +89,11 @@ namespace AdvanceWars.Runtime
             return spaces.CoordsOf(space);
         }
 
+        public IEnumerable<Vector2Int> RangeOfFire(Battalion battalion)
+        {
+            return RangeOfFire(CoordOf(WhereIs(battalion)!), battalion.MinRange, battalion.MaxRange);
+        }
+        
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int maxRange)
         {
             return RangeOfFire(from, 0, maxRange);
