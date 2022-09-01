@@ -10,7 +10,7 @@ namespace AdvanceWars.Runtime
         public TheaterOps(Terrain battlefield, Battalion troop)
         {
             Require(battlefield.Equals(Terrain.Null)).False();
-            Require(troop.Equals(Battalion.Null)).False();
+            Require(troop is INull).False();
 
             Battlefield = battlefield;
             Troops = troop;

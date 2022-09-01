@@ -10,14 +10,13 @@ namespace AdvanceWars.Runtime
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
 
-            public bool IsOccupied => Occupant != Battalion.Null;
+            public bool IsOccupied => Occupant is not INull;
 
             public virtual bool IsBesiegable
             {
                 get
                 {
-                    Require(Terrain is Building).True();
-                    return !Terrain.IsAlly(Occupant);
+                    return Terrain is Building building && !building.Equals(new Building.UnbesiegableSpecialCase()) && !building.IsAlly(Occupant);
                 }
             }
 
@@ -44,8 +43,11 @@ namespace AdvanceWars.Runtime
             public void Unoccupy()
             {
                 Require(IsOccupied).True();
+
                 Occupant = Battalion.Null;
-                Terrain.LiftSiege();
+                
+                if(Terrain.IsUnderSiege)
+                    Terrain.LiftSiege();
             }
 
             public bool IsCrossableBy(Allegiance battalion) => !IsHostileTo(battalion);

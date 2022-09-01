@@ -2,7 +2,7 @@
 
 namespace AdvanceWars.Runtime
 {
-    public struct MovementRate
+    public readonly struct MovementRate
     {
         readonly int value;
 
@@ -11,6 +11,8 @@ namespace AdvanceWars.Runtime
             Require(value).Not.Negative();
             this.value = value;
         }
+
+        public static MovementRate None => 0;
 
         public static implicit operator MovementRate(int rate)
         {
@@ -22,8 +24,9 @@ namespace AdvanceWars.Runtime
             return rate.value;
         }
 
-        public static MovementRate None => 0;
-
-        public override string ToString() => value.ToString();
+        public override string ToString()
+        {
+            return this.Equals(None) ? "None" : value.ToString();
+        }
     }
 }

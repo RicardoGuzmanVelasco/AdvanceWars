@@ -8,7 +8,8 @@ namespace AdvanceWars.Tests.Builders
         Propulsion propulsion = new Propulsion("");
         Armor armor = new Armor("");
         Weapon weapon = WeaponBuilder.Weapon().Build();
-
+        int minRange = 1;
+        int maxRange = 1;
         #region ObjectMothers
         public static UnitBuilder Unit()
         {
@@ -17,6 +18,14 @@ namespace AdvanceWars.Tests.Builders
         #endregion
 
         #region FluentAPI
+        
+        public UnitBuilder WithRange(int minRange, int maxRange)
+        {
+            this.minRange = minRange;
+            this.maxRange = maxRange;
+            return this;
+        }
+        
         public UnitBuilder WithMobility(MovementRate mobility)
         {
             this.mobility = mobility;
@@ -49,7 +58,9 @@ namespace AdvanceWars.Tests.Builders
                 Mobility = mobility,
                 Armor = armor,
                 Propulsion = propulsion,
-                Weapon = weapon
+                Weapon = weapon,
+                MinRange = minRange,
+                MaxRange = maxRange
             };
         }
     }

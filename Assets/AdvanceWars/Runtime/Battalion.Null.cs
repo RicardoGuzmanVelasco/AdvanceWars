@@ -4,7 +4,7 @@
     {
         public static Battalion Null { get; } = new NoBattalion();
 
-        internal class NoBattalion : Battalion
+        class NoBattalion : Battalion, INull
         {
             public NoBattalion()
             {
@@ -14,7 +14,7 @@
 
             public override string ToString()
             {
-                return "NoBattalion";
+                return this.GetType().Name;
             }
         }
     }

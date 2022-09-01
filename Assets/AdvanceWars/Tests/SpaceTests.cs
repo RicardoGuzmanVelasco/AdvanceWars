@@ -1,17 +1,19 @@
-﻿using AdvanceWars.Runtime;
+﻿using System;
+using AdvanceWars.Runtime;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
+using static AdvanceWars.Tests.Builders.BuildingBuilder;
 
 namespace AdvanceWars.Tests
 {
     public class SpaceTests
     {
-        [Test]
+        [Test, Description("Solo para probar que se mantiene la referencia")]
         public void BesiegingASpace_MaintainsTheSameBuilding()
         {
             var sut = new Map.Space();
-            var building = new Building(siegePoints: 11);
+            var building = Building().WithPoints(11).Build();
             sut.Terrain = building;
             sut.Occupy(Battalion().WithPlatoons(8).Build());
 
@@ -25,7 +27,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map.Space
             {
-                Terrain = new Building(siegePoints: 11),
+                Terrain = Building().WithPoints(11).Build()
             };
             sut.Occupy(Battalion().WithPlatoons(8).Build());
 
@@ -38,8 +40,10 @@ namespace AdvanceWars.Tests
         [Test]
         public void EnemyOccupant_CanBesiege()
         {
-            var sut = new Map.Space();
-            sut.Terrain = new Building(siegePoints: 11);
+            var sut = new Map.Space
+            {
+                Terrain = Building().WithPoints(11).Build()
+            };
             sut.Occupy(Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
@@ -48,11 +52,11 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void BesiegableWhenBuildingIsEnemyOfOccupant()
+        public void Besiegable_WhenBuilding_IsEnemyOfOccupant()
         {
             var sut = new Map.Space
             {
-                Terrain = new Building(default, new Nation("A"))
+                Terrain = Building().WithOwner("A").Build()
             };
             sut.Occupy(Battalion().WithNation("notA").Build());
 
@@ -60,27 +64,42 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void BesiegableWhenBuildingIsNeutral()
+        public void Besiegable_WhenBuilding_IsNeutral()
         {
             var sut = new Map.Space
             {
-                Terrain = new Building(default, Nation.Stateless)
+                Terrain = Building().WithOwner(Nation.Stateless).Build()
             };
-            sut.Occupy(Battalion().WithNation("Whatnot").Build());
+
+            sut.Occupy(Battalion().Build());
 
             sut.IsBesiegable.Should().BeTrue();
         }
 
         [Test]
-        public void UnbesiegableWhenBuildingInSpaceIsAllyOfOccupant()
+        public void Unbesiegable_WhenBuilding_IsAllyOfOccupant()
         {
             var sut = new Map.Space
             {
-                Terrain = new Building(default, new Nation("A"))
+                Terrain = Building().WithOwner("A").Build()
             };
             sut.Occupy(Battalion().WithNation("A").Build());
 
             sut.IsBesiegable.Should().BeFalse();
+        }
+
+        [Test]
+        public void anEnemyOccupant_Leaves_WithoutStartingAnySiege_OverTheBuilding()
+        {
+            var sut = new Map.Space
+            {
+                Terrain = Building().Build()
+            };
+            sut.Occupy(Battalion().Build());
+
+            Action sutInvocation = () => sut.Unoccupy();
+
+            sutInvocation.Should().NotThrow<Exception>();
         }
     }
 }

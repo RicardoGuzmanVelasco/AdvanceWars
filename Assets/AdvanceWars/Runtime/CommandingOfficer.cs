@@ -16,16 +16,16 @@ namespace AdvanceWars.Runtime
             this.map = map;
         }
 
-        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Allegiance battalion)
+        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
         {
-            Require(battalion.Equals(Battalion.Null)).False();
+            Require(battalion is INull).False();
 
-            if(!battalion.IsAlly(this))
+            if(!battalion.IsAlly(this) || HasAlready(battalion, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
+            
+            var availableTactics = TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
 
-            return HasAlready(battalion, Tactic.Wait)
-                ? Enumerable.Empty<Tactic>()
-                : TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
+            return availableTactics;
         }
 
         bool HasAlready(Allegiance battalion, Tactic tactic)
@@ -54,16 +54,19 @@ namespace AdvanceWars.Runtime
                 executedThisTurn.Add(Maneuver.Wait(maneuver.Performer));
         }
 
-        IEnumerable<Tactic> TacticsOf(Allegiance battalion)
+        IEnumerable<Tactic> TacticsOf(Battalion battalion)
         {
             var tactics = new List<Tactic>
             {
                 Tactic.Wait,
-                Tactic.Fire,
                 Tactic.Move
             };
 
-            if(map.WhereIs(battalion).IsBesiegable)
+            if (map.EnemyBattalionsInRangeOfFire(battalion).Any())
+            {
+                tactics.Add(Tactic.Fire);
+            }
+            if(map.WhereIs(battalion)!.IsBesiegable)
                 tactics.Add(Tactic.Siege);
 
             return tactics;

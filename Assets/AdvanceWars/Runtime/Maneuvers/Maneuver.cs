@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
         #region Ctor/FactoryMethods
         protected Maneuver([NotNull] Battalion performer, Tactic origin)
         {
-            Require(performer.Equals(Battalion.Null)).False();
+            Require(performer is INull).False();
             Performer = performer;
             Origin = origin;
         }

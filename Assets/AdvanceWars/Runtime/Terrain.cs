@@ -36,8 +36,9 @@ namespace AdvanceWars.Runtime
             return costs.ContainsKey(propulsion) ? costs[propulsion] : 1;
         }
 
+        #region Siege-related pushed up stuff
+        public virtual bool IsUnderSiege => false;
         public int SiegePoints { get; set; } = int.MaxValue;
-        protected int MaxSiegePoints { get; init; }
 
         [Pure]
         public virtual Building SiegeOutcome([NotNull] Battalion besieger)
@@ -46,5 +47,6 @@ namespace AdvanceWars.Runtime
         }
 
         public virtual void LiftSiege() { }
+        #endregion
     }
 }
