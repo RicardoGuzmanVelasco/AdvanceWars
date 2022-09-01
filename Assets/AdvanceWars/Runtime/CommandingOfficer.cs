@@ -25,9 +25,7 @@ namespace AdvanceWars.Runtime
             
             var availableTactics = TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
 
-            return !map.WhereIs(battalion)!.IsBesiegable 
-                ? availableTactics.Except(new List<Tactic> { Tactic.Siege }) 
-                : availableTactics;
+            return availableTactics;
         }
 
         bool HasAlready(Allegiance battalion, Tactic tactic)
