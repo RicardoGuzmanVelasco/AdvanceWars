@@ -89,35 +89,38 @@ namespace AdvanceWars.Runtime
             return spaces.CoordsOf(space);
         }
 
-        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, uint maxRange)
+        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int maxRange)
         {
             return RangeOfFire(from, 0, maxRange);
         }
 
-        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, uint minRange, uint maxRange)
+        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int minRange, int maxRange)
         {
-            var coordsInsideMaxRange = new List<Vector2Int>();
-            var coordsOutsideMinRange = new List<Vector2Int>();
+            var coordsOutsideMinRange = CoordsInsideRange(from, minRange - 1);
 
-            coordsInsideMaxRange.Add(from);
-            for(int i = 1; i <= maxRange; i++)
+            var coordsInsideMaxRange = CoordsInsideRange(from, maxRange);
+
+            return coordsInsideMaxRange.Where(x => x != from && !coordsOutsideMinRange.Contains(x));
+        }
+
+        private List<Vector2Int> CoordsInsideRange(Vector2Int from, int range)
+        {
+            var coordsInsideRange = new List<Vector2Int> {from};
+
+            for (int i = 0; i < range; i++)
             {
                 var currentRangeCoords = new List<Vector2Int>();
-                foreach(var coords in coordsInsideMaxRange)
+                foreach (var coords in coordsInsideRange)
                 {
                     currentRangeCoords.AddRange(AdjacentsOf(coords));
                 }
 
-                newCoords = currentRangeCoords.Where(x => !coordsInsideMaxRange.Contains(x));
+                newCoords = currentRangeCoords.Where(x => !coordsInsideRange.Contains(x));
                 
-                if (i < minRange)
-                {
-                    coordsOutsideMinRange.AddRange(newCoords);
-                }
-                coordsInsideMaxRange.AddRange(newCoords);
+                coordsInsideRange.AddRange(newCoords);
             }
 
-            return coordsInsideMaxRange.Where(x => x != from && !coordsOutsideMinRange.Contains(x));
+            return coordsInsideRange;
         }
     }
 }
