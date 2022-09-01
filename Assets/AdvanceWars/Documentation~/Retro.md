@@ -83,4 +83,5 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 * Refactor: Crear Range con min y max value para que la unit no tenga 2 enteros.
 * Refactor: Borrar overload de RangeOfFire que solo tiene maxRange?
 * No sé si el cambio que le he hecho al IsBesiegable es correcto. Pero no le veía el sentido a la precondición. Por qué petaba al tener un Terrain.Null? Debería de no petar, no?
-* Borrar test Troops_CanFire_AfterMove ? Ya no siempre es el caso de que las tropas puedan disparar siempre despues de moverse.
+* Borrar test Troops_CanFire_AfterMove ? Ya no siempre es el caso de que las tropas puedan disparar siempre despues de moverse. Se ha cambiado para estar en verde
+* El rango es del arma o de la unidad? Todas las armas de una unidad tienen el mismo rango, pero hay unidades que no tienen armas y entiendo que no tienen rango.

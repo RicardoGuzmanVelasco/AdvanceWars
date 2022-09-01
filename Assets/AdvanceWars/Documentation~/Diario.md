@@ -75,13 +75,13 @@ Duración: ~3h.
 
 # Culo
 
-Duración:
+Duración: 3h
 
 ### Intenciones
 
 - [ ]  No exponer Unit en Batallion
 - [ ]  La orden de disparar no aparece si la unidad no tiene armas.
-- [ ]  Hacer rango de ataque y condición de poder realizar maniobra de ataque
+- [X]  Hacer rango de ataque y condición de poder realizar maniobra de ataque
 
   - [ ]  Preveo que va a haber mucha responsabilidad en el Commanding Officer para comprobar si una táctica es válida o no. A lo mejor ese comportamiento puede ser de la Táctica.
 
@@ -90,3 +90,8 @@ Duración:
 * No me gusta como se ha quedado un test de rango de disparo. Me gustaría ver cómo lo haríais.
 * El commanding officer estaba comprobando 2 veces si la casilla era besiegable, lo añadió Ricardo, a qué se debe eso? Al quitar la comprobación no peta ningún test.
 * Se ha definido como rango minimo y maximo 1 por defecto en el unit builder. Petaba una precondicion en la comprobacion de un test de si se podia asediar o no.
+* Creo que se podria mover la comprobacion si una tactica es posible para un batallon del commanding officer a la tactica. Aunque no lo he hecho por falta de tiempo
+* No me ha dado tiempo a exponer la Unit en Batallion.
+* Se me ha alargado más de lo que pensaba el rango de ataque por la parte de las maniobras, lo subestimé
+* Se ha dejado un test en rojo que comprueba que un Battalion sin arma puede recibir una orden de disparo.
+* Como he puesto en la parte de la retro, no entiendo la duplicidad de archivos
