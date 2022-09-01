@@ -1,4 +1,7 @@
-﻿namespace AdvanceWars.Runtime
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace AdvanceWars.Runtime
 {
     public partial record Map
     {
@@ -17,6 +20,11 @@
             public override string ToString()
             {
                 return this.GetType().Name;
+            }
+
+            public override IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
+            {
+                return Enumerable.Empty<Battalion>();
             }
         }
     }

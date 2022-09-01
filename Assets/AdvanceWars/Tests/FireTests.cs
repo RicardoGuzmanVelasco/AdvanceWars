@@ -4,6 +4,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
+using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.TheaterOpsBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;

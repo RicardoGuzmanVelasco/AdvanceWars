@@ -62,33 +62,14 @@ namespace AdvanceWars.Runtime
         {
             return spaces[coords];
         }
-
-        [Pure, NotNull]
-        IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
+        
+        public virtual IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
         {
-            Require(InsideBounds(coord)).True();
-            return coord.AdjacentsCoords().Where(InsideBounds);
+            var coordsInRange = RangeOfFire(battalion);
+            return spaces.Where(x => coordsInRange.Contains(x.Key) && x.Value.Occupant.IsEnemy(battalion))
+                .Select(x => x.Value.Occupant);
         }
-
-        bool InsideBounds(Vector2Int coord)
-        {
-            return coord.x >= 0 &&
-                   coord.x < SizeX &&
-                   coord.y >= 0 &&
-                   coord.y < SizeY;
-        }
-
-        [CanBeNull]
-        public virtual Space WhereIs(Allegiance what)
-        {
-            return spaces.Values.SingleOrDefault(x => x.Occupant == what);
-        }
-
-        Vector2Int CoordOf([NotNull] Space space)
-        {
-            return spaces.CoordsOf(space);
-        }
-
+        
         public IEnumerable<Vector2Int> RangeOfFire(Battalion battalion)
         {
             return RangeOfFire(CoordOf(WhereIs(battalion)!), battalion.MinRange, battalion.MaxRange);
@@ -129,6 +110,32 @@ namespace AdvanceWars.Runtime
             }
 
             return coordsInsideRange;
+        }
+
+        [Pure, NotNull]
+        IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
+        {
+            Require(InsideBounds(coord)).True();
+            return coord.AdjacentsCoords().Where(InsideBounds);
+        }
+
+        bool InsideBounds(Vector2Int coord)
+        {
+            return coord.x >= 0 &&
+                   coord.x < SizeX &&
+                   coord.y >= 0 &&
+                   coord.y < SizeY;
+        }
+
+        [CanBeNull]
+        public virtual Space WhereIs(Allegiance what)
+        {
+            return spaces.Values.SingleOrDefault(x => x.Occupant == what);
+        }
+
+        Vector2Int CoordOf([NotNull] Space space)
+        {
+            return spaces.CoordsOf(space);
         }
     }
 }

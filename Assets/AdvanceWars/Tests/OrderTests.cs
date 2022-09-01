@@ -42,12 +42,17 @@ namespace AdvanceWars.Tests
         [Test]
         public void Troops_CanFire_AfterMove()
         {
-            var sut = CommandingOfficer().WithNation("aNation").Build();
-            var troop = Battalion().WithNation("aNation").Build();
+            var map = new Map(1, 2);
+            var ally = Battalion().WithNation("Ally").Build();
+            var enemy = Battalion().WithNation("Enemy").Build();
+            var sut = CommandingOfficer().WithNation("Ally").WithMap(map).Build();
 
-            sut.Order(new DummyManeuver(Tactic.Move, troop));
+            map.Put(Vector2Int.zero, ally);
+            map.Put(Vector2Int.up, enemy);
+            
+            sut.Order(new DummyManeuver(Tactic.Move, ally));
 
-            sut.AvailableTacticsOf(troop).Should().Contain(Tactic.Fire);
+            sut.AvailableTacticsOf(ally).Should().Contain(Tactic.Fire);
         }
 
         [Test]

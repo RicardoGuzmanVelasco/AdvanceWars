@@ -88,4 +88,5 @@ Duración:
 ### Conclusiones
 
 * No me gusta como se ha quedado un test de rango de disparo. Me gustaría ver cómo lo haríais.
-*
+* El commanding officer estaba comprobando 2 veces si la casilla era besiegable, lo añadió Ricardo, a qué se debe eso? Al quitar la comprobación no peta ningún test.
+* Se ha definido como rango minimo y maximo 1 por defecto en el unit builder. Petaba una precondicion en la comprobacion de un test de si se podia asediar o no.

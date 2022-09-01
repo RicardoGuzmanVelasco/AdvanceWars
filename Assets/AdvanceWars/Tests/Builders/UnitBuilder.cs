@@ -8,8 +8,8 @@ namespace AdvanceWars.Tests.Builders
         Propulsion propulsion = new Propulsion("");
         Armor armor = new Armor("");
         Weapon weapon = WeaponBuilder.Weapon().Build();
-        int minRange;
-        int maxRange;
+        int minRange = 1;
+        int maxRange = 1;
         #region ObjectMothers
         public static UnitBuilder Unit()
         {
