@@ -9,9 +9,9 @@ namespace AdvanceWars.Runtime
         protected TargetingManeuver
         (
             [NotNull] Battalion performer,
-            Tactic origin,
+            Tactic fromTactic,
             [NotNull] Battalion target
-        ) : base(performer, origin)
+        ) : base(performer, fromTactic)
         {
             Target = target;
         }

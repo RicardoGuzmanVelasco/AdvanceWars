@@ -9,8 +9,7 @@ namespace AdvanceWars.Runtime
 {
     public partial record Map(int SizeX, int SizeY)
     {
-        readonly LazyBoard<Space> spaces = new LazyBoard<Space>();
-        private IEnumerable<Vector2Int> newCoords;
+        readonly LazyBoard<Space> spaces = new();
 
         public void Put(Vector2Int coord, Battalion battalion)
         {
@@ -58,23 +57,23 @@ namespace AdvanceWars.Runtime
             return availableCoords.Where(c => !spaces[c].IsOccupied);
         }
 
-        public Space OfCoords(Vector2Int coords)
+        public Space SpaceAt(Vector2Int coords)
         {
             return spaces[coords];
         }
-        
+
         public virtual IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
         {
             var coordsInRange = RangeOfFire(battalion);
             return spaces.Where(x => coordsInRange.Contains(x.Key) && x.Value.Occupant.IsEnemy(battalion))
                 .Select(x => x.Value.Occupant);
         }
-        
+
         public IEnumerable<Vector2Int> RangeOfFire(Battalion battalion)
         {
             return RangeOfFire(CoordOf(WhereIs(battalion)!), battalion.MinRange, battalion.MaxRange);
         }
-        
+
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int maxRange)
         {
             return RangeOfFire(from, 0, maxRange);
@@ -84,7 +83,7 @@ namespace AdvanceWars.Runtime
         {
             Require(minRange <= maxRange).True();
             Require(maxRange >= 1).True();
-            
+
             var coordsOutsideMinRange = CoordsInsideRange(from, minRange - 1);
 
             var coordsInsideMaxRange = CoordsInsideRange(from, maxRange);
@@ -94,18 +93,18 @@ namespace AdvanceWars.Runtime
 
         private IEnumerable<Vector2Int> CoordsInsideRange(Vector2Int from, int range)
         {
-            var coordsInsideRange = new List<Vector2Int> {from};
+            var coordsInsideRange = new List<Vector2Int> { from };
 
-            for (int i = 0; i < range; i++)
+            for(int i = 0; i < range; i++)
             {
                 var currentRangeCoords = new List<Vector2Int>();
-                foreach (var coords in coordsInsideRange)
+                foreach(var coords in coordsInsideRange)
                 {
                     currentRangeCoords.AddRange(AdjacentsOf(coords));
                 }
 
-                newCoords = currentRangeCoords.Where(x => !coordsInsideRange.Contains(x));
-                
+                var newCoords = currentRangeCoords.Where(x => !coordsInsideRange.Contains(x));
+
                 coordsInsideRange.AddRange(newCoords);
             }
 
