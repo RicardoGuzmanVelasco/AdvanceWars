@@ -1,23 +1,14 @@
 ﻿### Refactor
 
-- Separar por paquetes (Assembly Definitions).
-- Mover tests relaciones con maneuvers a "ManeuversTests" o similar.
+- Carpetas en vez de asmdefs
 - No exponer unit en battalion.
-- public space at
-- No debería de haber set en el terreno.
-- Duplicación espacios/bounds.
-- Hay un problema con los nullobjectpatterns.
-
-  - Está fallando la igualdad a veces. Ejemplo: BattalionNull vs BattalionNull.
-- Redondear 0.05 los outcomes de ataques y tal.
-- Posible composición: teatro de operaciones se compone de espacio.
-
-  - Esto permite que el reporte de bajas se haga sobre el teatro de operaciones.
-    - Se gana en semántica y en acercamiento al dominio.
-    - Se pierde en diseño (porque se vulnera ley de Demeter, experto en información, envidia de características, blablablá).
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
-
   - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
+- Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
+- Precondiciones de comparables.
+- Arreglar caso especial Unbesiegable.
+- El test de CanFire_AfterMove tiene que llamarse May en vez de Can y AnyOtherTactic en vez de Fire.
+- Precondición de available tactics of si es batallón enemigo.
 
 ### Docs
 
@@ -31,12 +22,6 @@
 
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
-- Está sin implementar qué tácticas puede hacer un batallón según su:
-  - Unidad.
-  - Posición en el mapa.
-  - Etc.
-- Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
-  - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
 - Está ahora mismo mockeado todo lo que tiene que ver con el Player. Por eso tiene un Id.
   - No tiene sentido realmente que tenga un Id.
     - Lo pusimos para que fuera fácil depurar comparándolo con la nación.
@@ -48,7 +33,10 @@
 ### Riesgos
 
 * Si atacas y te matan en el contrataque, puede ser problemático (o no) que se llame a una maniobra de Wait sobre ti (esa maniobra se llama automáticamente tras el Fire).
-* Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero. Habrá que añadir un método Self.
+  * Por ejemplo por guardar maniobras ejecutadas sobre un Battalion.Null...
+* Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero.
+  * Habrá que añadir un método Self.
+  * También hemos hablado aquí de lo de la abstracción National que segrega de Allegiance.
 * Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
   * Se ha discutido pero no se ha llegado a nada en claro.
 * Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio.
@@ -57,6 +45,7 @@
 
 ### Features para hacer
 
+* Redondear 0.05 los outcomes de ataques y tal.
 * Mergear Battalions.
 * Niebla de guerra.
   * Visibilidad de casillas por terreno.
@@ -65,13 +54,14 @@
 * Recuperación de vida y ammo en edificios.
   * Edificios curan 20.
 * Barracas y generalización.
+  - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
+    - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
 * Sistema de economía.
   * Ganar dinero por edificios.
   * Gastar dinero en spawnear batallones.
 * Combustible/munición.
-* Rango de ataque.
 * Ataques de artillería.
-  * Contrataque de artillería.
+  * Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 * Seleccionar a qué enemigo atacar.
 
 - Terreno aire para los combates (0 de defensa).
