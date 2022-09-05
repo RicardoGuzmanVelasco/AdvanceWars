@@ -25,3 +25,6 @@
 - No me gusta mucho lo que he hecho con el range of fire del Valid y tal para comprobar la precondicion fuera de que no se haya creado por constructor vacio porque es repetir. Como se haria?
 - Hay que renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Para eliminar la duplicidad del rango de fuego y el rango de disparo, creo que es una mejor decision primero hacer el tema de costes de movimiento, luego saldrá mucho más fácil
+- Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon.
+- He intentado meter lo de los costes de movimiento por terreno. He ganado insight y avanzado cosas, pero no voy a subir nada. Ya se hará con más tests.
+- No me ha dado tiempo a arreglar el caso especial de Unbesiegable. También no creo que lo entienda del todo. Es solo un caso que se deberia usar cuando se intenta asediar un edificio aliado?
