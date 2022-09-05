@@ -6,7 +6,7 @@
 
 - [x] Un batallon no puede atacar si no tiene arma.
     - [x] Un batallon no puede atacar si no puede dañar a un enemigo
-- [ ] Renombrar test de CanFire_AfterMove
+- [x] Renombrar test de CanFire_AfterMove
 - [ ] Precondiciones de comparables.
 - [ ] Precondicion de available tactics of si es batallon enemigo
 - [ ] Clase rango de disparo

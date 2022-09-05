@@ -40,12 +40,13 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void Troops_CanFire_AfterMove()
+        public void Troops_MayUseAnyOtherTactic_AfterMove()
         {
             var map = new Map(1, 2);
             var ally = Battalion()
                 .WithNation("Ally")
-                .WithWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build()).Build();
+                .WithWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build())
+                .Build();
             var enemy = Battalion().WithNation("Enemy").WithArmor("EnemyArmor").Build();
             var sut = CommandingOfficer().WithNation("Ally").WithMap(map).Build();
 
