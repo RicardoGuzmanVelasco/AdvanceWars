@@ -7,7 +7,7 @@ namespace AdvanceWars.Tests.Builders
         MovementRate mobility = 0;
         Propulsion propulsion = new Propulsion("");
         Armor armor = new Armor("");
-        Weapon weapon = WeaponBuilder.Weapon().Build();
+        Weapon weapon = Weapon.Null;
         int minRange = 1;
         int maxRange = 1;
         #region ObjectMothers

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AdvanceWars.Runtime;
-using AdvanceWars.Tests.Builders;
 using AdvanceWars.Tests.Doubles;
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -10,6 +9,7 @@ using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
@@ -43,8 +43,10 @@ namespace AdvanceWars.Tests
         public void Troops_CanFire_AfterMove()
         {
             var map = new Map(1, 2);
-            var ally = Battalion().WithNation("Ally").Build();
-            var enemy = Battalion().WithNation("Enemy").Build();
+            var ally = Battalion()
+                .WithNation("Ally")
+                .WithWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build()).Build();
+            var enemy = Battalion().WithNation("Enemy").WithArmor("EnemyArmor").Build();
             var sut = CommandingOfficer().WithNation("Ally").WithMap(map).Build();
 
             map.Put(Vector2Int.zero, ally);
@@ -62,14 +64,14 @@ namespace AdvanceWars.Tests
             var atk = Battalion()
                 .Ally()
                 .WithArmor("Any")
-                .WithWeapon(WeaponBuilder.Weapon().WithDamage(anyArmor, 100).Build())
+                .WithWeapon(Weapon().WithDamage(anyArmor, 100).Build())
                 .WithForces(200)
                 .Build();
 
             var def = Battalion()
                 .Enemy()
                 .WithArmor("Any")
-                .WithWeapon(WeaponBuilder.Weapon().WithDamage(anyArmor, 100).Build())
+                .WithWeapon(Weapon().WithDamage(anyArmor, 100).Build())
                 .WithForces(300)
                 .Build();
 
@@ -93,14 +95,14 @@ namespace AdvanceWars.Tests
             var atk = Battalion()
                 .Ally()
                 .WithArmor("Other")
-                .WithWeapon(WeaponBuilder.Weapon().MaxDmgTo("Any").Build())
+                .WithWeapon(Weapon().MaxDmgTo("Any").Build())
                 .WithForces(200)
                 .Build();
 
             var def = Battalion()
                 .Enemy()
                 .WithArmor("Any")
-                .WithWeapon(WeaponBuilder.Weapon().WithDamage(new Armor("Any"), 1).Build())
+                .WithWeapon(Weapon().WithDamage(new Armor("Any"), 1).Build())
                 .WithForces(300)
                 .Build();
 
@@ -126,14 +128,14 @@ namespace AdvanceWars.Tests
             var def = Battalion()
                 .Ally()
                 .WithArmor("Other")
-                .WithWeapon(WeaponBuilder.Weapon().MaxDmgTo("Any").Build())
+                .WithWeapon(Weapon().MaxDmgTo("Any").Build())
                 .WithForces(200)
                 .Build();
 
             var atk = Battalion()
                 .Enemy()
                 .WithArmor("Any")
-                .WithWeapon(WeaponBuilder.Weapon().WithDamage(new Armor("Any"), 1).Build())
+                .WithWeapon(Weapon().WithDamage(new Armor("Any"), 1).Build())
                 .WithForces(300)
                 .Build();
 

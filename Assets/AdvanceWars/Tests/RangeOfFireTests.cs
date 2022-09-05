@@ -4,6 +4,8 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using static AdvanceWars.Tests.Builders.WeaponBuilder;
+using Weapon = AdvanceWars.Runtime.Weapon;
 
 namespace AdvanceWars.Tests
 {
@@ -99,8 +101,13 @@ namespace AdvanceWars.Tests
         [Test]
         public void Fire_WhenInsideRange_IsAnAvailableTactic()
         {
-            var allyBattalion = Battalion().WithNation("ally").WithPlatoons(1).WithRange(1, 1).Build();
-            var enemyBattalion = Battalion().WithNation("enemy").WithPlatoons(1).Build();
+            var allyBattalion = Battalion()
+                .WithNation("ally")
+                .WithPlatoons(1)
+                .WithRange(1, 1)
+                .WithWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build())
+                .Build();
+            var enemyBattalion = Battalion().WithNation("enemy").WithArmor("EnemyArmor").WithPlatoons(1).Build();
 
             var map = new Map(1, 2);
             map.Put(Vector2Int.zero, allyBattalion);
@@ -151,7 +158,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.zero, allyBattalion);
             map.Put(Vector2Int.up, enemyBattalion);
         
-            var sut = CommandingOfficer().WithNation("enemy").WithMap(map).Build();
+            var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
         
             sut.AvailableTacticsOf(allyBattalion).Should().NotContain(Tactic.Fire);
         }

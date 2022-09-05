@@ -4,7 +4,7 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
-    public class Weapon
+    public partial record Weapon
     {
         readonly Dictionary<Armor, int> damages;
 

@@ -62,9 +62,14 @@ namespace AdvanceWars.Runtime
                 Tactic.Move
             };
 
-            if(map.EnemyBattalionsInRangeOfFire(battalion).Any())
+            var enemiesInRange = map.EnemyBattalionsInRangeOfFire(battalion).ToArray();
+            var anyEnemyInRange = enemiesInRange.Any();
+            if(anyEnemyInRange)
             {
-                tactics.Add(Tactic.Fire);
+                if (enemiesInRange!.Any(x => battalion.BaseDamageTo(x.Unit.Armor) > 0))
+                {
+                    tactics.Add(Tactic.Fire);
+                }
             }
 
             if(map.WhereIs(battalion)!.IsBesiegable)
