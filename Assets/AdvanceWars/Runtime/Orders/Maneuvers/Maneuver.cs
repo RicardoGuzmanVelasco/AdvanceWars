@@ -7,14 +7,14 @@ namespace AdvanceWars.Runtime
     public abstract class Maneuver : IManeuver
     {
         public Battalion Performer { get; }
-        public Tactic Origin { get; }
+        public Tactic FromTactic { get; }
 
         #region Ctor/FactoryMethods
-        protected Maneuver([NotNull] Battalion performer, Tactic origin)
+        protected Maneuver([NotNull] Battalion performer, Tactic fromTactic)
         {
             Require(performer is INull).False();
             Performer = performer;
-            Origin = origin;
+            FromTactic = fromTactic;
         }
 
         public static IManeuver Wait([NotNull] Battalion performer)
@@ -40,7 +40,7 @@ namespace AdvanceWars.Runtime
 
         public bool Is(Tactic tactic)
         {
-            return Origin.Equals(tactic);
+            return FromTactic.Equals(tactic);
         }
 
         public abstract void Apply(Map map);

@@ -49,7 +49,7 @@ namespace AdvanceWars.Tests
 
             map.Put(Vector2Int.zero, ally);
             map.Put(Vector2Int.up, enemy);
-            
+
             sut.Order(new DummyManeuver(Tactic.Move, ally));
 
             sut.AvailableTacticsOf(ally).Should().Contain(Tactic.Fire);
@@ -159,14 +159,14 @@ namespace AdvanceWars.Tests
             var battalion = Battalion().Build();
             map.Put(Vector2Int.zero, battalion);
 
-            var itinerary = new List<Map.Space> { map.OfCoords(Vector2Int.up) };
+            var itinerary = new List<Map.Space> { map.SpaceAt(Vector2Int.up) };
 
             var sut = Maneuver.Move(battalion, itinerary);
             sut.Apply(map);
 
             using var _ = new AssertionScope();
-            map.OfCoords(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
-            map.WhereIs(battalion).Should().Be(map.OfCoords(Vector2Int.up));
+            map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
+            map.WhereIs(battalion).Should().Be(map.SpaceAt(Vector2Int.up));
         }
 
         [Test]
@@ -178,16 +178,16 @@ namespace AdvanceWars.Tests
 
             var itinerary = new List<Map.Space>
             {
-                map.OfCoords(new Vector2Int(0, 1)),
-                map.OfCoords(new Vector2Int(0, 2))
+                map.SpaceAt(new Vector2Int(0, 1)),
+                map.SpaceAt(new Vector2Int(0, 2))
             };
 
             var sut = Maneuver.Move(battalion, itinerary);
             sut.Apply(map);
 
             using var _ = new AssertionScope();
-            map.OfCoords(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
-            map.WhereIs(battalion).Should().Be(map.OfCoords(new Vector2Int(0, 2)));
+            map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
+            map.WhereIs(battalion).Should().Be(map.SpaceAt(new Vector2Int(0, 2)));
         }
 
         [Test]

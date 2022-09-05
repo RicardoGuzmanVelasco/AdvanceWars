@@ -16,7 +16,8 @@ namespace AdvanceWars.Runtime
             {
                 get
                 {
-                    return Terrain is Building building && !building.Equals(new Building.UnbesiegableSpecialCase()) && !building.IsAlly(Occupant);
+                    return Terrain is Building building && !building.Equals(Building.Unbesiegable) &&
+                           !building.IsAlly(Occupant);
                 }
             }
 
@@ -45,7 +46,7 @@ namespace AdvanceWars.Runtime
                 Require(IsOccupied).True();
 
                 Occupant = Battalion.Null;
-                
+
                 if(Terrain.IsUnderSiege)
                     Terrain.LiftSiege();
             }

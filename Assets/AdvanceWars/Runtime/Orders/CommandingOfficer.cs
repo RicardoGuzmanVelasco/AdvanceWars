@@ -22,7 +22,7 @@ namespace AdvanceWars.Runtime
 
             if(!battalion.IsAlly(this) || HasAlready(battalion, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
-            
+
             var availableTactics = TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
 
             return availableTactics;
@@ -40,7 +40,7 @@ namespace AdvanceWars.Runtime
 
         IEnumerable<Tactic> ExecutedThisTurn(Allegiance battalion)
         {
-            return ExecutedManeuversOf(battalion).Select(x => x.Origin);
+            return ExecutedManeuversOf(battalion).Select(x => x.FromTactic);
         }
 
         public void Order(IManeuver maneuver)
@@ -62,10 +62,11 @@ namespace AdvanceWars.Runtime
                 Tactic.Move
             };
 
-            if (map.EnemyBattalionsInRangeOfFire(battalion).Any())
+            if(map.EnemyBattalionsInRangeOfFire(battalion).Any())
             {
                 tactics.Add(Tactic.Fire);
             }
+
             if(map.WhereIs(battalion)!.IsBesiegable)
                 tactics.Add(Tactic.Siege);
 

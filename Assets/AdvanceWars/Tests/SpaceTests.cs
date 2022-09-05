@@ -12,9 +12,11 @@ namespace AdvanceWars.Tests
         [Test, Description("Solo para probar que se mantiene la referencia")]
         public void BesiegingASpace_MaintainsTheSameBuilding()
         {
-            var sut = new Map.Space();
             var building = Building().WithPoints(11).Build();
-            sut.Terrain = building;
+            var sut = new Map.Space
+            {
+                Terrain = building
+            };
             sut.Occupy(Battalion().WithPlatoons(8).Build());
 
             sut.Besiege();
