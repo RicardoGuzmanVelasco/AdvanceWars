@@ -9,7 +9,7 @@
 - [x] Renombrar test de CanFire_AfterMove
 - [x] Precondiciones de comparables.
 - [x] Precondicion de available tactics of si es batallon enemigo
-- [ ] Clase rango de disparo
+- [x] Clase rango de disparo
 - [ ] Refactor: reusar rango de fuego y disparo
 - [x] No exponer unit en battalion
 - [ ] Arreglar caso especial de Unbesiegable
