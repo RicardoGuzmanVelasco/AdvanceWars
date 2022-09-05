@@ -4,7 +4,7 @@ namespace AdvanceWars.Runtime
 {
     public partial class Battalion : Allegiance
     {
-        public Unit Unit { get; init; } = Unit.Null;
+        public Unit Unit { private get; init; } = Unit.Null;
 
         public int Forces { get; set; } = 100;
 
@@ -12,6 +12,7 @@ namespace AdvanceWars.Runtime
 
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
+        public Armor Armor => Unit.Armor;
         public int MinRange => Unit.MinRange;
         public int MaxRange => Unit.MaxRange;
 

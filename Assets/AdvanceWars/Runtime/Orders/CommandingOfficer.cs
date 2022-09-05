@@ -67,7 +67,7 @@ namespace AdvanceWars.Runtime
             var anyEnemyInRange = enemiesInRange.Any();
             if(anyEnemyInRange)
             {
-                if (enemiesInRange!.Any(x => battalion.BaseDamageTo(x.Unit.Armor) > 0))
+                if (enemiesInRange!.Any(x => battalion.BaseDamageTo(x.Armor) > 0))
                 {
                     tactics.Add(Tactic.Fire);
                 }

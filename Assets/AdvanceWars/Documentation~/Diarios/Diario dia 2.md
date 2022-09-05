@@ -11,10 +11,12 @@
 - [x] Precondicion de available tactics of si es batallon enemigo
 - [ ] Clase rango de disparo
 - [ ] Refactor: reusar rango de fuego y disparo
-- [ ] No exponer unit en battalion
+- [x] No exponer unit en battalion
 - [ ] Arreglar caso especial de Unbesiegable
 
 ### Conclusiones
 
 - [x] Tambien se han cambiado los tipos allegiance a battalion en los parámetros de los métodos del commanding officer
-- [x] Hay que requerir que el min range sea positivo 
+- [x] Hay que requerir que el min range sea positivo
+- Habria que mantener un estandar en los tests al crear cosas con string. Hay desde: "A", "aNation" "SameNation" "sameNation" "any" "ally" "Ally"...
+- En algunos sitios usamos troops en vez de battalion. Hasta que punto no estamos usando sinonimos que no aportan nada frente al lenguaje ubicuo.
