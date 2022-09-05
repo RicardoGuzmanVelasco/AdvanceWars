@@ -17,4 +17,4 @@
 ### Conclusiones
 
 - [x] Tambien se han cambiado los tipos allegiance a battalion en los parámetros de los métodos del commanding officer
-- Hay que requerir que el min range sea positivo 
+- [x] Hay que requerir que el min range sea positivo 

@@ -76,12 +76,13 @@ namespace AdvanceWars.Runtime
 
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int maxRange)
         {
-            return RangeOfFire(from, 0, maxRange);
+            return RangeOfFire(from, 1, maxRange);
         }
 
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int minRange, int maxRange)
         {
             Require(minRange).LesserOrEqualThan(maxRange);
+            Require(minRange).Positive();
             Require(maxRange).Positive();
 
             var coordsOutsideMinRange = CoordsInsideRange(from, minRange - 1);
