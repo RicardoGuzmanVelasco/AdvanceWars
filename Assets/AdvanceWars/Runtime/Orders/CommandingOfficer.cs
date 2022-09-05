@@ -19,8 +19,9 @@ namespace AdvanceWars.Runtime
         public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
         {
             Require(battalion is INull).False();
-
-            if(!battalion.IsAlly(this) || HasAlready(battalion, Tactic.Wait))
+            Require(battalion.IsAlly(this)).True();
+            
+            if(HasAlready(battalion, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
 
             var availableTactics = TacticsOf(battalion).Except(ExecutedThisTurn(battalion));

@@ -218,14 +218,5 @@ namespace AdvanceWars.Tests
 
             sut.AvailableTacticsOf(battalion).Should().NotBeEmpty();
         }
-
-        [Test]
-        public void AvailableTacticsOf_NonAllyUnit_IsEmpty()
-        {
-            var sut = CommandingOfficer().WithNation("aNation").Build();
-            var battalion = Battalion().WithNation("anotherNation").Build();
-
-            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
-        }
     }
 }
