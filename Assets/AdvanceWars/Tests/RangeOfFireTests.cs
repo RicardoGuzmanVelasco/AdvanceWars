@@ -55,6 +55,7 @@ namespace AdvanceWars.Tests
             });
         }
 
+        [Test]
         public void Map_RangeOfFire_WithMinRangeTwo_andMaxRangeTwo()
         {
             var sut = new Map(1, 3);
