@@ -2,6 +2,8 @@
 
 ## Culo
 
+Duración: 3h.
+
 ### Intenciones
 
 - [X]  Un batallon no puede atacar si no tiene arma.
