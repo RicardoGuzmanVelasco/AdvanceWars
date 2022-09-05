@@ -15,3 +15,5 @@
 - [ ] Arreglar caso especial de Unbesiegable
 
 ### Conclusiones
+
+- Tambien se han cambiado los tipos allegiance a battalion en los parámetros de los métodos del commanding officer

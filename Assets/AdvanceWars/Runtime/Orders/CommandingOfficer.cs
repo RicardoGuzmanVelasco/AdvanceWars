@@ -29,17 +29,17 @@ namespace AdvanceWars.Runtime
             return availableTactics;
         }
 
-        bool HasAlready(Allegiance battalion, Tactic tactic)
+        bool HasAlready(Battalion battalion, Tactic tactic)
         {
             return ExecutedManeuversOf(battalion).Any(x => x.Is(tactic));
         }
 
-        IEnumerable<IManeuver> ExecutedManeuversOf(Allegiance battalion)
+        IEnumerable<IManeuver> ExecutedManeuversOf(Battalion battalion)
         {
             return executedThisTurn.Where(m => m.Performer.Equals(battalion));
         }
 
-        IEnumerable<Tactic> ExecutedThisTurn(Allegiance battalion)
+        IEnumerable<Tactic> ExecutedThisTurn(Battalion battalion)
         {
             return ExecutedManeuversOf(battalion).Select(x => x.FromTactic);
         }
