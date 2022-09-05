@@ -24,5 +24,10 @@ namespace AdvanceWars.Runtime
         {
             return Min > 0 && Max > 0 && Min <= Max;
         }
+        
+        public override string ToString()
+        {
+            return IsValid() ? "Invalid" : Min.ToString() + ", " + Max;
+        }
     }
 }
