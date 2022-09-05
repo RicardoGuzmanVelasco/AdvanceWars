@@ -8,7 +8,7 @@
     - [x] Un batallon no puede atacar si no puede dañar a un enemigo
 - [x] Renombrar test de CanFire_AfterMove
 - [ ] Precondiciones de comparables.
-- [ ] Precondicion de available tactics of si es batallon enemigo
+- [x] Precondicion de available tactics of si es batallon enemigo
 - [ ] Clase rango de disparo
 - [ ] Refactor: reusar rango de fuego y disparo
 - [ ] No exponer unit en battalion
