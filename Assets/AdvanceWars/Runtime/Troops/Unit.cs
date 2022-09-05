@@ -22,7 +22,5 @@ namespace AdvanceWars.Runtime
             Mobility = MovementRate.None,
             Propulsion = Propulsion.None
         };
-
-
     }
 }
