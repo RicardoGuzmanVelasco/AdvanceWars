@@ -71,23 +71,21 @@ namespace AdvanceWars.Runtime
 
         public IEnumerable<Vector2Int> RangeOfFire(Battalion battalion)
         {
-            return RangeOfFire(CoordOf(WhereIs(battalion)!), battalion.MinRange, battalion.MaxRange);
+            return RangeOfFire(CoordOf(WhereIs(battalion)!), battalion.RangeOfFire);
         }
 
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int maxRange)
         {
-            return RangeOfFire(from, 1, maxRange);
+            return RangeOfFire(from, new RangeOfFire(1, maxRange));
         }
 
-        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, int minRange, int maxRange)
+        public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, RangeOfFire range)
         {
-            Require(minRange).LesserOrEqualThan(maxRange);
-            Require(minRange).Positive();
-            Require(maxRange).Positive();
+            Require(range.IsValid());
 
-            var coordsOutsideMinRange = CoordsInsideRange(from, minRange - 1);
+            var coordsOutsideMinRange = CoordsInsideRange(from, range.Min - 1);
 
-            var coordsInsideMaxRange = CoordsInsideRange(from, maxRange);
+            var coordsInsideMaxRange = CoordsInsideRange(from, range.Max);
 
             return coordsInsideMaxRange.Where(x => x != from && !coordsOutsideMinRange.Contains(x));
         }

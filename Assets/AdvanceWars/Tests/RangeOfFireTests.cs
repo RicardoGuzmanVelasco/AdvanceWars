@@ -55,11 +55,10 @@ namespace AdvanceWars.Tests
             });
         }
 
-        [Test]
         public void Map_RangeOfFire_WithMinRangeTwo_andMaxRangeTwo()
         {
             var sut = new Map(1, 3);
-            var result = sut.RangeOfFire(new Vector2Int(0, 0), 2, 2);
+            var result = sut.RangeOfFire(new Vector2Int(0, 0), new RangeOfFire(2, 2));
             result.Should().BeEquivalentTo(new Vector2Int[]
             {
                 new Vector2Int(0, 2)

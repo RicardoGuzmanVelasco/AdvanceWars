@@ -8,8 +8,8 @@ namespace AdvanceWars.Tests.Builders
         Propulsion propulsion = new Propulsion("");
         Armor armor = new Armor("");
         Weapon weapon = Weapon.Null;
-        int minRange = 1;
-        int maxRange = 1;
+        private RangeOfFire rangeOfFire = RangeOfFire.One;
+        
         #region ObjectMothers
         public static UnitBuilder Unit()
         {
@@ -21,8 +21,7 @@ namespace AdvanceWars.Tests.Builders
         
         public UnitBuilder WithRange(int minRange, int maxRange)
         {
-            this.minRange = minRange;
-            this.maxRange = maxRange;
+            this.rangeOfFire = new RangeOfFire(minRange, maxRange);
             return this;
         }
         
@@ -59,8 +58,7 @@ namespace AdvanceWars.Tests.Builders
                 Armor = armor,
                 Propulsion = propulsion,
                 Weapon = weapon,
-                MinRange = minRange,
-                MaxRange = maxRange
+                RangeOfFire = rangeOfFire
             };
         }
     }

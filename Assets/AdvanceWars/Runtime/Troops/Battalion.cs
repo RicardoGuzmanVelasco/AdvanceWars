@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace AdvanceWars.Runtime
 {
@@ -13,8 +15,7 @@ namespace AdvanceWars.Runtime
         public MovementRate MovementRate => Unit.Mobility;
         public Propulsion Propulsion => Unit.Propulsion;
         public Armor Armor => Unit.Armor;
-        public int MinRange => Unit.MinRange;
-        public int MaxRange => Unit.MaxRange;
+        public RangeOfFire RangeOfFire => Unit.RangeOfFire;
 
         public int BaseDamageTo(Armor other)
         {

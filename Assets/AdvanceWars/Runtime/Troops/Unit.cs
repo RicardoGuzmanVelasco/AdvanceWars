@@ -9,8 +9,7 @@ namespace AdvanceWars.Runtime
         public Weapon Weapon { get; init; }
 
         public Armor Armor { get; init; }
-        public int MinRange { get; init; }
-        public int MaxRange { get; init; }
+        public RangeOfFire RangeOfFire { get; init; }
 
         public int BaseDamageTo(Armor other)
         {
@@ -23,5 +22,7 @@ namespace AdvanceWars.Runtime
             Mobility = MovementRate.None,
             Propulsion = Propulsion.None
         };
+
+
     }
 }
