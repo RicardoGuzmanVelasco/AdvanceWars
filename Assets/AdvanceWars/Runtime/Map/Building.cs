@@ -22,7 +22,7 @@ namespace AdvanceWars.Runtime
         {
             get
             {
-                Require(this.Equals(new UnbesiegableSpecialCase())).False();
+                Require(this.Equals(Building.Unbesiegable)).False();
                 
                 return maxSiegePoints > SiegePoints;
             }
