@@ -1,4 +1,4 @@
-﻿# Día 0
+﻿# Día 2
 
 ## Culo
 
@@ -28,3 +28,17 @@
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon.
 - He intentado meter lo de los costes de movimiento por terreno. He ganado insight y avanzado cosas, pero no voy a subir nada. Ya se hará con más tests.
 - No me ha dado tiempo a arreglar el caso especial de Unbesiegable. También no creo que lo entienda del todo. Es solo un caso que se deberia usar cuando se intenta asediar un edificio aliado?
+
+## Alejandro
+
+Duración: 
+
+### Intenciones
+
+- [ ] Arreglar caso especial de Unbesiegable.
+- [ ] Terreno aire para los combates (0 de defensa).
+- [ ] Seleccionar a qué enemigo atacar.
+- [ ] TODO en OperationTests: "When turn starts, it starts Commanding Officer Turn. Implementation test".
+- [ ] Revisar RangeOfFireTests para mejorar legibilidad (conclusiones de Culo).
+
+### Conclusiones
