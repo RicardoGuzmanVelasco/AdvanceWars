@@ -56,7 +56,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void DamageReduction_WhenTerrain_DoesntCover()
+        public void DamageReduction_WhenTerrain_DoesNotProvideCover()
         {
             new Offensive
                 (
@@ -69,7 +69,7 @@ namespace AdvanceWars.Tests
 
         [TestCase(1, 100, 0.9f)]
         [TestCase(1, 50, 0.95f)]
-        public void DamageReduction_WhenTerrain_Cover(int defensiveRating, int forces, float expected)
+        public void DamageReduction_WhenTerrain_ProvidesCover(int defensiveRating, int forces, float expected)
         {
             new Offensive
                 (
