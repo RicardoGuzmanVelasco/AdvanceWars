@@ -89,6 +89,17 @@ namespace AdvanceWars.Tests
 
             sut.IsBesiegable.Should().BeFalse();
         }
+        
+        [Test]
+        public void Unbesiegable_WhenBuilding_IsUnbesiegable()
+        {
+            var sut = new Map.Space
+            {
+                Terrain = Runtime.Building.Unbesiegable
+            };
+
+            sut.IsBesiegable.Should().BeFalse();
+        }
 
         [Test]
         public void anEnemyOccupant_Leaves_WithoutStartingAnySiege_OverTheBuilding()

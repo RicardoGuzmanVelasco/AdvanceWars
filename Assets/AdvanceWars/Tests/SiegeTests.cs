@@ -26,21 +26,6 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void SiegeTacticIsNotAvailable_ForUnbesiegableBuildings()
-        {
-            var battalion = Battalion().WithNation("sameNation").Build();
-
-            var map = new Map(1, 1);
-            map.Put(Vector2Int.zero, Building.Unbesiegable);
-            map.Put(Vector2Int.zero, battalion);
-
-            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
-
-            sut.AvailableTacticsOf(battalion)
-                .Should().NotContain(Tactic.Siege);
-        }
-
-        [Test]
         public void SiegeTacticIsNotAvailable_WhenBuildingIsNotBesiegableByBattalion()
         {
             var battalion = Battalion().WithNation("sameNation").Build();
