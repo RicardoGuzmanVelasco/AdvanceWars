@@ -36,9 +36,10 @@ Duración:
 ### Intenciones
 
 - [x] Arreglar caso especial de Unbesiegable.
-- [ ] Terreno aire para los combates (0 de defensa).
+- [x] Terreno aire para los combates (0 de defensa).
 - [ ] Seleccionar a qué enemigo atacar.
 - [ ] TODO en OperationTests: "When turn starts, it starts Commanding Officer Turn. Implementation test".
 - [ ] Revisar RangeOfFireTests para mejorar legibilidad (conclusiones de Culo).
 
 ### Conclusiones
+- Ya se tiene Terreno Aire para los combates, ¿siguiente paso al respecto?

@@ -2,13 +2,12 @@
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
-using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
-using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.TheaterOpsBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Battalion = AdvanceWars.Runtime.Battalion;
+using Terrain = AdvanceWars.Runtime.Terrain;
 
 namespace AdvanceWars.Tests
 {
@@ -79,6 +78,25 @@ namespace AdvanceWars.Tests
                 )
                 .DamageReductionMultiplier
                 .Should().Be(expected);
+        }
+
+        [Test]
+        public void AirTerrainDoesNotProvideAnyCover()
+        {
+            new Offensive
+                (
+                    attacker: Battalion.Null,
+                    defender: Battalion.Null,
+                    battlefield: Terrain.Air
+                )
+                .DamageReductionMultiplier
+                .Should().Be(1);
+        }
+
+        [Test, Description("Prevents future nasty equality comparisons")]
+        public void AirTerrainIsNotTheSameAsANullTerrain()
+        {
+            Terrain.Air.Should().NotBeSameAs(Terrain.Null);
         }
 
         [Test]
