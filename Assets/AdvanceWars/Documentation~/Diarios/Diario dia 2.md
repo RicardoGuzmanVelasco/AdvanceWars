@@ -35,7 +35,7 @@ Duración:
 
 ### Intenciones
 
-- [ ] Arreglar caso especial de Unbesiegable.
+- [x] Arreglar caso especial de Unbesiegable.
 - [ ] Terreno aire para los combates (0 de defensa).
 - [ ] Seleccionar a qué enemigo atacar.
 - [ ] TODO en OperationTests: "When turn starts, it starts Commanding Officer Turn. Implementation test".
