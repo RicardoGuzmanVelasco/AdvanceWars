@@ -107,3 +107,8 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 
 - Hay cosas en las conclusiones del Día 2 de Culo que creo deben ir en su retro: son cosas a comentar de ambito general, proceso o guía de estilo.
 - Utilizar '-' en vez de '*', para ser homogéneos.
+
+## Diseño
+
+### Alejandro
+- ¿Al final cuál fue la conclusión de que Space tuviera todo lo relacionado con el Asedio? 
