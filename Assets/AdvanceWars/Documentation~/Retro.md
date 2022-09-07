@@ -88,16 +88,16 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 
 ### Culo
 
-* Habría que ir pensando en crear assembly definitions y en como dividirlas, estamos manteniendo la disciplina pero ahora que tenemos menos contacto, es más propicio a que se rompa eso. Además cada vez es más complicado encontrar las cosas.
-* Habría que mover los tests del mapa al una clase tests de mapa
-* No entiendo qué va en la parte de la retro y qué parte en conclusiones, no es lo mismo?
-* Refactor: Duplicidad entre RangeOfFire y RangeOfMovement?
-* MinRange - MaxRange vs RangeeOfFire
-* Refactor: Crear Range con min y max value para que la unit no tenga 2 enteros.
-* Refactor: Borrar overload de RangeOfFire que solo tiene maxRange?
-* No sé si el cambio que le he hecho al IsBesiegable es correcto. Pero no le veía el sentido a la precondición. Por qué petaba al tener un Terrain.Null? Debería de no petar, no?
-* Borrar test Troops_CanFire_AfterMove ? Ya no siempre es el caso de que las tropas puedan disparar siempre despues de moverse. Se ha cambiado para estar en verde
-* El rango es del arma o de la unidad? Todas las armas de una unidad tienen el mismo rango, pero hay unidades que no tienen armas y entiendo que no tienen rango.
+- Habría que ir pensando en crear assembly definitions y en como dividirlas, estamos manteniendo la disciplina pero ahora que tenemos menos contacto, es más propicio a que se rompa eso. Además cada vez es más complicado encontrar las cosas.
+- Habría que mover los tests del mapa al una clase tests de mapa
+- No entiendo qué va en la parte de la retro y qué parte en conclusiones, no es lo mismo?
+- Refactor: Duplicidad entre RangeOfFire y RangeOfMovement?
+- MinRange - MaxRange vs RangeeOfFire
+- Refactor: Crear Range con min y max value para que la unit no tenga 2 enteros.
+- Refactor: Borrar overload de RangeOfFire que solo tiene maxRange?
+- No sé si el cambio que le he hecho al IsBesiegable es correcto. Pero no le veía el sentido a la precondición. Por qué petaba al tener un Terrain.Null? Debería de no petar, no?
+- Borrar test Troops_CanFire_AfterMove ? Ya no siempre es el caso de que las tropas puedan disparar siempre despues de moverse. Se ha cambiado para estar en verde
+- El rango es del arma o de la unidad? Todas las armas de una unidad tienen el mismo rango, pero hay unidades que no tienen armas y entiendo que no tienen rango.
 
 # Dia 2
 
