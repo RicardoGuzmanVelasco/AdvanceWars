@@ -98,3 +98,12 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 * No sé si el cambio que le he hecho al IsBesiegable es correcto. Pero no le veía el sentido a la precondición. Por qué petaba al tener un Terrain.Null? Debería de no petar, no?
 * Borrar test Troops_CanFire_AfterMove ? Ya no siempre es el caso de que las tropas puedan disparar siempre despues de moverse. Se ha cambiado para estar en verde
 * El rango es del arma o de la unidad? Todas las armas de una unidad tienen el mismo rango, pero hay unidades que no tienen armas y entiendo que no tienen rango.
+
+# Dia 2
+
+## Retro
+
+### Alejandro
+
+- Hay cosas en las conclusiones del Día 2 de Culo que creo deben ir en su retro: son cosas a comentar de ambito general, proceso o guía de estilo.
+- Utilizar '-' en vez de '*', para ser homogéneos.
