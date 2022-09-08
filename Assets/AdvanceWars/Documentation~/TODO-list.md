@@ -58,10 +58,10 @@
     - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
 -Sistema de economía.
   - Ganar dinero por edificios.
-  -Gastar dinero en spawnear batallones.
+  - Gastar dinero en spawnear batallones.
 - Combustible/munición.
 - Ataques de artillería.
-  -Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
+  - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
 
 - Terreno aire para los combates (0 de defensa).
@@ -73,3 +73,6 @@
 - Condiciones de victoria.
 - Bandos para 2 vs 2.
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
+- Maniobras automáticas al inicio del turno de un CO:
+  - Aplicar curaciones a Batallones según corresponda (están sobre edificios correspondientes).
+  - Ganar dinero por edificios.

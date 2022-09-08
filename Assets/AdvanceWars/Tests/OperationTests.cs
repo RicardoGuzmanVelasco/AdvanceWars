@@ -58,8 +58,5 @@ namespace AdvanceWars.Tests
 
             sut.Day.Should().Be(2);
         }
-
-        //TODO:
-        //When turn starts, it starts Commanding Officer Turn. Implementation test
     }
 }
