@@ -31,7 +31,7 @@
 
 ## Alejandro
 
-Duración: ~1h
+Duración: 3h
 
 ### Intenciones
 
@@ -44,4 +44,5 @@ Duración: ~1h
 ### Conclusiones
 - Ya se tiene Terreno Aire para los combates, ¿siguiente paso al respecto? ¿borrar de la TODO-list?
 - Teniendo que FireManeuver recibe el target y que el Map indica para un Batallón quién está en su Rango de Disparo, _Seleccionar a qué enemigo atacar_ sería responsabilidad del controlador, ¿no? ¿queremos montar los controladores?
-- TODO en OperationTests: Lo he movido a TODO-list; es más interesante cuando estén dichas Maniobras automáticas. 
+- TODO en OperationTests: Lo he movido a TODO-list; es más interesante cuando estén dichas Maniobras automáticas.
+- He decidido abordar el MapBuilder que permite construir un Map desde una string formateada (verbatim, en este caso). Lo he empezado, pero falta la gran mayoría de casuística.
