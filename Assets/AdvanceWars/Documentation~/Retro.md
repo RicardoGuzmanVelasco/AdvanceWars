@@ -107,6 +107,7 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 
 - Hay cosas en las conclusiones del Día 2 de Culo que creo deben ir en su retro: son cosas a comentar de ambito general, proceso o guía de estilo.
 - Utilizar '-' en vez de '*', para ser homogéneos.
+- Siempre dudo en si poner en los mensajes del commit en qué clases hago los cambios: por un lado, ya aparecen en los cambios; por otro, hay que entrar al commit para mirarlo.
 
 ## Diseño
 
