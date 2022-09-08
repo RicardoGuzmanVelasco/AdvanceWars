@@ -42,4 +42,4 @@ Duración: ~1h
 - [ ] Revisar RangeOfFireTests para mejorar legibilidad (conclusiones de Culo).
 
 ### Conclusiones
-- Ya se tiene Terreno Aire para los combates, ¿siguiente paso al respecto?
+- Ya se tiene Terreno Aire para los combates, ¿siguiente paso al respecto? ¿borrar de la TODO-list?
