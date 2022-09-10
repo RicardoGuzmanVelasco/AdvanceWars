@@ -1,14 +1,13 @@
 ﻿### Refactor
 
-- Carpetas en vez de asmdefs
-- No exponer unit en battalion.
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
   - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
 - Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
-- Precondiciones de comparables.
 - Arreglar caso especial Unbesiegable.
-- El test de CanFire_AfterMove tiene que llamarse May en vez de Can y AnyOtherTactic en vez de Fire.
-- Precondición de available tactics of si es batallón enemigo.
+- Terminar y usar el builder de RangeOf para que no sean confusos los RangeOfFireTests. 
+  - No es un MapBuilder, hay que sacarlo
+- Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
+- Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
 
 ### Docs
 
@@ -18,8 +17,6 @@
 ### WIP
 
 - Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
-- No tenemos definido el comportamiento de que una unidad no tenga un arma.
-
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
 - Está ahora mismo mockeado todo lo que tiene que ver con el Player. Por eso tiene un Id.
@@ -53,17 +50,16 @@
   - Emboscadas.
 - Recuperación de vida y ammo en edificios.
   - Edificios curan 20.
--Barracas y generalización.
+    -Barracas y generalización.
   - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
     - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
--Sistema de economía.
+      -Sistema de economía.
   - Ganar dinero por edificios.
   - Gastar dinero en spawnear batallones.
 - Combustible/munición.
 - Ataques de artillería.
   - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
-
 - Terreno aire para los combates (0 de defensa).
 - Táctica de sumergirse.
 - La unidad que cura unidades.

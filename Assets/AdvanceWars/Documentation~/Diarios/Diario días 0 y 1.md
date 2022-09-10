@@ -96,24 +96,3 @@ Duración: 3h
 * Se me ha alargado más de lo que pensaba el rango de ataque por la parte de las maniobras, lo subestimé
 * Se ha dejado un test en rojo que comprueba que un Battalion sin arma puede recibir una orden de disparo. Probablemente cuando se arregle este test, peten unos cuantos mas, pero habra que definirles el arma. => Cosa que me hace pensar que el rango es del arma? Todavia no lo tengo claro
 * Como he puesto en la parte de la retro, no entiendo la duplicidad de archivos
-
-## Conclusiones generales
-
-* Reducir duración de ciclo para acercar feedback.
-* Más cuidado en la indentación de documentos.
-  * También en la estructura de la TODO-list.
-* Mantenemos el proceso de:
-  * En documento de diario: Intenciones/Conclusiones como daily.
-  * En documento de retro:
-    * Retro como confusiones o mejoras de proceso.
-    * Diseño para reunión de diseño.
-
-* Podremos reutilizar código de rango de fuego y de movimiento.
-  * A ese respecto sería buena idea hacer más legible Map.RangeOfFire con un Except.
-* Debemos usar las precondiciones de comparables (greater than, less than, etc).
-* Arreglar unbesieable. Quizá se va como propone Culo de la manera que Álex recuerda que dice Fowler con el IsNull.
-* El test de CanFire_AfterMove tiene que llamarse May en vez de Can y AnyOtherTactic en vez de Fire.
-* Precondición de available tactics of si es batallón enemigo
-* Dejamos como está el setter de Terreno en Space porque la API .Put() es cómoda y lo requiere, en lugar de hacerlo init.
-  * Se podría hacer internal pero en este caso solo aporta tedio por tener que hacer friendship al paquete de test.
-  * Como no tenemos asmdefs todavía, el resto del internal es inútil salvo por comunicación.

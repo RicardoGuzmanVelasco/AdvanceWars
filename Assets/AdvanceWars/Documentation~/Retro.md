@@ -99,6 +99,27 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 - Borrar test Troops_CanFire_AfterMove ? Ya no siempre es el caso de que las tropas puedan disparar siempre despues de moverse. Se ha cambiado para estar en verde
 - El rango es del arma o de la unidad? Todas las armas de una unidad tienen el mismo rango, pero hay unidades que no tienen armas y entiendo que no tienen rango.
 
+## Conclusiones generales
+
+* Reducir duración de ciclo para acercar feedback.
+* Más cuidado en la indentación de documentos.
+  * También en la estructura de la TODO-list.
+* Mantenemos el proceso de:
+  * En documento de diario: Intenciones/Conclusiones como daily.
+  * En documento de retro:
+    * Retro como confusiones o mejoras de proceso.
+    * Diseño para reunión de diseño.
+
+* Podremos reutilizar código de rango de fuego y de movimiento.
+  * A ese respecto sería buena idea hacer más legible Map.RangeOfFire con un Except.
+* Debemos usar las precondiciones de comparables (greater than, less than, etc).
+* Arreglar unbesieable. Quizá se va como propone Culo de la manera que Álex recuerda que dice Fowler con el IsNull.
+* El test de CanFire_AfterMove tiene que llamarse May en vez de Can y AnyOtherTactic en vez de Fire.
+* Precondición de available tactics of si es batallón enemigo
+* Dejamos como está el setter de Terreno en Space porque la API .Put() es cómoda y lo requiere, en lugar de hacerlo init.
+  * Se podría hacer internal pero en este caso solo aporta tedio por tener que hacer friendship al paquete de test.
+  * Como no tenemos asmdefs todavía, el resto del internal es inútil salvo por comunicación.
+
 # Dia 2
 
 ## Retro
@@ -109,6 +130,13 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 - Utilizar '-' en vez de '*', para ser homogéneos.
 - Siempre dudo en si poner en los mensajes del commit en qué clases hago los cambios: por un lado, ya aparecen en los cambios; por otro, hay que entrar al commit para mirarlo.
 
+### Culo
+
+- Dividir la retro en archivos de días como el diario.
+- Un refactor en un test es un refactor o es test dentro de conventional commits.
+- Habria que mantener un estandar en los tests al crear cosas con string. Hay desde: "A", "aNation" "SameNation" "sameNation" "any" "ally" "Ally"...
+- Me ha gustado mucho una cosa que he hecho porque no lo hacía en mi curro que es no subir los commits porque no había una cobertura suficiente, no estaba terminado y creo que iba a hacer más mal que bien. Y quedarme el insight
+
 ## Diseño
 
 ### Alejandro
@@ -116,3 +144,16 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 - Teniendo que FireManeuver recibe el target y que el Map indica para un Batallón quién está en su Rango de Disparo, _Seleccionar a qué enemigo atacar_ sería responsabilidad del controlador, ¿no? ¿queremos montar los controladores?
 - Para el caso de uso "Final de turno", se supone que hay que ceder el control tras lanzar el evento de "nuevo turno", pero simplemente se lanza un evento y se continua con "empieza tu turno" del siguiente CO. ¿No debería ser hacerse un yield o similar?
 - ¿El final de turno realmente lo indica el Input/Vista? Creo que sería algo del Control, automático, cuando ya no queden Batallones del CO actual con Tácticas disponibles.
+
+### Culo
+- 
+## Conclusiones generales
+
+- Revisar el special case de Building.Unbesiegable y su uso en el space.
+- Se separán las retros en días como los diarios.
+- Hemos movido las conclusiones generales a la retro.
+- Se ha decidido usar - en el .md en vez de *. Cambiarlos cuando se vean. También usar X mayúscula en los checks.
+- Seguir estandar de casing (aNation, sameNation...) de la nomeclatura de los tests en las strings.
+- Seleccionar a qué enemigo atacar es responsabilidad del controlador. Sí queremos montar estos controladores.
+- Queremos montar la UI eventualmente.
+- Dejar de usar sinónimos como nombres de variables cuando no aporten información nueva, aunque sea el mismo nombre del tipo. Como troops - battalion. Añaden ruido.
