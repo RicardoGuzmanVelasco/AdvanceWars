@@ -11,14 +11,15 @@ namespace AdvanceWars.Tests
 {
     public class RangeOfFireTests
     {
-        // O X O 
-        // X B X 
-
         [Test]
         public void Map_RangeOfFire_WithRangeOne()
         {
             var sut = new Map(3, 2);
+            
             var result = sut.RangeOfFire(new Vector2Int(1, 0), 1);
+            
+            // O X O 
+            // X B X 
             result.Should().BeEquivalentTo(new Vector2Int[]
             {
                 Vector2Int.zero, 
@@ -26,18 +27,19 @@ namespace AdvanceWars.Tests
                 Vector2Int.one,  
             });
         }
-        
-        
-        // O O X O O
-        // O X X X O
-        // X X B X X
-        // O X X X O
-        // O O X O O
+       
         [Test]
         public void Map_RangeOfFire_WithRangeTwo()
         {
             var sut = new Map(5, 5);
+            
             var result = sut.RangeOfFire(new Vector2Int(2, 2), 2);
+            
+            // O O X O O
+            // O X X X O
+            // X X B X X
+            // O X X X O
+            // O O X O O
             result.Should().BeEquivalentTo(new Vector2Int[]
             {
                 new Vector2Int(2, 0),
@@ -59,7 +61,9 @@ namespace AdvanceWars.Tests
         public void Map_RangeOfFire_WithMinRangeTwo_andMaxRangeTwo()
         {
             var sut = new Map(1, 3);
+            
             var result = sut.RangeOfFire(new Vector2Int(0, 0), new RangeOfFire(2, 2));
+            
             result.Should().BeEquivalentTo(new Vector2Int[]
             {
                 new Vector2Int(0, 2)
@@ -73,6 +77,7 @@ namespace AdvanceWars.Tests
             var battalion = Battalion().WithRange(2, 2).Build();
             
             sut.Put(Vector2Int.zero, battalion);
+            
             var result = sut.RangeOfFire(battalion);
             
             result.Should().BeEquivalentTo(new Vector2Int[]
@@ -82,7 +87,7 @@ namespace AdvanceWars.Tests
         }
         
         [Test]
-        public void BattalionsInRange()
+        public void EnemyBattalionInRange_AppearsAsSuch()
         {
             var sut = new Map(1, 2);
             var ally = Battalion().WithNation("Ally").WithRange(1, 1).Build();
@@ -90,6 +95,7 @@ namespace AdvanceWars.Tests
             
             sut.Put(Vector2Int.zero, ally);
             sut.Put(Vector2Int.up, enemy);
+            
             var result = sut.EnemyBattalionsInRangeOfFire(ally);
             
             result.Should().Contain(new Battalion[]
@@ -115,7 +121,8 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(allyBattalion).Should().Contain(Tactic.Fire);
+            sut.AvailableTacticsOf(allyBattalion)
+                .Should().Contain(Tactic.Fire);
         }
         
         [Test]
@@ -130,7 +137,8 @@ namespace AdvanceWars.Tests
         
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
         
-            sut.AvailableTacticsOf(allyBattalion).Should().NotContain(Tactic.Fire);
+            sut.AvailableTacticsOf(allyBattalion)
+                .Should().NotContain(Tactic.Fire);
         }
         
         [Test]
@@ -145,7 +153,8 @@ namespace AdvanceWars.Tests
         
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
         
-            sut.AvailableTacticsOf(allyBattalion).Should().NotContain(Tactic.Fire);
+            sut.AvailableTacticsOf(allyBattalion)
+                .Should().NotContain(Tactic.Fire);
         }
 
         [Test]
@@ -160,7 +169,8 @@ namespace AdvanceWars.Tests
         
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
         
-            sut.AvailableTacticsOf(allyBattalion).Should().NotContain(Tactic.Fire);
+            sut.AvailableTacticsOf(allyBattalion)
+                .Should().NotContain(Tactic.Fire);
         }
     }
 }

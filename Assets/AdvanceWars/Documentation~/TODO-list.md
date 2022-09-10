@@ -17,8 +17,8 @@
 
 ### WIP
 
-* Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
-* No tenemos definido el comportamiento de que una unidad no tenga un arma.
+- Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
+- No tenemos definido el comportamiento de que una unidad no tenga un arma.
 
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
@@ -32,37 +32,37 @@
 
 ### Riesgos
 
-* Si atacas y te matan en el contrataque, puede ser problemático (o no) que se llame a una maniobra de Wait sobre ti (esa maniobra se llama automáticamente tras el Fire).
-  * Por ejemplo por guardar maniobras ejecutadas sobre un Battalion.Null...
-* Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero.
-  * Habrá que añadir un método Self.
-  * También hemos hablado aquí de lo de la abstracción National que segrega de Allegiance.
-* Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
-  * Se ha discutido pero no se ha llegado a nada en claro.
-* Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio.
+- Si atacas y te matan en el contrataque, puede ser problemático (o no) que se llame a una maniobra de Wait sobre ti (esa maniobra se llama automáticamente tras el Fire).
+  - Por ejemplo por guardar maniobras ejecutadas sobre un Battalion.Null...
+- Ahora mismo no tenemos separacion entre Aliado y propio. Cuando hagamos el 2vs2, muchas cosas en las que se comprueba si es Ally, petaran, ya que deberian de ser ally las unidades del compañero.
+  - Habrá que añadir un método Self.
+  - También hemos hablado aquí de lo de la abstracción National que segrega de Allegiance.
+- Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
+  - Se ha discutido pero no se ha llegado a nada en claro.
+- Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio.
 
 ### Tests
 
 ### Features para hacer
 
-* Redondear 0.05 los outcomes de ataques y tal.
-* Mergear Battalions.
-* Niebla de guerra.
-  * Visibilidad de casillas por terreno.
-  * Concepto de visibilidad en las unidades.
-  * Emboscadas.
-* Recuperación de vida y ammo en edificios.
-  * Edificios curan 20.
-* Barracas y generalización.
+- Redondear 0.05 los outcomes de ataques y tal.
+- Mergear Battalions.
+- Niebla de guerra.
+  - Visibilidad de casillas por terreno.
+  - Concepto de visibilidad en las unidades.
+  - Emboscadas.
+- Recuperación de vida y ammo en edificios.
+  - Edificios curan 20.
+-Barracas y generalización.
   - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
     - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
-* Sistema de economía.
-  * Ganar dinero por edificios.
-  * Gastar dinero en spawnear batallones.
-* Combustible/munición.
-* Ataques de artillería.
-  * Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
-* Seleccionar a qué enemigo atacar.
+-Sistema de economía.
+  - Ganar dinero por edificios.
+  - Gastar dinero en spawnear batallones.
+- Combustible/munición.
+- Ataques de artillería.
+  - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
+- Seleccionar a qué enemigo atacar.
 
 - Terreno aire para los combates (0 de defensa).
 - Táctica de sumergirse.
@@ -73,3 +73,6 @@
 - Condiciones de victoria.
 - Bandos para 2 vs 2.
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
+- Maniobras automáticas al inicio del turno de un CO:
+  - Aplicar curaciones a Batallones según corresponda (están sobre edificios correspondientes).
+  - Ganar dinero por edificios.

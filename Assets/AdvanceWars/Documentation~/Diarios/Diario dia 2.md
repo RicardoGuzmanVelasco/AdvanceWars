@@ -1,4 +1,4 @@
-﻿# Día 0
+﻿# Día 2
 
 ## Culo
 
@@ -30,3 +30,21 @@ Duración: 3h.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon.
 - He intentado meter lo de los costes de movimiento por terreno. He ganado insight y avanzado cosas, pero no voy a subir nada. Ya se hará con más tests.
 - No me ha dado tiempo a arreglar el caso especial de Unbesiegable. También no creo que lo entienda del todo. Es solo un caso que se deberia usar cuando se intenta asediar un edificio aliado?
+
+## Alejandro
+
+Duración: 3h
+
+### Intenciones
+
+- [x] Arreglar caso especial de Unbesiegable.
+- [x] Terreno aire para los combates (0 de defensa).
+- [ ] Seleccionar a qué enemigo atacar.
+- [ ] TODO en OperationTests: "When turn starts, it starts Commanding Officer Turn. Implementation test".
+- [ ] Revisar RangeOfFireTests para mejorar legibilidad (conclusiones de Culo).
+
+### Conclusiones
+- Ya se tiene Terreno Aire para los combates, ¿siguiente paso al respecto? ¿borrar de la TODO-list?
+- Teniendo que FireManeuver recibe el target y que el Map indica para un Batallón quién está en su Rango de Disparo, _Seleccionar a qué enemigo atacar_ sería responsabilidad del controlador, ¿no? ¿queremos montar los controladores?
+- TODO en OperationTests: Lo he movido a TODO-list; es más interesante cuando estén dichas Maniobras automáticas.
+- He decidido abordar el MapBuilder que permite construir un Map desde una string formateada (verbatim, en este caso). Lo he empezado, pero falta la gran mayoría de casuística.

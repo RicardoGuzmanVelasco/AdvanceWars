@@ -29,6 +29,8 @@ namespace AdvanceWars.Runtime
         }
 
         public static Terrain Null { get; } = new Terrain(new Dictionary<Propulsion, int>());
+
+        public static Terrain Air { get; } = new Terrain(new Dictionary<Propulsion, int>());
         #endregion
 
         public int MoveCostOf(Propulsion propulsion)

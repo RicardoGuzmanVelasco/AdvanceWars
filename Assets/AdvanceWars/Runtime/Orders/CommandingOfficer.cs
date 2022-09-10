@@ -24,9 +24,7 @@ namespace AdvanceWars.Runtime
             if(HasAlready(battalion, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
 
-            var availableTactics = TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
-
-            return availableTactics;
+            return TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
         }
 
         bool HasAlready(Battalion battalion, Tactic tactic)
@@ -63,15 +61,8 @@ namespace AdvanceWars.Runtime
                 Tactic.Move
             };
 
-            var enemiesInRange = map.EnemyBattalionsInRangeOfFire(battalion).ToArray();
-            var anyEnemyInRange = enemiesInRange.Any();
-            if(anyEnemyInRange)
-            {
-                if (enemiesInRange!.Any(x => battalion.BaseDamageTo(x.Armor) > 0))
-                {
-                    tactics.Add(Tactic.Fire);
-                }
-            }
+            if(map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0))
+                tactics.Add(Tactic.Fire);
 
             if(map.WhereIs(battalion)!.IsBesiegable)
                 tactics.Add(Tactic.Siege);
