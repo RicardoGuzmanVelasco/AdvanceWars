@@ -2,7 +2,7 @@
 
 ## Alejandro
 
-Duración: 
+Duración: 2h
 
 ### Intenciones
 
