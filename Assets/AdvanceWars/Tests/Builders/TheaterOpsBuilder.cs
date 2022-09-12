@@ -30,7 +30,7 @@ namespace AdvanceWars.Tests.Builders
                 (
                     WeaponBuilder.Weapon().MaxDmgTo
                     (
-                        target.Troops.Armor.ToString()
+                        target.Battalion.Armor.ToString()
                     ).Build()
                 ).Build()
             );

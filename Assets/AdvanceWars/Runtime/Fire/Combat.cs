@@ -15,15 +15,15 @@
         {
             var attack = new Offensive
             (
-                attacker: this.atk.Troops,
-                defender: this.def.Troops,
+                attacker: this.atk.Battalion,
+                defender: this.def.Battalion,
                 battlefield: this.def.Battlefield
             );
 
             var counterAttack = new Offensive
             (
                 attacker: attack.Outcome(),
-                defender: this.atk.Troops,
+                defender: this.atk.Battalion,
                 battlefield: this.atk.Battlefield
             );
 
