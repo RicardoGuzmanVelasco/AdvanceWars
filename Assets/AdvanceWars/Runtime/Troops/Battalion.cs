@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace AdvanceWars.Runtime
 {
@@ -25,6 +23,11 @@ namespace AdvanceWars.Runtime
         public Battalion Clone()
         {
             return MemberwiseClone() as Battalion;
+        }
+
+        public bool IsAerial()
+        {
+            return Unit.IsAerial();
         }
 
         #region Formatting

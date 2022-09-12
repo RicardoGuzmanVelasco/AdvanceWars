@@ -22,5 +22,10 @@ namespace AdvanceWars.Runtime
             Mobility = MovementRate.None,
             Propulsion = Propulsion.None
         };
+
+        public bool IsAerial()
+        {
+            return this.Propulsion.Equals(Propulsion.Air);
+        }
     }
 }

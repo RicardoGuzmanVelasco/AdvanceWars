@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
             Require(battlefield.Equals(Terrain.Null)).False();
             Require(troop is INull).False();
 
-            Battlefield = battlefield;
+            Battlefield = troop.IsAerial() ? Terrain.Air : battlefield;
             Troops = troop;
         }
     }

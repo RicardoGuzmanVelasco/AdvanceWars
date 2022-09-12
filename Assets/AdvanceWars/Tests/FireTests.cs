@@ -100,6 +100,19 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
+        public void AirUnitsFightOnAir_DespiteSpaceActualTerrain()
+        {
+            var nonAerialTerrain = Terrain().Build();
+            
+            var sut = TheaterOps()
+                .Who(AerialUnit().Build())
+                .Where(nonAerialTerrain)
+                .Build();
+
+            sut.Battlefield.Should().Be(Terrain.Air).And.NotBe(nonAerialTerrain);
+        }
+
+        [Test]
         public void BaseDamage_ObtainedFromWeapon()
         {
             var sut = Battalion()

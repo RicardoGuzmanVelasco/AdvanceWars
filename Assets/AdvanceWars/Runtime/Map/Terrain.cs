@@ -11,6 +11,9 @@ namespace AdvanceWars.Runtime
 
         public int DefensiveRating { get; init; }
 
+        // Only for ease of debugging.
+        public string Id { get; init; } = string.Empty;
+
         #region Ctors /FactoryMethods
         protected Terrain() { }
 
@@ -30,7 +33,7 @@ namespace AdvanceWars.Runtime
 
         public static Terrain Null { get; } = new Terrain(new Dictionary<Propulsion, int>());
 
-        public static Terrain Air { get; } = new Terrain(new Dictionary<Propulsion, int>());
+        public static Terrain Air { get; } = new Terrain(new Dictionary<Propulsion, int>()) { Id = "Air" };
         #endregion
 
         public int MoveCostOf(Propulsion propulsion)
