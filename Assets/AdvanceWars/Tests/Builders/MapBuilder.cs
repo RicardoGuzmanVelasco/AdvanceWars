@@ -20,21 +20,6 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
         
-        public MapBuilder WithStructure(string mapAsVerbatimString)
-        {
-            var lines = mapAsVerbatimString.Split("\n");
-            
-            this.sizeX = SpacesIn(lines.First());
-            this.sizeY = lines.Length;
-
-            return this;
-        }
-
-        int SpacesIn(string row)
-        {
-            return row.Count(x => x == 'O');
-        }
-        
         public Map Build()
         {
             return new Map(this.sizeX, this.sizeY);
