@@ -60,7 +60,6 @@
 - Ataques de artillería.
   - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
-- Terreno aire para los combates (0 de defensa).
 - Táctica de sumergirse.
 - La unidad que cura unidades.
 - Unidades de transporte.
