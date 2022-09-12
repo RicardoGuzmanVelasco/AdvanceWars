@@ -100,7 +100,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void AirUnitsFightOnAir_DespiteSpaceActualTerrain()
+        public void AerialUnitsFightOnAir_DespiteSpaceActualTerrain()
         {
             var nonAerialTerrain = Terrain().Build();
             
