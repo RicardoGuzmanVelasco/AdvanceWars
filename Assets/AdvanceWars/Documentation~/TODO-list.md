@@ -50,7 +50,7 @@
   - Emboscadas.
 - Recuperación de vida y ammo en edificios.
   - Edificios curan 20.
-    -Barracas y generalización.
+    - Barracas y generalización.
   - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
     - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
       -Sistema de economía.

@@ -145,8 +145,6 @@ Si no, por experiencia en el trabajo, se consume menos tiempo cuanto más se ava
 - Para el caso de uso "Final de turno", se supone que hay que ceder el control tras lanzar el evento de "nuevo turno", pero simplemente se lanza un evento y se continua con "empieza tu turno" del siguiente CO. ¿No debería ser hacerse un yield o similar?
 - ¿El final de turno realmente lo indica el Input/Vista? Creo que sería algo del Control, automático, cuando ya no queden Batallones del CO actual con Tácticas disponibles.
 
-### Culo
-- 
 ## Conclusiones generales
 
 - Revisar el special case de Building.Unbesiegable y su uso en el space.
