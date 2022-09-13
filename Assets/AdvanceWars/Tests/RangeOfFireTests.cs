@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using static AdvanceWars.Tests.Builders.RangeOfBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Weapon = AdvanceWars.Runtime.Weapon;
 
@@ -18,14 +19,11 @@ namespace AdvanceWars.Tests
             
             var result = sut.RangeOfFire(new Vector2Int(1, 0), 1);
             
-            // O X O 
-            // X B X 
-            result.Should().BeEquivalentTo(new Vector2Int[]
-            {
-                Vector2Int.zero, 
-                new Vector2Int(2, 0),
-                Vector2Int.one,  
-            });
+            result.Should().BeEquivalentTo(RangeOf().WithStructure
+            (
+                @" O X O 
+                   X B X"
+            ).Build());
         }
        
         [Test]
@@ -35,26 +33,14 @@ namespace AdvanceWars.Tests
             
             var result = sut.RangeOfFire(new Vector2Int(2, 2), 2);
             
-            // O O X O O
-            // O X X X O
-            // X X B X X
-            // O X X X O
-            // O O X O O
-            result.Should().BeEquivalentTo(new Vector2Int[]
-            {
-                new Vector2Int(2, 0),
-                new Vector2Int(1, 1),
-                new Vector2Int(2, 1),
-                new Vector2Int(3, 1),
-                new Vector2Int(0, 2),
-                new Vector2Int(1, 2),
-                new Vector2Int(3, 2),
-                new Vector2Int(4, 2),
-                new Vector2Int(1, 3),
-                new Vector2Int(2, 3),
-                new Vector2Int(3, 3),
-                new Vector2Int(2, 4),
-            });
+            result.Should().BeEquivalentTo(RangeOf().WithStructure
+                (
+                    @" O O X O O 
+                       O X X X O
+                       X X B X X
+                       O X X X O
+                       O O X O O"
+                ).Build());
         }
 
         [Test]
@@ -64,10 +50,12 @@ namespace AdvanceWars.Tests
             
             var result = sut.RangeOfFire(new Vector2Int(0, 0), new RangeOfFire(2, 2));
             
-            result.Should().BeEquivalentTo(new Vector2Int[]
-            {
-                new Vector2Int(0, 2)
-            });
+            result.Should().BeEquivalentTo(RangeOf().WithStructure
+                (
+                    @" X
+                       O
+                       B"
+                ).Build());
         }
         
         [Test]
@@ -80,10 +68,12 @@ namespace AdvanceWars.Tests
             
             var result = sut.RangeOfFire(battalion);
             
-            result.Should().BeEquivalentTo(new Vector2Int[]
-            {
-                new Vector2Int(0, 2)
-            });
+            result.Should().BeEquivalentTo(RangeOf().WithStructure
+                (
+                    @" X
+                       O
+                       B"
+                ).Build());
         }
         
         [Test]
@@ -98,10 +88,7 @@ namespace AdvanceWars.Tests
             
             var result = sut.EnemyBattalionsInRangeOfFire(ally);
             
-            result.Should().Contain(new Battalion[]
-            {
-                enemy
-            });
+            result.Should().Contain(new Battalion[] { enemy });
         }
         
         [Test]

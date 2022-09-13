@@ -14,15 +14,20 @@ namespace AdvanceWars.Tests.Builders
 
         public RangeOfBuilder WithStructure(string rangeOfAsVerbatimString)
         {
-            var rows = rangeOfAsVerbatimString.Split("\n");
+            var rows = rangeOfAsVerbatimString.Replace("\r", string.Empty).Split("\n");
 
-            for (var i = 0; i < rows.Length; i++)
+            // This is required because Vector2Int grows from bottom up: the first
+            // row is the one at the bottom, not the top most. Otherwise, row index
+            // of RangeOf is calculated inverted.
+            rows = rows.Reverse().ToArray();
+
+            for (var y = 0; y < rows.Length; y++)
             {
-                var row = rows[i].Where(x => x != ' ').ToArray();
+                var row = rows[y].Trim(' ').Split(' ').ToArray();
 
-                for (var j = 0; j < row.Length; j++)
-                    if(row[j] is 'X')
-                        range.Add(new Vector2Int(j, i));
+                for (var x = 0; x < row.Length; x++)
+                    if(row[x] is "X")
+                        range.Add(new Vector2Int(x, y));
             }
 
             return this;
