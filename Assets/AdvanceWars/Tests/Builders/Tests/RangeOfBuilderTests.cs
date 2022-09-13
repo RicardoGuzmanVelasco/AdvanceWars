@@ -37,5 +37,26 @@ namespace AdvanceWars.Tests
                 .Build()
                 .Should().BeEquivalentTo(Array.Empty<Vector2Int>());
         }
+        
+        [Test]
+        public void RangeOfFromString_WithBattalion_WithNoRange()
+        {
+            RangeOf().WithStructure(" B ").Build()
+                .Should().BeEquivalentTo(Array.Empty<Vector2Int>());
+        }
+        
+        [Test]
+        public void RangeOfFromString_WithBattalion_WithAdjacentRangeAtItsRight()
+        {
+            RangeOf().WithStructure(" B X ").Build()
+                .Should().BeEquivalentTo(new [] { new Vector2Int(1, 0)});
+        }
+
+        [Test]
+        public void RangeOfFromString_WithBattalion_WithAdjacentRangeAtItsLeft()
+        {
+            RangeOf().WithStructure(" X B ").Build()
+                .Should().BeEquivalentTo(new[] { Vector2Int.zero });
+        }
     }
 }
