@@ -17,14 +17,14 @@ Duración: 3'5h
 
 ## Culo
 
-Duración: 
+Duración: 3H
 
 ### Intenciones
 
 - [X] Arreglar caso especial Unbesiegable
-- [ ] Movimiento con coste de terrenos.
+- [X] Movimiento con coste de terrenos.
 
 ### Conclusiones
 
 - Vaya maravilla tener una cobertura de tests alta que nos dice si algo ha petado al refactorizar
-- 
+- El movimiento con coste se ha quedado sin refactorizar y da mucho asco. Se me ha embarrado un refactor y he tardado. Qué asco.
