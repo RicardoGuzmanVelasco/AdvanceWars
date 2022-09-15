@@ -7,7 +7,7 @@
   - No es un MapBuilder, hay que sacarlo
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
-
+- MoveCostOf en Space.
 ### Docs
 
 - Añadir maneuvers existentes al diagrama del modelo de dominio.

@@ -35,26 +35,60 @@ namespace AdvanceWars.Runtime
 
             var targetBattalion = spaces[from].Occupant;
 
-            var availableCoords = new List<Vector2Int>();
-            availableCoords.Add(from);
+            var nodes = new Dictionary<Vector2Int, int>();
+            nodes.Add(from, 0);
+            
             for(int i = 0; i < rate; i++)
             {
-                var currentRangeCoords = new List<Vector2Int>();
-                foreach(var coords in availableCoords)
+                var adjacentNodes = new Dictionary<Vector2Int, int>();
+
+                foreach(var node in nodes)
                 {
                     //Esto es un mockeo para que solo devuelva vacío en cuanto haya un bloqueo de la propulsión.
-                    var isBlocker = spaces[coords].Terrain.MoveCostOf(targetBattalion.Propulsion) == int.MaxValue;
+                    var isBlocker = spaces[node.Key].Terrain.MoveCostOf(targetBattalion.Propulsion) == int.MaxValue;
                     if(isBlocker)
                         return Enumerable.Empty<Vector2Int>();
-                    currentRangeCoords.AddRange(AdjacentsOf(coords)
-                        .Where(c => spaces[c].IsCrossableBy(targetBattalion)));
+
+                    int accumulatedCost = node.Value;
+                    
+                    var adjacents = AdjacentsOf(node.Key);
+
+                    foreach(var adjacent in adjacents)
+                    {
+                        if(spaces[adjacent].IsCrossableBy(targetBattalion))
+                        {
+                            var adjacentCost = accumulatedCost + spaces[adjacent].Terrain.MoveCostOf(targetBattalion.Propulsion);
+                            if(rate >= adjacentCost)
+                            {
+                                if(!adjacentNodes.ContainsKey(adjacent))
+                                {
+                                    adjacentNodes.Add(adjacent, adjacentCost);
+                                }
+                                else if(adjacentNodes[adjacent] > adjacentCost)
+                                {
+                                    adjacentNodes[adjacent] = adjacentCost;
+                                }
+                            }
+                        }
+                    }
                 }
 
-                availableCoords.AddRange(currentRangeCoords.Where(x => !availableCoords.Contains(x)));
+                foreach(var adjacentNode in adjacentNodes)
+                {
+                    if(!nodes.ContainsKey(adjacentNode.Key))
+                    {
+                        nodes.Add(adjacentNode.Key, adjacentNode.Value);
+                    }
+                    else if(nodes[adjacentNode.Key] > adjacentNode.Value)
+                    {
+                        nodes[adjacentNode.Key] = adjacentNode.Value;
+                    }                }
             }
 
-            availableCoords.Remove(from);
-            return availableCoords.Where(c => !spaces[c].IsOccupied);
+            nodes.Remove(from);
+            var coords = nodes.Keys;
+            
+            return coords.Where(c => !spaces[c].IsOccupied);
         }
 
         public Space SpaceAt(Vector2Int coords)

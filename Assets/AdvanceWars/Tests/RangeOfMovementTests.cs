@@ -3,6 +3,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
+using static AdvanceWars.Tests.Builders.TerrainBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -112,6 +113,32 @@ namespace AdvanceWars.Tests
 
             sut.RangeOfMovement(troop)
                 .Should().HaveCount(2);
+        }
+        
+        [Test]
+        public void RangeOfMovement_WhenLimitedByTerrain_IsEmpty()
+        {
+            var propulsion = new Propulsion("aPropulsion");
+            var troop = Battalion().WithMoveRate(1).WithPropulsion(propulsion).Build();
+            var sut = new Map(1, 2);
+            sut.Put(Vector2Int.zero, troop);
+            sut.Put(Vector2Int.up, Terrain().WithCost(propulsion, 2).Build());
+            
+            sut.RangeOfMovement(troop)
+                .Should().BeEmpty();
+        }
+        
+        [Test]
+        public void RangeOfMovement_WhenAffectedByTerrain_IsNotEmpty()
+        {
+            var propulsion = new Propulsion("aPropulsion");
+            var troop = Battalion().WithMoveRate(2).WithPropulsion(propulsion).Build();
+            var sut = new Map(1, 2);
+            sut.Put(Vector2Int.zero, troop);
+            sut.Put(Vector2Int.up, Terrain().WithCost(propulsion, 1).Build());
+            
+            sut.RangeOfMovement(troop)
+                .Should().NotBeEmpty();
         }
     }
 }
