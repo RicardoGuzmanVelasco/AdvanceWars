@@ -53,5 +53,10 @@ namespace AdvanceWars.Runtime
 
         public virtual void LiftSiege() { }
         #endregion
+
+        public virtual bool IsBesiegable(Battalion besieger)
+        {
+            return false;
+        }
     }
 }

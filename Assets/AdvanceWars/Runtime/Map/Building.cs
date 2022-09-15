@@ -30,7 +30,7 @@ namespace AdvanceWars.Runtime
 
         public override Building SiegeOutcome(Battalion besieger)
         {
-            Require(besieger.IsAlly(this)).False();
+            Require(IsBesiegable(besieger)).True();
 
             var resultPoints = Math.Max(0, SiegePoints - besieger.Platoons);
 
@@ -43,6 +43,11 @@ namespace AdvanceWars.Runtime
         {
             Require(SiegePoints).LesserThan(maxSiegePoints);
             SiegePoints = maxSiegePoints;
+        }
+
+        public override bool IsBesiegable(Battalion besieger)
+        {
+            return !IsAlly(besieger);;
         }
     }
 }

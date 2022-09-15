@@ -3,7 +3,6 @@
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
   - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
 - Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
-- Arreglar caso especial Unbesiegable.
 - Terminar y usar el builder de RangeOf para que no sean confusos los RangeOfFireTests. 
   - No es un MapBuilder, hay que sacarlo
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
@@ -36,7 +35,8 @@
   - También hemos hablado aquí de lo de la abstracción National que segrega de Allegiance.
 - Quizá habría que hacer condiciones de disponibilidad de uso de las tácticas.
   - Se ha discutido pero no se ha llegado a nada en claro.
-- Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio.
+- Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio
+- ¿Qué ocurre si se le pregunta IsAlly a un INull?.
 
 ### Tests
 

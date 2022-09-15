@@ -12,9 +12,8 @@ namespace AdvanceWars.Runtime
 
             public bool IsOccupied => Occupant is not INull;
 
-            public virtual bool IsBesiegable => Terrain is Building building
-                                                && !building.Equals(Building.Unbesiegable)
-                                                && !building.IsAlly(Occupant);
+            public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
+                                          
 
             public void Besiege()
             {
