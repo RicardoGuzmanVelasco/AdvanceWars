@@ -44,45 +44,29 @@ namespace AdvanceWars.Runtime
 
                 foreach(var node in nodes)
                 {
-                    //Esto es un mockeo para que solo devuelva vacío en cuanto haya un bloqueo de la propulsión.
-                    var isBlocker = spaces[node.Key].Terrain.MoveCostOf(targetBattalion.Propulsion) == int.MaxValue;
-                    if(isBlocker)
-                        return Enumerable.Empty<Vector2Int>();
-
                     int accumulatedCost = node.Value;
                     
                     var adjacents = AdjacentsOf(node.Key);
 
                     foreach(var adjacent in adjacents)
-                    {
                         if(spaces[adjacent].IsCrossableBy(targetBattalion))
                         {
-                            var adjacentCost = accumulatedCost + spaces[adjacent].Terrain.MoveCostOf(targetBattalion.Propulsion);
+                            var adjacentCost = accumulatedCost + spaces[adjacent].MoveCostOf(targetBattalion);
                             if(rate >= adjacentCost)
                             {
                                 if(!adjacentNodes.ContainsKey(adjacent))
-                                {
                                     adjacentNodes.Add(adjacent, adjacentCost);
-                                }
                                 else if(adjacentNodes[adjacent] > adjacentCost)
-                                {
                                     adjacentNodes[adjacent] = adjacentCost;
-                                }
                             }
                         }
-                    }
                 }
-
+                
                 foreach(var adjacentNode in adjacentNodes)
-                {
                     if(!nodes.ContainsKey(adjacentNode.Key))
-                    {
                         nodes.Add(adjacentNode.Key, adjacentNode.Value);
-                    }
                     else if(nodes[adjacentNode.Key] > adjacentNode.Value)
-                    {
                         nodes[adjacentNode.Key] = adjacentNode.Value;
-                    }                }
             }
 
             nodes.Remove(from);

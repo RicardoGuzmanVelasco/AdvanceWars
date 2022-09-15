@@ -45,8 +45,9 @@ namespace AdvanceWars.Runtime
                     Terrain.LiftSiege();
             }
 
-            public bool IsCrossableBy(Allegiance battalion) => !IsHostileTo(battalion);
+            public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
 
+            public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
             public void ReportCasualties(int forcesAfter)
             {
                 Require(IsOccupied).True();
