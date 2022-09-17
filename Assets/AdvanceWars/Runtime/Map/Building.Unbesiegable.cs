@@ -4,7 +4,7 @@
     {
         public static Building Unbesiegable { get; } = new UnbesiegableSpecialCase();
 
-        internal class UnbesiegableSpecialCase : Building
+        class UnbesiegableSpecialCase : Building
         {
             public UnbesiegableSpecialCase() : base(int.MaxValue) { }
 
