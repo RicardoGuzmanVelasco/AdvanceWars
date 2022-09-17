@@ -19,6 +19,12 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public MapBuilder Of(int squaredSize)
+        {
+            Of(squaredSize, squaredSize);
+            return this;
+        }
+
         public Map Build()
         {
             return new Map(this.sizeX, this.sizeY);
