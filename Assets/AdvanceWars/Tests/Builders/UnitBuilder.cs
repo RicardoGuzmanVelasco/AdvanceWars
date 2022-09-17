@@ -9,7 +9,8 @@ namespace AdvanceWars.Tests.Builders
         Armor armor = new Armor("");
         Weapon weapon = Weapon.Null;
         private RangeOfFire rangeOfFire = RangeOfFire.One;
-        
+        Military force = Military.None;
+
         #region ObjectMothers
         public static UnitBuilder Unit()
         {
@@ -18,13 +19,12 @@ namespace AdvanceWars.Tests.Builders
         #endregion
 
         #region FluentAPI
-        
-        public UnitBuilder WithRange(int minRange, int maxRange)
+        public UnitBuilder WithFire(int minRange, int maxRange)
         {
             this.rangeOfFire = new RangeOfFire(minRange, maxRange);
             return this;
         }
-        
+
         public UnitBuilder WithMobility(MovementRate mobility)
         {
             this.mobility = mobility;
@@ -48,6 +48,12 @@ namespace AdvanceWars.Tests.Builders
             this.armor = armor;
             return this;
         }
+
+        public UnitBuilder Of(Military force)
+        {
+            this.force = force;
+            return this;
+        }
         #endregion
 
         public Unit Build()
@@ -57,6 +63,7 @@ namespace AdvanceWars.Tests.Builders
                 Mobility = mobility,
                 Armor = armor,
                 Propulsion = propulsion,
+                Force = force,
                 Weapon = weapon,
                 RangeOfFire = rangeOfFire
             };

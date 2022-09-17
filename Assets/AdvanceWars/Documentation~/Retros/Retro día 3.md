@@ -5,9 +5,13 @@
 ### Ricardo
 
 - Solo mencionar que correlacionar cobertura alta y seguridad es peligroso, aunque ya lo sepamos.
+
 - Algunos test se quedaban inconclusos en Rider, he tenido que tirarlos en Unity.
   - ¿A alguien más le ha pasado?
   - Se solucionaría seguramente reiniciando.
+
+- He sacado de aquí el vocabulario para fuerzas armadas. Hay mucha ambigüedad si se piensa en castellano.
+  - https://en.wikipedia.org/wiki/Military
 
 ## Diseño
 

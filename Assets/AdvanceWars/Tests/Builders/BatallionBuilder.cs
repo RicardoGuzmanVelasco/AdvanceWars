@@ -11,9 +11,9 @@ namespace AdvanceWars.Tests.Builders
         UnitBuilder fromUnit = Unit();
 
         #region ObjectMothers
-        public static BattalionBuilder Battalion() => new BattalionBuilder();
-        public static BattalionBuilder Infantry() => new BattalionBuilder { fromUnit = Unit().WithMobility(3) };
-        public static BattalionBuilder AerialUnit() => new BattalionBuilder() { fromUnit = Unit().With(Propulsion.Air) };
+        public static BattalionBuilder Battalion() => new();
+        public static BattalionBuilder Infantry() => new() { fromUnit = Unit().WithMobility(3) };
+        public static BattalionBuilder AerialUnit() => new() { fromUnit = Unit().Of(Military.AirForce) };
         #endregion
 
         #region Fluent API
@@ -73,10 +73,10 @@ namespace AdvanceWars.Tests.Builders
             fromUnit.With(weapon);
             return this;
         }
-        
+
         public BattalionBuilder WithRange(int minRange, int maxRange)
         {
-            fromUnit.WithRange(minRange, maxRange);
+            fromUnit.WithFire(minRange, maxRange);
             return this;
         }
         #endregion
@@ -85,7 +85,7 @@ namespace AdvanceWars.Tests.Builders
         {
             return new Battalion
             {
-                Motherland = nationId == "" ? Nation.Stateless : new Nation(nationId),
+                Motherland = nationId.Equals("") ? Nation.Stateless : new Nation(nationId),
                 Unit = fromUnit.Build(),
                 Forces = forces
             };

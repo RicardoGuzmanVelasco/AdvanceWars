@@ -9,6 +9,9 @@ namespace AdvanceWars.Runtime
         public Propulsion Propulsion { get; init; } = Propulsion.None;
         public Weapon Weapon { get; init; } = Weapon.Null;
 
+
+        public Military Force { get; init; } = Military.None;
+
         public Armor Armor { get; init; } = new();
         public RangeOfFire RangeOfFire { get; init; } = RangeOfFire.One;
 
@@ -22,7 +25,7 @@ namespace AdvanceWars.Runtime
 
         public bool IsAerial()
         {
-            return Propulsion.Equals(Propulsion.Air);
+            return Force.Equals(Military.AirForce);
         }
     }
 }
