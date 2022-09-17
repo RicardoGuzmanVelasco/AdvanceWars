@@ -24,7 +24,7 @@ namespace AdvanceWars.Runtime
         readonly Operation operation;
         readonly Cursor cursor;
 
-        public Player ActivePlayer => players[operation.ActiveCommandingOfficer.Motherland];
+        public Player ActivePlayer => players[operation.NationInTurn];
 
         public Game(IEnumerable<CommandingOfficer> officers, [NotNull] IDictionary<Nation, Player> players)
         {

@@ -19,15 +19,15 @@ namespace AdvanceWars.Runtime
         }
 
         public int Day => officers.Round;
-        public CommandingOfficer ActiveCommandingOfficer => officers.Current;
+        public Nation NationInTurn => officers.Current.Motherland;
 
         public void BeginTurn() { }
 
         public void EndTurn()
         {
             officers.Next();
-            ActiveCommandingOfficer.BeginTurn();
-            NewTurnOfDay.Invoke(new NewTurnOfDayArgs(ActiveCommandingOfficer.Motherland, Day));
+            officers.Current.BeginTurn();
+            NewTurnOfDay.Invoke(new NewTurnOfDayArgs(NationInTurn, Day));
         }
     }
 

@@ -14,7 +14,7 @@ namespace AdvanceWars.Tests
             var officers = CommandingOfficers(1);
             var sut = new Operation(officers);
 
-            sut.ActiveCommandingOfficer.Should().Be(officers.First());
+            sut.NationInTurn.Should().Be(officers.First().Motherland);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace AdvanceWars.Tests
 
             sut.EndTurn();
 
-            sut.ActiveCommandingOfficer.Should().Be(officers[1]);
+            sut.NationInTurn.Should().Be(officers[1].Motherland);
         }
 
         [Test]
@@ -37,7 +37,7 @@ namespace AdvanceWars.Tests
             sut.EndTurn();
             sut.EndTurn();
 
-            sut.ActiveCommandingOfficer.Should().Be(officers.First());
+            sut.NationInTurn.Should().Be(officers.First().Motherland);
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void WhenEveryTurnEnds_aNewDayStarts()
+        public void WhenTurnOfEachNationEnds_aNewDayStarts()
         {
             var commandingOfficers = CommandingOfficers(2);
             var sut = new Operation(commandingOfficers);
