@@ -37,9 +37,9 @@ No tengo nada claro qué hacer porque aunque haya seguido los commits me cuesta 
 Por tanto, creo que simplemente voy a ir pasando por todo el código, añadiendo preciondiciones aquí y allá si veo algo, etc.
 Una vez dé esa primera vuelta, actualizaré esto con lo que haya apuntado que puedo hacer.
 
-- [ ] Minimizar precondiciones de rango de disparo como hablamos en la retro.
+- [x] Minimizar precondiciones de rango de disparo como hablamos en la retro.
   - Sigue sobrevolando el concepto de rango pero creo que de momento no merece la pena extraerlo.
-- [ ] Esconder unbesiegable en lugar de darle visibilidad de paquete.
+- [x] Esconder unbesiegable en lugar de darle visibilidad de paquete.
 - [ ] Concepto de armada para que IsAerial sea lógica de armada y no de propulsión.
 
 ### Conclusiones
