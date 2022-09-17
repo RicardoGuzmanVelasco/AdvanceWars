@@ -68,6 +68,7 @@ namespace AdvanceWars.Runtime
             Require(operation.Battleground.IsInsideBounds(targetCoord)).True();
 
             cursor.WhereIs = targetCoord;
+            CursorMoved.Invoke(targetCoord);
         }
     }
 }
