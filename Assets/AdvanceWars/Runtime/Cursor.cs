@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace AdvanceWars.Runtime
 {
@@ -6,6 +7,8 @@ namespace AdvanceWars.Runtime
     {
         bool enabled;
         public event Action<bool> EnableChanged = _ => { };
+
+        public Vector2Int WhereIs { get; set; }
 
         public void Enable() => ChangeCursorTo(true);
         public void Disable() => ChangeCursorTo(false);
