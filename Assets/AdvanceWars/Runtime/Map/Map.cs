@@ -36,7 +36,7 @@ namespace AdvanceWars.Runtime
         [NotNull]
         public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
         {
-            Require(InsideBounds(from)).True();
+            Require(IsInsideBounds(from)).True();
 
             var targetBattalion = spaces[from].Occupant;
 
@@ -128,11 +128,11 @@ namespace AdvanceWars.Runtime
         [Pure, NotNull]
         IEnumerable<Vector2Int> AdjacentsOf(Vector2Int coord)
         {
-            Require(InsideBounds(coord)).True();
-            return coord.AdjacentsCoords().Where(InsideBounds);
+            Require(IsInsideBounds(coord)).True();
+            return coord.AdjacentsCoords().Where(IsInsideBounds);
         }
 
-        bool InsideBounds(Vector2Int coord)
+        public bool IsInsideBounds(Vector2Int coord)
         {
             return coord.x >= 0 &&
                    coord.x < SizeX &&
