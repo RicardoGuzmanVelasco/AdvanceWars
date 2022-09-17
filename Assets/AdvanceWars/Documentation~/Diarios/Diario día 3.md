@@ -57,3 +57,9 @@ Una vez dé esa primera vuelta, actualizaré esto con lo que haya apuntado que p
   - He refactorizado lo necesario.
 
 - He acabado haciendo mucho más que en las intenciones porque no sabía de primera bien qué hacer.
+
+- Creo que cuando lo vea necesario voy a incluir en mis sesiones pequeños tiempos dedicados a mejorar las precondiciones disponibles.
+  - Un ejemplo es cuando he querido mejorar la de 
+      `Require(players.Values.All(p => p != null)).True()`
+      cambiándola por `Require(players.Values).Not.Contains(null)` que me ha fallado por la implementación.
+  - Otro es precondicionar que las colecciones estén o no vacías sin tener que usar el Any.
