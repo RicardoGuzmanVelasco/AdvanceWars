@@ -5,11 +5,12 @@ namespace AdvanceWars.Tests.Builders
 {
     internal class GameBuilder
     {
-        IEnumerable<string> nations;
+        IEnumerable<string> nations = new[] { "SingleNation" };
+        Map map;
         bool began;
 
         #region ObjectMothers
-        public static GameBuilder Game() => new GameBuilder();
+        public static GameBuilder Game() => new();
         #endregion
 
         public GameBuilder WithNations(params string[] motherlands)
@@ -19,10 +20,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public GameBuilder WithNations(IEnumerable<string> motherlands)
+        public GameBuilder On(Map theMap)
         {
-            nations = motherlands;
-
+            this.map = theMap;
             return this;
         }
 
@@ -57,7 +57,7 @@ namespace AdvanceWars.Tests.Builders
                 officers.Add(CommandingOfficerBuilder.CommandingOfficer().Of(allegiance).Build());
             }
 
-            var game = new Game(officers, players);
+            var game = new Game(officers, players, map);
 
             if(began)
                 game.Begin();
