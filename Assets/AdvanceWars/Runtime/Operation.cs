@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.DataStructures;
+using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
     public class Operation
     {
+        readonly RotarySwitch<CommandingOfficer> officers;
+        public Map Battleground { get; } = Map.Null;
         public event Action<NewTurnOfDayArgs> NewTurnOfDay = _ => { };
 
-        readonly RotarySwitch<CommandingOfficer> officers;
 
-        public Operation(IEnumerable<CommandingOfficer> commandingOfficers)
+        public Operation([NotNull] IEnumerable<CommandingOfficer> commandingOfficers, Map battleground = null)
         {
             Require(commandingOfficers.Any()).True();
             officers = new RotarySwitch<CommandingOfficer>(commandingOfficers);
+            this.Battleground = battleground;
         }
 
         public int Day => officers.Round;
