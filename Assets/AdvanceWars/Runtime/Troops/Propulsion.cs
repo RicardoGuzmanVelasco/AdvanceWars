@@ -8,7 +8,6 @@
         }
 
         public static Propulsion None => new Propulsion("");
-        public static Propulsion Air => new Propulsion("Air");
 
         string Id { get; }
 
