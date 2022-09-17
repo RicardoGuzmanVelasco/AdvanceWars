@@ -1,5 +1,4 @@
-﻿using RGV.DesignByContract.Runtime;
-using static RGV.DesignByContract.Runtime.Contract;
+﻿using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
@@ -11,23 +10,17 @@ namespace AdvanceWars.Runtime
         public RangeOfFire(int min, int max)
         {
             Require(min).Positive();
-            Require(max).Positive();
-            Require(min).LesserOrEqualThan(max);
+            Require(max).GreaterOrEqualThan(min);
 
             this.Min = min;
             this.Max = max;
         }
 
-        public static RangeOfFire One => new RangeOfFire(1, 1);
-        
-        public bool IsValid()
-        {
-            return Min > 0 && Max > 0 && Min <= Max;
-        }
-        
+        public static RangeOfFire One => new(1, 1);
+
         public override string ToString()
         {
-            return IsValid() ? "Invalid" : Min.ToString() + ", " + Max;
+            return $"({Min}, {Max})";
         }
     }
 }

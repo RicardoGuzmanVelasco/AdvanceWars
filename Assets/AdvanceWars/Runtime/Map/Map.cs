@@ -37,7 +37,7 @@ namespace AdvanceWars.Runtime
 
             var nodes = new Dictionary<Vector2Int, int>();
             nodes.Add(from, 0);
-            
+
             for(int i = 0; i < rate; i++)
             {
                 var adjacentNodes = new Dictionary<Vector2Int, int>();
@@ -45,7 +45,7 @@ namespace AdvanceWars.Runtime
                 foreach(var node in nodes)
                 {
                     int accumulatedCost = node.Value;
-                    
+
                     var adjacents = AdjacentsOf(node.Key);
 
                     foreach(var adjacent in adjacents)
@@ -61,7 +61,7 @@ namespace AdvanceWars.Runtime
                             }
                         }
                 }
-                
+
                 foreach(var adjacentNode in adjacentNodes)
                     if(!nodes.ContainsKey(adjacentNode.Key))
                         nodes.Add(adjacentNode.Key, adjacentNode.Value);
@@ -71,7 +71,7 @@ namespace AdvanceWars.Runtime
 
             nodes.Remove(from);
             var coords = nodes.Keys;
-            
+
             return coords.Where(c => !spaces[c].IsOccupied);
         }
 
@@ -99,10 +99,7 @@ namespace AdvanceWars.Runtime
 
         public IEnumerable<Vector2Int> RangeOfFire(Vector2Int from, RangeOfFire range)
         {
-            Require(range.IsValid()).True();
-
             var coordsOutsideMinRange = CoordsInsideRange(from, range.Min - 1);
-
             var coordsInsideMaxRange = CoordsInsideRange(from, range.Max);
 
             return coordsInsideMaxRange.Where(x => x != from && !coordsOutsideMinRange.Contains(x));
