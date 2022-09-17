@@ -28,3 +28,24 @@ Duración: 3H
 
 - Vaya maravilla tener una cobertura de tests alta que nos dice si algo ha petado al refactorizar
 - El movimiento con coste se ha quedado sin refactorizar y da mucho asco. Se me ha embarrado un refactor y he tardado. Qué asco.
+
+## Ricardo
+
+### Intenciones
+
+No tengo nada claro qué hacer porque aunque haya seguido los commits me cuesta aterrizar la situación.
+Por tanto, creo que simplemente voy a ir pasando por todo el código, añadiendo preciondiciones aquí y allá si veo algo, etc.
+Una vez dé esa primera vuelta, actualizaré esto con lo que haya apuntado que puedo hacer.
+
+- [ ] Minimizar precondiciones de rango de disparo como hablamos en la retro.
+  - Sigue sobrevolando el concepto de rango pero creo que de momento no merece la pena extraerlo.
+- [ ] Esconder unbesiegable en lugar de darle visibilidad de paquete.
+- [ ] Concepto de armada para que IsAerial sea lógica de armada y no de propulsión.
+
+### Conclusiones
+
+- Al quitar la precondición duplicada en range of fire he visto que había ahí mucha lógica extraña.
+  - Había un IsValid que no tenía sentido porque nunca podía pasar eso según las invariantes.
+  - Este IsValid se comprobaba en el mapa como precondición, pero esto es un error de reparto de responsabilidades:
+    - Que sea válido en general un objeto tiene que ser responsabilidad (invariante) de ese objeto.
+  - Así que lo he quitado. Lo dejo aquí para que quien lo vea comente luego algo.
