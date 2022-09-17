@@ -25,6 +25,7 @@
       - Player humano, player de la máquina que puede ser más o menos agresivo, tonto, etc.
   - Esto nos lleva a que ahora mismo hay una duplicidad muy rara y tonta en los test porque coincide nación con id y además ya coincide de por sí nación del batallón con la del player y blablablá.
     - Esa API se puede mejorar.
+- ¿Desde dónde controlar que el cursor ya está en un borde y no tiene que ir más para allá?
 
 ### Riesgos
 

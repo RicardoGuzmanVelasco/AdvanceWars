@@ -15,5 +15,13 @@ namespace AdvanceWars.Runtime
                 from + Vector2Int.right
             };
         }
+
+        public static bool IsDirection(this Vector2Int target)
+        {
+            return target == Vector2Int.up ||
+                   target == Vector2Int.down ||
+                   target == Vector2Int.left ||
+                   target == Vector2Int.right;
+        }
     }
 }

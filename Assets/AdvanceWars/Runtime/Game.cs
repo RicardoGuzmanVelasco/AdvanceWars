@@ -70,5 +70,12 @@ namespace AdvanceWars.Runtime
             cursor.WhereIs = targetCoord;
             CursorMoved.Invoke(targetCoord);
         }
+
+        public void MoveCursorTo(Vector2Int direction)
+        {
+            Require(direction.IsDirection()).True();
+
+            PutCursorAt(CursorCoord + direction);
+        }
     }
 }
