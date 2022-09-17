@@ -30,7 +30,7 @@ namespace AdvanceWars.Tests.Builders
         {
             var nations = new string[playerAmount];
 
-            for(int i = 0; i < playerAmount; i++)
+            for(var i = 0; i < playerAmount; i++)
                 nations[i] = "Motherland" + i;
 
             this.nations = nations;

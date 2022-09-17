@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime;
 
 namespace AdvanceWars.Tests.Builders
 {
@@ -19,7 +18,7 @@ namespace AdvanceWars.Tests.Builders
 
             return this;
         }
-        
+
         public Map Build()
         {
             return new Map(this.sizeX, this.sizeY);
