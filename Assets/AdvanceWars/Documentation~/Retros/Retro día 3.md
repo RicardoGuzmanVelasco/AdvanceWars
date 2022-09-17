@@ -8,7 +8,7 @@
 
 - Algunos test se quedaban inconclusos en Rider, he tenido que tirarlos en Unity.
   - ¿A alguien más le ha pasado?
-  - Se solucionaría seguramente reiniciando.
+  - Se soluciona reiniciando Rider. No me aparecían vuestros nuevos test siquiera.
 
 - He sacado de aquí el vocabulario para fuerzas armadas. Hay mucha ambigüedad si se piensa en castellano.
   - https://en.wikipedia.org/wiki/Military
