@@ -31,6 +31,8 @@ Duración: 3H
 
 ## Ricardo
 
+Duración: ~3h:15m.
+
 ### Intenciones
 
 No tengo nada claro qué hacer porque aunque haya seguido los commits me cuesta aterrizar la situación.
@@ -63,3 +65,8 @@ Una vez dé esa primera vuelta, actualizaré esto con lo que haya apuntado que p
       `Require(players.Values.All(p => p != null)).True()`
       cambiándola por `Require(players.Values).Not.Contains(null)` que me ha fallado por la implementación.
   - Otro es precondicionar que las colecciones estén o no vacías sin tener que usar el Any.
+
+- El final de la sesión ha sido lago más correoso porque veía que no tenía suficiente tiempo para llegar al estado mínimo que quería.
+  - Eso ha hecho que relegase decisiones a posteriori, cuando veais los resultados.
+    - Nombrado, diseño, consistencia, etc.
+    - Siempre dentro de unos mínimos que he considerado aceptables.

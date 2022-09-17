@@ -13,6 +13,14 @@
 - He sacado de aquí el vocabulario para fuerzas armadas. Hay mucha ambigüedad si se piensa en castellano.
   - https://en.wikipedia.org/wiki/Military
 
+- ¿Por qué hay una carpeta Tests dentro de la carpeta Builders que está dentro de la carpeta Tests?
+
+- Propuesta como práctica en este pet project: pasar a nullable reference.
+  - http://www.neuston.io/nullable-reference-types-in-unity/
+
+- No me terminaba de convencer la estructura de los test que en GameTests espían que se lance el evento del cursor. 
+  - Me estaba amoldando a esa forma pero he preferido seguir otra para tenerla como propuesta alternativa a ver qué parecía.
+
 ## Diseño
 
 ### Alejandro
@@ -30,3 +38,8 @@
 - He añadido valores por defecto a los setters de Unit porque si no se podían quedar cosas a nulo.
   - Habría que ver si esos valores son correctos o queremos otros. He usado los que mejor he podido.
   - Esto deja el flyweight de Unit como el constructor por defecto, básicamente.
+
+- Ahora mismo el WhereIs/CursorCoord se me queda solo usado por un test y lo iba a quitar, pero:
+  1. No sabría cómo probar lo que prueba ese test (imagino que el test desaparece).
+  2. Creo que va a ser usado cuando empiece el flujo de control de maniobras y tal.
+  - Así que lo he dejao.
