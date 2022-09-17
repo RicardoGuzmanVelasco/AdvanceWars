@@ -21,6 +21,11 @@ namespace AdvanceWars.Runtime
             spaces[coord].Terrain = terrain;
         }
 
+        public Space SpaceAt(Vector2Int coords)
+        {
+            return spaces[coords];
+        }
+
         [NotNull]
         public IEnumerable<Vector2Int> RangeOfMovement(Battalion battalion)
         {
@@ -73,11 +78,6 @@ namespace AdvanceWars.Runtime
             var coords = nodes.Keys;
 
             return coords.Where(c => !spaces[c].IsOccupied);
-        }
-
-        public Space SpaceAt(Vector2Int coords)
-        {
-            return spaces[coords];
         }
 
         public virtual IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
@@ -141,7 +141,7 @@ namespace AdvanceWars.Runtime
         }
 
         [CanBeNull]
-        public virtual Space WhereIs(Allegiance what)
+        public virtual Space WhereIs(Battalion what)
         {
             return spaces.Values.SingleOrDefault(x => x.Occupant == what);
         }

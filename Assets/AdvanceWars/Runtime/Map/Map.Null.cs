@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
             // ReSharper disable once ConvertToPrimaryConstructor (Rider bug concerning records ctor)
             public NoMap() : base(0, 0) { }
 
-            public override Space WhereIs(Allegiance what)
+            public override Space WhereIs(Battalion what)
             {
                 return Space.Null;
             }
