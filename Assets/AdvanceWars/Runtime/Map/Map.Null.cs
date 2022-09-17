@@ -5,7 +5,7 @@ namespace AdvanceWars.Runtime
 {
     public partial record Map
     {
-        public static Map Null { get; } = new NoMap();
+        public static Map Null => new NoMap();
 
         record NoMap : Map, INull
         {
