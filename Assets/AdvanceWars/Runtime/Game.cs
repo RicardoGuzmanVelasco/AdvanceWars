@@ -8,6 +8,10 @@ namespace AdvanceWars.Runtime
 {
     public class Game
     {
+        readonly IDictionary<Nation, Player> players;
+        readonly Operation operation;
+        readonly Cursor cursor;
+
         public event Action<bool> CursorEnableChanged
         {
             add => cursor.EnableChanged += value;
@@ -20,12 +24,6 @@ namespace AdvanceWars.Runtime
             remove => operation.NewTurnOfDay -= value;
         }
 
-        readonly IDictionary<Nation, Player> players;
-        readonly Operation operation;
-        readonly Cursor cursor;
-
-        public Player ActivePlayer => players[operation.NationInTurn];
-
         public Game(IEnumerable<CommandingOfficer> officers, [NotNull] IDictionary<Nation, Player> players)
         {
             Require(players.Values.All(p => p != null)).True();
@@ -36,6 +34,8 @@ namespace AdvanceWars.Runtime
             cursor = new Cursor();
         }
 
+        public Player ActivePlayer => players[operation.NationInTurn];
+
         public void Begin()
         {
             cursor.Enable();
@@ -44,14 +44,12 @@ namespace AdvanceWars.Runtime
         public void EndCurrentTurn()
         {
             cursor.Disable();
-
             operation.EndTurn();
         }
 
         public void BeginNextTurn()
         {
             cursor.Enable();
-
             operation.BeginTurn();
         }
     }
