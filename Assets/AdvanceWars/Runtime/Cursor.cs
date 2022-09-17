@@ -4,26 +4,19 @@ namespace AdvanceWars.Runtime
 {
     internal class Cursor
     {
-        public event Action<bool> CursorEnableChanged = _ => { };
+        bool enabled;
+        public event Action<bool> EnableChanged = _ => { };
 
-        bool Enabled { get; set; }
+        public void Enable() => ChangeCursorTo(true);
+        public void Disable() => ChangeCursorTo(false);
 
-        public void EnableCursor()
+        void ChangeCursorTo(bool toEnabled)
         {
-            if(Enabled)
+            if(enabled == toEnabled)
                 return;
+            enabled = toEnabled;
 
-            Enabled = true;
-            CursorEnableChanged.Invoke(Enabled);
-        }
-
-        public void DisableCursor()
-        {
-            if(!Enabled)
-                return;
-
-            Enabled = false;
-            CursorEnableChanged.Invoke(Enabled);
+            EnableChanged.Invoke(enabled);
         }
     }
 }

@@ -10,8 +10,8 @@ namespace AdvanceWars.Runtime
     {
         public event Action<bool> CursorEnableChanged
         {
-            add => cursor.CursorEnableChanged += value;
-            remove => cursor.CursorEnableChanged -= value;
+            add => cursor.EnableChanged += value;
+            remove => cursor.EnableChanged -= value;
         }
 
         public event Action<NewTurnOfDayArgs> NewTurnOfDay
@@ -38,19 +38,19 @@ namespace AdvanceWars.Runtime
 
         public void Begin()
         {
-            cursor.EnableCursor();
+            cursor.Enable();
         }
 
         public void EndCurrentTurn()
         {
-            cursor.DisableCursor();
+            cursor.Disable();
 
             operation.EndTurn();
         }
 
         public void BeginNextTurn()
         {
-            cursor.EnableCursor();
+            cursor.Enable();
 
             operation.BeginTurn();
         }
