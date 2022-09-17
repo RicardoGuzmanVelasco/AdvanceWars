@@ -8,11 +8,11 @@ namespace AdvanceWars.Runtime
 
         MovementRate(int value)
         {
-            Require(value).Not.Negative();
+            Require(value).Positive();
             this.value = value;
         }
 
-        public static MovementRate None => 0;
+        public static MovementRate None { get; } = new();
 
         public static implicit operator MovementRate(int rate)
         {

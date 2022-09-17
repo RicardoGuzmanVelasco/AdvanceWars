@@ -17,7 +17,7 @@ namespace AdvanceWars.Tests
 
             monitoredSut
                 .Should().Raise(nameof(sut.NewTurnOfDay))
-                .WithArgs<NewTurnOfDayArgs>(args => args.Nation.Id.Equals("B") && args.Day.Equals(1));
+                .WithArgs<NewTurnOfDayArgs>(args => args.Nation.Equals(new Nation("B")) && args.Day.Equals(1));
         }
 
         [Test]

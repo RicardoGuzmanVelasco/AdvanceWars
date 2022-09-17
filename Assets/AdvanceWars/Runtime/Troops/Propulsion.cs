@@ -1,19 +1,15 @@
-﻿namespace AdvanceWars.Runtime
+﻿using JetBrains.Annotations;
+
+namespace AdvanceWars.Runtime
 {
     public readonly struct Propulsion
     {
-        public Propulsion(string propulsionId)
-        {
-            Id = propulsionId;
-        }
+        readonly string id;
 
-        public static Propulsion None => new Propulsion("");
+        public Propulsion([NotNull] string propulsionId) => id = propulsionId;
 
-        string Id { get; }
+        public static Propulsion None { get; } = new();
 
-        public override string ToString()
-        {
-            return this.Equals(None) ? "None" : $"{Id}";
-        }
+        public override string ToString() => id ?? "None";
     }
 }

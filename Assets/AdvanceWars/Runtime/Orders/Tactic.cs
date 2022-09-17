@@ -2,20 +2,19 @@
 {
     public readonly struct Tactic
     {
-        string Id { get; }
+        readonly string id;
 
-        Tactic(string id)
-        {
-            Id = id;
-        }
+        Tactic(string id) => this.id = id;
 
         #region Factory methods
-        public static Tactic Wait => new Tactic("Wait");
-        public static Tactic Fire => new Tactic("Fire");
-        public static Tactic Move => new Tactic("Move");
-        public static Tactic Siege => new Tactic("Siege");
+        public static Tactic None { get; } = new();
+
+        public static Tactic Wait { get; } = new("Wait");
+        public static Tactic Fire { get; } = new("Fire");
+        public static Tactic Move { get; } = new("Move");
+        public static Tactic Siege { get; } = new("Siege");
         #endregion
 
-        public override string ToString() => Id;
+        public override string ToString() => id;
     }
 }

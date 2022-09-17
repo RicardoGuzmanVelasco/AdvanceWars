@@ -16,11 +16,9 @@ namespace AdvanceWars.Runtime
             this.Max = max;
         }
 
-        public static RangeOfFire One => new(1, 1);
+        public static RangeOfFire Zero { get; } = new();
+        public static RangeOfFire One { get; } = new(1, 1);
 
-        public override string ToString()
-        {
-            return $"({Min}, {Max})";
-        }
+        public override string ToString() => $"({Min}, {Max})";
     }
 }

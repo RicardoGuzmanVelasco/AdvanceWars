@@ -4,19 +4,16 @@ namespace AdvanceWars.Runtime
 {
     public readonly struct Nation
     {
-        public string Id { get; }
+        readonly string id;
 
         public Nation(string id)
         {
             Require(id).Not.NullOrWhiteSpace();
-            Id = id;
+            this.id = id;
         }
 
-        public static Nation Stateless => new Nation();
+        public static Nation Stateless { get; } = new();
 
-        public override string ToString()
-        {
-            return Id;
-        }
+        public override string ToString() => id;
     }
 }

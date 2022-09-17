@@ -21,7 +21,7 @@ namespace AdvanceWars.Tests
         public void IfNoMovementRate_ThenNoRangeOfMovement()
         {
             new Map(1, 2)
-                .RangeOfMovement(from: Vector2Int.zero, rate: 0)
+                .RangeOfMovement(from: Vector2Int.zero, rate: MovementRate.None)
                 .Should().BeEmpty();
         }
 
@@ -114,7 +114,7 @@ namespace AdvanceWars.Tests
             sut.RangeOfMovement(troop)
                 .Should().HaveCount(2);
         }
-        
+
         [Test]
         public void RangeOfMovement_WhenLimitedByTerrain_IsEmpty()
         {
@@ -123,11 +123,11 @@ namespace AdvanceWars.Tests
             var sut = new Map(1, 2);
             sut.Put(Vector2Int.zero, troop);
             sut.Put(Vector2Int.up, Terrain().WithCost(propulsion, 2).Build());
-            
+
             sut.RangeOfMovement(troop)
                 .Should().BeEmpty();
         }
-        
+
         [Test]
         public void RangeOfMovement_WhenAffectedByTerrain_IsNotEmpty()
         {
@@ -136,7 +136,7 @@ namespace AdvanceWars.Tests
             var sut = new Map(1, 2);
             sut.Put(Vector2Int.zero, troop);
             sut.Put(Vector2Int.up, Terrain().WithCost(propulsion, 1).Build());
-            
+
             sut.RangeOfMovement(troop)
                 .Should().NotBeEmpty();
         }

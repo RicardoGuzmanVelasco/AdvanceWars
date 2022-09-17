@@ -4,9 +4,9 @@ namespace AdvanceWars.Tests.Builders
 {
     internal class UnitBuilder
     {
-        MovementRate mobility = 0;
-        Propulsion propulsion = new Propulsion("");
-        Armor armor = new Armor("");
+        MovementRate mobility = MovementRate.None;
+        Propulsion propulsion = new("");
+        Armor armor = new("");
         Weapon weapon = Weapon.Null;
         private RangeOfFire rangeOfFire = RangeOfFire.One;
         Military force = Military.None;
