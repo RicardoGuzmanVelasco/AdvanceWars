@@ -27,7 +27,7 @@ namespace AdvanceWars.Runtime
         {
             officers.Next();
             ActiveCommandingOfficer.BeginTurn();
-            NewTurnOfDay!.Invoke(new NewTurnOfDayArgs(ActiveCommandingOfficer.Motherland, Day));
+            NewTurnOfDay.Invoke(new NewTurnOfDayArgs(ActiveCommandingOfficer.Motherland, Day));
         }
     }
 
