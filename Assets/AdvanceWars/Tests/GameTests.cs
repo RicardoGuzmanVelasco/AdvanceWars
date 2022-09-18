@@ -79,9 +79,7 @@ namespace AdvanceWars.Tests
             monitoredSut.Should().Raise(nameof(sut.CursorEnableChanged))
                 .WithArgs<bool>(enabled => enabled);
         }
-
-        // Implicitamente estamos testeando que no se haga begin 2 veces, aunque estemos
-        // testeando el cursor. Cuidao.
+        
         [Test]
         public void GameShouldNotBeginTwice()
         {
