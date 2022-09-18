@@ -43,3 +43,17 @@
   1. No sabría cómo probar lo que prueba ese test (imagino que el test desaparece).
   2. Creo que va a ser usado cuando empiece el flujo de control de maniobras y tal.
   - Así que lo he dejao.
+
+## Conclusiones generales
+
+- El que las clases de dominio gestionen datos no es problema ya que hay un caso especial que es el terreno aire. Como está ahora está guay.
+  - Si en un futuro pasa algo con los submarinos, puede ser interesante que las unidades conozcan el terreno en el que están.
+- Que se ponga refactor o test cuando se haga un refactor de test, es a discrección de cada persona.
+- Hacer un test comprobando un efecto secundario, no está mal para no exponer datos que no queremos exponer, como con lo del cursor.
+  - Se comentó una charla que hablaba de tests de resultado, estado e interacción (o algo así, revisar)
+- En el tema de que se había complicado tanto el movimiento del mapa, sabiendo que son grafos, podemos probar a hacer los grafos con TDD y luego usarlos para hacer el refactor.
+- Los no Value Objects no deben de tener un Flyweight en un factory method, el estado les va a acabar afectando y petará por mil sitios.
+- Las nullable references Ricardo las va a probar en otro proyecto.
+- En muchos casos se estaba haciendo el act más grande de lo que debería, cuando eso acaba causando problemas a nivel de entendimiento.
+- Hacer inicializadores por defecto a los nullobject para que no se queden referencias a null.
+- El builder de RangeOfMovement no termina de convencer pero no se ha decidido nada sobre ello
