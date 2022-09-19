@@ -55,6 +55,13 @@ namespace AdvanceWars.Runtime
 
         IEnumerable<Tactic> TacticsOf(Battalion battalion)
         {
+            if (map.WhereIs(battalion)!.Guest == battalion)
+            {
+                return new List<Tactic>
+                {
+                    Tactic.Merge
+                };
+            }
             var tactics = new List<Tactic>
             {
                 Tactic.Wait

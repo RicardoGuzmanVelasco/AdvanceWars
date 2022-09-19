@@ -38,6 +38,7 @@
   - Se ha discutido pero no se ha llegado a nada en claro.
 - Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio
 - ¿Qué ocurre si se le pregunta IsAlly a un INull?.
+- ¿Qué pasa si se hace put del mismo batallón en dos coordenadas distintas del mapa?
 
 ### Tests
 
@@ -45,6 +46,7 @@
 
 - Redondear 0.05 los outcomes de ataques y tal.
 - Mergear Battalions.
+  - Los battalions al ser mergeados, devuelven la vida sobrante en fondos.
 - Niebla de guerra.
   - Visibilidad de casillas por terreno.
   - Concepto de visibilidad en las unidades.

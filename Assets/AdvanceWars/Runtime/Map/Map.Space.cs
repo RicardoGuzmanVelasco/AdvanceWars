@@ -9,15 +9,19 @@ namespace AdvanceWars.Runtime
             public Terrain Terrain { get; set; } = Terrain.Null;
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
+            public Battalion Guest { get; private set; } = Battalion.Null;
 
             public bool IsOccupied => Occupant is not INull;
 
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
 
-            public bool BattalionCanBePlacedHere(Battalion other)
-            {
-                return !IsOccupied || other.CanMergeInto(Occupant);
-            }  
+            public bool CanEnter(Battalion battalion) => !IsOccupied || CanBeInvited(battalion);
+            
+            private bool CanBeInvited(Battalion other) => IsOccupied && other.CanMergeInto(Occupant);
+            
+            public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
+
+            public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
 
             public void Besiege()
             {
@@ -33,6 +37,18 @@ namespace AdvanceWars.Runtime
                 return IsOccupied && Occupant.IsEnemy(other);
             }
 
+            public void Enter(Battalion battalion)
+            {
+                if (IsOccupied)
+                {
+                    StopBy(battalion);
+                }
+                else
+                {
+                    Occupy(battalion);
+                }
+            }
+            
             public void Occupy(Battalion occupant)
             {
                 Require(IsOccupied).False();
@@ -49,9 +65,12 @@ namespace AdvanceWars.Runtime
                     Terrain.LiftSiege();
             }
 
-            public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
-
-            public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
+            public void StopBy(Battalion battalion)
+            {
+                Require(CanBeInvited(battalion)).True();
+                Guest = battalion;
+            }
+            
             public void ReportCasualties(int forcesAfter)
             {
                 Require(IsOccupied).True();

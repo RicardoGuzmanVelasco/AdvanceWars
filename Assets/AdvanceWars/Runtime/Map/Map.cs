@@ -75,7 +75,7 @@ namespace AdvanceWars.Runtime
             }
 
             nodes.Remove(from);
-            var coords = nodes.Keys.Where(c => spaces[c].BattalionCanBePlacedHere(targetBattalion));
+            var coords = nodes.Keys.Where(c => spaces[c].CanEnter(targetBattalion));
 
             return coords;
     }
@@ -143,7 +143,7 @@ namespace AdvanceWars.Runtime
         [CanBeNull]
         public virtual Space WhereIs(Battalion what)
         {
-            return spaces.Values.SingleOrDefault(x => x.Occupant == what);
+            return spaces.Values.SingleOrDefault(x => x.Occupant == what || x.Guest == what);
         }
 
         Vector2Int CoordOf([NotNull] Space space)

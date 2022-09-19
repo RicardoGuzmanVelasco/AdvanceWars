@@ -17,7 +17,7 @@ namespace AdvanceWars.Runtime
         public override void Apply(Map map)
         {
             map.WhereIs(Performer)!.Unoccupy();
-            Itinerary.Last().Occupy(Performer);
+            Itinerary.Last().Enter(Performer);
         }
     }
 }

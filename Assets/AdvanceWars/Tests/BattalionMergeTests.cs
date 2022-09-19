@@ -1,9 +1,12 @@
-﻿using AdvanceWars.Runtime;
+﻿using System.Collections.Generic;
+using AdvanceWars.Runtime;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using Battalion = AdvanceWars.Runtime.Battalion;
 
 namespace AdvanceWars.Tests
 {
@@ -49,6 +52,43 @@ namespace AdvanceWars.Tests
 
             sut.AvailableTacticsOf(allyBattalion)
                 .Should().NotContain(Tactic.Move);
+        }
+
+        [Test]
+        public void Battalion_BecomesGuest_WhenMovingToSpaceOccupiedByJoinableBattalion()
+        {
+            var map = new Map(1, 2);
+            var fullHealthAllyBattalion = Battalion().WithNation("sameNation").WithForces(100).WithMoveRate(1).Build();
+            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(10).WithMoveRate(1).Build();
+            map.Put(Vector2Int.zero, fullHealthAllyBattalion);
+            map.Put(Vector2Int.up, damagedAllyBattalion);
+            var itinerary = new List<Map.Space>
+            {
+                map.SpaceAt(new Vector2Int(0, 1)),
+            };
+
+            var sut = Maneuver.Move(fullHealthAllyBattalion, itinerary);
+            sut.Apply(map);
+
+            using var _ = new AssertionScope();
+            map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
+            map.WhereIs(fullHealthAllyBattalion).Should().Be(map.SpaceAt(new Vector2Int(0, 1)));
+            map.SpaceAt(new Vector2Int(0, 1)).Guest.Should().Be(fullHealthAllyBattalion);
+        }
+        
+        [Test]
+        public void MergeTactic_Available_WhenBattalionsCanJoin()
+        {
+            var fullHealthAllyBattalion = Battalion().WithNation("sameNation").WithForces(100).WithMoveRate(1).Build();
+            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(10).WithMoveRate(1).Build();
+            var map = new Map(1, 1);
+            map.Put(Vector2Int.zero, damagedAllyBattalion);
+            map.SpaceAt(Vector2Int.zero).StopBy(fullHealthAllyBattalion);
+            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
+
+            using var _ = new AssertionScope();
+            sut.AvailableTacticsOf(fullHealthAllyBattalion)
+                .Should().BeEquivalentTo(new List<Tactic>{Tactic.Merge});
         }
     }
 }
