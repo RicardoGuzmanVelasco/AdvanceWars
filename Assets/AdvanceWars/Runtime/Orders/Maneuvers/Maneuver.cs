@@ -36,6 +36,11 @@ namespace AdvanceWars.Runtime
         {
             return new SiegeManeuver(battalion);
         }
+        
+        public static IManeuver Merge([NotNull] Battalion battalion)
+        {
+            return new MergeManeuver(battalion);
+        }
         #endregion
 
         public bool Is(Tactic tactic)

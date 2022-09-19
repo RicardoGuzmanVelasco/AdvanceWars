@@ -4,7 +4,7 @@ namespace AdvanceWars.Runtime
 {
     public partial class Battalion : Allegiance
     {
-        private const int MaxForces = 100;
+        public const int MaxForces = 100;
         private const int PlatoonSize = 10;
 
         public Unit Unit { private get; init; } = Unit.Null;

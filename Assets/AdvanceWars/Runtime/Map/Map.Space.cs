@@ -11,6 +11,7 @@ namespace AdvanceWars.Runtime
             public Battalion Occupant { get; private set; } = Battalion.Null;
             public Battalion Guest { get; private set; } = Battalion.Null;
 
+            public bool HasGuest => Guest is not INull;
             public bool IsOccupied => Occupant is not INull;
 
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
@@ -70,6 +71,12 @@ namespace AdvanceWars.Runtime
                 Require(CanBeInvited(battalion)).True();
                 Guest = battalion;
             }
+
+            public void ExpelGuest()
+            {
+                Require(HasGuest).True();
+                Guest = Battalion.Null;
+            }
             
             public void ReportCasualties(int forcesAfter)
             {
@@ -79,6 +86,7 @@ namespace AdvanceWars.Runtime
                 if(Occupant.Forces <= 0)
                     Unoccupy();
             }
+
         }
     }
 }

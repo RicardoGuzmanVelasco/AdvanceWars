@@ -14,6 +14,7 @@
     - He decidido que el batallón se podrá mover, y cuando esté en el otro sitio, podrá hacer la otra acción o volver para atrás, me parecía farragoso lo otro.
 - Join vs Merge. En el advance wars usan Join, pero me parece bastante mejor usar Merge.
 - El set del forces creo que debería de ser privado, no se debería de clampear a MaxForces y a 0. Podemos hacer Damage y Heal
+- Habria que mover responsabilidad del MergeManeuver al Space, como se hizo con el fire?
 
 ### Ricardo
 

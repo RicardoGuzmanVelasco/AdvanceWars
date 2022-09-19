@@ -46,8 +46,7 @@
 ### Features para hacer
 
 - Redondear 0.05 los outcomes de ataques y tal.
-- Mergear Battalions.
-  - Los battalions al ser mergeados, devuelven la vida sobrante en fondos.
+- Los battalions al ser mergeados, devuelven el porcentaje sobrante de fuerzas en fondos.
 - Niebla de guerra.
   - Visibilidad de casillas por terreno.
   - Concepto de visibilidad en las unidades.
