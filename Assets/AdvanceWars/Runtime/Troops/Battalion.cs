@@ -15,6 +15,7 @@ namespace AdvanceWars.Runtime
         public Armor Armor => Unit.Armor;
         public RangeOfFire RangeOfFire => Unit.RangeOfFire;
 
+        public bool Damaged => Forces != 100;
         public int BaseDamageTo(Armor other)
         {
             return Unit.BaseDamageTo(other);
@@ -23,6 +24,11 @@ namespace AdvanceWars.Runtime
         public Battalion Clone()
         {
             return MemberwiseClone() as Battalion;
+        }
+        
+        public bool EqualUnit(Battalion other)
+        {
+            return Unit.Equals(other.Unit);
         }
 
         public bool IsAerial()

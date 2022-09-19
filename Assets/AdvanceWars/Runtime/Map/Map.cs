@@ -75,10 +75,10 @@ namespace AdvanceWars.Runtime
             }
 
             nodes.Remove(from);
-            var coords = nodes.Keys;
+            var coords = nodes.Keys.Where(c => !spaces[c].IsOccupied || (spaces[c].Occupant.EqualUnit(targetBattalion) && spaces[c].Occupant.Damaged));
 
-            return coords.Where(c => !spaces[c].IsOccupied);
-        }
+            return coords;
+    }
 
         public virtual IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
         {
