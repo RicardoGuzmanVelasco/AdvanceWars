@@ -90,5 +90,11 @@ namespace AdvanceWars.Tests
             sut.AvailableTacticsOf(fullHealthAllyBattalion)
                 .Should().BeEquivalentTo(new List<Tactic>{Tactic.Merge});
         }
+
+        [Test]
+        public void METHOD()
+        {
+            
+        }
     }
 }
