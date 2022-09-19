@@ -75,7 +75,7 @@ namespace AdvanceWars.Runtime
             }
 
             nodes.Remove(from);
-            var coords = nodes.Keys.Where(c => !spaces[c].IsOccupied || (spaces[c].Occupant.EqualUnit(targetBattalion) && spaces[c].Occupant.Damaged));
+            var coords = nodes.Keys.Where(c => spaces[c].BattalionCanBePlacedHere(targetBattalion));
 
             return coords;
     }

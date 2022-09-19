@@ -13,7 +13,11 @@ namespace AdvanceWars.Runtime
             public bool IsOccupied => Occupant is not INull;
 
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
-                                          
+
+            public bool BattalionCanBePlacedHere(Battalion other)
+            {
+                return !IsOccupied || other.CanMergeInto(Occupant);
+            }  
 
             public void Besiege()
             {

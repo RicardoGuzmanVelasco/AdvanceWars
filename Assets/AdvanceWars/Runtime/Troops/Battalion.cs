@@ -25,10 +25,10 @@ namespace AdvanceWars.Runtime
         {
             return MemberwiseClone() as Battalion;
         }
-        
-        public bool EqualUnit(Battalion other)
+
+        public bool CanMergeInto(Battalion target)
         {
-            return Unit.Equals(other.Unit);
+            return target.Damaged && EqualUnit(target);
         }
 
         public bool IsAerial()
@@ -36,6 +36,11 @@ namespace AdvanceWars.Runtime
             return Unit.IsAerial();
         }
 
+        private bool EqualUnit(Battalion other)
+        {
+            return Unit.Equals(other.Unit);
+        }
+        
         #region Formatting
         public override string ToString()
         {

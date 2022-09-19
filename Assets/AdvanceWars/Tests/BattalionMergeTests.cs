@@ -36,5 +36,19 @@ namespace AdvanceWars.Tests
             sut.AvailableTacticsOf(damagedAllyBattalion)
                 .Should().NotContain(Tactic.Move);
         }
+        
+        [Test]
+        public void MoveTactic_NotAvailable_WhenBattalionsAreEnemies()
+        {
+            var allyBattalion = Battalion().WithNation("sameNation").WithForces(50).WithMoveRate(1).Build();
+            var enemyBattalion = Battalion().WithNation("enemyNation").WithForces(50).WithMoveRate(1).Build();
+            var map = new Map(1, 2);
+            map.Put(Vector2Int.zero, allyBattalion);
+            map.Put(Vector2Int.up, enemyBattalion);
+            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
+
+            sut.AvailableTacticsOf(allyBattalion)
+                .Should().NotContain(Tactic.Move);
+        }
     }
 }
