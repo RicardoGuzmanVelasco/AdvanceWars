@@ -27,14 +27,14 @@ namespace AdvanceWars.Runtime
         }
 
         [NotNull]
-        public IEnumerable<Vector2Int> RangeOfMovement(Battalion battalion)
+        public virtual IEnumerable<Vector2Int> RangeOfMovement(Battalion battalion)
         {
             Require(WhereIs(battalion)).Not.Null();
             return RangeOfMovement(from: CoordOf(WhereIs(battalion)!), rate: battalion.MovementRate);
         }
 
         [NotNull]
-        public IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
+        public virtual IEnumerable<Vector2Int> RangeOfMovement(Vector2Int from, MovementRate rate)
         {
             Require(IsInsideBounds(from)).True();
 

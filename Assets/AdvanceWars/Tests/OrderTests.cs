@@ -218,5 +218,16 @@ namespace AdvanceWars.Tests
 
             sut.AvailableTacticsOf(battalion).Should().NotBeEmpty();
         }
+
+        [Test]
+        public void MoveTactic_isNotAvailable_WhenNoSpacesAvailable()
+        {
+            var map = new Map(1, 1);
+            var battalion = Battalion().WithNation("aNation").Build();
+            map.Put(Vector2Int.zero, battalion);
+            var sut = CommandingOfficer().WithNation("aNation").WithMap(map).Build();
+            
+            sut.AvailableTacticsOf(battalion).Should().NotContain(Tactic.Move);
+        }
     }
 }

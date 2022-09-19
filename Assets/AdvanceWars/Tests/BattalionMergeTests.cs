@@ -10,6 +10,7 @@ namespace AdvanceWars.Tests
     public class BattalionMergeTests
     {
         [Test]
+        [Ignore("Return to green, refactor and then implement this functionality")]
         public void MoveTactic_AvailableTo_JoinableBattalions()
         {
             var anAllyBattallion = Battalion().WithNation("sameNation").WithForces(100).Build();

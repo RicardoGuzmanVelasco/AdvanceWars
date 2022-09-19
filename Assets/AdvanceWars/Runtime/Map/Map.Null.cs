@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace AdvanceWars.Runtime
 {
@@ -25,6 +26,16 @@ namespace AdvanceWars.Runtime
             public override IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
             {
                 return Enumerable.Empty<Battalion>();
+            }
+
+            public override IEnumerable<Vector2Int> RangeOfMovement(Battalion battalion)
+            {
+                return Enumerable.Empty<Vector2Int>();
+            }
+
+            public override IEnumerable<Vector2Int> RangeOfMovement(Vector2Int @from, MovementRate rate)
+            {
+                return Enumerable.Empty<Vector2Int>();
             }
         }
     }

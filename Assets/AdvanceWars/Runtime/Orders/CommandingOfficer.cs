@@ -57,10 +57,12 @@ namespace AdvanceWars.Runtime
         {
             var tactics = new List<Tactic>
             {
-                Tactic.Wait,
-                Tactic.Move
+                Tactic.Wait
             };
 
+            if (map.RangeOfMovement(battalion).Any())
+                tactics.Add(Tactic.Move);
+            
             if(map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0))
                 tactics.Add(Tactic.Fire);
 
