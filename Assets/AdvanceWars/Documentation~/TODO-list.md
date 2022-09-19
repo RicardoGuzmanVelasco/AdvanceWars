@@ -69,6 +69,7 @@
 - Condiciones de victoria.
 - Bandos para 2 vs 2.
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
+- Undo de maniobras cuando todavia no se ha hecho wait de la unit
 - Maniobras automáticas al inicio del turno de un CO:
   - Aplicar curaciones a Batallones según corresponda (están sobre edificios correspondientes).
   - Ganar dinero por edificios.
