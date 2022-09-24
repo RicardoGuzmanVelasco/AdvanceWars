@@ -14,6 +14,8 @@
 - ¡Cuidado! He intentado reajustar los namespaces tras introducir carpeta Domain y el IsExternalInit se pierde de los builders.
   - Es una restricción técnica por bug de Unity por lo que no pierdo ni un segundo en ello. Se quedan sin ajustar.
 
+- Interesante la descripción del commit 8357b6c7.
+
 ## Diseño
 
 ### Culo
