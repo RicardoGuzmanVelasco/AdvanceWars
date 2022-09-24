@@ -9,11 +9,11 @@ namespace AdvanceWars.Runtime.Application
         void MoveTo(Vector2Int position);
     }
 
-    public class MoveCursorController
+    public class CursorMovement
     {
         readonly Game game;
 
-        public MoveCursorController(Game game, CursorView view)
+        public CursorMovement(Game game, CursorView view)
         {
             this.game = game;
             game.CursorMoved += view.MoveTo;

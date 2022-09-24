@@ -12,7 +12,7 @@ namespace AdvanceWars.Tests
         public void View_Receives_CursorMovement()
         {
             var viewMock = Substitute.For<CursorView>();
-            var sut = new MoveCursorController(Game().Build(), viewMock);
+            var sut = new CursorMovement(Game().Build(), viewMock);
 
             sut.Towards(Vector2Int.right);
 
