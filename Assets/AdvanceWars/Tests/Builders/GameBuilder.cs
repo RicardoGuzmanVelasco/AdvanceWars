@@ -6,7 +6,7 @@ namespace AdvanceWars.Tests.Builders
     internal class GameBuilder
     {
         IEnumerable<string> nations = new[] { "SingleNation" };
-        Map map;
+        Map map = MapBuilder.Map().Of(3, 3).Build();
         bool began;
 
         #region ObjectMothers

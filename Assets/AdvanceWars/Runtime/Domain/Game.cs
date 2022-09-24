@@ -71,7 +71,7 @@ namespace AdvanceWars.Runtime
             CursorMoved.Invoke(targetCoord);
         }
 
-        public void MoveCursorTo(Vector2Int direction)
+        public void MoveCursorTowards(Vector2Int direction)
         {
             Require(direction.IsDirection()).True();
 

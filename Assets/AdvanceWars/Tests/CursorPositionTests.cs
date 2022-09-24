@@ -45,7 +45,7 @@ namespace AdvanceWars.Tests
             var sut = Game().On(Map().Of(3).Build()).Build();
             sut.PutCursorAt(Vector2Int.one);
 
-            sut.MoveCursorTo(Vector2Int.left);
+            sut.MoveCursorTowards(Vector2Int.left);
 
             sut.CursorCoord.Should().Be(new Vector2Int(0, 1));
         }
@@ -56,7 +56,7 @@ namespace AdvanceWars.Tests
             var sut = Game().On(Map().Of(3).Build()).Build();
             sut.PutCursorAt(Vector2Int.one);
 
-            sut.MoveCursorTo(Vector2Int.right);
+            sut.MoveCursorTowards(Vector2Int.right);
 
             sut.CursorCoord.Should().Be(new Vector2Int(2, 1));
         }
@@ -67,7 +67,7 @@ namespace AdvanceWars.Tests
             var sut = Game().On(Map().Of(3).Build()).Build();
             sut.PutCursorAt(Vector2Int.one);
 
-            sut.MoveCursorTo(Vector2Int.up);
+            sut.MoveCursorTowards(Vector2Int.up);
 
             sut.CursorCoord.Should().Be(new Vector2Int(1, 2));
         }
@@ -78,7 +78,7 @@ namespace AdvanceWars.Tests
             var sut = Game().On(Map().Of(3).Build()).Build();
             sut.PutCursorAt(Vector2Int.one);
 
-            sut.MoveCursorTo(Vector2Int.down);
+            sut.MoveCursorTowards(Vector2Int.down);
 
             sut.CursorCoord.Should().Be(new Vector2Int(1, 0));
         }
@@ -90,7 +90,7 @@ namespace AdvanceWars.Tests
             sut.PutCursorAt(Vector2Int.one);
             var sutSpy = sut.Monitor();
 
-            sut.MoveCursorTo(Vector2Int.down);
+            sut.MoveCursorTowards(Vector2Int.down);
 
             sutSpy.Should().Raise(nameof(sut.CursorMoved));
         }

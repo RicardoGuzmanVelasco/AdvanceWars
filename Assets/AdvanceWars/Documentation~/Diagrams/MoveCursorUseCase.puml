@@ -2,7 +2,7 @@
 skin rose
 autonumber
 autoactivate on
-boundary CursorPresentation #technology
+boundary CursorView #technology
 boundary Input #technology
 control CursorMovement #implementation
 entity Game
@@ -10,9 +10,9 @@ entity Cursor
 
 
 activate Input
-Input -> CursorMovement : direction
+Input -> CursorMovement : Towards(direction)
 deactivate Input
-CursorMovement -> Game : MoveCursorTo(direction)
+CursorMovement -> Game : MoveCursorTowards(direction)
 deactivate CursorMovement
 Game -> Cursor : WhereIs = direction
 return
@@ -22,8 +22,8 @@ Game -> CursorMovement : <<event>>\nCursorMoved(position)
 activate CursorMovement
 deactivate Game
 
-CursorMovement -> CursorPresentation : MoveTo(position)
-activate CursorPresentation
+CursorMovement -> CursorView : MoveTo(position)
+activate CursorView
 deactivate CursorMovement
-CursorPresentation -> CursorPresentation : ShowIn(position)
+CursorView -> CursorView : ShowIn(position)
 @enduml
