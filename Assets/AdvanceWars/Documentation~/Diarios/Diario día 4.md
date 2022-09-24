@@ -29,3 +29,15 @@ Duración: ~2h.
 ### Conclusiones
 - Lo del rango explícito cuando me he querido poner no tenía claro qué es lo que se dijo. 
 - He hecho también el flujo de mostrar y esconder cursor, que no es un caso de uso pero será usado en varios de ellos.
+
+## Alejandro
+
+Duración:
+
+### Intenciones
+
+- [ ] Dado un Batallón con 1 Fuerza, cuando Batallón de Unidad curativa le cura 1, entonces tiene 2 Fuerzas.
+
+### Conclusiones
+
+- Me ha parecido muy curioso que me fallara un test de la sesión de Ricardo al lanzar los tests en mi portatil en vez del en sobremesa. No le daré más importancia porque lo utilizo de manera puntual.
