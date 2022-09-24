@@ -1,0 +1,22 @@
+﻿@startuml
+skin rose
+autonumber
+autoactivate on
+
+boundary CursorView #technology
+control CursorRendering #implementation
+entity Game
+entity Cursor
+
+Cursor -> Game : <<event>>\nEnableChanged(on/off)
+
+Game -> CursorRendering : <<event>>\nCursorEnableChanged(on/off)
+
+alt
+else on
+CursorRendering -> CursorView : Show()
+else off
+autoactivate off
+CursorRendering -> CursorView : Hide()
+end
+@enduml
