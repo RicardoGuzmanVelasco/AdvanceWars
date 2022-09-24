@@ -4,11 +4,6 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Application
 {
-    public interface CursorView
-    {
-        void MoveTo(Vector2Int position);
-    }
-
     public class CursorMovement
     {
         readonly Game game;
