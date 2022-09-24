@@ -18,12 +18,14 @@ Duración: 3H
 
 ## Ricardo
 
-Duración:
+Duración: ~2h.
 
 ### Intenciones
-- [ ] Caso de uso mover cursor.
-  - [ ] Documentación.
+- [x] Caso de uso mover cursor.
+  - [x] Documentación.
 - [ ] Rango máximo explícito (se habló en la retro).
-- [ ] Eliminar métodos que han quedado innecesarios tras la sesión de Culo.
+- [x] Eliminar métodos que han quedado innecesarios tras la sesión de Culo.
 
 ### Conclusiones
+- Lo del rango explícito cuando me he querido poner no tenía claro qué es lo que se dijo. 
+- He hecho también el flujo de mostrar y esconder cursor, que no es un caso de uso pero será usado en varios de ellos.
