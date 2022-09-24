@@ -1,0 +1,29 @@
+﻿@startuml
+skin rose
+autonumber
+autoactivate on
+boundary CursorPresentation #technology
+boundary Input #technology
+control CursorMovement #implementation
+entity Game
+entity Cursor
+
+
+activate Input
+Input -> CursorMovement : direction
+deactivate Input
+CursorMovement -> Game : MoveCursorTo(direction)
+deactivate CursorMovement
+Game -> Cursor : WhereIs = direction
+return
+autoactivate off
+Game -> Game : position = Cursor.WhereIs
+Game -> CursorMovement : <<event>>\nCursorMoved(position)
+activate CursorMovement
+deactivate Game
+
+CursorMovement -> CursorPresentation : MoveTo(position)
+activate CursorPresentation
+deactivate CursorMovement
+CursorPresentation -> CursorPresentation : ShowIn(position)
+@enduml
