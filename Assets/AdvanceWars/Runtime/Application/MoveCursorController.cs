@@ -3,9 +3,9 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Application
 {
-    public abstract class CursorView
+    public interface CursorView
     {
-        public abstract void MoveTo(Vector2Int position);
+        void MoveTo(Vector2Int position);
     }
 
     public class MoveCursorController

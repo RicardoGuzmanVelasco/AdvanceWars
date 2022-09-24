@@ -9,7 +9,7 @@ namespace AdvanceWars.Tests
     public class MoveCursorTests
     {
         [Test]
-        public void Presentation_Receives_CursorMovement()
+        public void View_Receives_CursorMovement()
         {
             var viewMock = Substitute.For<CursorView>();
             var sut = new MoveCursorController(Game().Build(), viewMock);
