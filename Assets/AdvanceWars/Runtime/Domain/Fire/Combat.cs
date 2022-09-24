@@ -1,4 +1,6 @@
-﻿namespace AdvanceWars.Runtime
+﻿using AdvanceWars.Runtime.Domain.Troops;
+
+namespace AdvanceWars.Runtime.Domain.Fire
 {
     public class Combat
     {

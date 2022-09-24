@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AdvanceWars.Runtime.Domain;
+using UnityEngine;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Application

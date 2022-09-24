@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
-using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Orders;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
-using Battalion = AdvanceWars.Runtime.Battalion;
+using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
 
 namespace AdvanceWars.Tests
 {
@@ -25,7 +27,7 @@ namespace AdvanceWars.Tests
             sut.AvailableTacticsOf(fullHealthAllyBattalion)
                 .Should().Contain(Tactic.Move);
         }
-        
+
         [Test]
         public void MoveTactic_NotAvailable_WhenBattalionsCanNotJoin()
         {
@@ -39,7 +41,7 @@ namespace AdvanceWars.Tests
             sut.AvailableTacticsOf(damagedAllyBattalion)
                 .Should().NotContain(Tactic.Move);
         }
-        
+
         [Test]
         public void MoveTactic_NotAvailable_WhenBattalionsAreEnemies()
         {
@@ -75,7 +77,7 @@ namespace AdvanceWars.Tests
             map.WhereIs(anAllyBattalion).Should().Be(map.SpaceAt(new Vector2Int(0, 1)));
             map.SpaceAt(new Vector2Int(0, 1)).Guest.Should().Be(anAllyBattalion);
         }
-        
+
         [Test]
         public void MergeTactic_Available_WhenBattalionsCanJoin()
         {
@@ -88,7 +90,7 @@ namespace AdvanceWars.Tests
 
             using var _ = new AssertionScope();
             sut.AvailableTacticsOf(anAllyBattalion)
-                .Should().BeEquivalentTo(new List<Tactic>{Tactic.Merge});
+                .Should().BeEquivalentTo(new List<Tactic> { Tactic.Merge });
         }
 
         [Test]

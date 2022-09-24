@@ -1,7 +1,8 @@
 ﻿using System;
+using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial class Building : Terrain
     {
@@ -47,7 +48,6 @@ namespace AdvanceWars.Runtime
         public override bool IsBesiegable(Battalion besieger)
         {
             return !IsAlly(besieger);
-            ;
         }
     }
 }

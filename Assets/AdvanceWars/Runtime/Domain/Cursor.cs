@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain
 {
     internal class Cursor
     {

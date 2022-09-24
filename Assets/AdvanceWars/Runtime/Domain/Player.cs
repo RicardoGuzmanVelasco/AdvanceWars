@@ -1,4 +1,4 @@
-﻿namespace AdvanceWars.Runtime
+﻿namespace AdvanceWars.Runtime.Domain
 {
     public class Player
     {

@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
-using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Orders;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
+using AdvanceWars.Runtime.Domain.Troops;
 using AdvanceWars.Tests.Doubles;
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -10,7 +13,7 @@ using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
-using Battalion = AdvanceWars.Runtime.Battalion;
+using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
 
 namespace AdvanceWars.Tests
 {
@@ -226,7 +229,7 @@ namespace AdvanceWars.Tests
             var battalion = Battalion().WithNation("aNation").Build();
             map.Put(Vector2Int.zero, battalion);
             var sut = CommandingOfficer().WithNation("aNation").WithMap(map).Build();
-            
+
             sut.AvailableTacticsOf(battalion).Should().NotContain(Tactic.Move);
         }
     }

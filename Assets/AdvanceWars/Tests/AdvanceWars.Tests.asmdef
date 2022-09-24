@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
         "BoundfoxStudios.FluentAssertions",
         "AdvanceWars.Runtime",
-        "AdvanceWars.DataStructures"
+        "AdvanceWars.DataStructures",
+        "RGV.DesignByContract"
     ],
     "includePlatforms": [
         "Editor"

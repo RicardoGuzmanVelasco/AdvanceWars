@@ -1,6 +1,7 @@
-﻿using static RGV.DesignByContract.Runtime.Contract;
+﻿using AdvanceWars.Runtime.Domain.Troops;
+using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial record Map
     {

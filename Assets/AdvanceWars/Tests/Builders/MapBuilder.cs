@@ -1,4 +1,4 @@
-﻿using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime.Domain.Map;
 
 namespace AdvanceWars.Tests.Builders
 {

@@ -1,6 +1,6 @@
 ﻿using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Troops
 {
     public readonly struct RangeOfFire
     {

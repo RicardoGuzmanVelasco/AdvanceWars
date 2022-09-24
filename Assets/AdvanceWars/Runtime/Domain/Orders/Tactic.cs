@@ -1,4 +1,4 @@
-﻿namespace AdvanceWars.Runtime
+﻿namespace AdvanceWars.Runtime.Domain.Orders
 {
     public readonly struct Tactic
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Troops
 {
     public partial record Weapon
     {

@@ -1,4 +1,5 @@
-﻿using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Troops;
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;

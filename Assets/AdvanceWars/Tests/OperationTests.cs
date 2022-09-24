@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Domain;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;

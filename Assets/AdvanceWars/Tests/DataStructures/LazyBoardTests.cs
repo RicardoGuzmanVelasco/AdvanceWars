@@ -1,5 +1,5 @@
-﻿using AdvanceWars.Runtime;
-using AdvanceWars.Runtime.DataStructures;
+﻿using AdvanceWars.Runtime.DataStructures;
+using AdvanceWars.Runtime.Domain.Map;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;

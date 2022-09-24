@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
     public abstract class Maneuver : IManeuver
     {
@@ -27,7 +28,7 @@ namespace AdvanceWars.Runtime
             return new FireManeuver(performer, target);
         }
 
-        public static IManeuver Move([NotNull] Battalion battalion, IEnumerable<Map.Space> itinerary)
+        public static IManeuver Move([NotNull] Battalion battalion, IEnumerable<Map.Map.Space> itinerary)
         {
             return new MovementManeuver(battalion, itinerary);
         }
@@ -48,6 +49,6 @@ namespace AdvanceWars.Runtime
             return FromTactic.Equals(tactic);
         }
 
-        public abstract void Apply(Map map);
+        public abstract void Apply(Map.Map map);
     }
 }

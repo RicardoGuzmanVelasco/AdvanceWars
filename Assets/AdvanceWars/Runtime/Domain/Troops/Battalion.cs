@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Troops
 {
     public partial class Battalion : Allegiance
     {

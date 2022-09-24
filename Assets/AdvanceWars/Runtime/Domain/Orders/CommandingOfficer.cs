@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
+using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Orders
 {
     public class CommandingOfficer : Allegiance
     {
-        readonly Map map;
+        readonly Map.Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
 
-        public CommandingOfficer(Nation from, Map map)
+        public CommandingOfficer(Nation from, Map.Map map)
         {
             this.Motherland = from;
             this.map = map;

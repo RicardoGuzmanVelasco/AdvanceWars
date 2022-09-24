@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.DataStructures;
+using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using UnityEngine;
 using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial record Map(int SizeX, int SizeY)
     {

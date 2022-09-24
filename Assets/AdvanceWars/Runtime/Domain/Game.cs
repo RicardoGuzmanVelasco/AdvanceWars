@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdvanceWars.Runtime.Domain.Orders;
+using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using UnityEngine;
 using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain
 {
     public class Game
     {
@@ -31,13 +33,13 @@ namespace AdvanceWars.Runtime
         (
             [NotNull] IEnumerable<CommandingOfficer> officers,
             [NotNull] IDictionary<Nation, Player> players,
-            Map battleground = null
+            Map.Map battleground = null
         )
         {
             Require(players.Values.All(p => p != null)).True();
 
             this.players = players;
-            operation = new Operation(officers, battleground ?? Map.Null);
+            operation = new Operation(officers, battleground ?? Map.Map.Null);
             cursor = new Cursor { WhereIs = Vector2Int.zero };
         }
 

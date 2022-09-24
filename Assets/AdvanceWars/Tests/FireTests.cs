@@ -1,4 +1,5 @@
-﻿using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime.Domain.Fire;
+using AdvanceWars.Runtime.Domain.Troops;
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
@@ -6,8 +7,8 @@ using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.TheaterOpsBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
-using Battalion = AdvanceWars.Runtime.Battalion;
-using Terrain = AdvanceWars.Runtime.Terrain;
+using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
+using Terrain = AdvanceWars.Runtime.Domain.Map.Terrain;
 
 namespace AdvanceWars.Tests
 {
@@ -103,7 +104,7 @@ namespace AdvanceWars.Tests
         public void AerialUnitsFightOnAir_DespiteSpaceActualTerrain()
         {
             var nonAerialTerrain = Terrain().Build();
-            
+
             var sut = TheaterOps()
                 .Who(AerialUnit().Build())
                 .Where(nonAerialTerrain)

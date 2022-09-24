@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Map
 {
     public class Terrain : Allegiance
     {

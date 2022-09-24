@@ -1,4 +1,6 @@
-﻿namespace AdvanceWars.Runtime
+﻿using AdvanceWars.Runtime.Domain.Troops;
+
+namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial class Building
     {

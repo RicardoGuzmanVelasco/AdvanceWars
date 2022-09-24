@@ -1,4 +1,5 @@
-﻿using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime.Domain;
+using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.GameBuilder;
@@ -79,7 +80,7 @@ namespace AdvanceWars.Tests
             monitoredSut.Should().Raise(nameof(sut.CursorEnableChanged))
                 .WithArgs<bool>(enabled => enabled);
         }
-        
+
         [Test]
         public void GameShouldNotBeginTwice()
         {

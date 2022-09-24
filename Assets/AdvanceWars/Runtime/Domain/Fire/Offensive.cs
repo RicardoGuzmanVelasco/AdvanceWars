@@ -1,8 +1,10 @@
-﻿using JetBrains.Annotations;
+﻿using AdvanceWars.Runtime.Domain.Troops;
+using JetBrains.Annotations;
 using UnityEngine;
 using static RGV.DesignByContract.Runtime.Contract;
+using Terrain = AdvanceWars.Runtime.Domain.Map.Terrain;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Fire
 {
     public class Offensive
     {

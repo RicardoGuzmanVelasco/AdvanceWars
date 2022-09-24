@@ -1,6 +1,8 @@
-﻿using static RGV.DesignByContract.Runtime.Contract;
+﻿using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Troops;
+using static RGV.DesignByContract.Runtime.Contract;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Fire
 {
     public class TheaterOps
     {

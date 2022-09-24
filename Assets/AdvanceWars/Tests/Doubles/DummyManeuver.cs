@@ -1,4 +1,7 @@
-﻿using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Orders;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
+using AdvanceWars.Runtime.Domain.Troops;
 
 namespace AdvanceWars.Tests.Doubles
 {

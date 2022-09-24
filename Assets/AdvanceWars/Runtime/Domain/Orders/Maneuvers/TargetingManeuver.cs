@@ -1,6 +1,7 @@
-﻿using JetBrains.Annotations;
+﻿using AdvanceWars.Runtime.Domain.Troops;
+using JetBrains.Annotations;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
     public abstract class TargetingManeuver : Maneuver
     {

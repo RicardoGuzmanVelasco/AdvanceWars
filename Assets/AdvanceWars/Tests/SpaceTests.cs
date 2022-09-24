@@ -1,9 +1,11 @@
 ﻿using System;
-using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
 using NUnit.Framework;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.BuildingBuilder;
+using Building = AdvanceWars.Runtime.Domain.Map.Building;
 
 namespace AdvanceWars.Tests
 {
@@ -89,13 +91,13 @@ namespace AdvanceWars.Tests
 
             sut.IsBesiegable.Should().BeFalse();
         }
-        
+
         [Test]
         public void Unbesiegable_WhenBuilding_IsUnbesiegable()
         {
             var sut = new Map.Space
             {
-                Terrain = Runtime.Building.Unbesiegable
+                Terrain = Building.Unbesiegable
             };
 
             sut.IsBesiegable.Should().BeFalse();

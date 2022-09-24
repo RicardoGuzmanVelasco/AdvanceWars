@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Troops
 {
     public abstract class Allegiance
     {

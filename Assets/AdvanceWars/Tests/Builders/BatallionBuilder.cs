@@ -1,4 +1,4 @@
-﻿using AdvanceWars.Runtime;
+﻿using AdvanceWars.Runtime.Domain.Troops;
 using static AdvanceWars.Tests.Builders.UnitBuilder;
 
 namespace AdvanceWars.Tests.Builders

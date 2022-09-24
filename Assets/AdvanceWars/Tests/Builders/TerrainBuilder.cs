@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Troops;
 
 namespace AdvanceWars.Tests.Builders
 {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdvanceWars.Runtime.Domain.Troops;
 using UnityEngine;
 
-namespace AdvanceWars.Runtime
+namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial record Map
     {
