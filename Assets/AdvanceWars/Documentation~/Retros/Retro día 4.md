@@ -5,10 +5,14 @@
 ### Culo
 
 ### Ricardo
+
 - Hay unas ObjMothers Enemy/Friend para los batallones que se podrían usar n test como MoveTactic_IsNotAvailable...
 - Tema MapBuilder.
 - Línea Map::78 commit 5ed6ab53.
 - Tema (gran melón) de haber diseñado la maniobra de combinar unidades sesgado por la vista.
+
+- ¡Cuidado! He intentado reajustar los namespaces tras introducir carpeta Domain y el IsExternalInit se pierde de los builders.
+  - Es una restricción técnica por bug de Unity por lo que no pierdo ni un segundo en ello. Se quedan sin ajustar.
 
 ## Diseño
 
