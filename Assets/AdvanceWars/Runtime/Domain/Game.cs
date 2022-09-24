@@ -13,7 +13,7 @@ namespace AdvanceWars.Runtime.Domain
     {
         readonly IDictionary<Nation, Player> players;
         readonly Operation operation;
-        readonly Cursor cursor;
+        protected Cursor cursor;
 
         public event Action<Vector2Int> CursorMoved = _ => { };
 

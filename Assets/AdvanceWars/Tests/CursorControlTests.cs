@@ -3,6 +3,7 @@ using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.GameBuilder;
+using Cursor = AdvanceWars.Runtime.Domain.Cursor;
 
 namespace AdvanceWars.Tests
 {
@@ -22,11 +23,11 @@ namespace AdvanceWars.Tests
         [Test]
         public void View_Receives_EnableCursor()
         {
-            var game = Game().Build();
+            var cursor = new Cursor();
             var viewMock = Substitute.For<CursorView>();
-            var sut = new CursorRendering(game, viewMock);
+            var sut = new CursorRendering(Game().InjectCursor(cursor).Build(), viewMock);
 
-            game.BeginNextTurn(); //Side effect: cursor is enabled.
+            cursor.Enable();
 
             viewMock.Received().Show();
         }
@@ -34,12 +35,11 @@ namespace AdvanceWars.Tests
         [Test]
         public void View_Receives_DisableCursor()
         {
-            var game = Game().Build();
+            var cursor = new Cursor();
             var viewMock = Substitute.For<CursorView>();
-            var sut = new CursorRendering(game, viewMock);
+            var sut = new CursorRendering(Game().InjectCursor(cursor).Build(), viewMock);
 
-            game.BeginNextTurn();
-            game.EndCurrentTurn(); //Side effect: cursor is disabled.
+            cursor.Disable();
 
             viewMock.Received().Hide();
         }

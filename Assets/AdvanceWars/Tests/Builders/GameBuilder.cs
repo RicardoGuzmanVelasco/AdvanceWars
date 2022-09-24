@@ -3,14 +3,30 @@ using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
+using JetBrains.Annotations;
 
 namespace AdvanceWars.Tests.Builders
 {
+    internal class TestableGame : Game
+    {
+        public TestableGame
+        (
+            Cursor cursorToInject,
+            [NotNull] IEnumerable<CommandingOfficer> officers,
+            [NotNull] IDictionary<Nation, Player> players,
+            Map battleground = null
+        ) : base(officers, players, battleground)
+        {
+            cursor = cursorToInject;
+        }
+    }
+
     internal class GameBuilder
     {
         IEnumerable<string> nations = new[] { "SingleNation" };
         Map map = MapBuilder.Map().Of(3, 3).Build();
         bool began;
+        Cursor cursorToInject;
 
         #region ObjectMothers
         public static GameBuilder Game() => new();
@@ -19,7 +35,6 @@ namespace AdvanceWars.Tests.Builders
         public GameBuilder WithNations(params string[] motherlands)
         {
             nations = motherlands;
-
             return this;
         }
 
@@ -44,7 +59,12 @@ namespace AdvanceWars.Tests.Builders
         public GameBuilder Began()
         {
             began = true;
+            return this;
+        }
 
+        public GameBuilder InjectCursor(Cursor cursor)
+        {
+            cursorToInject = cursor;
             return this;
         }
 
@@ -60,7 +80,9 @@ namespace AdvanceWars.Tests.Builders
                 officers.Add(CommandingOfficerBuilder.CommandingOfficer().Of(allegiance).Build());
             }
 
-            var game = new Game(officers, players, map);
+            var game = cursorToInject is null
+                ? new Game(officers, players, map)
+                : new TestableGame(cursorToInject, officers, players, map);
 
             if(began)
                 game.Begin();

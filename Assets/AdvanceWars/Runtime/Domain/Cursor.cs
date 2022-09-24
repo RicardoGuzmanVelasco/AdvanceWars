@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AdvanceWars.Runtime.Domain
 {
-    internal class Cursor
+    public class Cursor
     {
         bool enabled;
         public event Action<bool> EnableChanged = _ => { };
