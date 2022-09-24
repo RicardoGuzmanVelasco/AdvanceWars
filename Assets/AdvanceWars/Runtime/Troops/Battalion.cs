@@ -18,7 +18,7 @@ namespace AdvanceWars.Runtime
         public Armor Armor => Unit.Armor;
         public RangeOfFire RangeOfFire => Unit.RangeOfFire;
         public bool Damaged => Forces < MaxForces;
-        
+
         public int BaseDamageTo(Armor other)
         {
             return Unit.BaseDamageTo(other);
@@ -31,7 +31,7 @@ namespace AdvanceWars.Runtime
 
         public bool CanMergeInto(Battalion target)
         {
-            return target.Damaged && EqualUnit(target);
+            return target.Damaged && Unit.Equals(target.Unit);
         }
 
         public bool IsAerial()
@@ -39,11 +39,6 @@ namespace AdvanceWars.Runtime
             return Unit.IsAerial();
         }
 
-        private bool EqualUnit(Battalion other)
-        {
-            return Unit.Equals(other.Unit);
-        }
-        
         #region Formatting
         public override string ToString()
         {
