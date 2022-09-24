@@ -10,7 +10,7 @@ namespace AdvanceWars.Runtime
         {
             // ReSharper disable once ConvertToPrimaryConstructor (Rider bug concerning records ctor)
             public NoWeapon() : base(new Dictionary<Armor, int>()) { }
-            
+
             public override string ToString()
             {
                 return this.GetType().Name;

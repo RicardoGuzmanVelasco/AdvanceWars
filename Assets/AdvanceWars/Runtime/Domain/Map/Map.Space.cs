@@ -17,9 +17,9 @@ namespace AdvanceWars.Runtime
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
 
             public bool CanEnter(Battalion battalion) => !IsOccupied || CanBeInvited(battalion);
-            
+
             private bool CanBeInvited(Battalion other) => IsOccupied && other.CanMergeInto(Occupant);
-            
+
             public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
 
             public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
@@ -40,7 +40,7 @@ namespace AdvanceWars.Runtime
 
             public void Enter(Battalion battalion)
             {
-                if (IsOccupied)
+                if(IsOccupied)
                 {
                     StopBy(battalion);
                 }
@@ -49,7 +49,7 @@ namespace AdvanceWars.Runtime
                     Occupy(battalion);
                 }
             }
-            
+
             public void Occupy(Battalion occupant)
             {
                 Require(IsOccupied).False();
@@ -77,7 +77,7 @@ namespace AdvanceWars.Runtime
                 Require(HasGuest).True();
                 Guest = Battalion.Null;
             }
-            
+
             public void ReportCasualties(int forcesAfter)
             {
                 Require(IsOccupied).True();
@@ -86,7 +86,6 @@ namespace AdvanceWars.Runtime
                 if(Occupant.Forces <= 0)
                     Unoccupy();
             }
-
         }
     }
 }

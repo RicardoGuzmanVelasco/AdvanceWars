@@ -78,7 +78,7 @@ namespace AdvanceWars.Runtime
             var coords = nodes.Keys.Where(c => spaces[c].CanEnter(targetBattalion));
 
             return coords;
-    }
+        }
 
         public virtual IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
         {

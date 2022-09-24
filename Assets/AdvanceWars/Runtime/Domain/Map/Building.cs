@@ -1,5 +1,4 @@
 ﻿using System;
-using RGV.DesignByContract.Runtime;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
@@ -23,7 +22,7 @@ namespace AdvanceWars.Runtime
             get
             {
                 Require(this.Equals(Building.Unbesiegable)).False();
-                
+
                 return maxSiegePoints > SiegePoints;
             }
         }
@@ -47,7 +46,8 @@ namespace AdvanceWars.Runtime
 
         public override bool IsBesiegable(Battalion besieger)
         {
-            return !IsAlly(besieger);;
+            return !IsAlly(besieger);
+            ;
         }
     }
 }
