@@ -25,3 +25,7 @@
 
 - SetForces puede clampear si se usa backing field en vez de autoproperty.
   - En C# 11 esto ya no es necesario porque la autoproperty puede tener operaciones de get/set personalizadas con lambda.
+  - Esto ha llevado a la rotura de dos test que utilizan algo sin sentido invariante: batallón con fuerzas infinitas.
+    - Intenté arreglarlo con un battalion stub builder pero no funcionaba bien porque requería muchos detalles internos.
+    - Para poder hacerlo hay que elevar la abstracción de esos test para poder aplicar dos veces la maniobra.
+      - Surge una conversación que debemos tener: tensión entre invariantes y situaciones hipotéticas en test.
