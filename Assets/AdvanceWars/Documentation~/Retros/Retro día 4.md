@@ -39,3 +39,4 @@
 ### Alejandro
 
 - Me parece muy interesante la separación que ha hecho Ricardo de que por un lado va el CursorRendering y por otro el CursorMovement, ¿sería partir un mismo caso de uso (mover cursor) en diferentes responsabilidades? (CursorMovement sería de entrada y CursorRenderin de salida)
+- He mirado la wiki y no existe la "unidad que cura otras unidades".
