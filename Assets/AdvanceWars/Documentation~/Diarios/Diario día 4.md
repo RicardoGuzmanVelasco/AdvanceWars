@@ -38,7 +38,7 @@ Duración: 2'5h
 
 - [X] Arreglar test en rojo de CursorControlTests tras la sesión de Ricardo. 
 - [X] Jugar al Advance Wars (GBA) para solventar lagunas de conocimiento.
-- [X] Dado un Batallón con 1 Fuerza, cuando pasa el turno en una ciudad aliada, entonces tiene 3 Fuerzas.
+- [X] Dado un Batallón con 10 Fuerzas, cuando pasa el turno en una ciudad aliada, entonces tiene 30 Fuerzas.
   - [X] Ver cuales serían los valores correctos según Advance Wars (GBA).
 
 ### Conclusiones
@@ -47,3 +47,4 @@ Duración: 2'5h
   - Pues parece ser que si que falla. No me fijé en concreto si cuando relancé las primeras veces en mi sobremesa, el test efectivamente pasaba o quedaba como inconclusive: simplemente ví que todos los tests estaban en verde.
 - Me ha costado un buen rato de debugging el hecho de que el builder del CO asigne un Map por defecto; si no lo hiciera, me habría petado a la primera ejecución y me habría dado cuenta que no le estaba pasando el Map al CO.
 - He ido a clampear Battalion.Forces pero me han fallado tests en los que aparentemente no se utilizan datos realistas: ¿no es siempre Battalion.MaxForces == 100? No he querido abordar esta cuestión.
+- He confundido Battalion.Forces con Platoons, en el sentido que pensaba que eran las Forces lo que se veía en la UI.

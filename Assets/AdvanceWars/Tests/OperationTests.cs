@@ -63,9 +63,8 @@ namespace AdvanceWars.Tests
             sut.Day.Should().Be(2);
         }
         
-        
         [Test]
-        public void AllyBuilding_HealsTwoForcesToBattalion_OnNewTurnBeginning()
+        public void AllyBuilding_HealsTwentyForcesToBattalion_OnNewTurnBeginning()
         {
             var map = Map().Of(1,1).Build();
 
@@ -73,7 +72,7 @@ namespace AdvanceWars.Tests
             map.Put(new Vector2Int(0, 0), sut);
 
             const string aNation = "aNation";
-            var battalion = Battalion().WithNation(aNation).WithForces(1).Build();
+            var battalion = Battalion().WithNation(aNation).WithForces(10).Build();
             map.Put(new Vector2Int(0, 0), battalion);
 
             var commandingOfficers = new[]
@@ -85,7 +84,7 @@ namespace AdvanceWars.Tests
             
             operation.EndTurn();
 
-            battalion.Forces.Should().Be(3);
+            battalion.Forces.Should().Be(30);
         }
         
         [Test]

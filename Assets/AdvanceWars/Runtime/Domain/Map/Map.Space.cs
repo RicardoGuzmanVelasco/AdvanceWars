@@ -8,7 +8,7 @@ namespace AdvanceWars.Runtime.Domain.Map
     {
         public partial class Space
         {
-            private const int NumberOfHealingForcesPerTurn = 2;
+            private const int NumberOfHealingForcesPerTurn = 20;
             public Terrain Terrain { get; set; } = Terrain.Null;
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
