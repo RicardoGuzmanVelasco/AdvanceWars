@@ -36,6 +36,8 @@ namespace AdvanceWars.Tests
         public void View_Receives_DisableCursor()
         {
             var cursor = new Cursor();
+            cursor.Enable();
+            
             var viewMock = Substitute.For<CursorView>();
             var sut = new CursorRendering(Game().InjectCursor(cursor).Build(), viewMock);
 

@@ -36,7 +36,7 @@ Duración:
 
 ### Intenciones
 
-- [ ] Arreglar test en rojo de CursorControlTests tras la sesión de Ricardo. 
+- [X] Arreglar test en rojo de CursorControlTests tras la sesión de Ricardo. 
 - [ ] Jugar al Advance Wars (GBA) para solventar lagunas de conocimiento.
 - [ ] Dado un Batallón con 1 Fuerza, cuando Batallón de Unidad curativa le cura 1, entonces tiene 2 Fuerzas.
   - [ ] Ver cual serían los valores correctos según Advance Wars (GBA).

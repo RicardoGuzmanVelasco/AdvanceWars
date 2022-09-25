@@ -17,6 +17,7 @@ namespace AdvanceWars.Runtime.Domain
         {
             if(enabled == toEnabled)
                 return;
+            
             enabled = toEnabled;
 
             EnableChanged.Invoke(enabled);
