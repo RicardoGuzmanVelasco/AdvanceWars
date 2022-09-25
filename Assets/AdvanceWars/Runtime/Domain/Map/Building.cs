@@ -6,6 +6,8 @@ namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial class Building : Terrain
     {
+        private const int NumberOfHealingForcesPerTurn = 20;
+
         readonly int maxSiegePoints;
 
         public Building(int siegePoints, Nation owner) : this(siegePoints)
@@ -48,6 +50,13 @@ namespace AdvanceWars.Runtime.Domain.Map
         public override bool IsBesiegable(Battalion besieger)
         {
             return !IsAlly(besieger);
+        }
+
+        public override void Heal(Battalion occupant)
+        {
+            // TODO: (Precondition) Occupant must be an ally.
+            var newForces = occupant.Forces + NumberOfHealingForcesPerTurn;
+            occupant.Forces = Math.Min(newForces, Battalion.MaxForces);
         }
     }
 }

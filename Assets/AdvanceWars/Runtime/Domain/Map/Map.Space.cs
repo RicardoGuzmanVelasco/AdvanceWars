@@ -1,5 +1,4 @@
-﻿using System;
-using AdvanceWars.Runtime.Domain.Troops;
+﻿using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Map
@@ -8,7 +7,6 @@ namespace AdvanceWars.Runtime.Domain.Map
     {
         public partial class Space
         {
-            private const int NumberOfHealingForcesPerTurn = 20;
             public Terrain Terrain { get; set; } = Terrain.Null;
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
@@ -92,9 +90,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 
             public void HealOccupant()
             {
-                // TODO: (Precondition) Occupant must be an ally.
-                var newForces = Occupant.Forces + NumberOfHealingForcesPerTurn;
-                Occupant.Forces = Math.Min(newForces, Battalion.MaxForces);
+                Terrain.Heal(Occupant);
             }
         }
     }

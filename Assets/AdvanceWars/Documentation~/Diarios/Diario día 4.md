@@ -32,7 +32,7 @@ Duración: ~2h.
 
 ## Alejandro
 
-Duración: 2'5h
+Duración: 3h
 
 ### Intenciones
 

@@ -153,7 +153,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             return spaces.CoordsOf(space);
         }
 
-        public IEnumerable<Space> SpacesWithAllyBuildings(CommandingOfficer co)
+        public IEnumerable<Space> AllySpaces(CommandingOfficer co)
         {
             return spaces
                 .Select(keyValuePair => keyValuePair.Value)
