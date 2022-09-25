@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.DataStructures;
+using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -150,6 +151,13 @@ namespace AdvanceWars.Runtime.Domain.Map
         Vector2Int CoordOf([NotNull] Space space)
         {
             return spaces.CoordsOf(space);
+        }
+
+        public IEnumerable<Space> SpacesWithAllyBuildings(CommandingOfficer co)
+        {
+            return spaces
+                .Select(keyValuePair => keyValuePair.Value)
+                .Where(space => space.Occupant.IsAlly(co));
         }
     }
 }

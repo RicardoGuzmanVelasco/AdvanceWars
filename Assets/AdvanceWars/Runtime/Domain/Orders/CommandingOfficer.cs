@@ -86,6 +86,9 @@ namespace AdvanceWars.Runtime.Domain.Orders
         {
             executedThisTurn.Clear();
             //maniobras automáticas. Sacar el clear al EndTurn.
+
+            foreach (var space in map.SpacesWithAllyBuildings(this))
+                space.HealOccupant();
         }
 
         public override string ToString()

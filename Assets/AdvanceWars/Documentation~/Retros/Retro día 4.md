@@ -40,3 +40,4 @@
 
 - Me parece muy interesante la separación que ha hecho Ricardo de que por un lado va el CursorRendering y por otro el CursorMovement, ¿sería partir un mismo caso de uso (mover cursor) en diferentes responsabilidades? (CursorMovement sería de entrada y CursorRenderin de salida)
 - He mirado la wiki y no existe la "unidad que cura otras unidades".
+- He ido a clampear Battalion.Forces pero me han fallado tests en los que aparentemente no se utilizan datos realistas: ¿no es siempre Battalion.MaxForces == 100? No he querido abordar esta cuestión.
