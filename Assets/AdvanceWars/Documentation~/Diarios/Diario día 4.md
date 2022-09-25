@@ -36,8 +36,12 @@ Duración:
 
 ### Intenciones
 
+- [ ] Arreglar test en rojo de CursorControlTests tras la sesión de Ricardo. 
+- [ ] Jugar al Advance Wars (GBA) para solventar lagunas de conocimiento.
 - [ ] Dado un Batallón con 1 Fuerza, cuando Batallón de Unidad curativa le cura 1, entonces tiene 2 Fuerzas.
+  - [ ] Ver cual serían los valores correctos según Advance Wars (GBA).
 
 ### Conclusiones
 
 - Me ha parecido muy curioso que me fallara un test de la sesión de Ricardo al lanzar los tests en mi portatil en vez del en sobremesa. No le daré más importancia porque lo utilizo de manera puntual.
+  - Pues parece ser que si que falla. No me fijé en concreto si cuando relancé las primeras veces en mi sobremesa, el test efectivamente pasaba o quedaba como inconclusive: simplemente ví que todos los tests estaban en verde.

@@ -56,7 +56,7 @@
     - Barracas y generalización.
   - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
     - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
-      -Sistema de economía.
+- Sistema de economía.
   - Ganar dinero por edificios.
   - Gastar dinero en spawnear batallones.
 - Combustible/munición.

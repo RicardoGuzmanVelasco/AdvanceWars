@@ -35,3 +35,7 @@
     - Intenté arreglarlo con un battalion stub builder pero no funcionaba bien porque requería muchos detalles internos.
     - Para poder hacerlo hay que elevar la abstracción de esos test para poder aplicar dos veces la maniobra.
       - Surge una conversación que debemos tener: tensión entre invariantes y situaciones hipotéticas en test.
+
+### Alejandro
+
+- Me parece muy interesante la separación que ha hecho Ricardo de que por un lado va el CursorRendering y por otro el CursorMovement, ¿sería partir un mismo caso de uso (mover cursor) en diferentes responsabilidades? (CursorMovement sería de entrada y CursorRenderin de salida)
