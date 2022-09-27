@@ -84,10 +84,16 @@ namespace AdvanceWars.Runtime.Domain.Map
                 Require(IsOccupied).True();
 
                 Occupant.Forces = forcesAfter;
+                
                 if(Occupant.Forces <= 0)
                     Unoccupy();
             }
 
+            public void ConsumeAmmoRound()
+            {
+                Occupant.AmmoRounds--;
+            }
+            
             public void HealOccupant()
             {
                 Terrain.Heal(Occupant);

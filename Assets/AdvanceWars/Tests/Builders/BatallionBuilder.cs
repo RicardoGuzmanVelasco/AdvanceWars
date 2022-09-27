@@ -7,6 +7,7 @@ namespace AdvanceWars.Tests.Builders
     {
         string nationId = "";
         int forces = 100;
+        int ammoRounds;
 
         UnitBuilder fromUnit = Unit();
 
@@ -79,6 +80,12 @@ namespace AdvanceWars.Tests.Builders
             fromUnit.WithFire(minRange, maxRange);
             return this;
         }
+
+        public BattalionBuilder WithAmmo(int rounds)
+        {
+            ammoRounds = rounds;
+            return this;
+        }
         #endregion
 
         public Battalion Build()
@@ -87,7 +94,8 @@ namespace AdvanceWars.Tests.Builders
             {
                 Motherland = nationId.Equals("") ? Nation.Stateless : new Nation(nationId),
                 Unit = fromUnit.Build(),
-                Forces = forces
+                Forces = forces,
+                AmmoRounds = ammoRounds
             };
         }
     }

@@ -1,9 +1,12 @@
 ﻿using AdvanceWars.Runtime.Domain.Fire;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
+using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
+using static AdvanceWars.Tests.Builders.MapBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.TheaterOpsBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
@@ -248,6 +251,27 @@ namespace AdvanceWars.Tests
         {
             var sut = new Offensive(Battalion.Null, Battalion.Null);
             sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
+        }
+
+        [Test]
+        public void FireManeuver_ConsumesOneAmmoRound_BothForPerformerAndTarget()
+        {
+            var map = Map().Of(1,2).Build();
+            
+            var performer = Battalion().Ally().WithAmmo(10).Build();
+            map.Put(Vector2Int.zero, performer);
+            map.Put(Vector2Int.zero, Terrain().Build());
+            
+            var target = Battalion().Enemy().WithAmmo(5).Build();
+            map.Put(Vector2Int.up, target);
+            map.Put(Vector2Int.up, Terrain().Build());
+            
+            var sut = Maneuver.Fire(performer, target);
+            
+            sut.Apply(map);
+
+            performer.AmmoRounds.Should().Be(9);
+            target.AmmoRounds.Should().Be(4);
         }
     }
 }

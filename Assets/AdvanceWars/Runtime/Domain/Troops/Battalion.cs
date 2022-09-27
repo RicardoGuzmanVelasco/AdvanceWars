@@ -18,6 +18,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public Armor Armor => Unit.Armor;
         public RangeOfFire RangeOfFire => Unit.RangeOfFire;
         public bool Damaged => Forces < MaxForces;
+        public int AmmoRounds { get; set; }
 
         public int BaseDamageTo(Armor other)
         {
