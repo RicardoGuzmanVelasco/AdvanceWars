@@ -51,11 +51,10 @@
   - Visibilidad de casillas por terreno.
   - Concepto de visibilidad en las unidades.
   - Emboscadas.
-- Recuperación de vida y ammo en edificios.
-  - Edificios curan 20.
-    - Barracas y generalización.
-  - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
-    - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
+- Recuperación de ammo en edificios.
+  - Barracas y generalización.
+- Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
+  - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
 - Sistema de economía.
   - Ganar dinero por edificios.
   - Gastar dinero en spawnear batallones.
