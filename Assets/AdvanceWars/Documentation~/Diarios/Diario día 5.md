@@ -2,11 +2,11 @@
 
 # Alejandro
 
-Duración:
+Duración: 1'5h 
 
 ### Intenciones
 
-- [ ] FireTactic consume Ammo.
+- [x] FireTactic consume Ammo.
 - [ ] Recuperación de Ammo en Buildings. 
 
 ### Conclusiones
