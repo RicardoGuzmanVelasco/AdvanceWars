@@ -7,7 +7,7 @@ namespace AdvanceWars.Tests.Builders
     {
         string nationId = "";
         int forces = 100;
-        int ammoRounds;
+        int ammoRounds = 10;
 
         UnitBuilder fromUnit = Unit();
 

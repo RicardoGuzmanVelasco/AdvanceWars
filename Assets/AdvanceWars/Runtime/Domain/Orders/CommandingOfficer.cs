@@ -73,7 +73,8 @@ namespace AdvanceWars.Runtime.Domain.Orders
             if(map.RangeOfMovement(battalion).Any())
                 tactics.Add(Tactic.Move);
 
-            if(map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0))
+            if(map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
+               && battalion.AmmoRounds > 0)
                 tactics.Add(Tactic.Fire);
 
             if(map.WhereIs(battalion)!.IsBesiegable)

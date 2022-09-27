@@ -11,6 +11,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using static AdvanceWars.Tests.Builders.MapBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
@@ -223,7 +224,7 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void MoveTactic_isNotAvailable_WhenNoSpacesAvailable()
+        public void MoveTactic_IsNotAvailable_WhenNoSpacesAvailable()
         {
             var map = new Map(1, 1);
             var battalion = Battalion().WithNation("aNation").Build();
@@ -231,6 +232,48 @@ namespace AdvanceWars.Tests
             var sut = CommandingOfficer().WithNation("aNation").WithMap(map).Build();
 
             sut.AvailableTacticsOf(battalion).Should().NotContain(Tactic.Move);
+        }
+        
+        [Test]
+        public void FireManeuver_ConsumesOneAmmoRound_BothForPerformerAndTarget()
+        {
+            var map = Map().Of(1,2).Build();
+            
+            var performer = Battalion().Ally().WithAmmo(10).Build();
+            map.Put(Vector2Int.zero, performer);
+            map.Put(Vector2Int.zero, Terrain().Build());
+            
+            var target = Battalion().Enemy().WithAmmo(5).Build();
+            map.Put(Vector2Int.up, target);
+            map.Put(Vector2Int.up, Terrain().Build());
+            
+            var sut = Maneuver.Fire(performer, target);
+            
+            sut.Apply(map);
+
+            performer.AmmoRounds.Should().Be(9);
+            target.AmmoRounds.Should().Be(4);
+        }
+
+        [Test]
+        public void FireTactic_IsNotAvailable_WhenAttackerHasNoAmmoRoundsLeft()
+        {
+            var map = Map().Of(1,2).Build();
+            
+            var aNation = "aNation";
+            var ally = Battalion()
+                .WithNation(aNation)
+                .WithWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build())
+                .WithAmmo(0)
+                .Build();
+            map.Put(Vector2Int.zero, ally);
+            
+            var enemy = Battalion().WithNation("Enemy").WithArmor("EnemyArmor").Build();
+            map.Put(Vector2Int.up, enemy);
+
+            var sut = CommandingOfficer().WithNation(aNation).WithMap(map).Build();
+
+            sut.AvailableTacticsOf(ally).Should().NotContain(Tactic.Fire);
         }
     }
 }
