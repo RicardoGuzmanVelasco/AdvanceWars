@@ -64,7 +64,6 @@
   - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
 - Táctica de sumergirse.
-- La unidad que cura unidades.
 - Unidades de transporte.
 - Condiciones de derrota.
   - Pillar headquarters, derrotan a todos tus batallones.
@@ -73,5 +72,4 @@
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit
 - Maniobras automáticas al inicio del turno de un CO:
-  - Aplicar curaciones a Batallones según corresponda (están sobre edificios correspondientes).
   - Ganar dinero por edificios.
