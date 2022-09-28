@@ -160,5 +160,29 @@ namespace AdvanceWars.Tests
 
             battalion.Forces.Should().Be(initialForces);
         }
+
+        [Test]
+        public void AllyBuilding_ReplenishOccupantAmmo()
+        {
+            var map = Map().Of(1,1).Build();
+
+            var building = new Building(siegePoints: 20);
+            map.Put(new Vector2Int(0, 0), building);
+            
+            var aNation = "aNation";
+            var battalion = Battalion().WithNation(aNation).WithAmmo(5).Build();
+            map.Put(new Vector2Int(0, 0), battalion);
+
+            var commandingOfficers = new[]
+            {
+                CommandingOfficer().Build(),
+                CommandingOfficer().WithMap(map).WithNation(aNation).Build()
+            };
+            var sut = new Operation(commandingOfficers, map);
+            
+            sut.EndTurn();
+
+            battalion.AmmoRounds.Should().Be(7);
+        }
     }
 }

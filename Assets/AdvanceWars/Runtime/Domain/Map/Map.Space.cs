@@ -93,7 +93,12 @@ namespace AdvanceWars.Runtime.Domain.Map
             {
                 Occupant.AmmoRounds--;
             }
-            
+
+            public void ReplenishOccupantAmmo()
+            {
+                Occupant.AmmoRounds += 2;
+            }
+
             public void HealOccupant()
             {
                 Terrain.Heal(Occupant);
