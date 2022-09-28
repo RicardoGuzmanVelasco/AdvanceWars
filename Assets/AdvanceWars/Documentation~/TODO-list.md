@@ -27,6 +27,8 @@
   - Esto nos lleva a que ahora mismo hay una duplicidad muy rara y tonta en los test porque coincide nación con id y además ya coincide de por sí nación del batallón con la del player y blablablá.
     - Esa API se puede mejorar.
 - ¿Desde dónde controlar que el cursor ya está en un borde y no tiene que ir más para allá?
+- Recuperación de Ammo en Buildings.
+  - Falta comprobar (y seguramente soportar) los caminos tristes.
 
 ### Riesgos
 
@@ -51,8 +53,7 @@
   - Visibilidad de casillas por terreno.
   - Concepto de visibilidad en las unidades.
   - Emboscadas.
-- Recuperación de ammo en edificios.
-  - Barracas y generalización.
+- Barracas y generalización.
 - Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
   - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
 - Sistema de economía.
@@ -69,6 +70,6 @@
 - Condiciones de victoria.
 - Bandos para 2 vs 2.
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
-- Undo de maniobras cuando todavia no se ha hecho wait de la unit
+- Undo de maniobras cuando todavia no se ha hecho wait de la unit.
 - Maniobras automáticas al inicio del turno de un CO:
   - Ganar dinero por edificios.
