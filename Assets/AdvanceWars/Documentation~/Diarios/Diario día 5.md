@@ -2,7 +2,7 @@
 
 # Alejandro
 
-Duración: 1'5h 
+Duración: ~2.5h 
 
 ### Intenciones
 
@@ -10,3 +10,6 @@ Duración: 1'5h
 - [ ] Recuperación de Ammo en Buildings. 
 
 ### Conclusiones
+
+- Un poco de lío con donde dejar los tests sobre FireManeuver: ¿en FireTests? ¿o en OrderTests? 
+- No me convence lo de space.HealOccupant cuando se puede hacer space.Occupant.Heal. ¿Demeter?
