@@ -42,6 +42,7 @@
 - Las entidades (batallón, terrain/building...) corren el peligro de que sus clientes se queden con referencias desactualizadas, ya que se sustituyen por otras por ejemplo cuando termina un asedio
 - ¿Qué ocurre si se le pregunta IsAlly a un INull?.
 - ¿Qué pasa si se hace put del mismo batallón en dos coordenadas distintas del mapa?
+- Al spawnear un batallon le da inmediatamente la orden de wait. Eso puede crear problemas cuando se usen las maniobras para ir adelante y atrás y tal.
 
 ### Tests
 

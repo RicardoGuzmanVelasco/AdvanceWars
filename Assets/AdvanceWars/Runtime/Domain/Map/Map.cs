@@ -141,7 +141,13 @@ namespace AdvanceWars.Runtime.Domain.Map
                    coord.y >= 0 &&
                    coord.y < SizeY;
         }
-
+        
+        [CanBeNull]
+        public virtual Space WhereIs(Terrain what)
+        {
+            return spaces.Values.SingleOrDefault(x => x.Terrain == what);
+        }
+        
         [CanBeNull]
         public virtual Space WhereIs(Battalion what)
         {

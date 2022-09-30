@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
@@ -98,6 +99,19 @@ namespace AdvanceWars.Runtime.Domain.Orders
         public override string ToString()
         {
             return $"from {Motherland}";
+        }
+
+        public void SpawnUnit(Terrain terrain, Unit ofUnit)
+        {
+            Require(terrain.IsAlly(this)).True();
+            Require(terrain.SpawnableUnits.Any()).True();
+
+            var spaceAt = map.WhereIs(terrain);
+            
+            spaceAt.SpawnHere(ofUnit);
+
+            var waitManeuver = Maneuver.Wait(spaceAt.Occupant);
+            Order(waitManeuver);
         }
     }
 }

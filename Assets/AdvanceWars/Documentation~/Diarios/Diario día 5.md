@@ -18,14 +18,15 @@ Duración: ~2.5h
 
 ## Culo
 
-Duración: xH
+Duración: 2.5 - 3H
 
 ### Intenciones
 
 - [X] Un edificio tipo barracón spawnea batallones.
 - [X] Un barracón solo puede spawnear batallones de unidades de una armada en concreto.
-- [ ] Los batallones spawneados no tienen maniobras disponibles.
+- [X] Los batallones spawneados no tienen maniobras disponibles.
 
 ### Conclusiones
 
 - Me siento muy lento hoy y muy tonto, me cuesta hacer cosas básicas. Imagino que vendré frito de la jam y de hacer código basura.
+- He hecho la sesion en 2 partes y la segunda creo que ha ido más guay.

@@ -3,9 +3,10 @@ using System.Linq;
 using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
-using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
+using UnityEngine;
+using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.SpawnerBuilder;
 using static AdvanceWars.Tests.Builders.UnitBuilder;
 using Unit = AdvanceWars.Runtime.Domain.Troops.Unit;
@@ -35,10 +36,10 @@ namespace AdvanceWars.Tests
         [Test]
         public void Space_WithSpawner_SpawnsBattalion()
         {
-            var spawner = Barracks().Build();
+            var spawner = Spawner().Build();
             var sut = new Map.Space {Terrain = spawner};
             
-            sut.SpawnBattalionHere(Unit().Of(Military.Army).Build());
+            sut.SpawnHere(Unit().Build());
 
             sut.IsOccupied.Should().BeTrue();
         }
@@ -59,9 +60,22 @@ namespace AdvanceWars.Tests
             var spawner = Airfield().WithOwner("anyNation").Build();
             var sut = new Map.Space {Terrain = spawner};
 
-            sut.SpawnBattalionHere(Unit().Of(Military.AirForce).Build());
+            sut.SpawnHere(Unit().Of(Military.AirForce).Build());
 
             sut.Occupant.IsAlly(spawner).Should().BeTrue();
+        }
+
+        [Test]
+        public void Battalions_MayNot_PerformAnyManeuver()
+        {
+            var spawner = Spawner().WithOwner("aNation").Build();
+            var map = new Map(1,1);
+            map.Put(Vector2Int.zero, spawner);
+            var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
+            
+            sut.SpawnUnit(spawner, Unit().Build());
+
+            sut.AvailableTacticsOf(map.SpaceAt(Vector2Int.zero).Occupant).Should().BeEmpty();
         }
     }
 }
