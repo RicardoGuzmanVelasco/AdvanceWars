@@ -6,18 +6,29 @@ namespace AdvanceWars.Runtime
 {
     public class Spawner : Building
     {
-        internal override IEnumerable<Unit> SpawnableUnits => new List<Unit>() { new Unit()};
-        public Spawner(int siegePoints, Nation owner) : base(siegePoints, owner)
+        internal override IEnumerable<Unit> SpawnableUnits { get; }
+
+        private Spawner(int siegePoints, Nation owner) : base(siegePoints, owner)
         {
         }
 
-        public Spawner(int siegePoints) : base(siegePoints)
+        private Spawner(int siegePoints) : base(siegePoints)
         {
+        }
+        
+        private Spawner(IEnumerable<Unit> spawnableUnits, int siegePoints) : this(siegePoints)
+        {
+            SpawnableUnits = spawnableUnits;
         }
 
         public static Spawner Barracks()
         {
-            return new Spawner(1);
+            return new Spawner(new List<Unit>() {new Unit()}, 1);
+        }
+
+        public static Spawner Airfield()
+        {
+            return new Spawner(new List<Unit>() {new Unit {ServiceBranch = Military.AirForce}}, 1);
         }
     }
 }

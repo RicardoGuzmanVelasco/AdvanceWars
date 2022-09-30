@@ -13,7 +13,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             public Battalion Occupant { get; private set; } = Battalion.Null;
             public Battalion Guest { get; private set; } = Battalion.Null;
 
-            bool IsOccupied => Occupant is not INull;
+            public bool IsOccupied => Occupant is not INull;
             bool HasGuest => Guest is not INull;
 
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
@@ -104,6 +104,12 @@ namespace AdvanceWars.Runtime.Domain.Map
             public void HealOccupant()
             {
                 Terrain.Heal(Occupant);
+            }
+
+            public void SpawnBattalion(Unit ofUnit)
+            {
+                Require(Terrain.SpawnableUnits).Contains(ofUnit);
+                Occupy(new Battalion {Unit = ofUnit});
             }
         }
     }

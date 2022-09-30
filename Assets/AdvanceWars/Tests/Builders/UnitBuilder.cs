@@ -9,7 +9,7 @@ namespace AdvanceWars.Tests.Builders
         Armor armor = new("");
         Weapon weapon = Weapon.Null;
         private RangeOfFire rangeOfFire = RangeOfFire.One;
-        Military force = Military.None;
+        Military serviceBranch = Military.None;
 
         #region ObjectMothers
         public static UnitBuilder Unit()
@@ -49,9 +49,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public UnitBuilder Of(Military force)
+        public UnitBuilder Of(Military branch)
         {
-            this.force = force;
+            this.serviceBranch = branch;
             return this;
         }
         #endregion
@@ -63,7 +63,7 @@ namespace AdvanceWars.Tests.Builders
                 Mobility = mobility,
                 Armor = armor,
                 Propulsion = propulsion,
-                Force = force,
+                ServiceBranch = serviceBranch,
                 Weapon = weapon,
                 RangeOfFire = rangeOfFire
             };

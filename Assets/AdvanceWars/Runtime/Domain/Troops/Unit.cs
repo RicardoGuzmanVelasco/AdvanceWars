@@ -10,7 +10,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public Weapon Weapon { get; init; } = Weapon.Null;
 
 
-        public Military Force { get; init; } = Military.None;
+        public Military ServiceBranch { get; init; } = Military.None;
 
         public Armor Armor { get; init; } = new();
         public RangeOfFire RangeOfFire { get; init; } = RangeOfFire.One;
@@ -25,7 +25,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
 
         public bool IsAerial()
         {
-            return Force.Equals(Military.AirForce);
+            return ServiceBranch.Equals(Military.AirForce);
         }
     }
 }

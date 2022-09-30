@@ -9,6 +9,7 @@
 
 ### Culo
 
+- No me termina de gustar el nombre de spawnable units, a ver si se ocurre algo mejor. Y que se repita.
 
 ## Retro
 
