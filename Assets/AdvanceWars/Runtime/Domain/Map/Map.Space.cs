@@ -1,4 +1,5 @@
-﻿using AdvanceWars.Runtime.Domain.Troops;
+﻿using System.Collections.Generic;
+using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Map
@@ -16,6 +17,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             bool HasGuest => Guest is not INull;
 
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
+            public IEnumerable<Unit> SpawnableUnits => Terrain.SpawnableUnits;
 
             public bool CanEnter(Battalion battalion) => !IsOccupied || CanBeInvited(battalion);
 

@@ -45,6 +45,7 @@ namespace AdvanceWars.Runtime.Domain.Map
         #region Siege-related pushed up stuff
         public virtual bool IsUnderSiege => false;
         public int SiegePoints { get; set; } = int.MaxValue;
+        internal virtual IEnumerable<Unit> SpawnableUnits => Enumerable.Empty<Unit>();
 
         [Pure]
         public virtual Building SiegeOutcome([NotNull] Battalion besieger)
