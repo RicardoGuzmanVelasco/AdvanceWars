@@ -12,11 +12,7 @@ namespace AdvanceWars.Runtime
 
         internal override IEnumerable<Unit> SpawnableUnits => spawnableUnits;
 
-        private Spawner(int siegePoints, Nation owner) : base(siegePoints, owner)
-        {
-        }
-
-        private Spawner(int siegePoints) : base(siegePoints)
+        public Spawner(int siegePoints, Nation owner) : base(siegePoints, owner)
         {
         }
 
@@ -30,20 +26,6 @@ namespace AdvanceWars.Runtime
         {
             Require(spawnableUnits).Contains(unit);
             spawnableUnits.Remove(unit);
-        }
-
-        public static Spawner Barracks(Nation nation)
-        {
-            var barracks = new Spawner(1, nation);
-            barracks.Add(new Unit());
-            return barracks;
-        }
-
-        public static Spawner Airfield()
-        {
-            var airfield = new Spawner(1);
-            airfield.Add(new Unit {ServiceBranch = Military.AirForce});
-            return airfield;
         }
     }
 }

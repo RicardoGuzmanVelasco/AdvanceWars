@@ -1,10 +1,14 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
 using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
+using static AdvanceWars.Tests.Builders.SpawnerBuilder;
+using static AdvanceWars.Tests.Builders.UnitBuilder;
+using Unit = AdvanceWars.Runtime.Domain.Troops.Unit;
 
 namespace AdvanceWars.Tests
 {
@@ -13,7 +17,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void Space_WithSpawner_CanSpawnUnits()
         {
-            var spawner = Spawner.Barracks(Nation.Stateless);
+            var spawner = Spawner().Build();
             
             var sut = new Map.Space {Terrain = spawner};
             
@@ -31,10 +35,10 @@ namespace AdvanceWars.Tests
         [Test]
         public void Space_WithSpawner_SpawnsBattalion()
         {
-            var spawner = Spawner.Barracks(Nation.Stateless);
+            var spawner = Barracks().Build();
             var sut = new Map.Space {Terrain = spawner};
             
-            sut.SpawnBattalionHere(new Unit());
+            sut.SpawnBattalionHere(Unit().Of(Military.Army).Build());
 
             sut.IsOccupied.Should().BeTrue();
         }
@@ -42,7 +46,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void Airfield_OnlySpawns_UnitsFromTheAirForce()
         {
-            var airfield = Spawner.Airfield();
+            var airfield = Airfield().Build();
             var sut = new Map.Space {Terrain = airfield};
             
             sut.SpawnableUnits.
@@ -52,10 +56,10 @@ namespace AdvanceWars.Tests
         [Test]
         public void SpawnedBattalionAllegiance_IsTheSameAs_SpawnerAllegiance()
         {
-            var spawner = Spawner.Barracks(new Nation("anyNation"));
+            var spawner = Airfield().WithOwner("anyNation").Build();
             var sut = new Map.Space {Terrain = spawner};
 
-            sut.SpawnBattalionHere(new Unit());
+            sut.SpawnBattalionHere(Unit().Of(Military.AirForce).Build());
 
             sut.Occupant.IsAlly(spawner).Should().BeTrue();
         }
