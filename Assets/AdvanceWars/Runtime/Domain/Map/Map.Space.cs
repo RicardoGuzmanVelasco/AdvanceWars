@@ -106,10 +106,9 @@ namespace AdvanceWars.Runtime.Domain.Map
                 Terrain.Heal(Occupant);
             }
 
-            public void SpawnBattalion(Unit ofUnit)
+            public void SpawnBattalionHere(Unit ofUnit)
             {
-                Require(Terrain.SpawnableUnits).Contains(ofUnit);
-                Occupy(new Battalion {Unit = ofUnit});
+                Occupy(Terrain.SpawnBattalion(ofUnit));
             }
         }
     }

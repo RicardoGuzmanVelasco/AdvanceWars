@@ -13,7 +13,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void Space_WithSpawner_CanSpawnUnits()
         {
-            var spawner = Spawner.Barracks();
+            var spawner = Spawner.Barracks(Nation.Stateless);
             
             var sut = new Map.Space {Terrain = spawner};
             
@@ -31,10 +31,10 @@ namespace AdvanceWars.Tests
         [Test]
         public void Space_WithSpawner_SpawnsBattalion()
         {
-            var spawner = Spawner.Barracks();
+            var spawner = Spawner.Barracks(Nation.Stateless);
             var sut = new Map.Space {Terrain = spawner};
             
-            sut.SpawnBattalion(new Unit());
+            sut.SpawnBattalionHere(new Unit());
 
             sut.IsOccupied.Should().BeTrue();
         }
@@ -48,7 +48,16 @@ namespace AdvanceWars.Tests
             sut.SpawnableUnits.
                 Should().AllSatisfy(x => x.ServiceBranch.Should().Be(Military.AirForce));
         }
-        
-        //Las unidades spawneadas son de la nacion correcta
+
+        [Test]
+        public void SpawnedBattalionAllegiance_IsTheSameAs_SpawnerAllegiance()
+        {
+            var spawner = Spawner.Barracks(new Nation("anyNation"));
+            var sut = new Map.Space {Terrain = spawner};
+
+            sut.SpawnBattalionHere(new Unit());
+
+            sut.Occupant.IsAlly(spawner).Should().BeTrue();
+        }
     }
 }

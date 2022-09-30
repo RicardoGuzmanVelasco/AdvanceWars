@@ -22,10 +22,10 @@ Duración: xH
 
 ### Intenciones
 
-- [ ] Un edificio tipo barracón spawnea batallones.
-- [ ] Un barracón solo puede spawnear batallones de unidades de una armada en concreto.
+- [X] Un edificio tipo barracón spawnea batallones.
+- [X] Un barracón solo puede spawnear batallones de unidades de una armada en concreto.
 - [ ] Los batallones spawneados no tienen maniobras disponibles.
 
 ### Conclusiones
 
-- 
+- Me siento muy lento hoy y muy tonto, me cuesta hacer cosas básicas. Imagino que vendré frito de la jam y de hacer código basura.

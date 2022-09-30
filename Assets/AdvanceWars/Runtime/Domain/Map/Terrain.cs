@@ -64,5 +64,11 @@ namespace AdvanceWars.Runtime.Domain.Map
         public virtual void Heal(Battalion occupant)
         {
         }
+
+        public Battalion SpawnBattalion(Unit ofUnit)
+        {
+            Require(SpawnableUnits).Contains(ofUnit);
+            return new Battalion {Unit = ofUnit, Motherland = Motherland};
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
@@ -31,9 +32,9 @@ namespace AdvanceWars.Runtime
             spawnableUnits.Remove(unit);
         }
 
-        public static Spawner Barracks()
+        public static Spawner Barracks(Nation nation)
         {
-            var barracks = new Spawner(1);
+            var barracks = new Spawner(1, nation);
             barracks.Add(new Unit());
             return barracks;
         }
