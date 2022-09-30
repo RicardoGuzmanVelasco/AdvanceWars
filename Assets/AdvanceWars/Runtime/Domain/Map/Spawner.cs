@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime
 {
     public class Spawner : Building
     {
-        internal override IEnumerable<Unit> SpawnableUnits { get; }
+        private List<Unit> spawnableUnits = new();
+
+        internal override IEnumerable<Unit> SpawnableUnits => spawnableUnits;
 
         private Spawner(int siegePoints, Nation owner) : base(siegePoints, owner)
         {
@@ -15,20 +18,31 @@ namespace AdvanceWars.Runtime
         private Spawner(int siegePoints) : base(siegePoints)
         {
         }
-        
-        private Spawner(IEnumerable<Unit> spawnableUnits, int siegePoints) : this(siegePoints)
+
+        public void Add(Unit unit)
         {
-            SpawnableUnits = spawnableUnits;
+            Require(spawnableUnits).Not.Contains(unit);
+            spawnableUnits.Add(unit);
+        }
+
+        public void Remove(Unit unit)
+        {
+            Require(spawnableUnits).Contains(unit);
+            spawnableUnits.Remove(unit);
         }
 
         public static Spawner Barracks()
         {
-            return new Spawner(new List<Unit>() {new Unit()}, 1);
+            var barracks = new Spawner(1);
+            barracks.Add(new Unit());
+            return barracks;
         }
 
         public static Spawner Airfield()
         {
-            return new Spawner(new List<Unit>() {new Unit {ServiceBranch = Military.AirForce}}, 1);
+            var airfield = new Spawner(1);
+            airfield.Add(new Unit {ServiceBranch = Military.AirForce});
+            return airfield;
         }
     }
 }
