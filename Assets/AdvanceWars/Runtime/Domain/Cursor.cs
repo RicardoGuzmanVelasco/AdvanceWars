@@ -5,22 +5,22 @@ namespace AdvanceWars.Runtime.Domain
 {
     public class Cursor
     {
-        bool enabled = true;
-        public event Action<bool> EnableChanged = _ => { };
-
+        public bool IsEnabled { get; private set; } = true;
         public Vector2Int WhereIs { get; set; }
+
+        public event Action<bool> EnableChanged = _ => { };
 
         public void Enable() => ChangeCursorTo(true);
         public void Disable() => ChangeCursorTo(false);
 
         void ChangeCursorTo(bool toEnabled)
         {
-            if(enabled == toEnabled)
+            if(IsEnabled == toEnabled)
                 return;
 
-            enabled = toEnabled;
+            IsEnabled = toEnabled;
 
-            EnableChanged.Invoke(enabled);
+            EnableChanged.Invoke(IsEnabled);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace AdvanceWars.Runtime.Domain
 
         public Player ActivePlayer => players[operation.NationInTurn];
         public Vector2Int CursorCoord => cursor.WhereIs;
-
+        public bool CursorIsEnabled => cursor.IsEnabled;
 
         public void Begin()
         {

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2542
     height: 1356
   m_ShowMode: 4
-  m_Title: Package Manager
+  m_Title: Hierarchy
   m_RootView: {fileID: 10}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 151
+  controlID: 135
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 83
+  controlID: 87
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,8 +169,8 @@ MonoBehaviour:
     y: 0
     width: 772
     height: 650
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 152
+  controlID: 136
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 82
+  controlID: 19
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -343,8 +343,8 @@ MonoBehaviour:
     y: 0
     width: 1010
     height: 1036
-  m_MinSize: {x: 801, y: 271}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 800, y: 250}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 17}
@@ -17717,6 +17717,7 @@ MonoBehaviour:
     - Assets/AdvanceWars/Tests
     m_Globs: []
     m_OriginalText: 
+    m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
@@ -17727,9 +17728,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 6a650000
-    m_LastClickedID: 25962
-    m_ExpandedIDs: 0000000066650000686500006a65000000ca9a3b
+    m_SelectedIDs: 02660000
+    m_LastClickedID: 26114
+    m_ExpandedIDs: 00000000fe650000006600000266000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -17757,7 +17758,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000066650000686500006a650000
+    m_ExpandedIDs: 00000000fe6500000066000002660000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -17851,6 +17852,8 @@ MonoBehaviour:
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
+  m_LastKnownEditModeDataMode: 1
+  m_LastKnownPlayModeDataMode: 3
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
@@ -17885,9 +17888,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6e70ffff
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2e67ffff806affff9a6cfffff073ffff5276ffffc078fffff27affff2c7dffff5a7fffff9481fffff283ffffc886ffff4c88ffff868affffc08cfffffa8effff3491ffff4e94ffffac96ffffe698ffff209bffff0c9effff46a0ffff80a2ffffbaa4ffff0ca7ffff46a9ffff80abffffbaadfffff4afffff78b1ffffb2b3ffffecb5ffff26b8fffffcbaffff36bdffffbabefffff4c0ffff2ec3ffff68c5ffffa4c7ffffdec9ffff24ccffff6aceffffd4d0ffff0ed3ffff48d5ffff82d7ffffbcd9fffffadbffff38deffffa0e0ffffdee2ffff1ce5ffff5ae7ffff94e9ffffceebffff08eeffff42f0ffff88f2ffffcef4ffff08f7ffff62f9ffff02fbffff
+      m_ExpandedIDs: 328dffff0691ffff0a95ffffde98ffffb29cffff30a2ffff64a7ffff7aadffff50b1ffff2eb5ffff00b9ffffd2bcffffa4c0ffffaec4ffffaecbffffb4d0ffffd2d9ffffa0ddffff9ee1ffff78e5ffff3ae9ffff08edffffd6f0ffffb4f4ffff64f9ffff7efaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -18130,7 +18133,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/Occlusion Culling
-      index: 7
+      index: 4
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -18143,7 +18146,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/Physics Debugger
-      index: 8
+      index: 5
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -18156,7 +18159,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/Scene Visibility
-      index: 9
+      index: 6
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -18169,7 +18172,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/Particles
-      index: 10
+      index: 7
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
@@ -18247,7 +18250,7 @@ MonoBehaviour:
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: Scene View/TrailRenderer
-      index: 11
+      index: 8
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
