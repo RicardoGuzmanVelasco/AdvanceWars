@@ -1,0 +1,36 @@
+﻿@startuml
+skin rose
+skinparam actorstyle awesome
+left to right direction
+
+skinparam nodesep 50
+skinparam ranksep 60
+
+:Player: --> (Move the cursor)
+:Player: --> (Move unit)
+:Player: --> (End turn)
+
+package Info{
+    (See unit intel)
+    (See terrain info)
+}
+:Player: --> Info
+(See unit intel) ..> (Select unit) : <<includes>>
+
+package Maneuvers{
+    (Attack enemy unit) 
+    (Capture building)
+    (Combine units)
+}
+:Player: --> Maneuvers
+Maneuvers ..> (Move unit) : <<extends>>
+
+(Move unit) ..> (Select unit) : <<includes>>
+
+Maneuvers ..> (Select unit) : <<includes>>
+
+note right of (Move the cursor)
+No estoy seguro de que esto sea
+un caso de uso, pero es plausible. 
+end note
+@enduml
