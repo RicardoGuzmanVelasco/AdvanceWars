@@ -3,11 +3,12 @@ skin rose
 skinparam actorstyle awesome
 left to right direction
 
-skinparam nodesep 50
-skinparam ranksep 60
+skinparam nodesep 60
+skinparam ranksep 50
 
 :Player: --> (Move the cursor)
 :Player: --> (Move unit)
+:Player: --> (Recruit unit)
 :Player: --> (End turn)
 
 package Info{
@@ -17,11 +18,11 @@ package Info{
 :Player: --> Info
 (See unit intel) ..> (Select unit) : <<includes>>
 
-package Maneuvers{
-    (Attack enemy unit) 
-    (Capture building)
-    (Combine units)
-}
+    package Maneuvers{
+        (Attack enemy unit) 
+        (Capture building)
+        (Combine units)
+    }
 :Player: --> Maneuvers
 Maneuvers ..> (Move unit) : <<extends>>
 
