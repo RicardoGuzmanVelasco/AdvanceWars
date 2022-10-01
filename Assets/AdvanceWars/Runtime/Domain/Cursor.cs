@@ -5,7 +5,7 @@ namespace AdvanceWars.Runtime.Domain
 {
     public class Cursor
     {
-        bool enabled;
+        bool enabled = true;
         public event Action<bool> EnableChanged = _ => { };
 
         public Vector2Int WhereIs { get; set; }
@@ -17,7 +17,7 @@ namespace AdvanceWars.Runtime.Domain
         {
             if(enabled == toEnabled)
                 return;
-            
+
             enabled = toEnabled;
 
             EnableChanged.Invoke(enabled);

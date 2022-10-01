@@ -69,19 +69,6 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void OnGameBegin_CursorEnabledChanged_ShouldBeRaised()
-        {
-            var sut = Game().Of(1).Build();
-
-            var monitoredSut = sut.Monitor();
-
-            sut.Begin();
-
-            monitoredSut.Should().Raise(nameof(sut.CursorEnableChanged))
-                .WithArgs<bool>(enabled => enabled);
-        }
-
-        [Test]
         public void GameShouldNotBeginTwice()
         {
             var sut = Game().Of(1).Began().Build();
