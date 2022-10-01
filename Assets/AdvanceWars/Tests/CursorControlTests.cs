@@ -13,7 +13,7 @@ namespace AdvanceWars.Tests
         public void View_Receives_CursorMovement()
         {
             var viewMock = Substitute.For<CursorView>();
-            var sut = new CursorMovement(Game().Build(), viewMock);
+            var sut = new CursorController(Game().Build(), viewMock);
 
             sut.Towards(Vector2Int.right);
 
@@ -26,8 +26,7 @@ namespace AdvanceWars.Tests
             var viewMock = Substitute.For<CursorView>();
             var cursor = new Cursor();
             var game = Game().InjectCursor(cursor).Build();
-            var _ = new CursorRendering(game, viewMock);
-            var sut = new CursorMovement(game, viewMock);
+            var sut = new CursorController(game, viewMock);
 
             cursor.Disable();
             sut.Towards(Vector2Int.right);
@@ -41,7 +40,7 @@ namespace AdvanceWars.Tests
             var cursor = new Cursor();
             cursor.Disable();
             var viewMock = Substitute.For<CursorView>();
-            var sut = new CursorRendering(Game().InjectCursor(cursor).Build(), viewMock);
+            var sut = new CursorController(Game().InjectCursor(cursor).Build(), viewMock);
 
             cursor.Enable();
 
@@ -55,7 +54,7 @@ namespace AdvanceWars.Tests
             cursor.Enable();
 
             var viewMock = Substitute.For<CursorView>();
-            var sut = new CursorRendering(Game().InjectCursor(cursor).Build(), viewMock);
+            var sut = new CursorController(Game().InjectCursor(cursor).Build(), viewMock);
 
             cursor.Disable();
 

@@ -4,14 +4,18 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Application
 {
-    public class CursorMovement
+    public class CursorController
     {
         readonly Game game;
+        readonly CursorView view;
 
-        public CursorMovement(Game game, CursorView view)
+        public CursorController(Game game, CursorView view)
         {
             this.game = game;
+            this.view = view;
+
             game.CursorMoved += view.MoveTo;
+            game.CursorEnableChanged += HandleCursorRendering;
         }
 
         public void Towards(Vector2Int direction)
@@ -22,6 +26,14 @@ namespace AdvanceWars.Runtime.Application
                 return;
 
             game.MoveCursorTowards(direction);
+        }
+
+        void HandleCursorRendering(bool enabled)
+        {
+            if(enabled)
+                view.Show();
+            else
+                view.Hide();
         }
     }
 }
