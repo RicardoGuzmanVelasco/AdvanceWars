@@ -3,12 +3,12 @@
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
   - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
 - Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
-- Terminar y usar el builder de RangeOf para que no sean confusos los RangeOfFireTests. 
-  - No es un MapBuilder, hay que sacarlo
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
 - MoveCostOf en Space.
-- Private set del Forces del battalion
+- Private set del Forces del battalion.
+- Eliminar el Invitado en el contexto del Merge.
+
 ### Docs
 
 - Añadir maneuvers existentes al diagrama del modelo de dominio.
@@ -54,9 +54,7 @@
   - Visibilidad de casillas por terreno.
   - Concepto de visibilidad en las unidades.
   - Emboscadas.
-- Barracas y generalización.
-- Una Unit tiene que pertenecer a una armada (naval, aérea, terrestre).
-  - Esto permite cosas como que ciertos edificios solo curen ciertas unidades.
+- Unidades de una cierta Armada solo pueden ser curados en Edificios de dicha Armada.
 - Sistema de economía.
   - Ganar dinero por edificios.
   - Gastar dinero en spawnear batallones.
