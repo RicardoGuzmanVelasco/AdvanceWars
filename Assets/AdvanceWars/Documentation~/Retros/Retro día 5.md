@@ -20,3 +20,13 @@
 
 - Parece que andamos perdiendo fuelle con el proyecto. O a lo mejor solo han sido un par de semanas raras. Aunque sigue para delante y es fácil ver qué ha hecho la gente.
     - Yo sigo aprendiendo un montón de montones
+
+
+## Conclusiones generales
+
+- Eliminar los visitantes de espacios cuando toquemos eventualmente eso otra vez.
+- Es problematico que el comprar un batallon no sea una maniobra para el ctrl z
+- No creemos que sea preocupante no cambiar todavia lo de los compatriotas y aliados. Cuando se haga los bandos.
+- El desarrollador es quien tiene que cambiar la mentalidad respecto a los builders (por lo del map).
+- El refactor de que los batallones siempre tuvieran 100 de fuerzas máximas se enmarronó por el tema de las fuerzas infinitas en los tests de captura. Se solventará un día a pantalla partida entre los 3.
+- Alejandro y Culo tienen que revisar la ley de demeter
