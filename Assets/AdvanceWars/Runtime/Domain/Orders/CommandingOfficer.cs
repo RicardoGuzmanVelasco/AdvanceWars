@@ -90,10 +90,15 @@ namespace AdvanceWars.Runtime.Domain.Orders
                 return battalionTactics;
             }
 
-            return new List<Tactic>
+            var spawner = allegiance as Spawner;
+            if (!map.WhereIs(spawner)!.IsOccupied)
             {
-                Tactic.Recruit
-            };
+                return new List<Tactic>
+                {
+                    Tactic.Recruit
+                };
+            }
+            return Enumerable.Empty<Tactic>();
         }
 
         public void BeginTurn()

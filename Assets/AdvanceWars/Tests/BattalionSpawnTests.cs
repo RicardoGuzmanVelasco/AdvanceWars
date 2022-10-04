@@ -8,6 +8,7 @@ using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
+using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.SpawnerBuilder;
 using static AdvanceWars.Tests.Builders.UnitBuilder;
@@ -91,6 +92,19 @@ namespace AdvanceWars.Tests
             
             sut.AvailableTacticsOf(spawner)
                 .Should().BeEquivalentTo(new List<Tactic> { Tactic.Recruit});
+        }
+        
+        [Test]
+        public void Spawner_AtOccupiedSpace_CannotRecruit()
+        {
+            var spawner = Spawner().WithOwner("aNation").Build();
+            var map = new Map(1,1);
+            map.Put(Vector2Int.zero, spawner);
+            map.Put(Vector2Int.zero, Battalion().Build());
+            var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
+            
+            sut.AvailableTacticsOf(spawner)
+                .Should().BeEmpty();
         }
     }
 }
