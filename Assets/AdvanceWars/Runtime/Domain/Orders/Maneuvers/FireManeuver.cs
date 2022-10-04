@@ -11,12 +11,12 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         public override void Apply(Map.Map map)
         {
-            var performerSpace = map.WhereIs(Performer);
+            var performerSpace = map.WhereIs(Battalion);
             var targetSpace = map.WhereIs(Target);
 
             var combat = new Combat
             (
-                new TheaterOps(performerSpace!.Terrain, Performer),
+                new TheaterOps(performerSpace!.Terrain, Battalion),
                 new TheaterOps(targetSpace!.Terrain, Target)
             );
 

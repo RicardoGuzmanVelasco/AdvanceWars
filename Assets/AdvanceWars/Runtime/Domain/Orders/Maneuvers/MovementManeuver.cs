@@ -18,8 +18,8 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         public override void Apply(Map.Map map)
         {
-            map.WhereIs(Performer)!.Unoccupy();
-            Itinerary.Last().Enter(Performer);
+            map.WhereIs(Battalion)!.Unoccupy();
+            Itinerary.Last().Enter(Battalion);
         }
     }
 }

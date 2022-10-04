@@ -147,7 +147,7 @@ namespace AdvanceWars.Runtime.Domain.Map
         {
             return spaces.Values.SingleOrDefault(x => x.Terrain == what);
         }
-        
+
         [CanBeNull]
         public virtual Space WhereIs(Battalion what)
         {

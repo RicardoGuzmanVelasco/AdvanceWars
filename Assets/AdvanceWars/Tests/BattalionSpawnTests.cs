@@ -2,6 +2,7 @@
 using System.Linq;
 using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
 using NUnit.Framework;
@@ -66,14 +67,15 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void Battalions_MayNot_PerformAnyManeuver()
+        public void Battalions_MayNotPerformAnyManeuver_WhenJustRecruited()
         {
             var spawner = Spawner().WithOwner("aNation").Build();
             var map = new Map(1,1);
             map.Put(Vector2Int.zero, spawner);
+            var recruitManeuver = Maneuver.Recruit(spawner, Unit().Build());
             var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             
-            sut.SpawnUnit(spawner, Unit().Build());
+            sut.Order(recruitManeuver);
 
             sut.AvailableTacticsOf(map.SpaceAt(Vector2Int.zero).Occupant).Should().BeEmpty();
         }

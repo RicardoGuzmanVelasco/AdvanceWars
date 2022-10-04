@@ -11,8 +11,8 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         public override void Apply(Map.Map map)
         {
-            Require(map.WhereIs(Performer)).Not.Null();
-            map.WhereIs(Performer)!.Besiege();
+            Require(map.WhereIs(Battalion)).Not.Null();
+            map.WhereIs(Battalion)!.Besiege();
         }
     }
 }

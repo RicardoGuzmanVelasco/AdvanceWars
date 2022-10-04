@@ -12,37 +12,37 @@ namespace AdvanceWars.Runtime.Domain.Orders
     {
         readonly Map.Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
-
+ 
         public CommandingOfficer(Nation from, Map.Map map)
         {
             this.Motherland = from;
             this.map = map;
         }
 
-        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Battalion battalion)
+        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Allegiance allegiance)
         {
-            Require(battalion is INull).False();
-            Require(battalion.IsAlly(this)).True();
+            Require(allegiance is INull).False();
+            Require(allegiance.IsAlly(this)).True();
 
-            if(HasAlready(battalion, Tactic.Wait))
+            if(HasAlready(allegiance, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
 
-            return TacticsOf(battalion).Except(ExecutedThisTurn(battalion));
+            return TacticsOf(allegiance).Except(ExecutedThisTurn(allegiance));
         }
 
-        bool HasAlready(Battalion battalion, Tactic tactic)
+        bool HasAlready(Allegiance allegiance, Tactic tactic)
         {
-            return ExecutedManeuversOf(battalion).Any(x => x.Is(tactic));
+            return ExecutedManeuversOf(allegiance).Any(x => x.Is(tactic));
         }
 
-        IEnumerable<IManeuver> ExecutedManeuversOf(Battalion battalion)
+        IEnumerable<IManeuver> ExecutedManeuversOf(Allegiance allegiance)
         {
-            return executedThisTurn.Where(m => m.Performer.Equals(battalion));
+            return executedThisTurn.Where(m => m.Performer.Equals(allegiance));
         }
 
-        IEnumerable<Tactic> ExecutedThisTurn(Battalion battalion)
+        IEnumerable<Tactic> ExecutedThisTurn(Allegiance allegiance)
         {
-            return ExecutedManeuversOf(battalion).Select(x => x.FromTactic);
+            return ExecutedManeuversOf(allegiance).Select(x => x.FromTactic);
         }
 
         public void Order(IManeuver maneuver)
@@ -52,36 +52,48 @@ namespace AdvanceWars.Runtime.Domain.Orders
             maneuver.Apply(map);
             executedThisTurn.Add(maneuver);
 
+            if (maneuver.Is(Tactic.Recruit))
+                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Spawner).Occupant));
+            
             if(maneuver.Is(Tactic.Fire))
-                executedThisTurn.Add(Maneuver.Wait(maneuver.Performer));
+                executedThisTurn.Add(Maneuver.Wait(maneuver.Battalion));
         }
 
-        IEnumerable<Tactic> TacticsOf(Battalion battalion)
+        IEnumerable<Tactic> TacticsOf(Allegiance allegiance)
         {
-            if(map.WhereIs(battalion)!.Guest == battalion)
+            if (allegiance is Battalion)
             {
-                return new List<Tactic>
+                var battalion = allegiance as Battalion;
+                if (map.WhereIs(battalion)!.Guest == battalion)
                 {
-                    Tactic.Merge
+                    return new List<Tactic>
+                    {
+                        Tactic.Merge
+                    };
+                }
+
+                var battalionTactics = new List<Tactic>
+                {
+                    Tactic.Wait
                 };
+
+                if (map.RangeOfMovement(battalion).Any())
+                    battalionTactics.Add(Tactic.Move);
+
+                if (map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
+                    && battalion.AmmoRounds > 0)
+                    battalionTactics.Add(Tactic.Fire);
+
+                if (map.WhereIs(battalion)!.IsBesiegable)
+                    battalionTactics.Add(Tactic.Siege);
+
+                return battalionTactics;
             }
 
-            var tactics = new List<Tactic>
+            return new List<Tactic>
             {
-                Tactic.Wait
+                Tactic.Recruit
             };
-
-            if(map.RangeOfMovement(battalion).Any())
-                tactics.Add(Tactic.Move);
-
-            if(map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
-               && battalion.AmmoRounds > 0)
-                tactics.Add(Tactic.Fire);
-
-            if(map.WhereIs(battalion)!.IsBesiegable)
-                tactics.Add(Tactic.Siege);
-
-            return tactics;
         }
 
         public void BeginTurn()
@@ -99,19 +111,6 @@ namespace AdvanceWars.Runtime.Domain.Orders
         public override string ToString()
         {
             return $"from {Motherland}";
-        }
-
-        public void SpawnUnit(Terrain terrain, Unit ofUnit)
-        {
-            Require(terrain.IsAlly(this)).True();
-            Require(terrain.SpawnableUnits.Any()).True();
-
-            var spaceAt = map.WhereIs(terrain);
-            
-            spaceAt.SpawnHere(ofUnit);
-
-            var waitManeuver = Maneuver.Wait(spaceAt.Occupant);
-            Order(waitManeuver);
         }
     }
 }

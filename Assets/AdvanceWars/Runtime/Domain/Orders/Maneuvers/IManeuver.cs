@@ -4,7 +4,9 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
     public interface IManeuver
     {
-        Battalion Performer { get; }
+        Allegiance Performer { get; }
+        Spawner Spawner { get; }
+        Battalion Battalion { get; }
         Tactic FromTactic { get; }
         bool Is(Tactic tactic);
         void Apply(Map.Map map);

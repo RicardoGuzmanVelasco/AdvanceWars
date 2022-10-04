@@ -201,10 +201,10 @@ namespace AdvanceWars.Tests
         public void CommandingOfficer_OrdersManeuvers()
         {
             var sut = CommandingOfficer().WithNation("aNation").Build();
-            var battalion = Battalion().WithNation("aNation").Build();
+            var performer = Battalion().WithNation("aNation").Build();
 
             var maneuverMock = Substitute.For<IManeuver>();
-            maneuverMock.Performer.Returns(battalion);
+            maneuverMock.Performer.Returns(performer);
 
             sut.Order(maneuverMock);
 

@@ -10,9 +10,9 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         public override void Apply(Map.Map map)
         {
-            var performerSpace = map.WhereIs(Performer);
+            var performerSpace = map.WhereIs(Battalion);
             var occupant = performerSpace.Occupant;
-            var totalForces = performerSpace.Occupant.Forces + Performer.Forces;
+            var totalForces = performerSpace.Occupant.Forces + Battalion.Forces;
 
             occupant.Forces = Math.Clamp(totalForces, 0, Battalion.MaxForces);
             performerSpace.ExpelGuest();

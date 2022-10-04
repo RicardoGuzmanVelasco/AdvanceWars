@@ -14,6 +14,8 @@
         public static Tactic Move { get; } = new("Move");
         public static Tactic Siege { get; } = new("Siege");
         public static Tactic Merge { get; } = new("Merge");
+        public static Tactic Recruit { get; } = new("Recruit");
+
         #endregion
 
         public override string ToString() => id;
