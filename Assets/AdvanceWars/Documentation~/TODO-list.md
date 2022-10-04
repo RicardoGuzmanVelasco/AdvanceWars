@@ -8,6 +8,7 @@
 - MoveCostOf en Space.
 - Private set del Forces del battalion.
 - Eliminar el Invitado en el contexto del Merge.
+- Maniobras que llaman a otras maniobras (en vez de llamadas con casteos desde el commanding officer)
 
 ### Docs
 
