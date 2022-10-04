@@ -2,6 +2,7 @@
 using System.Linq;
 using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
@@ -78,6 +79,18 @@ namespace AdvanceWars.Tests
             sut.Order(recruitManeuver);
 
             sut.AvailableTacticsOf(map.SpaceAt(Vector2Int.zero).Occupant).Should().BeEmpty();
+        }
+        
+        [Test]
+        public void AvailableTacticsOf_Spawner_IsRecruit()
+        {
+            var spawner = Spawner().WithOwner("aNation").Build();
+            var map = new Map(1,1);
+            map.Put(Vector2Int.zero, spawner);
+            var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
+            
+            sut.AvailableTacticsOf(spawner)
+                .Should().BeEquivalentTo(new List<Tactic> { Tactic.Recruit});
         }
     }
 }
