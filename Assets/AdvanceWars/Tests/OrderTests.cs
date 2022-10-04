@@ -24,23 +24,27 @@ namespace AdvanceWars.Tests
         [Test]
         public void CanNotPerform_anyManeuver_afterWait()
         {
-            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var map = new Map(1, 1);
+            var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             var battalion = Battalion().WithNation("aNation").Build();
+            map.Put(Vector2Int.zero, battalion);
 
             sut.Order(Maneuver.Wait(battalion));
 
-            sut.AvailableTacticsOf(battalion).Should().BeEmpty();
+            sut.AvailableTacticsAt(map.WhereIs(battalion)!).Should().BeEmpty();
         }
 
         [Test]
         public void AfterFireManeuver_AutoWait()
         {
-            var sut = CommandingOfficer().WithNation("aNation").Build();
-            var troop = Battalion().WithNation("aNation").Build();
+            var map = new Map(1, 1);
+            var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
+            var battalion = Battalion().WithNation("aNation").Build();
+            map.Put(Vector2Int.zero, battalion);
 
-            sut.Order(new DummyManeuver(Tactic.Fire, troop));
+            sut.Order(new DummyManeuver(Tactic.Fire, battalion));
 
-            sut.AvailableTacticsOf(troop).Should().BeEmpty();
+            sut.AvailableTacticsAt(map.WhereIs(battalion)!).Should().BeEmpty();
         }
 
         [Test]
@@ -59,7 +63,7 @@ namespace AdvanceWars.Tests
 
             sut.Order(new DummyManeuver(Tactic.Move, ally));
 
-            sut.AvailableTacticsOf(ally).Should().Contain(Tactic.Fire);
+            sut.AvailableTacticsAt(map.WhereIs(ally)!).Should().Contain(Tactic.Fire);
         }
 
         [Test]
@@ -222,7 +226,7 @@ namespace AdvanceWars.Tests
             sut.Order(Maneuver.Wait(battalion));
             sut.BeginTurn();
 
-            sut.AvailableTacticsOf(battalion).Should().NotBeEmpty();
+            sut.AvailableTacticsAt(map.WhereIs(battalion)!).Should().NotBeEmpty();
         }
 
         [Test]
@@ -233,7 +237,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.zero, battalion);
             var sut = CommandingOfficer().WithNation("aNation").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(battalion).Should().NotContain(Tactic.Move);
+            sut.AvailableTacticsAt(map.WhereIs(battalion)!).Should().NotContain(Tactic.Move);
         }
         
         [Test]
@@ -275,7 +279,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation(aNation).WithMap(map).Build();
 
-            sut.AvailableTacticsOf(ally).Should().NotContain(Tactic.Fire);
+            sut.AvailableTacticsAt(map.WhereIs(ally)!).Should().NotContain(Tactic.Fire);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(battalion)
+            sut.AvailableTacticsAt(map.WhereIs(battalion)!)
                 .Should().Contain(Tactic.Siege);
         }
 
@@ -40,7 +40,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(battalion)
+            sut.AvailableTacticsAt(map.WhereIs(battalion)!)
                 .Should().NotContain(Tactic.Siege);
         }
 

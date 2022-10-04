@@ -27,6 +27,11 @@ namespace AdvanceWars.Runtime.Domain.Map
 
             public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
 
+            //Usado para saber si se puede ejecutar alguna maniobra
+            public bool Something(Allegiance other) => (IsOccupied && Occupant.IsAlly(other)) || (!IsOccupied && Terrain.IsAlly(other));
+
+            public bool IsHostileTo(Allegiance other) => IsOccupied && Occupant.IsEnemy(other);
+            
             public void Besiege()
             {
                 Require(IsOccupied).True();
@@ -36,10 +41,6 @@ namespace AdvanceWars.Runtime.Domain.Map
                 Terrain.SiegePoints = outcome.SiegePoints;
             }
 
-            public bool IsHostileTo(Allegiance other)
-            {
-                return IsOccupied && Occupant.IsEnemy(other);
-            }
 
             public void Enter(Battalion battalion)
             {

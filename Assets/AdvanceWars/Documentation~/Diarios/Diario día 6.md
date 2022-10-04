@@ -11,5 +11,8 @@ Duración: 2.5 - 3H
 
 ### Conclusiones
 
-- Qué maravilla tener los factory methods para poder cambiar el constructor y poder refactorizar.
 - De momento me cargo open closed haciendo un casteo en el tactics of, igualmente, eso habria que cambiarlo.
+    - [X] Se ha cambiado
+- No me va a dar tiempo a hacer lo de los invitados en espacios.
+- He decidido que las tácticas disponibles son del Espacio.
+- Las maniobras sí que son de un Performer.

@@ -20,20 +20,18 @@ namespace AdvanceWars.Runtime.Domain.Orders
             this.map = map;
         }
 
-        public IEnumerable<Tactic> AvailableTacticsOf([NotNull] Allegiance allegiance)
+        public IEnumerable<Tactic> AvailableTacticsAt([NotNull] Space space)
         {
-            Require(allegiance is INull).False();
-            Require(allegiance.IsAlly(this)).True();
+            Require(space.Something(this)).True();
 
-            if(HasAlready(allegiance, Tactic.Wait))
-                return Enumerable.Empty<Tactic>();
-
-            if (allegiance is Battalion)
+            if (space.IsOccupied)
             {
-                return TacticsAt(map.WhereIs(allegiance as Battalion)).Except(ExecutedThisTurn(allegiance));
+                return AvailableBattalionTacticsAt(space);
             }
-
-            return TacticsAt(map.WhereIs(allegiance as Spawner)).Except(ExecutedThisTurn(allegiance));
+            else
+            {
+                return AvailableSpawnerTacticsAt(space);
+            }
         }
 
         bool HasAlready(Allegiance allegiance, Tactic tactic)
@@ -59,56 +57,54 @@ namespace AdvanceWars.Runtime.Domain.Orders
             executedThisTurn.Add(maneuver);
 
             if (maneuver.Is(Tactic.Recruit))
-                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Spawner).Occupant));
+                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Spawner)!.Occupant));
             
             if(maneuver.Is(Tactic.Fire))
                 executedThisTurn.Add(Maneuver.Wait(maneuver.Battalion));
         }
 
-        IEnumerable<Tactic> TacticsAt(Space space)
+        private IEnumerable<Tactic> AvailableSpawnerTacticsAt(Space space)
         {
-            var tactics = new List<Tactic>();
-            
-            if (space.IsOccupied)
+            if (space.SpawnableUnits.Any())
             {
-                var battalion = space.Occupant;
-                
-                if (map.WhereIs(battalion)!.HasGuest)
-                {
-                    return new List<Tactic>
-                    {
-                        Tactic.Merge
-                    };
-                }
+                return new List<Tactic> {Tactic.Recruit}.Except(ExecutedThisTurn(space.Terrain));
+            }
+            return Enumerable.Empty<Tactic>();
+        }
+        
+        private IEnumerable<Tactic> AvailableBattalionTacticsAt(Space space)
+        {
+            var battalion = space.Occupant;
 
-                tactics = new List<Tactic>
+            List<Tactic> tactics = new List<Tactic>();
+
+            if (map.WhereIs(battalion)!.HasGuest)
+            {
+                return new List<Tactic>
                 {
-                    Tactic.Wait
+                    Tactic.Merge
                 };
-
-                if (map.RangeOfMovement(battalion).Any())
-                    tactics.Add(Tactic.Move);
-
-                if (map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
-                    && battalion.AmmoRounds > 0)
-                    tactics.Add(Tactic.Fire);
-
-                if (map.WhereIs(battalion)!.IsBesiegable)
-                    tactics.Add(Tactic.Siege);
             }
-            else
-            {
-                if (space.SpawnableUnits.Any())
-                {
-                    return new List<Tactic>
-                    {
-                        Tactic.Recruit
-                    };
-                }
-            }
-
             
-            return tactics;
+            if(HasAlready(space.Occupant, Tactic.Wait))
+                return Enumerable.Empty<Tactic>();
+
+            tactics = new List<Tactic>
+            {
+                Tactic.Wait
+            };
+
+            if (map.RangeOfMovement(battalion).Any())
+                tactics.Add(Tactic.Move);
+
+            if (map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
+                && battalion.AmmoRounds > 0)
+                tactics.Add(Tactic.Fire);
+
+            if (map.WhereIs(battalion)!.IsBesiegable)
+                tactics.Add(Tactic.Siege);
+            
+            return tactics.Except(ExecutedThisTurn(space.Occupant));
         }
 
         public void BeginTurn()

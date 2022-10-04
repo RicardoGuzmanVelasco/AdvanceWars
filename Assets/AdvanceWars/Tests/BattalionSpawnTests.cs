@@ -79,7 +79,7 @@ namespace AdvanceWars.Tests
             
             sut.Order(recruitManeuver);
 
-            sut.AvailableTacticsOf(map.SpaceAt(Vector2Int.zero).Occupant).Should().BeEmpty();
+            sut.AvailableTacticsAt(map.SpaceAt(Vector2Int.zero)).Should().BeEmpty();
         }
         
         [Test]
@@ -90,7 +90,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.zero, spawner);
             var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             
-            sut.AvailableTacticsOf(spawner)
+            sut.AvailableTacticsAt(map.WhereIs(spawner)!)
                 .Should().BeEquivalentTo(new List<Tactic> { Tactic.Recruit});
         }
         
@@ -100,10 +100,10 @@ namespace AdvanceWars.Tests
             var spawner = Spawner().WithOwner("aNation").Build();
             var map = new Map(1,1);
             map.Put(Vector2Int.zero, spawner);
-            map.Put(Vector2Int.zero, Battalion().Build());
+            map.Put(Vector2Int.zero, Battalion().WithNation("aNation").Build());
             var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             
-            sut.AvailableTacticsOf(spawner)
+            sut.AvailableTacticsAt(map.WhereIs(spawner)!)
                 .Should().NotContain(Tactic.Recruit);
         }
     }

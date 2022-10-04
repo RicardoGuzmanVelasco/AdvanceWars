@@ -24,7 +24,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.up, damagedAllyBattalion);
             var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(fullHealthAllyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(fullHealthAllyBattalion)!)
                 .Should().Contain(Tactic.Move);
         }
 
@@ -38,7 +38,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.up, fullHealthAllyBattalion);
             var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(damagedAllyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(damagedAllyBattalion)!)
                 .Should().NotContain(Tactic.Move);
         }
 
@@ -52,7 +52,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.up, enemyBattalion);
             var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(allyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(allyBattalion)!)
                 .Should().NotContain(Tactic.Move);
         }
 
@@ -88,7 +88,7 @@ namespace AdvanceWars.Tests
             map.SpaceAt(Vector2Int.zero).StopBy(anAllyBattalion);
             var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(anAllyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(anAllyBattalion)!)
                 .Should().BeEquivalentTo(new List<Tactic> { Tactic.Merge });
         }
 

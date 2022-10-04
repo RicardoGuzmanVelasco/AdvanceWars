@@ -110,7 +110,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(allyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(allyBattalion)!)
                 .Should().Contain(Tactic.Fire);
         }
 
@@ -126,7 +126,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(allyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(allyBattalion)!)
                 .Should().NotContain(Tactic.Fire);
         }
 
@@ -142,7 +142,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(allyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(allyBattalion)!)
                 .Should().NotContain(Tactic.Fire);
         }
 
@@ -159,7 +159,7 @@ namespace AdvanceWars.Tests
 
             var sut = CommandingOfficer().WithNation("ally").WithMap(map).Build();
 
-            sut.AvailableTacticsOf(allyBattalion)
+            sut.AvailableTacticsAt(map.WhereIs(allyBattalion)!)
                 .Should().NotContain(Tactic.Fire);
         }
     }
