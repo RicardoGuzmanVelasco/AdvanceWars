@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
-    public abstract class TargetingManeuver : Maneuver
+    public abstract class TargetingManeuver : BattalionManeuver
     {
         protected Battalion Target { get; }
 

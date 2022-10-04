@@ -6,7 +6,7 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
-    public class RecruitManeuver : Maneuver
+    public class RecruitManeuver : SpawnerManeuver
     {
         private Unit Unit { get; }
 
@@ -18,7 +18,7 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         public override void Apply(Map.Map map)
         {
-            var performerSpace = map.WhereIs(Spawner);
+            var performerSpace = map.WhereIs(Performer);
             var terrain = performerSpace!.Terrain;
             
             Require(terrain.SpawnableUnits.Contains(Unit)).True();

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
-    public class MovementManeuver : Maneuver
+    public class MovementManeuver : BattalionManeuver
     {
         IEnumerable<Map.Map.Space> Itinerary { get; }
 
@@ -18,8 +18,8 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         public override void Apply(Map.Map map)
         {
-            map.WhereIs(Battalion)!.Unoccupy();
-            Itinerary.Last().Enter(Battalion);
+            map.WhereIs(Performer)!.Unoccupy();
+            Itinerary.Last().Enter(Performer);
         }
     }
 }

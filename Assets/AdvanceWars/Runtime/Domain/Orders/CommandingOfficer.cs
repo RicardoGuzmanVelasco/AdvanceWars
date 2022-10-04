@@ -57,10 +57,10 @@ namespace AdvanceWars.Runtime.Domain.Orders
             executedThisTurn.Add(maneuver);
 
             if (maneuver.Is(Tactic.Recruit))
-                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Spawner)!.Occupant));
+                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Performer as Spawner)!.Occupant));
             
             if(maneuver.Is(Tactic.Fire))
-                executedThisTurn.Add(Maneuver.Wait(maneuver.Battalion));
+                executedThisTurn.Add(Maneuver.Wait(maneuver.Performer as Battalion));
         }
 
         private IEnumerable<Tactic> AvailableSpawnerTacticsAt(Space space)

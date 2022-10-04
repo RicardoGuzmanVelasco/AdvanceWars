@@ -8,26 +8,16 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
     public abstract class Maneuver : IManeuver
     {
         public Allegiance Performer { get; }
-        public Spawner Spawner { get; }
-        public Battalion Battalion { get; }
         public Tactic FromTactic { get; }
 
         #region Ctor/FactoryMethods
-        protected Maneuver([NotNull] Battalion performer, Tactic fromTactic)
+        protected Maneuver([NotNull] Allegiance performer, Tactic fromTactic)
         {
             Require(performer is INull).False();
-            Battalion = performer;
             Performer = performer;
             FromTactic = fromTactic;
         }
         
-        protected Maneuver([NotNull] Spawner spawner, Tactic fromTactic)
-        {
-            Require(spawner is INull).False();
-            Spawner = spawner;
-            Performer = spawner;
-            FromTactic = fromTactic;
-        }
         
         public static IManeuver Wait([NotNull] Battalion performer)
         {
