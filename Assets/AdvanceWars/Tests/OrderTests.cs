@@ -214,8 +214,10 @@ namespace AdvanceWars.Tests
         [Test]
         public void AfterBeginTurn_AllTacticsAreAvailableAgain()
         {
-            var sut = CommandingOfficer().WithNation("aNation").Build();
+            var map = new Map(1, 1);
+            var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             var battalion = Battalion().WithNation("aNation").Build();
+            map.Put(Vector2Int.zero, battalion);
 
             sut.Order(Maneuver.Wait(battalion));
             sut.BeginTurn();

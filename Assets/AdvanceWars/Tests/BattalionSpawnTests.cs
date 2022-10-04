@@ -104,7 +104,7 @@ namespace AdvanceWars.Tests
             var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             
             sut.AvailableTacticsOf(spawner)
-                .Should().BeEmpty();
+                .Should().NotContain(Tactic.Recruit);
         }
     }
 }

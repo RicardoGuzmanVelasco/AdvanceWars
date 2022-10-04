@@ -88,7 +88,6 @@ namespace AdvanceWars.Tests
             map.SpaceAt(Vector2Int.zero).StopBy(anAllyBattalion);
             var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
 
-            using var _ = new AssertionScope();
             sut.AvailableTacticsOf(anAllyBattalion)
                 .Should().BeEquivalentTo(new List<Tactic> { Tactic.Merge });
         }

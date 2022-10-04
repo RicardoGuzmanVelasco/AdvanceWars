@@ -4,6 +4,7 @@ using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
+using static AdvanceWars.Runtime.Domain.Map.Map;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Orders
@@ -27,7 +28,12 @@ namespace AdvanceWars.Runtime.Domain.Orders
             if(HasAlready(allegiance, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
 
-            return TacticsOf(allegiance).Except(ExecutedThisTurn(allegiance));
+            if (allegiance is Battalion)
+            {
+                return TacticsAt(map.WhereIs(allegiance as Battalion)).Except(ExecutedThisTurn(allegiance));
+            }
+
+            return TacticsAt(map.WhereIs(allegiance as Spawner)).Except(ExecutedThisTurn(allegiance));
         }
 
         bool HasAlready(Allegiance allegiance, Tactic tactic)
@@ -59,12 +65,15 @@ namespace AdvanceWars.Runtime.Domain.Orders
                 executedThisTurn.Add(Maneuver.Wait(maneuver.Battalion));
         }
 
-        IEnumerable<Tactic> TacticsOf(Allegiance allegiance)
+        IEnumerable<Tactic> TacticsAt(Space space)
         {
-            if (allegiance is Battalion)
+            var tactics = new List<Tactic>();
+            
+            if (space.IsOccupied)
             {
-                var battalion = allegiance as Battalion;
-                if (map.WhereIs(battalion)!.Guest == battalion)
+                var battalion = space.Occupant;
+                
+                if (map.WhereIs(battalion)!.HasGuest)
                 {
                     return new List<Tactic>
                     {
@@ -72,33 +81,34 @@ namespace AdvanceWars.Runtime.Domain.Orders
                     };
                 }
 
-                var battalionTactics = new List<Tactic>
+                tactics = new List<Tactic>
                 {
                     Tactic.Wait
                 };
 
                 if (map.RangeOfMovement(battalion).Any())
-                    battalionTactics.Add(Tactic.Move);
+                    tactics.Add(Tactic.Move);
 
                 if (map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
                     && battalion.AmmoRounds > 0)
-                    battalionTactics.Add(Tactic.Fire);
+                    tactics.Add(Tactic.Fire);
 
                 if (map.WhereIs(battalion)!.IsBesiegable)
-                    battalionTactics.Add(Tactic.Siege);
-
-                return battalionTactics;
+                    tactics.Add(Tactic.Siege);
             }
-
-            var spawner = allegiance as Spawner;
-            if (!map.WhereIs(spawner)!.IsOccupied)
+            else
             {
-                return new List<Tactic>
+                if (space.SpawnableUnits.Any())
                 {
-                    Tactic.Recruit
-                };
+                    return new List<Tactic>
+                    {
+                        Tactic.Recruit
+                    };
+                }
             }
-            return Enumerable.Empty<Tactic>();
+
+            
+            return tactics;
         }
 
         public void BeginTurn()

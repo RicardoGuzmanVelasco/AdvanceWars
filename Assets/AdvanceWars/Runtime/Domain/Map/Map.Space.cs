@@ -14,7 +14,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             public Battalion Guest { get; private set; } = Battalion.Null;
 
             public bool IsOccupied => Occupant is not INull;
-            bool HasGuest => Guest is not INull;
+            public bool HasGuest => Guest is not INull;
 
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
             public IEnumerable<Unit> SpawnableUnits => Terrain.SpawnableUnits;
