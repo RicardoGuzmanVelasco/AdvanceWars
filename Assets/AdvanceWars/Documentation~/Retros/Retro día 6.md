@@ -11,6 +11,11 @@
 - Veis bien el hacer new y esconder Performer de Maneuver en los BattalionManeuver y SpawnerManeuver?
 - Se han quedado 2 casteos en el commanding officer. Se eliminarán cuando se haga lo de maniobras que llaman a otras maniobras.
 
+### Alejandro
+
+- Me parece raro el cambio de Performer -> Battalion.
+- Me parece raro el cambio de Battalion -> IAllegiance.
+
 ## Retro
 
 ### Culo
@@ -18,7 +23,6 @@
 - Qué maravilla tener los factory methods para poder cambiar el constructor y poder refactorizar.
 - Este refactor es muy tocho y lo he hecho de manera totalmente unilateral. Sentios libres de revertir la rama al estado anterior de mi sesion si lo consideráis, puedo haber hecho muchas barbaridades que ahora no veo
   - Probablemente lo propicio habría sido hacerlo los 3 juntos.
-
 
 ## Conclusiones generales
 
