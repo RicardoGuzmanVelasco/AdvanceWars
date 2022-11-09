@@ -6,7 +6,6 @@
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
 - MoveCostOf en Space.
-- Private set del Forces del battalion.
 - Eliminar el Invitado en el contexto del Merge.
 - Maniobras que llaman a otras maniobras (en vez de llamadas con casteos desde el commanding officer)
 

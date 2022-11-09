@@ -12,7 +12,7 @@ namespace AdvanceWars.Runtime
 
         internal override IEnumerable<Unit> SpawnableUnits => spawnableUnits;
 
-        public Spawner(int siegePoints, Nation owner) : base(siegePoints, owner)
+        public Spawner(int maxSiegePoints, Nation owner) : base(maxSiegePoints, owner)
         {
         }
 

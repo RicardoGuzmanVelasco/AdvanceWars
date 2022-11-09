@@ -21,6 +21,9 @@ namespace AdvanceWars.Tests
     [TestFixture]
     public class OrderTests
     {
+        private int AnyForces => 80;
+        private int MinDamage => 80;
+
         [Test]
         public void CanNotPerform_anyManeuver_afterWait()
         {
@@ -73,15 +76,15 @@ namespace AdvanceWars.Tests
             var atk = Battalion()
                 .Ally()
                 .WithArmor("Any")
-                .WithWeapon(Weapon().WithDamage(anyArmor, 100).Build())
-                .WithForces(200)
+                .WithWeapon(Weapon().WithDamage(anyArmor, MinDamage).Build())
+                .WithForces(AnyForces)
                 .Build();
 
             var def = Battalion()
                 .Enemy()
                 .WithArmor("Any")
-                .WithWeapon(Weapon().WithDamage(anyArmor, 100).Build())
-                .WithForces(300)
+                .WithWeapon(Weapon().WithDamage(anyArmor, MinDamage).Build())
+                .WithForces(AnyForces)
                 .Build();
 
             var sut = Maneuver.Fire(atk, def);
@@ -94,8 +97,8 @@ namespace AdvanceWars.Tests
             sut.Apply(map);
 
             using var _ = new AssertionScope();
-            atk.Forces.Should().BeLessThan(200);
-            def.Forces.Should().BeLessThan(300);
+            atk.Forces.Should().BeLessThan(AnyForces);
+            def.Forces.Should().BeLessThan(AnyForces);
         }
 
         [Test]
@@ -105,14 +108,14 @@ namespace AdvanceWars.Tests
                 .Ally()
                 .WithArmor("Other")
                 .WithWeapon(Weapon().MaxDmgTo("Any").Build())
-                .WithForces(200)
+                .WithForces(AnyForces)
                 .Build();
 
             var def = Battalion()
                 .Enemy()
                 .WithArmor("Any")
                 .WithWeapon(Weapon().WithDamage(new Armor("Any"), 1).Build())
-                .WithForces(300)
+                .WithForces(AnyForces)
                 .Build();
 
             var sut = Maneuver.Fire(atk, def);
@@ -126,8 +129,8 @@ namespace AdvanceWars.Tests
             sut.Apply(map);
 
             using var _ = new AssertionScope();
-            atk.Forces.Should().Be(200);
-            def.Forces.Should().BeLessOrEqualTo(0);
+            atk.Forces.Should().Be(AnyForces);
+            def.Forces.Should().Be(0);
             map.WhereIs(def).Should().BeNull();
         }
 
@@ -138,14 +141,14 @@ namespace AdvanceWars.Tests
                 .Ally()
                 .WithArmor("Other")
                 .WithWeapon(Weapon().MaxDmgTo("Any").Build())
-                .WithForces(200)
+                .WithForces(AnyForces)
                 .Build();
 
             var atk = Battalion()
                 .Enemy()
                 .WithArmor("Any")
                 .WithWeapon(Weapon().WithDamage(new Armor("Any"), 1).Build())
-                .WithForces(300)
+                .WithForces(AnyForces)
                 .Build();
 
             var sut = Maneuver.Fire(atk, def);
@@ -159,7 +162,7 @@ namespace AdvanceWars.Tests
             sut.Apply(map);
 
             using var _ = new AssertionScope();
-            atk.Forces.Should().BeLessOrEqualTo(0);
+            atk.Forces.Should().Be(0);
             map.WhereIs(atk).Should().BeNull();
         }
 

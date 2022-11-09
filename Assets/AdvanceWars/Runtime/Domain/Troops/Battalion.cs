@@ -1,4 +1,6 @@
 ﻿using System;
+using RGV.DesignByContract.Runtime;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Troops
 {
@@ -9,7 +11,17 @@ namespace AdvanceWars.Runtime.Domain.Troops
 
         public Unit Unit { private get; init; } = Unit.Null;
 
-        public int Forces { get; set; } = MaxForces;
+        private int forces = MaxForces;
+        public int Forces
+        {
+            get => forces;
+            set
+            {
+                Require(value).GreaterOrEqualThan(0);
+                Require(value).LesserOrEqualThan(MaxForces);
+                forces = value;
+            }
+        }
 
         public int Platoons => Math.Max(1, Forces / PlatoonSize);
 

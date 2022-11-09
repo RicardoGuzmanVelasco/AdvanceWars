@@ -11,7 +11,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void NeutralBuildingReceiveSiegeDamage()
         {
-            var sut = new Building(siegePoints: 20);
+            var sut = new Building(maxSiegePoints: 20);
             var battalion = Battalion().WithNation("A").WithPlatoons(1).Build();
 
             var result = sut.SiegeOutcome(besieger: battalion);
@@ -23,7 +23,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void EnemyBuildingReceiveSiegeDamage()
         {
-            var sut = new Building(siegePoints: 20, owner: new Nation("Enemy"));
+            var sut = new Building(maxSiegePoints: 20, owner: new Nation("Enemy"));
             var battalion = Battalion().WithNation("Ally").WithPlatoons(1).Build();
 
             var result = sut.SiegeOutcome(besieger: battalion);
@@ -35,8 +35,9 @@ namespace AdvanceWars.Tests
         [Test]
         public void BuildingIsCaptured_WhenSiegePointsDropBelowZero()
         {
-            var sut = new Building(siegePoints: 20);
-            var battalion = Battalion().WithNation("A").WithInfiniteForces().Build();
+            var sut = new Building(maxSiegePoints: 20);
+            sut.SiegePoints = 1;
+            var battalion = Battalion().WithNation("A").WithMaxForces().Build();
 
             var result = sut.SiegeOutcome(besieger: battalion);
 
@@ -47,8 +48,9 @@ namespace AdvanceWars.Tests
         [Test]
         public void BuildingIsCaptured_WhenSiegePointsDropToZero()
         {
-            var sut = new Building(siegePoints: 20);
-            var battalion = Battalion().WithNation("A").WithPlatoons(20).Build();
+            var sut = new Building(maxSiegePoints: 20);
+            sut.SiegePoints = 10;
+            var battalion = Battalion().WithNation("A").WithPlatoons(10).Build();
 
             var result = sut.SiegeOutcome(besieger: battalion);
 

@@ -10,14 +10,14 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         readonly int maxSiegePoints;
 
-        public Building(int siegePoints, Nation owner) : this(siegePoints)
+        public Building(int maxSiegePoints, Nation owner) : this(maxSiegePoints)
         {
             Motherland = owner;
         }
 
-        public Building(int siegePoints)
+        public Building(int maxSiegePoints)
         {
-            maxSiegePoints = SiegePoints = siegePoints;
+            this.maxSiegePoints = SiegePoints = maxSiegePoints;
         }
 
         public override bool IsUnderSiege

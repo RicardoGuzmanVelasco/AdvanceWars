@@ -69,7 +69,7 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var sut = new Building(siegePoints: 20);
+            var sut = new Building(maxSiegePoints: 20);
             map.Put(new Vector2Int(0, 0), sut);
 
             var aNation = "aNation";
@@ -93,7 +93,7 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var sut = new Building(siegePoints: 20);
+            var sut = new Building(maxSiegePoints: 20);
             map.Put(new Vector2Int(0, 0), sut);
 
             var initialForces = 1;
@@ -117,7 +117,7 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var sut = new Building(siegePoints: 20);
+            var sut = new Building(maxSiegePoints: 20);
             map.Put(new Vector2Int(0, 0), sut);
             
             var aNation = "aNation";
@@ -166,7 +166,7 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var building = new Building(siegePoints: 20);
+            var building = new Building(maxSiegePoints: 20);
             map.Put(new Vector2Int(0, 0), building);
             
             var aNation = "aNation";

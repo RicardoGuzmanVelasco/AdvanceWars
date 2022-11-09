@@ -57,9 +57,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public BattalionBuilder WithInfiniteForces()
+        public BattalionBuilder WithMaxForces()
         {
-            forces = int.MaxValue;
+            forces = Runtime.Domain.Troops.Battalion.MaxForces;
             return this;
         }
 
