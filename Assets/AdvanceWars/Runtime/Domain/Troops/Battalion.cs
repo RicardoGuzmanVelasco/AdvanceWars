@@ -52,6 +52,13 @@ namespace AdvanceWars.Runtime.Domain.Troops
             return Unit.IsAerial();
         }
 
+        public void Heal(int reinforces)
+        {
+            Require(reinforces).Positive();
+            
+            Forces = Math.Clamp(Forces + reinforces, 0, Battalion.MaxForces);
+        }
+        
         #region Formatting
         public override string ToString()
         {

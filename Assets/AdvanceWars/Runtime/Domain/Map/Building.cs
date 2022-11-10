@@ -6,7 +6,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial class Building : Terrain
     {
-        private const int NumberOfHealingForcesPerTurn = 20;
+        private const int ReinforcesPerTurn = 20;
 
         readonly int maxSiegePoints;
         readonly int income;
@@ -63,8 +63,7 @@ namespace AdvanceWars.Runtime.Domain.Map
         public override void Heal(Battalion occupant)
         {
             base.Heal(occupant);
-            var newForces = occupant.Forces + NumberOfHealingForcesPerTurn;
-            occupant.Forces = Math.Min(newForces, Battalion.MaxForces);
+            occupant.Heal(ReinforcesPerTurn);
         }
     }
 }

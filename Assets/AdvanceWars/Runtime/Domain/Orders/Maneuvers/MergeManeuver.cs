@@ -12,9 +12,8 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         {
             var performerSpace = map.WhereIs(Performer);
             var occupant = performerSpace.Occupant;
-            var totalForces = performerSpace.Occupant.Forces + Performer.Forces;
 
-            occupant.Forces = Math.Clamp(totalForces, 0, Battalion.MaxForces);
+            occupant.Heal(Performer.Forces);
             performerSpace.ExpelGuest();
         }
     }
