@@ -28,7 +28,7 @@ namespace AdvanceWars.Runtime.Domain
         public void Spend(int amount)
         {
             Require(amount).Positive();
-            Require(WarFunds - amount).Not.Negative();
+            Require(WarFunds).GreaterOrEqualThan(amount);;
 
             WarFunds -= amount;
         }

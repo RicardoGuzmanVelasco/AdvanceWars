@@ -67,7 +67,7 @@ namespace AdvanceWars.Runtime.Domain.Orders
 
         private IEnumerable<Tactic> AvailableSpawnerTacticsAt(Space space)
         {
-            if (space.SpawnableUnits.Any())
+            if (space.SpawnableUnits.Any(x => Treasury.CanAfford(x)))
             {
                 return new List<Tactic> {Tactic.Recruit}.Except(ExecutedThisTurn(space.Terrain));
             }
