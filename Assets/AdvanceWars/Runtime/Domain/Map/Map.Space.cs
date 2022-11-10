@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
 
@@ -111,6 +112,8 @@ namespace AdvanceWars.Runtime.Domain.Map
             {
                 Occupy(Terrain.SpawnBattalion(ofUnit));
             }
+
+            public void ReportIncome([NotNull]Treasury treasury) => Terrain.ReportIncome(treasury);
         }
     }
 }

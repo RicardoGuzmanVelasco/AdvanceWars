@@ -13,11 +13,13 @@ namespace AdvanceWars.Runtime.Domain.Orders
     {
         readonly Map.Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
- 
-        public CommandingOfficer(Nation from, Map.Map map)
+        public Treasury Treasury { get; }
+        
+        public CommandingOfficer(Nation from, Map.Map map, Treasury treasury)
         {
             this.Motherland = from;
             this.map = map;
+            this.Treasury = treasury;
         }
 
         public IEnumerable<Tactic> AvailableTacticsAt([NotNull] Space space)
@@ -112,7 +114,12 @@ namespace AdvanceWars.Runtime.Domain.Orders
             executedThisTurn.Clear();
             //maniobras automáticas. Sacar el clear al EndTurn.
 
-            foreach (var space in map.AllySpaces(this))
+            foreach (var space in map.FriendlyTerrainSpaces(this))
+            {
+                space.ReportIncome(Treasury);
+            }
+            
+            foreach (var space in map.SpaceOccupiedByAlly(this))
             {
                 space.HealOccupant();
                 space.ReplenishOccupantAmmo();

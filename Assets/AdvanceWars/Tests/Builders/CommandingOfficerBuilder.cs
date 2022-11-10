@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
@@ -9,6 +10,7 @@ namespace AdvanceWars.Tests.Builders
     {
         Map map = Map.Null;
         Nation nation;
+        int warFunds = 0;
 
         #region ObjectMothers
         public static CommandingOfficerBuilder CommandingOfficer() => new CommandingOfficerBuilder();
@@ -31,6 +33,12 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public CommandingOfficerBuilder WithWarFunds(int amount)
+        {
+            warFunds = amount;
+            return this;
+        }
+        
         public CommandingOfficerBuilder WithMap(Map map)
         {
             this.map = map;
@@ -44,10 +52,17 @@ namespace AdvanceWars.Tests.Builders
 
             return this;
         }
+        
+        public CommandingOfficerBuilder WithNation(Nation nation)
+        {
+            this.nation = nation;
+
+            return this;
+        }
 
         public CommandingOfficer Build()
         {
-            return new CommandingOfficer(from: nation, map);
+            return new CommandingOfficer(from: nation, map, new Treasury(0));
         }
     }
 }

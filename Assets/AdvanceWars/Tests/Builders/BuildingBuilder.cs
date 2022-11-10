@@ -7,6 +7,7 @@ namespace AdvanceWars.Tests.Builders
     {
         int siegePoints = 0;
         Nation owner = Nation.Stateless;
+        private int income;
 
         public static BuildingBuilder Building()
         {
@@ -27,9 +28,15 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public BuildingBuilder WithIncome(int amount)
+        {
+            income = amount;
+            return this;
+        }
+        
         public Building Build()
         {
-            return new Building(siegePoints, owner);
+            return new Building(siegePoints, owner, income);
         }
     }
 }

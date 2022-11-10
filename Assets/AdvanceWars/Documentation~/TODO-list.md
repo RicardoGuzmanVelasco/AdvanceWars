@@ -8,6 +8,7 @@
 - MoveCostOf en Space.
 - Eliminar el Invitado en el contexto del Merge.
 - Maniobras que llaman a otras maniobras (en vez de llamadas con casteos desde el commanding officer)
+- Los buildings crean un Building como siege result. Ha hecho falta duplicar los constructores para que eso no de problemas
 
 ### Docs
 
@@ -71,4 +72,3 @@
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit.
 - Maniobras automáticas al inicio del turno de un CO:
-  - Ganar dinero por edificios.

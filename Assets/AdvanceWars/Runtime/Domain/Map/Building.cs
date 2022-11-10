@@ -9,11 +9,19 @@ namespace AdvanceWars.Runtime.Domain.Map
         private const int NumberOfHealingForcesPerTurn = 20;
 
         readonly int maxSiegePoints;
+        readonly int income;
+        
+        public override int Income => income;
 
         public Building(int maxSiegePoints, Nation owner) : this(maxSiegePoints)
         {
             Motherland = owner;
         }
+        public Building(int maxSiegePoints, Nation owner, int income) : this(maxSiegePoints, owner)
+        {
+            this.income = income;
+        }
+        
 
         public Building(int maxSiegePoints)
         {

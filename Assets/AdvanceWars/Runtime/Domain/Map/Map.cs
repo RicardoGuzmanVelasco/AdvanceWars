@@ -159,11 +159,18 @@ namespace AdvanceWars.Runtime.Domain.Map
             return spaces.CoordsOf(space);
         }
 
-        public IEnumerable<Space> AllySpaces(CommandingOfficer co)
+        public IEnumerable<Space> FriendlyTerrainSpaces(Allegiance other)
         {
             return spaces
                 .Select(keyValuePair => keyValuePair.Value)
-                .Where(space => space.Occupant.IsAlly(co));
+                .Where(space => space.Terrain.IsAlly(other));
+        }
+        
+        public IEnumerable<Space> SpaceOccupiedByAlly(Allegiance other)
+        {
+            return spaces
+                .Select(keyValuePair => keyValuePair.Value)
+                .Where(space => space.Occupant.IsAlly(other));
         }
     }
 }

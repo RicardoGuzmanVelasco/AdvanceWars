@@ -12,6 +12,8 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         public int DefensiveRating { get; init; }
 
+        public virtual int Income => 0;
+        
         // Only for ease of debugging.
         public string Id { get; init; } = string.Empty;
 
@@ -69,6 +71,14 @@ namespace AdvanceWars.Runtime.Domain.Map
         {
             Require(SpawnableUnits).Contains(ofUnit);
             return new Battalion {Unit = ofUnit, Motherland = Motherland};
+        }
+        
+        public void ReportIncome([NotNull] Treasury treasury)
+        {
+            if (Income > 0)
+            {
+                treasury.Earn(Income);
+            }
         }
     }
 }
