@@ -11,6 +11,8 @@ using static AdvanceWars.Tests.Builders.BuildingBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.MapBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
+using Building = AdvanceWars.Runtime.Domain.Map.Building;
+using Terrain = AdvanceWars.Runtime.Domain.Map.Terrain;
 
 namespace AdvanceWars.Tests
 {
@@ -18,6 +20,8 @@ namespace AdvanceWars.Tests
     {
         private Nation Ally => new Nation("Ally");
         private Nation Enemy => new Nation("Enemy");
+        private Nation SomeNation => new Nation("A");
+        private int SomeForces => 50;
 
         [Test]
         public void FirstActiveCommandingOfficer_IsTheFirst()
@@ -75,17 +79,16 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var aNation = "aNation";
-            var sut = BuildingBuilder.Building().WithNation(aNation).WithPoints(20).Build();
+            var sut = Building().WithNation(SomeNation).WithPoints(20).Build();
             map.Put(new Vector2Int(0, 0), sut);
 
-            var battalion = Battalion().WithNation(aNation).WithForces(10).Build();
+            var battalion = Battalion().WithNation(SomeNation).WithForces(10).Build();
             map.Put(new Vector2Int(0, 0), battalion);
 
             var commandingOfficers = new[]
             {
                 CommandingOfficer().Build(),
-                CommandingOfficer().WithMap(map).WithNation(aNation).Build()
+                CommandingOfficer().WithMap(map).WithNation(SomeNation).Build()
             };
             var operation = new Operation(commandingOfficers, map);
             
@@ -98,48 +101,21 @@ namespace AdvanceWars.Tests
         public void NonAllyBuilding_DoesNotHealBattalion_OnNewTurnBeginning()
         {
             var map = Map().Of(1,1).Build();
-
-            var sut = new Building(maxSiegePoints: 20);
+            var sut =  Building().WithNation(Enemy).WithPoints(20).Build();
             map.Put(new Vector2Int(0, 0), sut);
-
-            var initialForces = 1;
-            var battalion = Battalion().WithNation("aNation").WithForces(initialForces).Build();
+            var battalion = Battalion().WithNation(Enemy).WithForces(SomeForces).Build();
             map.Put(new Vector2Int(0, 0), battalion);
 
             var commandingOfficers = new[]
             {
                 CommandingOfficer().Build(),
-                CommandingOfficer().WithMap(map).WithNation("anotherNation").Build()
+                CommandingOfficer().WithMap(map).WithNation(Ally).Build()
             };
             var operation = new Operation(commandingOfficers, map);
             
             operation.EndTurn();
 
-            battalion.Forces.Should().Be(initialForces);
-        }
-        
-        [Test]
-        public void AllyBuilding_DoesNotOverhealBattalion_OnNewTurnBeginning()
-        {
-            var map = Map().Of(1,1).Build();
-
-            var sut = new Building(maxSiegePoints: 20);
-            map.Put(new Vector2Int(0, 0), sut);
-            
-            var aNation = "aNation";
-            var battalion = Battalion().WithNation(aNation).Build();
-            map.Put(new Vector2Int(0, 0), battalion);
-
-            var commandingOfficers = new[]
-            {
-                CommandingOfficer().Build(),
-                CommandingOfficer().WithMap(map).WithNation(aNation).Build()
-            };
-            var operation = new Operation(commandingOfficers, map);
-            
-            operation.EndTurn();
-
-            battalion.Forces.Should().Be(100);
+            battalion.Forces.Should().Be(SomeForces);
         }
 
         [Test, Category("Regression")]
@@ -169,49 +145,40 @@ namespace AdvanceWars.Tests
 
             enemyBattalion.AmmoRounds.Should().Be(1);
         }
+        
         [Test]
         public void NonBuildingInSpace_DoesNotHealBattalion_OnNewTurnBeginning()
         {
             var map = Map().Of(1,1).Build();
-
-            var nonBuildingTerrain = Terrain().Build();
-            map.Put(new Vector2Int(0, 0), nonBuildingTerrain);
-            
-            var initialForces = 50;
-            var aNation = "aNation";
-            var battalion = Battalion().WithForces(initialForces).WithNation(aNation).Build();
+            map.Put(new Vector2Int(0, 0), Terrain().Build());
+            var battalion = Battalion().WithForces(SomeForces).WithNation(SomeNation).Build();
             map.Put(new Vector2Int(0, 0), battalion);
 
             var commandingOfficers = new[]
             {
                 CommandingOfficer().Build(),
-                CommandingOfficer().WithMap(map).WithNation(aNation).Build()
+                CommandingOfficer().WithMap(map).WithNation(SomeNation).Build()
             };
-            var operation = new Operation(commandingOfficers, map);
+            var sut = new Operation(commandingOfficers, map);
             
-            operation.EndTurn();
+            sut.EndTurn();
 
-            battalion.Forces.Should().Be(initialForces);
+            battalion.Forces.Should().Be(SomeForces);
         }
 
         [Test]
         public void AllyBuilding_ReplenishOccupantAmmo()
         {
             var map = Map().Of(1,1).Build();
-
-            var aNation = "aNation";
-
-            var building = BuildingBuilder.Building().WithNation(aNation).WithPoints(20).Build();
-            
+            var building = BuildingBuilder.Building().WithNation(SomeNation).WithPoints(20).Build();
             map.Put(new Vector2Int(0, 0), building);
-            
-            var battalion = Battalion().WithNation(aNation).WithAmmo(5).Build();
+            var battalion = Battalion().WithNation(SomeNation).WithAmmo(5).Build();
             map.Put(new Vector2Int(0, 0), battalion);
-
+            
             var commandingOfficers = new[]
             {
                 CommandingOfficer().Build(),
-                CommandingOfficer().WithMap(map).WithNation(aNation).Build()
+                CommandingOfficer().WithMap(map).WithNation(SomeNation).Build()
             };
             var sut = new Operation(commandingOfficers, map);
             
