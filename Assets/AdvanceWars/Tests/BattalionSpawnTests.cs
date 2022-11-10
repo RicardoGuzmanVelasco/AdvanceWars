@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
@@ -74,13 +75,30 @@ namespace AdvanceWars.Tests
             var spawner = Spawner().WithOwner("aNation").Build();
             var map = new Map(1,1);
             map.Put(Vector2Int.zero, spawner);
-            var recruitManeuver = Maneuver.Recruit(spawner, Unit().Build());
+            var recruitManeuver = Maneuver.Recruit(spawner, Unit().Build(), new Treasury());
             var sut = CommandingOfficer().WithMap(map).WithNation("aNation").Build();
             
             sut.Order(recruitManeuver);
 
             sut.AvailableTacticsAt(map.SpaceAt(Vector2Int.zero)).Should().BeEmpty();
         }
+
+        [Test]
+        public void Recruiting_ReducesWarFunds()
+        {
+            var unit = Unit().WithPrice(1000);
+            var spawner = Spawner().WithOwner("aNation").WithUnits(unit).Build();
+            var map = new Map(1,1);
+            map.Put(Vector2Int.zero, spawner);
+            var sut = new Treasury(3000);
+            var recruitManeuver = Maneuver.Recruit(spawner, unit.Build(), sut);
+            var commandingOfficer = CommandingOfficer().WithMap(map).WithTreasury(sut).WithNation("aNation").Build();
+            
+            commandingOfficer.Order(recruitManeuver);
+
+            sut.WarFunds.Should().Be(2000);
+        }
+        
         
         [Test]
         public void AvailableTacticsOf_Spawner_IsRecruit()

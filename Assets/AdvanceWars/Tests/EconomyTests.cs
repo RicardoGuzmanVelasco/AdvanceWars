@@ -57,5 +57,19 @@ namespace AdvanceWars.Tests
 
             sut.Treasury.WarFunds.Should().Be(1000);
         }
+        
+        [Test]
+        public void IncomeFromMultipleAllyBuildings()
+        {
+            var map = new Map(1, 2);
+            map.Put(Vector2Int.zero, Building().WithIncome(1500).WithNation(SomeNation).Build());
+            map.Put(Vector2Int.up, Building().WithIncome(1000).WithNation(SomeNation).Build());
+            var sut = CommandingOfficer().WithNation(SomeNation).WithMap(map).Build();
+
+            sut.BeginTurn();
+
+            sut.Treasury.WarFunds.Should().Be(2500);
+        }
+        
     }
 }

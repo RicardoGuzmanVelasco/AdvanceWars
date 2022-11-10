@@ -10,7 +10,7 @@ namespace AdvanceWars.Tests.Builders
     {
         Map map = Map.Null;
         Nation nation;
-        int warFunds = 0;
+        Treasury treasury;
 
         #region ObjectMothers
         public static CommandingOfficerBuilder CommandingOfficer() => new CommandingOfficerBuilder();
@@ -35,7 +35,13 @@ namespace AdvanceWars.Tests.Builders
 
         public CommandingOfficerBuilder WithWarFunds(int amount)
         {
-            warFunds = amount;
+            treasury = new Treasury(amount);
+            return this;
+        }
+        
+        public CommandingOfficerBuilder WithTreasury(Treasury treasury)
+        {
+            this.treasury = treasury;
             return this;
         }
         

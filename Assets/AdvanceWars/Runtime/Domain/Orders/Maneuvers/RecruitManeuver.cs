@@ -8,22 +8,27 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 {
     public class RecruitManeuver : SpawnerManeuver
     {
-        private Unit Unit { get; }
-
-        protected internal RecruitManeuver([NotNull] Spawner spawner, [NotNull] Unit unit)
+        Unit Unit { get; }
+        Treasury Treasury { get; }
+        
+        protected internal RecruitManeuver([NotNull] Spawner spawner, [NotNull] Unit unit, [NotNull] Treasury treasury)
             : base(spawner, Tactic.Recruit)
         {
             Unit = unit;
+            Treasury = treasury;
         }
 
         public override void Apply(Map.Map map)
         {
+            Require(Treasury.CanAfford(Unit));
+
             var performerSpace = map.WhereIs(Performer);
             var terrain = performerSpace!.Terrain;
             
             Require(terrain.SpawnableUnits.Contains(Unit)).True();
             
             performerSpace!.SpawnHere(Unit);
+            Treasury.PayRecruitment(Unit);
         }
     }
 }

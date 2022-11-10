@@ -8,8 +8,9 @@ namespace AdvanceWars.Tests.Builders
         Propulsion propulsion = new("");
         Armor armor = new("");
         Weapon weapon = Weapon.Null;
-        private RangeOfFire rangeOfFire = RangeOfFire.One;
+        RangeOfFire rangeOfFire = RangeOfFire.One;
         Military serviceBranch = Military.None;
+        Price price = Price.Free;
 
         #region ObjectMothers
         public static UnitBuilder Unit()
@@ -34,6 +35,12 @@ namespace AdvanceWars.Tests.Builders
         public UnitBuilder With(Propulsion propulsion)
         {
             this.propulsion = propulsion;
+            return this;
+        }
+
+        public UnitBuilder WithPrice(Price price)
+        {
+            this.price = price;
             return this;
         }
 
@@ -65,8 +72,10 @@ namespace AdvanceWars.Tests.Builders
                 Propulsion = propulsion,
                 ServiceBranch = serviceBranch,
                 Weapon = weapon,
-                RangeOfFire = rangeOfFire
+                RangeOfFire = rangeOfFire,
+                Price = price
             };
         }
+
     }
 }

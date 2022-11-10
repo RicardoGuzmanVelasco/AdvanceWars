@@ -44,9 +44,9 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             return new MergeManeuver(battalion);
         }
         
-        public static IManeuver Recruit([NotNull] Spawner spawner, Unit unit)
+        public static IManeuver Recruit([NotNull] Spawner spawner, Unit unit, Treasury treasury)
         {
-            return new RecruitManeuver(spawner, unit);
+            return new RecruitManeuver(spawner, unit, treasury);
         }
         #endregion
 

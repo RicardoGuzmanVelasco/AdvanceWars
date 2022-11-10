@@ -10,7 +10,7 @@ namespace AdvanceWars.Tests.Builders
     {
         int siegePoints = 0;
         Nation owner = Nation.Stateless;
-        IEnumerable<UnitBuilder> units = new []{ new UnitBuilder()};
+        IEnumerable<UnitBuilder> units = new []{ Unit()};
         
         public static SpawnerBuilder Airfield() => new() { units = new List<UnitBuilder> { Unit().Of(Military.AirForce) }};
         public static SpawnerBuilder Barracks() => new() { units = new List<UnitBuilder> { Unit().Of(Military.Army) }};
