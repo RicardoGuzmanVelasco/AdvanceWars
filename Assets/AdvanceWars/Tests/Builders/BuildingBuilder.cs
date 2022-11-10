@@ -20,9 +20,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public BuildingBuilder WithOwner(string ownerId) => WithOwner(new Nation(ownerId));
+        public BuildingBuilder WithNation(string ownerId) => WithNation(new Nation(ownerId));
 
-        public BuildingBuilder WithOwner(Nation owner)
+        public BuildingBuilder WithNation(Nation owner)
         {
             this.owner = owner;
             return this;

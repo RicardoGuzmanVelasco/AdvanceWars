@@ -17,6 +17,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             public bool IsOccupied => Occupant is not INull;
             public bool HasGuest => Guest is not INull;
 
+            public bool FriendlyOccupant => IsOccupied && Terrain.IsAlly(Occupant);
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
             public IEnumerable<Unit> SpawnableUnits => Terrain.SpawnableUnits;
 
@@ -100,11 +101,13 @@ namespace AdvanceWars.Runtime.Domain.Map
 
             public void ReplenishOccupantAmmo()
             {
+                Require(Occupant.IsAlly(Terrain)).True();
                 Occupant.AmmoRounds += 2;
             }
 
             public void HealOccupant()
             {
+                Require(Occupant.IsAlly(Terrain)).True();
                 Terrain.Heal(Occupant);
             }
 

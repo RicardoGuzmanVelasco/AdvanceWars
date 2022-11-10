@@ -117,12 +117,12 @@ namespace AdvanceWars.Runtime.Domain.Orders
             foreach (var space in map.FriendlyTerrainSpaces(this))
             {
                 space.ReportIncome(Treasury);
-            }
-            
-            foreach (var space in map.SpaceOccupiedByAlly(this))
-            {
-                space.HealOccupant();
-                space.ReplenishOccupantAmmo();
+                
+                if (space.FriendlyOccupant)
+                {
+                    space.HealOccupant();
+                    space.ReplenishOccupantAmmo();
+                }
             }
         }
 

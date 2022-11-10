@@ -62,7 +62,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         public override void Heal(Battalion occupant)
         {
-            // TODO: (Precondition) Occupant must be an ally.
+            base.Heal(occupant);
             var newForces = occupant.Forces + NumberOfHealingForcesPerTurn;
             occupant.Forces = Math.Min(newForces, Battalion.MaxForces);
         }

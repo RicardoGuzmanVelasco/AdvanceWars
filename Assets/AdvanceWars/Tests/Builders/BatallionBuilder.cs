@@ -5,7 +5,7 @@ namespace AdvanceWars.Tests.Builders
 {
     internal class BattalionBuilder
     {
-        string nationId = "";
+        Nation nation = Nation.Stateless;
         int forces = 100;
         int ammoRounds = 10;
 
@@ -29,7 +29,13 @@ namespace AdvanceWars.Tests.Builders
 
         public BattalionBuilder WithNation(string id)
         {
-            nationId = id;
+            nation = new Nation(id);
+            return this;
+        }
+
+        public BattalionBuilder WithNation(Nation nation)
+        {
+            this.nation = nation;
             return this;
         }
 
@@ -92,10 +98,10 @@ namespace AdvanceWars.Tests.Builders
         {
             return new Battalion
             {
-                Motherland = nationId.Equals("") ? Nation.Stateless : new Nation(nationId),
                 Unit = fromUnit.Build(),
                 Forces = forces,
-                AmmoRounds = ammoRounds
+                AmmoRounds = ammoRounds,
+                Motherland = nation
             };
         }
     }

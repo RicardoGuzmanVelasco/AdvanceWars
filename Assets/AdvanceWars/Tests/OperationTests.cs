@@ -1,10 +1,13 @@
 ﻿using System.Linq;
 using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Troops;
+using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
+using static AdvanceWars.Tests.Builders.BuildingBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.MapBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
@@ -13,6 +16,9 @@ namespace AdvanceWars.Tests
 {
     public class OperationTests
     {
+        private Nation Ally => new Nation("Ally");
+        private Nation Enemy => new Nation("Enemy");
+
         [Test]
         public void FirstActiveCommandingOfficer_IsTheFirst()
         {
@@ -69,10 +75,10 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var sut = new Building(maxSiegePoints: 20);
+            var aNation = "aNation";
+            var sut = BuildingBuilder.Building().WithNation(aNation).WithPoints(20).Build();
             map.Put(new Vector2Int(0, 0), sut);
 
-            var aNation = "aNation";
             var battalion = Battalion().WithNation(aNation).WithForces(10).Build();
             map.Put(new Vector2Int(0, 0), battalion);
 
@@ -135,7 +141,34 @@ namespace AdvanceWars.Tests
 
             battalion.Forces.Should().Be(100);
         }
-        
+
+        [Test, Category("Regression")]
+        public void AllyBuilding_DoesNotHealEnemies()
+        {
+            var map = new Map(1, 1);
+            map.Put(Vector2Int.zero, Building().WithNation(Ally).Build());
+            var enemyBattalion = Battalion().WithForces(1).WithNation(Enemy).Build();
+            map.Put(Vector2Int.zero, enemyBattalion);
+            var sut = CommandingOfficer().WithNation(Ally).WithMap(map).Build();
+            
+            sut.BeginTurn();
+
+            enemyBattalion.Forces.Should().Be(1);
+        }
+
+        [Test, Category("Regression")]
+        public void AllyBuilding_DoesNotReplenishEnemyAmmo()
+        {
+            var map = new Map(1, 1);
+            map.Put(Vector2Int.zero, Building().WithNation(Ally).Build());
+            var enemyBattalion = Battalion().WithAmmo(1).WithNation(Enemy).Build();
+            map.Put(Vector2Int.zero, enemyBattalion);
+            var sut = CommandingOfficer().WithNation(Ally).WithMap(map).Build();
+            
+            sut.BeginTurn();
+
+            enemyBattalion.AmmoRounds.Should().Be(1);
+        }
         [Test]
         public void NonBuildingInSpace_DoesNotHealBattalion_OnNewTurnBeginning()
         {
@@ -166,10 +199,12 @@ namespace AdvanceWars.Tests
         {
             var map = Map().Of(1,1).Build();
 
-            var building = new Building(maxSiegePoints: 20);
+            var aNation = "aNation";
+
+            var building = BuildingBuilder.Building().WithNation(aNation).WithPoints(20).Build();
+            
             map.Put(new Vector2Int(0, 0), building);
             
-            var aNation = "aNation";
             var battalion = Battalion().WithNation(aNation).WithAmmo(5).Build();
             map.Put(new Vector2Int(0, 0), battalion);
 

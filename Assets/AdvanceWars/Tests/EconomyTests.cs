@@ -50,7 +50,7 @@ namespace AdvanceWars.Tests
         public void IncomeFromAllyBuilding()
         {
             var map = new Map(1, 1);
-            map.Put(Vector2Int.zero, Building().WithIncome(1000).WithOwner(SomeNation).Build());
+            map.Put(Vector2Int.zero, Building().WithIncome(1000).WithNation(SomeNation).Build());
             var sut = CommandingOfficer().WithNation(SomeNation).WithMap(map).Build();
 
             sut.BeginTurn();

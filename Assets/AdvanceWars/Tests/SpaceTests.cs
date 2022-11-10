@@ -60,7 +60,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map.Space
             {
-                Terrain = Building().WithOwner("A").Build()
+                Terrain = Building().WithNation("A").Build()
             };
             sut.Occupy(Battalion().WithNation("notA").Build());
 
@@ -72,7 +72,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map.Space
             {
-                Terrain = Building().WithOwner(Nation.Stateless).Build()
+                Terrain = Building().WithNation(Nation.Stateless).Build()
             };
 
             sut.Occupy(Battalion().Build());
@@ -85,7 +85,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map.Space
             {
-                Terrain = Building().WithOwner("A").Build()
+                Terrain = Building().WithNation("A").Build()
             };
             sut.Occupy(Battalion().WithNation("A").Build());
 
