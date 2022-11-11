@@ -17,7 +17,7 @@ Duración:
 - [X] Spawnear un batallon gasta dinero.
 - [X] Merge de batallones da WarFunds
 - [X] Refactor. No pasar por parametro el treasury
-- [ ] La situacion tiene que tener una allegiance.
+- [X] La situacion tiene que tener una allegiance.
 
 ### Conclusiones
 

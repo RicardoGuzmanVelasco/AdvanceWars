@@ -10,7 +10,6 @@ namespace AdvanceWars.Tests.Builders
     internal class CommandingOfficerBuilder
     {
         SituationBuilder situation = Situation();
-        Nation nation;
 
         #region ObjectMothers
         public static CommandingOfficerBuilder CommandingOfficer() => new CommandingOfficerBuilder();
@@ -26,9 +25,9 @@ namespace AdvanceWars.Tests.Builders
         }
         #endregion
 
-        public CommandingOfficerBuilder Of(Nation motherland)
+        public CommandingOfficerBuilder WithNation(Nation motherland)
         {
-            nation = motherland;
+            situation.WithNation(motherland);
 
             return this;
         }
@@ -54,21 +53,14 @@ namespace AdvanceWars.Tests.Builders
 
         public CommandingOfficerBuilder WithNation(string nation)
         {
-            this.nation = new Nation(nation);
-
-            return this;
-        }
-        
-        public CommandingOfficerBuilder WithNation(Nation nation)
-        {
-            this.nation = nation;
+            situation.WithNation(nation);
 
             return this;
         }
 
         public CommandingOfficer Build()
         {
-            return new CommandingOfficer(from: nation, situation.Build());
+            return new CommandingOfficer(situation.Build());
         }
     }
 }

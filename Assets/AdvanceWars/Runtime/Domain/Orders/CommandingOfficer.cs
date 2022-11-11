@@ -9,20 +9,21 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Orders
 {
-    public class CommandingOfficer : Allegiance
+    public class CommandingOfficer 
     {
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
-        Situation situation;
+        readonly Situation situation;
         
-        public CommandingOfficer(Nation from, Situation situation)
+        public CommandingOfficer(Situation situation)
         {
-            this.Motherland = from;
             this.situation = situation;
         }
 
+        public Nation Motherland => situation.Motherland;
+
         public IEnumerable<Tactic> AvailableTacticsAt([NotNull] Space space)
         {
-            Require(space.Something(this)).True();
+            Require(space.ExclusivePresenceOfAlliesTo(situation)).True();
 
             if (space.IsOccupied)
             {
@@ -51,7 +52,7 @@ namespace AdvanceWars.Runtime.Domain.Orders
 
         public void Order(IManeuver maneuver)
         {
-            Require(maneuver.Performer.IsAlly(this)).True();
+            Require(maneuver.Performer.IsAlly(situation)).True();
 
             maneuver.Apply(situation);
             executedThisTurn.Add(maneuver);
@@ -112,12 +113,12 @@ namespace AdvanceWars.Runtime.Domain.Orders
             executedThisTurn.Clear();
             
             //maniobras automáticas. Sacar el clear al EndTurn.
-            situation.ManageLogistics(this);
+            situation.ManageLogistics();
         }
 
         public override string ToString()
         {
-            return $"from {Motherland}";
+            return $"from {situation.Motherland}";
         }
     }
 }
