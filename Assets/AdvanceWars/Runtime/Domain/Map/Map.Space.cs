@@ -105,10 +105,10 @@ namespace AdvanceWars.Runtime.Domain.Map
                 Occupant.AmmoRounds += 2;
             }
 
-            public void HealOccupant()
+            public void HealOccupant(Treasury treasury)
             {
                 Require(Occupant.IsAlly(Terrain)).True();
-                Terrain.Heal(Occupant);
+                Terrain.Heal(Occupant, treasury);
             }
 
             public void SpawnHere(Unit ofUnit)

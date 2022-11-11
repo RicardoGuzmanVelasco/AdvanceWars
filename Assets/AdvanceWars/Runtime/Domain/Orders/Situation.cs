@@ -39,7 +39,7 @@ namespace AdvanceWars.Runtime.Domain.Orders
                 
                 if (space.FriendlyOccupant)
                 {
-                    space.HealOccupant();
+                    space.HealOccupant(Treasury);
                     space.ReplenishOccupantAmmo();
                 }
             }

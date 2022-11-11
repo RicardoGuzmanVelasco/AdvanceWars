@@ -1,5 +1,6 @@
 ﻿using System;
 using AdvanceWars.Runtime.Domain.Troops;
+using UnityEngine;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Map
@@ -60,10 +61,28 @@ namespace AdvanceWars.Runtime.Domain.Map
             return !IsAlly(besieger);
         }
 
-        public override void Heal(Battalion occupant)
+        public override void Heal(Battalion patient, Treasury treasury)
         {
-            base.Heal(occupant);
-            occupant.Heal(ReinforcesPerTurn);
+            Require(ReinforcesToProvide(patient) > 0).True();
+
+            if (patient.PricePerSoldier == 0)
+            {
+                patient.Heal(ReinforcesToProvide(patient));
+            }
+            
+            var reinforcesCost = patient.PricePerSoldier * ReinforcesToProvide(patient);
+            var affordablePrice = reinforcesCost <= treasury.WarFunds ? reinforcesCost : treasury.WarFunds;
+            
+            if (affordablePrice > 0)
+            {
+                treasury.Spend(affordablePrice);
+                patient.Heal(affordablePrice / patient.PricePerSoldier);
+            }
+        }
+
+        int ReinforcesToProvide(Battalion patient)
+        {
+            return Mathf.Clamp(Battalion.MaxForces - patient.Forces, 0, ReinforcesPerTurn);
         }
     }
 }

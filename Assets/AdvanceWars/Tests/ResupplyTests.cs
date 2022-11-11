@@ -99,16 +99,33 @@ namespace AdvanceWars.Tests
         [Test]
         public void AllyBuilding_ReplenishAllyAmmo()
         {
-            var map = Map().Of(1,1).Build();
-            var building = BuildingBuilder.Building().WithNation(SomeNation).Build();
-            map.Put(new Vector2Int(0, 0), building);
             var battalion = Battalion().WithNation(SomeNation).WithAmmo(5).Build();
-            map.Put(new Vector2Int(0, 0), battalion);
-            var sut = CommandingOfficer().WithMap(map).WithNation(SomeNation).Build();
+            var sut = new Map.Space()
+            {
+                Terrain = Building().WithNation(SomeNation).Build()
+            };
+            sut.Occupy(battalion);
 
-            sut.BeginTurn();
+            sut.ReplenishOccupantAmmo();
 
             battalion.AmmoRounds.Should().Be(7);
+        }
+        
+        
+        [Test]
+        public void AllyBuilding_HealsPartially_WhenNotEnoughFunds()
+        {
+            var map = Map().Of(1,1).Build();
+            var building = Building().WithNation(SomeNation).WithIncome(0).Build();
+            map.Put(new Vector2Int(0, 0), building);
+            var battalion = Battalion().WithNation(SomeNation).WithForces(85).WithPrice(1000).Build();
+            map.Put(new Vector2Int(0, 0), battalion);
+            var sut = SituationBuilder.Situation().WithMap(map).WithNation(SomeNation).WithWarFunds(100).Build();
+
+            sut.ManageLogistics();
+
+            battalion.Forces.Should().Be(95);
+            sut.WarFunds.Should().Be(0);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             return false;
         }
 
-        public virtual void Heal(Battalion occupant)
+        public virtual void Heal(Battalion patient, Treasury treasury)
         {
         }
 
