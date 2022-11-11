@@ -18,6 +18,8 @@ Duración:
 - [X] Merge de batallones da WarFunds
 - [X] Refactor. No pasar por parametro el treasury
 - [X] La situacion tiene que tener una allegiance.
+- [ ] Mover la responsabilidad de la cura de la situacion a los terrains y spaces.
+- [ ] Test se cura cuando se llama al final del turno. (Haria falta? No se si aporta mucho teniendo en cuenta que sabemos que cuando se acaba un turno se hace begin en el commanding officer, por las maniobras)
 - [ ] Reparar cuesta dinero.
 
 ### Conclusiones
