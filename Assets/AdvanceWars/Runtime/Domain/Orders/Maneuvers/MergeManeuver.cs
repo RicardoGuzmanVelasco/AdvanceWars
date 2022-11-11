@@ -26,12 +26,10 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
         void RecoupFunds(Battalion battalion)
         {
-            //(Unit Price / 10) x (PlatoonsA + PlatoonsB - 10)
-            //Ex: Infantry 9 Platoons Join 9 Platoons.  (price 1000) : 1000 / 10 x (9 + 9 - 10) = 800
-            int extraPlatoons = Performer.Platoons + battalion.Platoons - Battalion.MaxPlatoons;
-            if (extraPlatoons > 0)
+            var extraForces = Performer.Forces + battalion.Forces - Battalion.MaxForces;
+            if (extraForces > 0)
             {
-                treasury.Earn(extraPlatoons * battalion.Price / 10);
+                treasury.Earn(extraForces * battalion.PricePerSoldier);
             }
         }
     }

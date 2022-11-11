@@ -114,7 +114,7 @@ namespace AdvanceWars.Tests
         }
         
         [Test]
-        public void MergeManeuver_WhenPlatoonsOverflow()
+        public void MergeManeuver_WhenForcesOverflow()
         {
             var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(95).WithPrice(1000).Build();
             var anotherDamagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(90).WithPrice(1000).Build();
@@ -129,7 +129,7 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(100);
             map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
-            treasury.WarFunds.Should().Be(800); //(Unit Price / 10) x (PlatoonsA + PlatoonsB - 10)
+            treasury.WarFunds.Should().Be(850); //Price Per Soldier x (ForcesA + ForcesB - MaxForces)
         }
         
     }
