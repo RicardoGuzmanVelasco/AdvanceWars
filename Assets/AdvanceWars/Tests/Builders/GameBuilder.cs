@@ -77,7 +77,7 @@ namespace AdvanceWars.Tests.Builders
             {
                 var allegiance = new Nation(n);
                 players.Add(allegiance, new Player { Id = n });
-                officers.Add(CommandingOfficerBuilder.CommandingOfficer().Of(allegiance).Build());
+                officers.Add(CommandingOfficerBuilder.CommandingOfficer().WithNation(allegiance).Build());
             }
 
             var game = cursorToInject is null

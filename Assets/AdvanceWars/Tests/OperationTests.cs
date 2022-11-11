@@ -74,6 +74,7 @@ namespace AdvanceWars.Tests
             sut.Day.Should().Be(2);
         }
         
+        //Reescribir? Al final estamos probando que el inicio del turno funcione.
         [Test]
         public void AllyBuilding_HealsTwentyForcesToBattalion_OnNewTurnBeginning()
         {
@@ -97,6 +98,7 @@ namespace AdvanceWars.Tests
             battalion.Forces.Should().Be(30);
         }
         
+        //Idem
         [Test]
         public void NonAllyBuilding_DoesNotHealBattalion_OnNewTurnBeginning()
         {

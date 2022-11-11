@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace AdvanceWars.Runtime.Domain.Orders
 {
-    public record Situation(Map.Map Map, Treasury Treasury)
+    public class Situation : Allegiance
     {
+        public Map.Map Map { private get; init; }
+        public Treasury Treasury { private get; init; }
+
         public int WarFunds => Treasury.WarFunds;
 
         public Map.Map.Space WhereIs(Battalion battalion) => Map.WhereIs(battalion);
@@ -28,9 +31,9 @@ namespace AdvanceWars.Runtime.Domain.Orders
             return Treasury.CanAfford(unit);
         }
 
-        public void ManageLogistics(Allegiance allegiance)
+        public void ManageLogistics()
         {
-            foreach (var space in FriendlyTerrainSpaces(allegiance))
+            foreach (var space in FriendlyTerrainSpaces(this))
             {
                 space.ReportIncome(Treasury);
                 

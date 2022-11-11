@@ -1,6 +1,7 @@
 ﻿using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
+using AdvanceWars.Runtime.Domain.Troops;
 
 namespace AdvanceWars.Tests.Builders
 {
@@ -8,6 +9,7 @@ namespace AdvanceWars.Tests.Builders
     {
         Treasury treasury = new Treasury(0);
         Map map = Map.Null;
+        Nation nation = Nation.Stateless;
         
         public static SituationBuilder Situation() => new SituationBuilder();
 
@@ -22,6 +24,18 @@ namespace AdvanceWars.Tests.Builders
             this.treasury = treasury;
             return this;
         }
+
+        public SituationBuilder WithNation(Nation nation)
+        {
+            this.nation = nation;
+            return this;
+        }
+        
+        public SituationBuilder WithNation(string nation)
+        {
+            this.nation = new Nation(nation);
+            return this;
+        }
         
         public SituationBuilder WithMap(Map map)
         {
@@ -32,7 +46,12 @@ namespace AdvanceWars.Tests.Builders
         
         public Situation Build()
         {
-            return new Situation(map, treasury);
+            return new Situation
+            {
+                Map = map,
+                Treasury = treasury,
+                Motherland = nation
+            };
         }
     }
 }

@@ -53,9 +53,9 @@ namespace AdvanceWars.Tests
         {
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, Building().WithIncome(1000).WithNation(SomeNation).Build());
-            var sut = Situation().WithWarFunds(0).WithMap(map).Build();
+            var sut = Situation().WithWarFunds(0).WithMap(map).WithNation(SomeNation).Build();
 
-            sut.ManageLogistics(Building().WithIncome(1000).WithNation(SomeNation).Build());
+            sut.ManageLogistics();
 
             sut.WarFunds.Should().Be(1000);
         }
@@ -66,9 +66,9 @@ namespace AdvanceWars.Tests
             var map = new Map(1, 2);
             map.Put(Vector2Int.zero, Building().WithIncome(1500).WithNation(SomeNation).Build());
             map.Put(Vector2Int.up, Building().WithIncome(1000).WithNation(SomeNation).Build());
-            var sut = Situation().WithMap(map).WithWarFunds(0).Build();
+            var sut = Situation().WithMap(map).WithWarFunds(0).WithNation(SomeNation).Build();
 
-            sut.ManageLogistics(Building().WithIncome(1000).WithNation(SomeNation).Build());
+            sut.ManageLogistics();
 
             sut.WarFunds.Should().Be(2500);
         }
