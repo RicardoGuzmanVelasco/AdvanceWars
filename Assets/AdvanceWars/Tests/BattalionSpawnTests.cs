@@ -89,7 +89,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void RecruitingUsesWarFunds()
         {
-            var unit = Unit().WithPrice(1000);
+            var unit = Unit().With(1000);
             var spawner = Spawner().WithOwner(SomeNation).WithUnits(unit).Build();
             var map = new Map(1,1);
             map.Put(Vector2Int.zero, spawner);
@@ -117,7 +117,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void RecruitTacticNotAvailable_WhenCanNotAfford()
         {
-            var unit = Unit().WithPrice(1000);
+            var unit = Unit().With(1000);
             var spawner = Spawner().WithOwner(SomeNation).WithUnits(unit).Build();
             var map = new Map(1,1);
             map.Put(Vector2Int.zero, spawner);

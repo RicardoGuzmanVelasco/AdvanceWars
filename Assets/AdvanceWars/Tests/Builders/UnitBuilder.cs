@@ -38,7 +38,7 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public UnitBuilder WithPrice(Price price)
+        public UnitBuilder With(Price price)
         {
             this.price = price;
             return this;

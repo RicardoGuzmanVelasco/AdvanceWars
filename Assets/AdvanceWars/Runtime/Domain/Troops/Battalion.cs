@@ -8,6 +8,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
     {
         public const int MaxForces = 100;
         private const int PlatoonSize = 10;
+        public const int MaxPlatoons = MaxForces / PlatoonSize;
 
         public Unit Unit { private get; init; } = Unit.Null;
 
@@ -31,7 +32,8 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public RangeOfFire RangeOfFire => Unit.RangeOfFire;
         public bool Damaged => Forces < MaxForces;
         public int AmmoRounds { get; set; }
-
+        public Price Price => Unit.Price;
+        
         public int BaseDamageTo(Armor other)
         {
             return Unit.BaseDamageTo(other);

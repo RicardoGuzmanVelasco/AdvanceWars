@@ -15,6 +15,7 @@ Duración:
     - [X] Movida responsabilidad de curarse al batallón al clampeo
 - [X] Ganar dinero por edificios.
 - [X] Spawnear un batallon gasta dinero.
+- [ ] Merge de batallones da WarFunds 
 
 ### Conclusiones
 

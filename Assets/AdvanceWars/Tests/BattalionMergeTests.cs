@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
@@ -93,19 +94,42 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
-        public void MergeManeuver()
+        public void MergeManeuver_WhenTotalPlatoonsLessThanMax()
         {
             var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(3).WithMoveRate(1).Build();
-            var anAllyBattalion = Battalion().WithNation("sameNation").WithForces(4).WithMoveRate(1).Build();
+            var anotherDamagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(4).WithMoveRate(1).Build();
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, damagedAllyBattalion);
-            map.SpaceAt(Vector2Int.zero).StopBy(anAllyBattalion);
-            var sut = Maneuver.Merge(anAllyBattalion);
+            map.SpaceAt(Vector2Int.zero).StopBy(anotherDamagedAllyBattalion);
+            var treasury = new Treasury();
+            var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
+            
             sut.Apply(map);
 
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(7);
             map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
+            treasury.WarFunds.Should().Be(0);
         }
+        
+        [Test]
+        public void MergeManeuver_WhenPlatoonsOverflow()
+        {
+            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(95).WithPrice(1000).Build();
+            var anotherDamagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(90).WithPrice(1000).Build();
+            var map = new Map(1, 1);
+            map.Put(Vector2Int.zero, damagedAllyBattalion);
+            map.SpaceAt(Vector2Int.zero).StopBy(anotherDamagedAllyBattalion);
+            var treasury = new Treasury(0);
+            var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
+            
+            sut.Apply(map);
+
+            using var _ = new AssertionScope();
+            map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(100);
+            map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
+            treasury.WarFunds.Should().Be(800); //(Unit Price / 10) x (PlatoonsA + PlatoonsB - 10)
+        }
+        
     }
 }

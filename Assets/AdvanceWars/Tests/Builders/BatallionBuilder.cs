@@ -45,6 +45,12 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
+        public BattalionBuilder WithPrice(Price price)
+        {
+            fromUnit.With(price);
+            return this;
+            
+        }
         public BattalionBuilder WithArmor(string armorId)
         {
             fromUnit.With(new Armor(armorId));

@@ -39,9 +39,9 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             return new SiegeManeuver(battalion);
         }
 
-        public static IManeuver Merge([NotNull] Battalion battalion)
+        public static IManeuver Merge([NotNull] Battalion battalion, Treasury treasury)
         {
-            return new MergeManeuver(battalion);
+            return new MergeManeuver(battalion, treasury);
         }
         
         public static IManeuver Recruit([NotNull] Spawner spawner, Unit unit, Treasury treasury)
