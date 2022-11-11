@@ -18,11 +18,11 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             Treasury = treasury;
         }
 
-        public override void Apply(Map.Map map)
+        public override void Apply(Situation situation)
         {
             Require(Treasury.CanAfford(Unit));
 
-            var performerSpace = map.WhereIs(Performer);
+            var performerSpace = situation.WhereIs(Performer);
             var terrain = performerSpace!.Terrain;
             
             Require(terrain.SpawnableUnits.Contains(Unit)).True();

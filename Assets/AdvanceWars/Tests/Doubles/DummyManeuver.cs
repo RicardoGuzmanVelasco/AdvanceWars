@@ -10,6 +10,6 @@ namespace AdvanceWars.Tests.Doubles
         internal DummyManeuver(Tactic fromTactic, Battalion performer)
             : base(performer, fromTactic) { }
 
-        public override void Apply(Map map) { }
+        public override void Apply(Situation situation) { }
     }
 }

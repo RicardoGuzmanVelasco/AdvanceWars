@@ -8,7 +8,7 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         protected internal WaitManeuver([NotNull] Battalion performer)
             : base(performer, Tactic.Wait) { }
 
-        public override void Apply(Map.Map map)
+        public override void Apply(Situation situation)
         {
             //Wait maneuver is just to mark that battalion as non-usable this day.
         }

@@ -13,9 +13,9 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             this.treasury = treasury;
         }
 
-        public override void Apply(Map.Map map)
+        public override void Apply(Situation situation)
         {
-            var performerSpace = map.WhereIs(Performer);
+            var performerSpace = situation.WhereIs(Performer);
             var occupant = performerSpace.Occupant;
 
             RecoupFunds(occupant);

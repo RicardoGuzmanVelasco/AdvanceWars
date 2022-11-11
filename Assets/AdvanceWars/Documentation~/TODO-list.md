@@ -44,7 +44,6 @@
 - ¿Qué ocurre si se le pregunta IsAlly a un INull?.
 - ¿Qué pasa si se hace put del mismo batallón en dos coordenadas distintas del mapa?
 - Al spawnear un batallon le da inmediatamente la orden de wait. Eso puede crear problemas cuando se usen las maniobras para ir adelante y atrás y tal.
-
 ### Tests
 
 ### Features para hacer
@@ -72,3 +71,4 @@
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit.
 - Maniobras automáticas al inicio del turno de un CO:
+- Curar cuesta dinero

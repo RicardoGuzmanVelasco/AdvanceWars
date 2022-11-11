@@ -12,6 +12,7 @@ using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.MapBuilder;
+using static AdvanceWars.Tests.Builders.SituationBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
@@ -94,7 +95,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.zero, atk);
             map.Put(Vector2Int.up, Terrain().Build());
             map.Put(Vector2Int.up, def);
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             atk.Forces.Should().BeLessThan(AnyForces);
@@ -126,7 +127,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.up, Terrain().Build());
             map.Put(Vector2Int.up, def);
 
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             atk.Forces.Should().Be(AnyForces);
@@ -159,7 +160,7 @@ namespace AdvanceWars.Tests
             map.Put(Vector2Int.up, Terrain().Build());
             map.Put(Vector2Int.up, def);
 
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             atk.Forces.Should().Be(0);
@@ -176,7 +177,7 @@ namespace AdvanceWars.Tests
             var itinerary = new List<Map.Space> { map.SpaceAt(Vector2Int.up) };
 
             var sut = Maneuver.Move(battalion, itinerary);
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
@@ -197,7 +198,7 @@ namespace AdvanceWars.Tests
             };
 
             var sut = Maneuver.Move(battalion, itinerary);
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
@@ -258,7 +259,7 @@ namespace AdvanceWars.Tests
             
             var sut = Maneuver.Fire(performer, target);
             
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             performer.AmmoRounds.Should().Be(9);
             target.AmmoRounds.Should().Be(4);

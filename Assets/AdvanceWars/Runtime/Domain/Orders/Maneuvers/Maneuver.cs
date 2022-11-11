@@ -55,6 +55,6 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             return FromTactic.Equals(tactic);
         }
 
-        public abstract void Apply(Map.Map map);
+        public abstract void Apply(Situation situation);
     }
 }

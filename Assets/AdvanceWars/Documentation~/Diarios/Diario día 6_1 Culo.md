@@ -15,7 +15,9 @@ Duración:
     - [X] Movida responsabilidad de curarse al batallón al clampeo
 - [X] Ganar dinero por edificios.
 - [X] Spawnear un batallon gasta dinero.
-- [ ] Merge de batallones da WarFunds 
+- [X] Merge de batallones da WarFunds
+- [X] Refactor. No pasar por parametro el treasury
+- [ ] La situacion tiene que tener una allegiance.
 
 ### Conclusiones
 

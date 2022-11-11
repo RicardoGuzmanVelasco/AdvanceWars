@@ -3,14 +3,14 @@ using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
+using static AdvanceWars.Tests.Builders.SituationBuilder;
 
 namespace AdvanceWars.Tests.Builders
 {
     internal class CommandingOfficerBuilder
     {
-        Map map = Map.Null;
+        SituationBuilder situation = Situation();
         Nation nation;
-        Treasury treasury;
 
         #region ObjectMothers
         public static CommandingOfficerBuilder CommandingOfficer() => new CommandingOfficerBuilder();
@@ -35,19 +35,19 @@ namespace AdvanceWars.Tests.Builders
 
         public CommandingOfficerBuilder WithWarFunds(int amount)
         {
-            treasury = new Treasury(amount);
+            situation.WithWarFunds(amount);
             return this;
         }
         
         public CommandingOfficerBuilder WithTreasury(Treasury treasury)
         {
-            this.treasury = treasury;
+            situation.WithTreasury(treasury);
             return this;
         }
         
         public CommandingOfficerBuilder WithMap(Map map)
         {
-            this.map = map;
+            situation.WithMap(map);
 
             return this;
         }
@@ -68,7 +68,7 @@ namespace AdvanceWars.Tests.Builders
 
         public CommandingOfficer Build()
         {
-            return new CommandingOfficer(from: nation, map, new Treasury(0));
+            return new CommandingOfficer(from: nation, situation.Build());
         }
     }
 }

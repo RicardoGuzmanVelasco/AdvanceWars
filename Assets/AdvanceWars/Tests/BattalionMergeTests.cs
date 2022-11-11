@@ -9,6 +9,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BattalionBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using static AdvanceWars.Tests.Builders.SituationBuilder;
 using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
 
 namespace AdvanceWars.Tests
@@ -71,7 +72,7 @@ namespace AdvanceWars.Tests
             };
 
             var sut = Maneuver.Move(anAllyBattalion, itinerary);
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
@@ -104,7 +105,7 @@ namespace AdvanceWars.Tests
             var treasury = new Treasury();
             var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
             
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(7);
@@ -123,7 +124,7 @@ namespace AdvanceWars.Tests
             var treasury = new Treasury(0);
             var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
             
-            sut.Apply(map);
+            sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
             map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(100);

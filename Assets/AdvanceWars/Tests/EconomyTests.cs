@@ -1,5 +1,6 @@
 ﻿using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
+using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
 using FluentAssertions.Execution;
@@ -7,6 +8,7 @@ using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BuildingBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
+using static AdvanceWars.Tests.Builders.SituationBuilder;
 
 namespace AdvanceWars.Tests
 {
@@ -51,11 +53,11 @@ namespace AdvanceWars.Tests
         {
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, Building().WithIncome(1000).WithNation(SomeNation).Build());
-            var sut = CommandingOfficer().WithNation(SomeNation).WithMap(map).Build();
+            var sut = Situation().WithWarFunds(0).WithMap(map).Build();
 
-            sut.BeginTurn();
+            sut.ManageLogistics(Building().WithIncome(1000).WithNation(SomeNation).Build());
 
-            sut.Treasury.WarFunds.Should().Be(1000);
+            sut.WarFunds.Should().Be(1000);
         }
         
         [Test]
@@ -64,11 +66,11 @@ namespace AdvanceWars.Tests
             var map = new Map(1, 2);
             map.Put(Vector2Int.zero, Building().WithIncome(1500).WithNation(SomeNation).Build());
             map.Put(Vector2Int.up, Building().WithIncome(1000).WithNation(SomeNation).Build());
-            var sut = CommandingOfficer().WithNation(SomeNation).WithMap(map).Build();
+            var sut = Situation().WithMap(map).WithWarFunds(0).Build();
 
-            sut.BeginTurn();
+            sut.ManageLogistics(Building().WithIncome(1000).WithNation(SomeNation).Build());
 
-            sut.Treasury.WarFunds.Should().Be(2500);
+            sut.WarFunds.Should().Be(2500);
         }
         
     }

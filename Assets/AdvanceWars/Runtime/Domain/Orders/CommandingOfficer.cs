@@ -11,15 +11,13 @@ namespace AdvanceWars.Runtime.Domain.Orders
 {
     public class CommandingOfficer : Allegiance
     {
-        readonly Map.Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
-        public Treasury Treasury { get; }
+        Situation situation;
         
-        public CommandingOfficer(Nation from, Map.Map map, Treasury treasury)
+        public CommandingOfficer(Nation from, Situation situation)
         {
             this.Motherland = from;
-            this.map = map;
-            this.Treasury = treasury;
+            this.situation = situation;
         }
 
         public IEnumerable<Tactic> AvailableTacticsAt([NotNull] Space space)
@@ -55,11 +53,11 @@ namespace AdvanceWars.Runtime.Domain.Orders
         {
             Require(maneuver.Performer.IsAlly(this)).True();
 
-            maneuver.Apply(map);
+            maneuver.Apply(situation);
             executedThisTurn.Add(maneuver);
 
             if (maneuver.Is(Tactic.Recruit))
-                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Performer as Spawner)!.Occupant));
+                executedThisTurn.Add(Maneuver.Wait(situation.WhereIs(maneuver.Performer as Spawner)!.Occupant));
             
             if(maneuver.Is(Tactic.Fire))
                 executedThisTurn.Add(Maneuver.Wait(maneuver.Performer as Battalion));
@@ -67,7 +65,7 @@ namespace AdvanceWars.Runtime.Domain.Orders
 
         private IEnumerable<Tactic> AvailableSpawnerTacticsAt(Space space)
         {
-            if (space.SpawnableUnits.Any(x => Treasury.CanAfford(x)))
+            if (space.SpawnableUnits.Any(x => situation.CanAfford(x)))
             {
                 return new List<Tactic> {Tactic.Recruit}.Except(ExecutedThisTurn(space.Terrain));
             }
@@ -80,7 +78,7 @@ namespace AdvanceWars.Runtime.Domain.Orders
 
             List<Tactic> tactics = new List<Tactic>();
 
-            if (map.WhereIs(battalion)!.HasGuest)
+            if (situation.WhereIs(battalion)!.HasGuest)
             {
                 return new List<Tactic>
                 {
@@ -96,14 +94,14 @@ namespace AdvanceWars.Runtime.Domain.Orders
                 Tactic.Wait
             };
 
-            if (map.RangeOfMovement(battalion).Any())
+            if (situation.RangeOfMovement(battalion).Any())
                 tactics.Add(Tactic.Move);
 
-            if (map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
+            if (situation.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
                 && battalion.AmmoRounds > 0)
                 tactics.Add(Tactic.Fire);
 
-            if (map.WhereIs(battalion)!.IsBesiegable)
+            if (situation.WhereIs(battalion)!.IsBesiegable)
                 tactics.Add(Tactic.Siege);
             
             return tactics.Except(ExecutedThisTurn(space.Occupant));
@@ -112,18 +110,9 @@ namespace AdvanceWars.Runtime.Domain.Orders
         public void BeginTurn()
         {
             executedThisTurn.Clear();
+            
             //maniobras automáticas. Sacar el clear al EndTurn.
-
-            foreach (var space in map.FriendlyTerrainSpaces(this))
-            {
-                space.ReportIncome(Treasury);
-                
-                if (space.FriendlyOccupant)
-                {
-                    space.HealOccupant();
-                    space.ReplenishOccupantAmmo();
-                }
-            }
+            situation.ManageLogistics(this);
         }
 
         public override string ToString()

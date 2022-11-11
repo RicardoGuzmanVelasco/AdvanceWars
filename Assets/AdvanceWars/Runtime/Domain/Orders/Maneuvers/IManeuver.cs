@@ -7,6 +7,6 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         Allegiance Performer { get; }
         Tactic FromTactic { get; }
         bool Is(Tactic tactic);
-        void Apply(Map.Map map);
+        void Apply(Situation situation);
     }
 }
