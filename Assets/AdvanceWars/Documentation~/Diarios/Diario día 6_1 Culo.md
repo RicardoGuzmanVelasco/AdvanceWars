@@ -21,7 +21,7 @@ Duración:
 - [ ] Test se cura cuando se llama al final del turno en la operacion. (Haria falta? No se si aporta mucho teniendo en cuenta que sabemos que cuando se acaba un turno se hace begin en el commanding officer, por las maniobras)
 - [X] Reparar cuesta dinero.
 - [ ] Edificios que solo curan a unidades de una armada
-- [ ] Hacer que el dinero que se gana cuando se mergea sea por fuerzas, no por platoons. Para unificar con el coste de reparacion. Es un poco lio el dominio y que sea justo
+- [X] Hacer que el dinero que se gana cuando se mergea sea por fuerzas, no por platoons. Para unificar con el coste de reparacion. Es un poco lio el dominio y que sea justo
 
 ### Conclusiones
 
