@@ -33,6 +33,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public bool Damaged => Forces < MaxForces;
         public int AmmoRounds { get; set; }
         public Price Price => Unit.Price;
+        public Military ServiceBranch => Unit.ServiceBranch;
         public Price PricePerSoldier => Unit.Price / MaxForces;
         public int BaseDamageTo(Armor other)
         {

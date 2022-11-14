@@ -16,7 +16,7 @@ namespace AdvanceWars.Tests
         public void SiegeTacticIsAvailable_WhenBuildingIsBesiegableByBattalion()
         {
             var battalion = Battalion().WithNation("ally").Build();
-            var building = new Building(maxSiegePoints: 20, owner: new Nation("enemy"));
+            var building = new Building(maxSiegePoints: 20, motherland: new Nation("enemy"));
 
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, building);
@@ -32,7 +32,7 @@ namespace AdvanceWars.Tests
         public void SiegeTacticIsNotAvailable_WhenBuildingIsNotBesiegableByBattalion()
         {
             var battalion = Battalion().WithNation("sameNation").Build();
-            var building = new Building(maxSiegePoints: 0, owner: new Nation("sameNation"));
+            var building = new Building(maxSiegePoints: 0, motherland: new Nation("sameNation"));
 
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, building);
@@ -48,7 +48,7 @@ namespace AdvanceWars.Tests
         public void SiegeManeuverIsApplied()
         {
             var battalion = Battalion().WithNation("ally").WithPlatoons(1).Build();
-            var building = new Building(maxSiegePoints: 20, owner: new Nation("enemy"));
+            var building = new Building(maxSiegePoints: 20, motherland: new Nation("enemy"));
 
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, building);

@@ -107,7 +107,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 
             public void HealOccupant(Treasury treasury)
             {
-                Require(Occupant.IsAlly(Terrain)).True();
+                Require(CanHealOccupant(treasury)).True();
                 Terrain.Heal(Occupant, treasury);
             }
 
@@ -117,6 +117,11 @@ namespace AdvanceWars.Runtime.Domain.Map
             }
 
             public void ReportIncome([NotNull]Treasury treasury) => Terrain.ReportIncome(treasury);
+
+            public bool CanHealOccupant(Treasury treasury)
+            {
+                return Terrain.CanHeal(Occupant, treasury);
+            }
         }
     }
 }

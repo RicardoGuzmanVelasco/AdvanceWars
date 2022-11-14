@@ -7,23 +7,24 @@ namespace AdvanceWars.Runtime.Domain.Map
 {
     public partial class Building : Terrain
     {
-        private const int ReinforcesPerTurn = 20;
+        const int ReinforcesPerTurn = 20;
 
         readonly int maxSiegePoints;
         readonly int income;
+        readonly Military owner;
         
         public override int Income => income;
 
-        public Building(int maxSiegePoints, Nation owner) : this(maxSiegePoints)
+        public Building(int maxSiegePoints, Nation motherland) : this(maxSiegePoints)
         {
-            Motherland = owner;
+            Motherland = motherland;
         }
-        public Building(int maxSiegePoints, Nation owner, int income) : this(maxSiegePoints, owner)
+        public Building(int maxSiegePoints, Nation motherland, int income, Military owner) : this(maxSiegePoints, motherland)
         {
             this.income = income;
+            this.owner = owner;
         }
         
-
         public Building(int maxSiegePoints)
         {
             this.maxSiegePoints = SiegePoints = maxSiegePoints;
@@ -61,28 +62,34 @@ namespace AdvanceWars.Runtime.Domain.Map
             return !IsAlly(besieger);
         }
 
+        public override bool CanHeal(Battalion patient, Treasury treasury)
+        {
+            return patient.ServiceBranch.Equals(owner) && ReinforcesAmount(patient, treasury) > 0 && patient.IsAlly(this);
+        }
+        
         public override void Heal(Battalion patient, Treasury treasury)
         {
-            Require(ReinforcesToProvide(patient) > 0).True();
+            Require(CanHeal(patient, treasury)).True();
 
-            if (patient.PricePerSoldier == 0)
+            var reinforcesAmount = ReinforcesAmount(patient, treasury);
+            patient.Heal(reinforcesAmount);
+
+            var repairPrice = reinforcesAmount * patient.PricePerSoldier;
+            if (repairPrice > 0)
             {
-                patient.Heal(ReinforcesToProvide(patient));
-            }
-            
-            var reinforcesCost = patient.PricePerSoldier * ReinforcesToProvide(patient);
-            var affordablePrice = reinforcesCost <= treasury.WarFunds ? reinforcesCost : treasury.WarFunds;
-            
-            if (affordablePrice > 0)
-            {
-                treasury.Spend(affordablePrice);
-                patient.Heal(affordablePrice / patient.PricePerSoldier);
+                treasury.Spend(repairPrice);
             }
         }
 
-        int ReinforcesToProvide(Battalion patient)
+        int ReinforcesAmount(Battalion patient, Treasury treasury)
         {
-            return Mathf.Clamp(Battalion.MaxForces - patient.Forces, 0, ReinforcesPerTurn);
+            var idealReinforcesAmount = Mathf.Clamp(Battalion.MaxForces - patient.Forces, 0, ReinforcesPerTurn);
+            var reinforcesCost = patient.PricePerSoldier * idealReinforcesAmount;
+            var repairBudget = reinforcesCost < treasury.WarFunds ? reinforcesCost : treasury.WarFunds;
+            
+            return patient.PricePerSoldier > 0
+                ? repairBudget / patient.PricePerSoldier
+                : idealReinforcesAmount;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void EnemyBuildingReceiveSiegeDamage()
         {
-            var sut = new Building(maxSiegePoints: 20, owner: new Nation("Enemy"));
+            var sut = new Building(maxSiegePoints: 20, motherland: new Nation("Enemy"));
             var battalion = Battalion().WithNation("Ally").WithPlatoons(1).Build();
 
             var result = sut.SiegeOutcome(besieger: battalion);

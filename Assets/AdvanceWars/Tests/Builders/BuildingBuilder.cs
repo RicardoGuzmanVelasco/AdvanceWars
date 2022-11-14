@@ -7,7 +7,11 @@ namespace AdvanceWars.Tests.Builders
     {
         int siegePoints = 0;
         Nation owner = Nation.Stateless;
-        private int income;
+        int income;
+        Military serviceBranch;
+
+        public static BuildingBuilder Airfield() => Building().WithServiceBranch(Military.AirForce);
+        public static BuildingBuilder Barracks() => Building().WithServiceBranch(Military.Army);
 
         public static BuildingBuilder Building()
         {
@@ -34,9 +38,16 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
         
+        public BuildingBuilder WithServiceBranch(Military military)
+        {
+            this.serviceBranch = military;
+            return this;
+        }
+        
         public Building Build()
         {
-            return new Building(siegePoints, owner, income);
+            return new Building(siegePoints, owner, income, serviceBranch);
         }
+        
     }
 }

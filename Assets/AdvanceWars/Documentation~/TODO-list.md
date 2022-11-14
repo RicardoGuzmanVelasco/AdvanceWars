@@ -9,6 +9,8 @@
 - Eliminar el Invitado en el contexto del Merge.
 - Maniobras que llaman a otras maniobras (en vez de llamadas con casteos desde el commanding officer)
 - Los buildings crean un Building como siege result. Ha hecho falta duplicar los constructores para que eso no de problemas
+- Las maniobras automaticas de cura, recuperacion... No son maniobras ahora mismo.
+- Crear clase de tipo de building y usarla como modelo.
 
 ### Docs
 
@@ -55,10 +57,7 @@
   - Concepto de visibilidad en las unidades.
   - Emboscadas.
 - Unidades de una cierta Armada solo pueden ser curados en Edificios de dicha Armada.
-- Sistema de economía.
-  - Ganar dinero por edificios.
-  - Gastar dinero en spawnear batallones.
-- Combustible/munición.
+- Combustible.
 - Ataques de artillería.
   - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
@@ -70,5 +69,5 @@
 - Bandos para 2 vs 2.
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit.
-- Maniobras automáticas al inicio del turno de un CO:
-- Curar cuesta dinero
+- Maniobras automáticas al inicio del turno de un CO.
+- Armas secundarias

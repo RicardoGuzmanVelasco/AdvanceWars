@@ -23,7 +23,7 @@ namespace AdvanceWars.Tests
         private Nation SomeNation => new Nation("A");
         private int SomeForces => 50;
 
-        [Test, Category("Regression")]
+        [Test]
         public void AllyBuilding_DoesNotHealEnemies_OnNewTurnBeginning()
         {
             var map = new Map(1, 1);
@@ -37,7 +37,7 @@ namespace AdvanceWars.Tests
             enemyBattalion.Forces.Should().Be(1);
         }
 
-        [Test, Category("Regression")]
+        [Test]
         public void AllyBuilding_DoesNotReplenishEnemyAmmo_OnNewTurnBeginning()
         {
             var map = new Map(1, 1);
@@ -52,12 +52,12 @@ namespace AdvanceWars.Tests
         }
         
         [Test]
-        public void AllyBuilding_HealsBattalion_OnNewTurnBeginning()
+        public void AllyBuilding_HealsBattalionFromSameMilitary()
         {
             var map = Map().Of(1,1).Build();
-            var building = Building().WithNation(SomeNation).Build();
+            var building = Barracks().WithNation(SomeNation).Build();
             map.Put(new Vector2Int(0, 0), building);
-            var battalion = Battalion().WithNation(SomeNation).WithForces(10).Build();
+            var battalion = Infantry().WithNation(SomeNation).WithForces(10).Build();
             map.Put(new Vector2Int(0, 0), battalion);
             var sut = CommandingOfficer().WithMap(map).WithNation(SomeNation).Build();
             
@@ -116,7 +116,7 @@ namespace AdvanceWars.Tests
         public void AllyBuilding_HealsPartially_WhenNotEnoughFunds()
         {
             var map = Map().Of(1,1).Build();
-            var building = Building().WithNation(SomeNation).WithIncome(0).Build();
+            var building = Building().WithNation(SomeNation).Build();
             map.Put(new Vector2Int(0, 0), building);
             var battalion = Battalion().WithNation(SomeNation).WithForces(85).WithPrice(1000).Build();
             map.Put(new Vector2Int(0, 0), battalion);
@@ -126,6 +126,21 @@ namespace AdvanceWars.Tests
 
             battalion.Forces.Should().Be(95);
             sut.WarFunds.Should().Be(0);
+        }
+
+        [Test]
+        public void BuildingDoesNotHeal_OtherMilitaryBattalions()
+        {
+            var map = Map().Of(1,1).Build();
+            var building = Airfield().WithNation(SomeNation).Build();
+            map.Put(new Vector2Int(0, 0), building);
+            var battalion = Infantry().WithNation(SomeNation).WithForces(10).Build();
+            map.Put(new Vector2Int(0, 0), battalion);
+            var sut = SituationBuilder.Situation().WithMap(map).WithNation(SomeNation).Build();
+
+            sut.ManageLogistics();
+
+            battalion.Forces.Should().Be(10);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AdvanceWars.Tests.Builders
 
         #region ObjectMothers
         public static BattalionBuilder Battalion() => new();
-        public static BattalionBuilder Infantry() => new() { fromUnit = Unit().WithMobility(3) };
+        public static BattalionBuilder Infantry() => new() { fromUnit = Unit().WithMobility(3).Of(Military.Army) };
         public static BattalionBuilder AerialUnit() => new() { fromUnit = Unit().Of(Military.AirForce) };
         #endregion
 
