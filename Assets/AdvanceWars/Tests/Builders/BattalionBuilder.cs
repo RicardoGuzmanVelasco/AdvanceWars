@@ -8,7 +8,7 @@ namespace AdvanceWars.Tests.Builders
         Nation nation = Nation.Stateless;
         int forces = 100;
         int ammoRounds = 10;
-
+        
         UnitBuilder fromUnit = Unit();
 
         #region ObjectMothers
@@ -81,9 +81,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public BattalionBuilder WithWeapon(Weapon weapon)
+        public BattalionBuilder WithPrimaryWeapon(Weapon weapon)
         {
-            fromUnit.With(weapon);
+            fromUnit.WithPrimaryWeapon(weapon);
             return this;
         }
 
@@ -96,6 +96,12 @@ namespace AdvanceWars.Tests.Builders
         public BattalionBuilder WithAmmo(int rounds)
         {
             ammoRounds = rounds;
+            return this;
+        }
+        
+        public BattalionBuilder WithSecondaryWeapon(Weapon secondaryWeapon)
+        {
+            fromUnit.WithSecondaryWeapon(secondaryWeapon);
             return this;
         }
         #endregion

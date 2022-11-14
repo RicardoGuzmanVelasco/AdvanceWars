@@ -1,7 +1,8 @@
 ﻿### Refactor
 
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
-  - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
+  - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
+  - Tambien la vida, la municion...
 - Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
@@ -70,4 +71,3 @@
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit.
 - Maniobras automáticas al inicio del turno de un CO.
-- Armas secundarias

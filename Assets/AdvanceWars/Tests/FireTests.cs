@@ -117,7 +117,7 @@ namespace AdvanceWars.Tests
         public void BaseDamage_ObtainedFromWeapon()
         {
             var sut = Battalion()
-                .WithWeapon
+                .WithPrimaryWeapon
                     (Weapon().WithDamage(new Armor(), 10).Build())
                 .Build();
 
@@ -131,7 +131,7 @@ namespace AdvanceWars.Tests
             var weapon = Weapon().WithDamage(new Armor(), 100).Build();
             var sut = new Offensive
             (
-                attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
+                attacker: Battalion().WithPrimaryWeapon(weapon).WithForces(100).Build(),
                 defender: Battalion().WithForces(50).Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
@@ -145,7 +145,7 @@ namespace AdvanceWars.Tests
 
             var sut = new Offensive
             (
-                attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
+                attacker: Battalion().WithPrimaryWeapon(weapon).WithForces(100).Build(),
                 defender: Battalion().WithForces(50).WithArmor("SameArmor").Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
@@ -160,7 +160,7 @@ namespace AdvanceWars.Tests
             var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
             var sut = new Offensive
             (
-                attacker: Battalion().WithWeapon(weapon).WithForces(100).Build(),
+                attacker: Battalion().WithPrimaryWeapon(weapon).WithForces(100).Build(),
                 defender: defender.Build(),
                 battlefield: Terrain().WithDefense(1).Build()
             );
@@ -172,7 +172,7 @@ namespace AdvanceWars.Tests
         {
             var atk = TheaterOps().Who
             (
-                Battalion().WithWeapon
+                Battalion().WithPrimaryWeapon
                 (
                     Weapon().Build()
                 ).Build()
@@ -248,6 +248,65 @@ namespace AdvanceWars.Tests
         {
             var sut = new Offensive(Battalion.Null, Battalion.Null);
             sut.Outcome().Should().BeEquivalentTo(Battalion.Null);
+        }
+
+        [Test]
+        public void NoDamage_WhenNoSuitableWeapon()
+        {
+            var weapon = Weapon().WithDamage(new Armor("SomeArmor"), 100).Build();
+            var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
+            var sut = new Offensive
+            (
+                attacker: Battalion().WithPrimaryWeapon(weapon).WithForces(100).Build(),
+                defender: defender.WithArmor("OtherArmor").WithForces(100).Build(),
+                battlefield: Terrain().Build()
+            );
+            sut.Outcome().Should().BeEquivalentTo(defender.WithForces(100).Build());
+        }
+        
+        [Test]
+        public void UsesSecondaryWeapon()
+        {
+            var primaryWeapon = Weapon().Build();
+            var secondaryWeapon = Weapon().WithDamage(new Armor("OtherArmor"), 100).Build();
+
+            var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
+            var sut = new Offensive
+            (
+                attacker: Battalion().WithPrimaryWeapon(primaryWeapon).WithSecondaryWeapon(secondaryWeapon).WithForces(100).Build(),
+                defender: defender.WithArmor("OtherArmor").WithForces(100).Build(),
+                battlefield: Terrain().WithDefense(1).Build()
+            );
+            sut.Outcome().Should().BeEquivalentTo(defender.WithForces(10).Build());
+        }
+        
+        [Test]
+        public void DoesNotAttackWhenNoSuitableWeapon()
+        {
+            var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
+            var sut = new Offensive
+            (
+                attacker: Battalion().WithPrimaryWeapon(Weapon().Build()).WithSecondaryWeapon(Weapon().Build()).WithForces(100).Build(),
+                defender: defender.WithArmor("SomeArmor").WithForces(100).Build(),
+                battlefield: Terrain().WithDefense(1).Build()
+            );
+            sut.Outcome().Should().BeEquivalentTo(defender.WithForces(100).Build());
+        }
+        
+        [Test]
+        public void UsesPrimaryWeaponWithPriority()
+        {
+            var primaryWeapon = Weapon().WithDamage(new Armor("SomeArmor"), 100).Build();
+            var secondaryWeapon = Weapon().WithDamage(new Armor("SomeArmor"), 1).Build();
+
+            var defender = Battalion().Of(UnitBuilder.Unit()).WithForces(100);
+            var sut = new Offensive
+            (
+                attacker: Battalion().WithPrimaryWeapon(primaryWeapon).WithSecondaryWeapon(secondaryWeapon).WithForces(100).Build(),
+                defender: defender.WithArmor("SomeArmor").WithForces(100).Build(),
+                battlefield: Terrain().WithDefense(1).Build()
+            );
+            sut.Outcome().Should().BeEquivalentTo(defender.WithForces(10).Build());
         }
     }
 }

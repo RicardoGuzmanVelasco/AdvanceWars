@@ -21,6 +21,7 @@ Duración:
 - [X] Reparar cuesta dinero.
 - [X] Edificios que solo curan a unidades de una armada
 - [X] Hacer que el dinero que se gana cuando se mergea sea por fuerzas, no por platoons. Para unificar con el coste de reparacion. Es un poco lio el dominio y que sea justo
+- [X] Armas secundarias
 
 ### Conclusiones
 

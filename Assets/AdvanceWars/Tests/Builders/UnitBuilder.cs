@@ -7,7 +7,8 @@ namespace AdvanceWars.Tests.Builders
         MovementRate mobility = MovementRate.None;
         Propulsion propulsion = new("");
         Armor armor = new("");
-        Weapon weapon = Weapon.Null;
+        Weapon primaryWeapon = Weapon.Null;
+        Weapon secondaryWeapon = Weapon.Null;
         RangeOfFire rangeOfFire = RangeOfFire.One;
         Military serviceBranch = Military.None;
         Price price = Price.Free;
@@ -44,9 +45,9 @@ namespace AdvanceWars.Tests.Builders
             return this;
         }
 
-        public UnitBuilder With(Weapon weapon)
+        public UnitBuilder WithPrimaryWeapon(Weapon weapon)
         {
-            this.weapon = weapon;
+            this.primaryWeapon = weapon;
             return this;
         }
 
@@ -61,6 +62,12 @@ namespace AdvanceWars.Tests.Builders
             this.serviceBranch = branch;
             return this;
         }
+        
+        public UnitBuilder WithSecondaryWeapon(Weapon weapon)
+        {
+            this.secondaryWeapon = weapon;
+            return this;
+        }
         #endregion
 
         public Unit Build()
@@ -71,11 +78,11 @@ namespace AdvanceWars.Tests.Builders
                 Armor = armor,
                 Propulsion = propulsion,
                 ServiceBranch = serviceBranch,
-                Weapon = weapon,
+                PrimaryWeapon = primaryWeapon,
+                SecondaryWeapon = secondaryWeapon,
                 RangeOfFire = rangeOfFire,
                 Price = price
             };
         }
-
     }
 }

@@ -28,7 +28,7 @@ namespace AdvanceWars.Tests.Builders
         {
             Who
             (
-                BattalionBuilder.Battalion().WithWeapon
+                BattalionBuilder.Battalion().WithPrimaryWeapon
                 (
                     WeaponBuilder.Weapon().MaxDmgTo
                     (

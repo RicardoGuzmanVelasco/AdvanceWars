@@ -100,7 +100,7 @@ namespace AdvanceWars.Tests
                 .WithNation("ally")
                 .WithPlatoons(1)
                 .WithRange(1, 1)
-                .WithWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build())
+                .WithPrimaryWeapon(Weapon().WithDamage(new Armor("EnemyArmor"), 1).Build())
                 .Build();
             var enemyBattalion = Battalion().WithNation("enemy").WithArmor("EnemyArmor").WithPlatoons(1).Build();
 
@@ -149,7 +149,7 @@ namespace AdvanceWars.Tests
         [Test]
         public void CanNotFire_WhenDoesNotHaveAWeapon()
         {
-            var allyBattalion = Battalion().WithNation("ally").WithWeapon(Weapon.Null).WithPlatoons(1).WithRange(1, 1)
+            var allyBattalion = Battalion().WithNation("ally").WithPrimaryWeapon(Weapon.Null).WithPlatoons(1).WithRange(1, 1)
                 .Build();
             var enemyBattalion = Battalion().WithNation("enemy").WithPlatoons(1).Build();
 
