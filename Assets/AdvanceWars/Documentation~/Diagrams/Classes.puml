@@ -60,7 +60,7 @@ Space o-- Battalion : 0..1
 Battalion --> Unit
 Property -u-|> Terrain
 Property --> Building
-Unit --> Weapon
+Unit --> Weapon : 0..2
 Weapon --> Armor : damagesTo
 Spawner -up-|> Property
 
