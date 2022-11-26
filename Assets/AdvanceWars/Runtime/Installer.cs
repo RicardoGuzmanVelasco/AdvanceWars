@@ -16,26 +16,33 @@ namespace AdvanceWars.Runtime
     {
         public override void InstallBindings()
         {
-            var player = new Player() { Id = "p1" };
+            var player = new Player { Id = "p1" };
 
-            var map = new Map(1, 2);
+            var map = new Map(5, 5);
             map.Put(Vector2Int.zero, Resources.Load<Terrain>("Plain"));
             map.Put(Vector2Int.zero, Resources.Load<Unit>("Infantry").CreateBattalion());
             map.Put(Vector2Int.up, Resources.Load<Terrain>("Forest"));
 
             var motherland = new Nation("n1");
-            var situation = new Situation() { Map = map, Treasury = new Treasury(), Motherland = motherland };
+            var situation = new Situation { Map = map, Treasury = new Treasury(), Motherland = motherland };
 
             var co = new CommandingOfficer(situation);
 
-            var game = new Game(new[] { co }, new Dictionary<Nation, Player>() { { motherland, player } }, map);
+            var game = new Game(new[] { co }, new Dictionary<Nation, Player> { { motherland, player } }, map);
             Container.Bind<Game>().FromInstance(game).AsSingle().NonLazy();
 
             Container.BindInstance(map).AsSingle();
-            Container.Bind<DrawMap>().AsSingle();
 
             Container.Bind<MapView>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesTo<Selector>().FromComponentInHierarchy().AsSingle();
+
+            InstallControllers();
+        }
+
+        void InstallControllers()
+        {
+            Container.Bind<DrawMap>().AsSingle();
+            Container.Bind<CursorController>().AsSingle();
         }
     }
 }
