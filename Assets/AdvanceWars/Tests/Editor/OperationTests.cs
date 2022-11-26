@@ -1,18 +1,9 @@
 ﻿using System.Linq;
 using AdvanceWars.Runtime.Domain;
-using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
-using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using NUnit.Framework;
-using UnityEngine;
-using static AdvanceWars.Tests.Builders.BattalionBuilder;
-using static AdvanceWars.Tests.Builders.BuildingBuilder;
 using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
-using static AdvanceWars.Tests.Builders.MapBuilder;
-using static AdvanceWars.Tests.Builders.TerrainBuilder;
-using Building = AdvanceWars.Runtime.Domain.Map.Building;
-using Terrain = AdvanceWars.Runtime.Domain.Map.Terrain;
 
 namespace AdvanceWars.Tests
 {

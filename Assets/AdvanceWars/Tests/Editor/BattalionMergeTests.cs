@@ -98,13 +98,14 @@ namespace AdvanceWars.Tests
         public void MergeManeuver_WhenTotalPlatoonsLessThanMax()
         {
             var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(3).WithMoveRate(1).Build();
-            var anotherDamagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(4).WithMoveRate(1).Build();
+            var anotherDamagedAllyBattalion =
+                Battalion().WithNation("sameNation").WithForces(4).WithMoveRate(1).Build();
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, damagedAllyBattalion);
             map.SpaceAt(Vector2Int.zero).StopBy(anotherDamagedAllyBattalion);
             var treasury = new Treasury();
             var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
-            
+
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
@@ -112,18 +113,19 @@ namespace AdvanceWars.Tests
             map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
             treasury.WarFunds.Should().Be(0);
         }
-        
+
         [Test]
         public void MergeManeuver_WhenForcesOverflow()
         {
             var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(95).WithPrice(1000).Build();
-            var anotherDamagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(90).WithPrice(1000).Build();
+            var anotherDamagedAllyBattalion =
+                Battalion().WithNation("sameNation").WithForces(90).WithPrice(1000).Build();
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, damagedAllyBattalion);
             map.SpaceAt(Vector2Int.zero).StopBy(anotherDamagedAllyBattalion);
             var treasury = new Treasury(0);
             var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
-            
+
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
@@ -131,6 +133,5 @@ namespace AdvanceWars.Tests
             map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
             treasury.WarFunds.Should().Be(850); //Price Per Soldier x (ForcesA + ForcesB - MaxForces)
         }
-        
     }
 }

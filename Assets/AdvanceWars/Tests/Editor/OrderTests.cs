@@ -243,22 +243,22 @@ namespace AdvanceWars.Tests
 
             sut.AvailableTacticsAt(map.WhereIs(battalion)!).Should().NotContain(Tactic.Move);
         }
-        
+
         [Test]
         public void FireManeuver_ConsumesOneAmmoRound_BothForPerformerAndTarget()
         {
-            var map = Map().Of(1,2).Build();
-            
+            var map = Map().Of(1, 2).Build();
+
             var performer = Battalion().Ally().WithAmmo(10).Build();
             map.Put(Vector2Int.zero, performer);
             map.Put(Vector2Int.zero, Terrain().Build());
-            
+
             var target = Battalion().Enemy().WithAmmo(5).Build();
             map.Put(Vector2Int.up, target);
             map.Put(Vector2Int.up, Terrain().Build());
-            
+
             var sut = Maneuver.Fire(performer, target);
-            
+
             sut.Apply(Situation().WithMap(map).Build());
 
             performer.AmmoRounds.Should().Be(9);
@@ -268,8 +268,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void FireTactic_IsNotAvailable_WhenAttackerHasNoAmmoRoundsLeft()
         {
-            var map = Map().Of(1,2).Build();
-            
+            var map = Map().Of(1, 2).Build();
+
             var aNation = "aNation";
             var ally = Battalion()
                 .WithNation(aNation)
@@ -277,7 +277,7 @@ namespace AdvanceWars.Tests
                 .WithAmmo(0)
                 .Build();
             map.Put(Vector2Int.zero, ally);
-            
+
             var enemy = Battalion().WithNation("Enemy").WithArmor("EnemyArmor").Build();
             map.Put(Vector2Int.up, enemy);
 

@@ -10,7 +10,6 @@
         "RGV.DesignByContract"
     ],
     "includePlatforms": [
-        "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

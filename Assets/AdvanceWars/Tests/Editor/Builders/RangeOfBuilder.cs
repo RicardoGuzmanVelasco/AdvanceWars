@@ -21,11 +21,11 @@ namespace AdvanceWars.Tests.Builders
             // of RangeOf is calculated inverted.
             rows = rows.Reverse().ToArray();
 
-            for (var y = 0; y < rows.Length; y++)
+            for(var y = 0; y < rows.Length; y++)
             {
                 var row = rows[y].Trim(' ').Split(' ').ToArray();
 
-                for (var x = 0; x < row.Length; x++)
+                for(var x = 0; x < row.Length; x++)
                     if(row[x] is "X")
                         range.Add(new Vector2Int(x, y));
             }

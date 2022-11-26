@@ -62,7 +62,7 @@ namespace AdvanceWars.Tests.Builders
             this.serviceBranch = branch;
             return this;
         }
-        
+
         public UnitBuilder WithSecondaryWeapon(Weapon weapon)
         {
             this.secondaryWeapon = weapon;

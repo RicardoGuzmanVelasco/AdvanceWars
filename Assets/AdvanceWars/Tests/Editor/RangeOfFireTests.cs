@@ -50,7 +50,7 @@ namespace AdvanceWars.Tests
         {
             var sut = new Map(1, 3);
 
-            var result = sut.RangeOfFire(new Vector2Int(0, 0), new Runtime.Domain.Troops.RangeOfFire(2, 2));
+            var result = sut.RangeOfFire(new Vector2Int(0, 0), new RangeOfFire(2, 2));
 
             result.Should().BeEquivalentTo(RangeOf().WithStructure
             (
@@ -149,7 +149,8 @@ namespace AdvanceWars.Tests
         [Test]
         public void CanNotFire_WhenDoesNotHaveAWeapon()
         {
-            var allyBattalion = Battalion().WithNation("ally").WithPrimaryWeapon(Weapon.Null).WithPlatoons(1).WithRange(1, 1)
+            var allyBattalion = Battalion().WithNation("ally").WithPrimaryWeapon(Weapon.Null).WithPlatoons(1)
+                .WithRange(1, 1)
                 .Build();
             var enemyBattalion = Battalion().WithNation("enemy").WithPlatoons(1).Build();
 

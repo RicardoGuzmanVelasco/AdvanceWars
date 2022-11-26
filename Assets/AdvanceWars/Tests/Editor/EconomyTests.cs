@@ -1,13 +1,10 @@
 ﻿using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
-using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
 using FluentAssertions;
-using FluentAssertions.Execution;
 using NUnit.Framework;
 using UnityEngine;
 using static AdvanceWars.Tests.Builders.BuildingBuilder;
-using static AdvanceWars.Tests.Builders.CommandingOfficerBuilder;
 using static AdvanceWars.Tests.Builders.SituationBuilder;
 
 namespace AdvanceWars.Tests
@@ -15,12 +12,12 @@ namespace AdvanceWars.Tests
     public class EconomyTests
     {
         private Nation SomeNation => new Nation("A");
-        
+
         [Test]
         public void EarnWarFunds()
         {
             var sut = new Treasury();
-            
+
             sut.Earn(1000);
 
             sut.WarFunds.Should().Be(1000);
@@ -30,7 +27,7 @@ namespace AdvanceWars.Tests
         public void SpendWarFunds()
         {
             var sut = new Treasury(1000);
-            
+
             sut.Spend(250);
 
             sut.WarFunds.Should().Be(750);
@@ -39,7 +36,6 @@ namespace AdvanceWars.Tests
         [TestCase(1001, false)]
         [TestCase(999, true)]
         [TestCase(1000, true)]
-
         public void CanAfford(int amount, bool result)
         {
             var sut = new Treasury(1000);
@@ -59,7 +55,7 @@ namespace AdvanceWars.Tests
 
             sut.WarFunds.Should().Be(1000);
         }
-        
+
         [Test]
         public void IncomeFromMultipleAllyBuildings()
         {
@@ -72,6 +68,5 @@ namespace AdvanceWars.Tests
 
             sut.WarFunds.Should().Be(2500);
         }
-        
     }
 }

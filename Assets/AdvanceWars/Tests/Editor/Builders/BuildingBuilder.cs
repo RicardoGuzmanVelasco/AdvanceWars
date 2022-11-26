@@ -37,17 +37,16 @@ namespace AdvanceWars.Tests.Builders
             income = amount;
             return this;
         }
-        
+
         public BuildingBuilder WithServiceBranch(Military military)
         {
             this.serviceBranch = military;
             return this;
         }
-        
+
         public Building Build()
         {
             return new Building(siegePoints, owner, income, serviceBranch);
         }
-        
     }
 }

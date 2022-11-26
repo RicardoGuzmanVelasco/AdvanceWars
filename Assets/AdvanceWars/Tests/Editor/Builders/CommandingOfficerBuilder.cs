@@ -37,13 +37,13 @@ namespace AdvanceWars.Tests.Builders
             situation.WithWarFunds(amount);
             return this;
         }
-        
+
         public CommandingOfficerBuilder WithTreasury(Treasury treasury)
         {
             situation.WithTreasury(treasury);
             return this;
         }
-        
+
         public CommandingOfficerBuilder WithMap(Map map)
         {
             situation.WithMap(map);
