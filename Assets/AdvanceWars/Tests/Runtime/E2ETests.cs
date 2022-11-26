@@ -1,20 +1,23 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Linq;
 using System.Threading.Tasks;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 namespace AdvanceWars.Tests.Runtime
 {
     public class E2ETests
     {
-        [SetUp]
-        public void LoadScene()
+        [UnitySetUp]
+        public IEnumerator LoadScene()
         {
             SceneManager.LoadScene("WalkingSkeleton");
+            yield return null;
         }
 
         [Test]
@@ -42,6 +45,16 @@ namespace AdvanceWars.Tests.Runtime
             Object.FindObjectsOfType<BattalionView>()
                 .Should()
                 .NotBeEmpty();
+        }
+
+        [Test]
+        public void CursorStartsAtZero()
+        {
+            Object.FindObjectOfType<Button>().onClick.Invoke();
+
+            Object.FindObjectOfType<Selector>()
+                .transform.position
+                .Should().Be(Vector3.zero);
         }
     }
 }

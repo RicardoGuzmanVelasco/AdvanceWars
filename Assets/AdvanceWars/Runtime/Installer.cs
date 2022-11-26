@@ -4,6 +4,7 @@ using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
+using AdvanceWars.Runtime.Presentation;
 using UnityEngine;
 using Zenject;
 using Terrain = AdvanceWars.Runtime.Data.Terrain;
@@ -34,6 +35,7 @@ namespace AdvanceWars.Runtime
             Container.Bind<DrawMap>().AsSingle();
 
             Container.Bind<MapView>().FromComponentInHierarchy().AsSingle();
+            Container.BindInterfacesTo<Selector>().FromComponentInHierarchy().AsSingle();
         }
     }
 }

@@ -1,22 +1,26 @@
 ﻿using System.Threading.Tasks;
 using AdvanceWars.Runtime.Domain.Map;
+using UnityEngine;
 
 namespace AdvanceWars.Runtime.Application
 {
     public class DrawMap
     {
-        readonly MapView view;
         readonly Map map;
+        readonly MapView mapView;
+        readonly CursorView cursorView;
 
-        public DrawMap(MapView view, Map map)
+        public DrawMap(Map map, MapView mapView, CursorView cursorView)
         {
-            this.view = view;
             this.map = map;
+            this.mapView = mapView;
+            this.cursorView = cursorView;
         }
 
         public async Task Run()
         {
-            await view.Draw(map);
+            cursorView.MoveTo(Vector2Int.zero);
+            await mapView.Draw(map);
         }
     }
 }
