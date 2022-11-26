@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AdvanceWars.Runtime.Application;
 using AdvanceWars.Runtime.Domain.Map;
@@ -14,7 +15,9 @@ namespace AdvanceWars.Runtime.Presentation
         {
             foreach(var space in map)
             {
-                Instantiate(prefab, (Vector2)space.Key, Quaternion.identity);
+                var instance = Instantiate(prefab, (Vector2)space.Key, Quaternion.identity);
+                var terrain = Resources.LoadAll<Runtime.Data.Terrain>("").Single(x => x.name == space.Value.Terrain.Id);
+                instance.GetComponent<SpriteRenderer>().color = terrain.Color;
             }
         }
     }

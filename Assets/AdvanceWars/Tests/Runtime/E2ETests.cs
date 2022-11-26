@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
 using NUnit.Framework;
@@ -17,13 +18,17 @@ namespace AdvanceWars.Tests.Runtime
         }
 
         [Test]
-        public async Task DrawMap()
+        public async Task DrawTerrains()
         {
             Object.FindObjectOfType<Button>().onClick.Invoke();
 
             await Task.Yield();
 
-            Object.FindObjectsOfType<SpaceView>().Should().NotBeEmpty();
+            var results = Object.FindObjectsOfType<SpaceView>().Select(x => x.GetComponent<SpriteRenderer>());
+            results.Should()
+                .HaveCount(2).And
+                .Contain(s => s.color == Color.green).And
+                .Contain(s => s.color == Color.yellow);
         }
     }
 }
