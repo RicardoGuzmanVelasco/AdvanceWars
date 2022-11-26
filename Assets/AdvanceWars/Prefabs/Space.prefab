@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8305356206461958832}
   - component: {fileID: 1629965612858837505}
+  - component: {fileID: 5321744511559674366}
   m_Layer: 0
   m_Name: Space
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1629965612858837505
 SpriteRenderer:
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5321744511559674366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3796014040467215938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9a45bd3845449db13eb13ea17e9560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AdvanceWars.Runtime.Application;
 using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
@@ -23,5 +24,10 @@ public class Installer : MonoInstaller
 
         var game = new Game(new[] { co }, new Dictionary<Nation, Player>() { { motherland, player } }, map);
         Container.Bind<Game>().FromInstance(game).AsSingle().NonLazy();
+
+        Container.BindInstance(map).AsSingle();
+        Container.Bind<DrawMap>().AsSingle();
+
+        Container.Bind<MapView>().FromComponentInHierarchy().AsSingle();
     }
 }
