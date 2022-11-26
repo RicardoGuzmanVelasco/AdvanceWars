@@ -24,11 +24,24 @@ namespace AdvanceWars.Tests.Runtime
 
             await Task.Yield();
 
-            var results = Object.FindObjectsOfType<SpaceView>().Select(x => x.GetComponent<SpriteRenderer>());
-            results.Should()
+            Object.FindObjectsOfType<SpaceView>().Select(x => x.GetComponent<SpriteRenderer>())
+                .Should()
                 .HaveCount(2).And
                 .Contain(s => s.color == Color.green).And
                 .Contain(s => s.color == Color.yellow);
+        }
+
+
+        [Test]
+        public async Task DrawBattalion()
+        {
+            Object.FindObjectOfType<Button>().onClick.Invoke();
+
+            await Task.Yield();
+
+            Object.FindObjectsOfType<BattalionView>()
+                .Should()
+                .NotBeEmpty();
         }
     }
 }

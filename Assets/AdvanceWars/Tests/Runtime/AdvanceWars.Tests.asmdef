@@ -1,26 +1,27 @@
 {
     "name": "AdvanceWars.Tests",
     "rootNamespace": "",
-    "references": [
-        "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
-        "BoundfoxStudios.FluentAssertions",
-        "AdvanceWars.Runtime",
-        "AdvanceWars.DataStructures",
-        "RGV.DesignByContract"
-    ],
-    "includePlatforms": [
-    ],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "nunit.framework.dll",
-        "NSubstitute.dll"
-    ],
-    "autoReferenced": false,
-    "defineConstraints": [
-        "UNITY_INCLUDE_TESTS"
+  "references": [
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "BoundfoxStudios.FluentAssertions",
+    "AdvanceWars.Runtime",
+    "AdvanceWars.DataStructures",
+    "RGV.DesignByContract",
+    "Unity.InputSystem.TestFramework",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "NSubstitute.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
     ],
     "versionDefines": [],
     "noEngineReferences": false

@@ -3,8 +3,9 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Troops
 {
-    public partial record Unit
+    public record Unit
     {
+        public string Id { get; init; } = "";
         public MovementRate Mobility { get; init; } = MovementRate.None;
         public Propulsion Propulsion { get; init; } = Propulsion.None;
         public Weapon PrimaryWeapon { get; init; } = Weapon.Null;
@@ -18,12 +19,12 @@ namespace AdvanceWars.Runtime.Domain.Troops
         {
             Require(target).Not.Null();
 
-            if (PrimaryWeapon.BaseDamageTo(target) > 0)
+            if(PrimaryWeapon.BaseDamageTo(target) > 0)
                 return PrimaryWeapon;
-            
+
             return SecondaryWeapon.BaseDamageTo(target) > 0 ? SecondaryWeapon : Weapon.Null;
         }
-        
+
         public int BaseDamageTo([NotNull] Armor target)
         {
             Require(target).Not.Null();

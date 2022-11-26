@@ -1,5 +1,4 @@
 ﻿using System;
-using RGV.DesignByContract.Runtime;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Troops
@@ -13,6 +12,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public Unit Unit { private get; init; } = Unit.Null;
 
         private int forces = MaxForces;
+
         public int Forces
         {
             get => forces;
@@ -35,6 +35,8 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public Price Price => Unit.Price;
         public Military ServiceBranch => Unit.ServiceBranch;
         public Price PricePerSoldier => Unit.Price / MaxForces;
+        public string UnitId => Unit.Id;
+
         public int BaseDamageTo(Armor other)
         {
             return Unit.BaseDamageTo(other);
@@ -58,10 +60,10 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public void Heal(int reinforces)
         {
             Require(reinforces).Positive();
-            
+
             Forces = Math.Clamp(Forces + reinforces, 0, Battalion.MaxForces);
         }
-        
+
         #region Formatting
         public override string ToString()
         {
