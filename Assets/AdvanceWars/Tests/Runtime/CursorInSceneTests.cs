@@ -1,4 +1,5 @@
 ﻿using System;
+using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
 using NUnit.Framework;

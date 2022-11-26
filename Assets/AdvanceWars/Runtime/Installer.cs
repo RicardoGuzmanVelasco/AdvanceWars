@@ -34,6 +34,7 @@ namespace AdvanceWars.Runtime
             Container.BindInstance(map).AsSingle();
 
             Container.Bind<MapView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<SelectionView>().FromComponentInHierarchy().AsSingle();
             Container.BindInterfacesTo<Selector>().FromComponentInHierarchy().AsSingle();
 
             InstallControllers();
@@ -43,6 +44,7 @@ namespace AdvanceWars.Runtime
         {
             Container.Bind<DrawMap>().AsSingle();
             Container.Bind<CursorController>().AsSingle();
+            Container.Bind<SelectBattalion>().AsSingle();
         }
     }
 }

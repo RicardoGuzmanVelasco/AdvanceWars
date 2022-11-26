@@ -1,6 +1,6 @@
 {
-    "name": "AdvanceWars.Tests",
-    "rootNamespace": "",
+  "name": "AdvanceWars.Tests",
+  "rootNamespace": "",
   "references": [
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner",
@@ -8,8 +8,7 @@
     "AdvanceWars.Runtime",
     "AdvanceWars.DataStructures",
     "RGV.DesignByContract",
-    "Unity.InputSystem.TestFramework",
-    "Unity.InputSystem"
+    "Unity.TextMeshPro"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
@@ -22,7 +21,7 @@
   "autoReferenced": false,
   "defineConstraints": [
     "UNITY_INCLUDE_TESTS"
-    ],
-    "versionDefines": [],
-    "noEngineReferences": false
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

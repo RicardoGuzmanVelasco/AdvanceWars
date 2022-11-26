@@ -3,42 +3,45 @@ using UnityEngine;
 using Zenject;
 using static UnityEngine.Vector2Int;
 
-public class MoveCursorInput : MonoBehaviour
+namespace AdvanceWars.Runtime
 {
-    [Inject] CursorController controller;
-
-    void Update()
+    public class MoveCursorInput : MonoBehaviour
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-            Upwards();
+        [Inject] CursorController controller;
 
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-            Downwards();
+        void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.UpArrow))
+                Upwards();
 
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
-            Leftwards();
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+                Downwards();
 
-        if(Input.GetKeyDown(KeyCode.RightArrow))
-            Rightwards();
-    }
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+                Leftwards();
 
-    public void Upwards()
-    {
-        controller.Towards(up);
-    }
+            if(Input.GetKeyDown(KeyCode.RightArrow))
+                Rightwards();
+        }
 
-    public void Downwards()
-    {
-        controller.Towards(down);
-    }
+        public void Upwards()
+        {
+            controller.Towards(up);
+        }
 
-    public void Leftwards()
-    {
-        controller.Towards(left);
-    }
+        public void Downwards()
+        {
+            controller.Towards(down);
+        }
 
-    public void Rightwards()
-    {
-        controller.Towards(right);
+        public void Leftwards()
+        {
+            controller.Towards(left);
+        }
+
+        public void Rightwards()
+        {
+            controller.Towards(right);
+        }
     }
 }
