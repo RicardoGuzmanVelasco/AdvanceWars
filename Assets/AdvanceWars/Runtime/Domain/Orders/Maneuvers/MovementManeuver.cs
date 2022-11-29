@@ -16,9 +16,9 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             Itinerary = itinerary;
         }
 
-        public override void Apply(Map.Map map)
+        public override void Apply(Situation situation)
         {
-            map.WhereIs(Performer)!.Unoccupy();
+            situation.WhereIs(Performer)!.Unoccupy();
             Itinerary.Last().Enter(Performer);
         }
     }

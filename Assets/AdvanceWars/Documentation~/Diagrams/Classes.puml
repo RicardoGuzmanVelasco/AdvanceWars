@@ -18,12 +18,23 @@ class Space
 class Coord <<(T, orange)>>
 class Armor <<(T, Orange)>>
 class Weapon <<(T, Orange)>>
+class Allegiance
+class Spawner
 
+
+package Operation
+{
+class Game
+class Operation
+class Player
+}
 package Orders{
+class Nation <<(T, Orange)>>
 class Tactic <<(T, Orange)>>
 class Maneuver
-class TargetingManeuver
 class CommandingOfficer
+class Situation
+class Treasury
 }
 
 package Fire{
@@ -41,25 +52,33 @@ Map +-- Space
 (Map, Space) .. Coord
 Space --> Terrain
 Terrain --> Propulsion : costs
+Terrain -up-|> Allegiance
 Battalion --> Nation
+Battalion -up-|> Allegiance 
+Allegiance --> Nation
 Space o-- Battalion : 0..1
 Battalion --> Unit
 Property -u-|> Terrain
 Property --> Building
 Unit --> Weapon
 Weapon --> Armor : damagesTo
+Spawner -up-|> Property
 
 Offensive o--- "2" Battalion : attacker\ndefender
 Offensive o--- Terrain : battlefield
 
-CommandingOfficer *-- "0..*" Maneuver
-
-CommandingOfficer ..> Battalion
+CommandingOfficer o-- "0..*" Maneuver
+CommandingOfficer *-> Situation
+CommandingOfficer ..> Allegiance
 CommandingOfficer ..> Tactic
-TargetingManeuver -u-|> Maneuver
-TargetingManeuver o-- Battalion : target
-Maneuver o-- Battalion : performer
+
+Situation --> Map
+Situation --> Treasury
+Situation ..> Space
+
+Maneuver o-- Allegiance : performer
 Maneuver --> Tactic
+Maneuver ..> Situation
 
 Unit ..> Tactic : ¿? (cycle)
 
@@ -68,5 +87,10 @@ Combat *-- "2" TheaterOps : attacking\ndefending
 
 TheaterOps --> Terrain : battlefield
 TheaterOps --> Battalion : troops
+
+Game *--> Operation
+Game "1..n" *--> Player
+Operation "1..n" *--> CommandingOfficer
+
 
 @enduml

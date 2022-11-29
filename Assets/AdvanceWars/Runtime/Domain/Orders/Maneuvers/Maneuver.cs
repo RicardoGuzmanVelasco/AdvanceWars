@@ -39,14 +39,14 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             return new SiegeManeuver(battalion);
         }
 
-        public static IManeuver Merge([NotNull] Battalion battalion)
+        public static IManeuver Merge([NotNull] Battalion battalion, Treasury treasury)
         {
-            return new MergeManeuver(battalion);
+            return new MergeManeuver(battalion, treasury);
         }
         
-        public static IManeuver Recruit([NotNull] Spawner spawner, Unit unit)
+        public static IManeuver Recruit([NotNull] Spawner spawner, Unit unit, Treasury treasury)
         {
-            return new RecruitManeuver(spawner, unit);
+            return new RecruitManeuver(spawner, unit, treasury);
         }
         #endregion
 
@@ -55,6 +55,6 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
             return FromTactic.Equals(tactic);
         }
 
-        public abstract void Apply(Map.Map map);
+        public abstract void Apply(Situation situation);
     }
 }

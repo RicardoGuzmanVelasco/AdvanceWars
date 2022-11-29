@@ -1,4 +1,5 @@
 ﻿using System;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Troops
 {
@@ -6,10 +7,22 @@ namespace AdvanceWars.Runtime.Domain.Troops
     {
         public const int MaxForces = 100;
         private const int PlatoonSize = 10;
+        public const int MaxPlatoons = MaxForces / PlatoonSize;
 
         public Unit Unit { private get; init; } = Unit.Null;
 
-        public int Forces { get; set; } = MaxForces;
+        private int forces = MaxForces;
+
+        public int Forces
+        {
+            get => forces;
+            set
+            {
+                Require(value).GreaterOrEqualThan(0);
+                Require(value).LesserOrEqualThan(MaxForces);
+                forces = value;
+            }
+        }
 
         public int Platoons => Math.Max(1, Forces / PlatoonSize);
 
@@ -19,6 +32,10 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public RangeOfFire RangeOfFire => Unit.RangeOfFire;
         public bool Damaged => Forces < MaxForces;
         public int AmmoRounds { get; set; }
+        public Price Price => Unit.Price;
+        public Military ServiceBranch => Unit.ServiceBranch;
+        public Price PricePerSoldier => Unit.Price / MaxForces;
+        public string UnitId => Unit.Id;
 
         public int BaseDamageTo(Armor other)
         {
@@ -38,6 +55,13 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public bool IsAerial()
         {
             return Unit.IsAerial();
+        }
+
+        public void Heal(int reinforces)
+        {
+            Require(reinforces).Positive();
+
+            Forces = Math.Clamp(Forces + reinforces, 0, Battalion.MaxForces);
         }
 
         #region Formatting

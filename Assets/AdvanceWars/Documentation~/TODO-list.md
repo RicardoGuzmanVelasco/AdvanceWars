@@ -1,14 +1,17 @@
 ﻿### Refactor
 
 - Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
-  - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del building.
+  - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
+  - Tambien la vida, la municion...
 - Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
 - MoveCostOf en Space.
-- Private set del Forces del battalion.
 - Eliminar el Invitado en el contexto del Merge.
 - Maniobras que llaman a otras maniobras (en vez de llamadas con casteos desde el commanding officer)
+- Los buildings crean un Building como siege result. Ha hecho falta duplicar los constructores para que eso no de problemas
+- Las maniobras automaticas de cura, recuperacion... No son maniobras ahora mismo.
+- Crear clase de tipo de building y usarla como modelo.
 
 ### Docs
 
@@ -44,7 +47,6 @@
 - ¿Qué ocurre si se le pregunta IsAlly a un INull?.
 - ¿Qué pasa si se hace put del mismo batallón en dos coordenadas distintas del mapa?
 - Al spawnear un batallon le da inmediatamente la orden de wait. Eso puede crear problemas cuando se usen las maniobras para ir adelante y atrás y tal.
-
 ### Tests
 
 ### Features para hacer
@@ -56,10 +58,7 @@
   - Concepto de visibilidad en las unidades.
   - Emboscadas.
 - Unidades de una cierta Armada solo pueden ser curados en Edificios de dicha Armada.
-- Sistema de economía.
-  - Ganar dinero por edificios.
-  - Gastar dinero en spawnear batallones.
-- Combustible/munición.
+- Combustible.
 - Ataques de artillería.
   - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
@@ -71,5 +70,4 @@
 - Bandos para 2 vs 2.
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit.
-- Maniobras automáticas al inicio del turno de un CO:
-  - Ganar dinero por edificios.
+- Maniobras automáticas al inicio del turno de un CO.

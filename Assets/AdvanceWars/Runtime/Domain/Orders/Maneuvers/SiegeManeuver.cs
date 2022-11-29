@@ -9,10 +9,10 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         public SiegeManeuver([NotNull] Battalion performer)
             : base(performer, Tactic.Siege) { }
 
-        public override void Apply(Map.Map map)
+        public override void Apply(Situation situation)
         {
-            Require(map.WhereIs(Performer)).Not.Null();
-            map.WhereIs(Performer)!.Besiege();
+            Require(situation.WhereIs(Performer)).Not.Null();
+            situation.WhereIs(Performer)!.Besiege();
         }
     }
 }

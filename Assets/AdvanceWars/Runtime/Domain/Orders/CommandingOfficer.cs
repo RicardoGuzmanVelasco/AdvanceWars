@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
@@ -9,22 +8,23 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Orders
 {
-    public class CommandingOfficer : Allegiance
+    public class CommandingOfficer
     {
-        readonly Map.Map map;
         readonly IList<IManeuver> executedThisTurn = new List<IManeuver>();
- 
-        public CommandingOfficer(Nation from, Map.Map map)
+        readonly Situation situation;
+
+        public CommandingOfficer(Situation situation)
         {
-            this.Motherland = from;
-            this.map = map;
+            this.situation = situation;
         }
+
+        public Nation Motherland => situation.Motherland;
 
         public IEnumerable<Tactic> AvailableTacticsAt([NotNull] Space space)
         {
-            Require(space.Something(this)).True();
+            Require(space.ExclusivePresenceOfAlliesTo(situation)).True();
 
-            if (space.IsOccupied)
+            if(space.IsOccupied)
             {
                 return AvailableBattalionTacticsAt(space);
             }
@@ -51,41 +51,42 @@ namespace AdvanceWars.Runtime.Domain.Orders
 
         public void Order(IManeuver maneuver)
         {
-            Require(maneuver.Performer.IsAlly(this)).True();
+            Require(maneuver.Performer.IsAlly(situation)).True();
 
-            maneuver.Apply(map);
+            maneuver.Apply(situation);
             executedThisTurn.Add(maneuver);
 
-            if (maneuver.Is(Tactic.Recruit))
-                executedThisTurn.Add(Maneuver.Wait(map.WhereIs(maneuver.Performer as Spawner)!.Occupant));
-            
+            if(maneuver.Is(Tactic.Recruit))
+                executedThisTurn.Add(Maneuver.Wait(situation.WhereIs(maneuver.Performer as Spawner)!.Occupant));
+
             if(maneuver.Is(Tactic.Fire))
                 executedThisTurn.Add(Maneuver.Wait(maneuver.Performer as Battalion));
         }
 
         private IEnumerable<Tactic> AvailableSpawnerTacticsAt(Space space)
         {
-            if (space.SpawnableUnits.Any())
+            if(space.SpawnableUnits.Any(x => situation.CanAfford(x)))
             {
-                return new List<Tactic> {Tactic.Recruit}.Except(ExecutedThisTurn(space.Terrain));
+                return new List<Tactic> { Tactic.Recruit }.Except(ExecutedThisTurn(space.Terrain));
             }
+
             return Enumerable.Empty<Tactic>();
         }
-        
+
         private IEnumerable<Tactic> AvailableBattalionTacticsAt(Space space)
         {
             var battalion = space.Occupant;
 
             List<Tactic> tactics = new List<Tactic>();
 
-            if (map.WhereIs(battalion)!.HasGuest)
+            if(situation.WhereIs(battalion)!.HasGuest)
             {
                 return new List<Tactic>
                 {
                     Tactic.Merge
                 };
             }
-            
+
             if(HasAlready(space.Occupant, Tactic.Wait))
                 return Enumerable.Empty<Tactic>();
 
@@ -94,34 +95,30 @@ namespace AdvanceWars.Runtime.Domain.Orders
                 Tactic.Wait
             };
 
-            if (map.RangeOfMovement(battalion).Any())
+            if(situation.RangeOfMovement(battalion).Any())
                 tactics.Add(Tactic.Move);
 
-            if (map.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
-                && battalion.AmmoRounds > 0)
+            if(situation.EnemyBattalionsInRangeOfFire(battalion).Any(x => battalion.BaseDamageTo(x.Armor) > 0)
+               && battalion.AmmoRounds > 0)
                 tactics.Add(Tactic.Fire);
 
-            if (map.WhereIs(battalion)!.IsBesiegable)
+            if(situation.WhereIs(battalion)!.IsBesiegable)
                 tactics.Add(Tactic.Siege);
-            
+
             return tactics.Except(ExecutedThisTurn(space.Occupant));
         }
 
         public void BeginTurn()
         {
             executedThisTurn.Clear();
-            //maniobras automáticas. Sacar el clear al EndTurn.
 
-            foreach (var space in map.AllySpaces(this))
-            {
-                space.HealOccupant();
-                space.ReplenishOccupantAmmo();
-            }
+            //maniobras automáticas. Sacar el clear al EndTurn.
+            situation.ManageLogistics();
         }
 
         public override string ToString()
         {
-            return $"from {Motherland}";
+            return $"from {situation.Motherland}";
         }
     }
 }

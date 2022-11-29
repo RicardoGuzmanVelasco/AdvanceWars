@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
 
@@ -16,6 +17,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             public bool IsOccupied => Occupant is not INull;
             public bool HasGuest => Guest is not INull;
 
+            public bool FriendlyOccupant => IsOccupied && Terrain.IsAlly(Occupant);
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
             public IEnumerable<Unit> SpawnableUnits => Terrain.SpawnableUnits;
 
@@ -28,7 +30,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
 
             //Usado para saber si se puede ejecutar alguna maniobra
-            public bool Something(Allegiance other) => (IsOccupied && Occupant.IsAlly(other)) || (!IsOccupied && Terrain.IsAlly(other));
+            public bool ExclusivePresenceOfAlliesTo(Allegiance other) => (IsOccupied && Occupant.IsAlly(other)) || (!IsOccupied && Terrain.IsAlly(other));
 
             public bool IsHostileTo(Allegiance other) => IsOccupied && Occupant.IsEnemy(other);
             
@@ -99,17 +101,26 @@ namespace AdvanceWars.Runtime.Domain.Map
 
             public void ReplenishOccupantAmmo()
             {
+                Require(Occupant.IsAlly(Terrain)).True();
                 Occupant.AmmoRounds += 2;
             }
 
-            public void HealOccupant()
+            public void HealOccupant(Treasury treasury)
             {
-                Terrain.Heal(Occupant);
+                Require(CanHealOccupant(treasury)).True();
+                Terrain.Heal(Occupant, treasury);
             }
 
             public void SpawnHere(Unit ofUnit)
             {
                 Occupy(Terrain.SpawnBattalion(ofUnit));
+            }
+
+            public void ReportIncome([NotNull]Treasury treasury) => Terrain.ReportIncome(treasury);
+
+            public bool CanHealOccupant(Treasury treasury)
+            {
+                return Terrain.CanHeal(Occupant, treasury);
             }
         }
     }

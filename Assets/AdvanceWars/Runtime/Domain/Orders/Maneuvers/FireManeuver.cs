@@ -9,10 +9,10 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         protected internal FireManeuver([NotNull] Battalion performer, [NotNull] Battalion target)
             : base(performer, Tactic.Fire, target) { }
 
-        public override void Apply(Map.Map map)
+        public override void Apply(Situation situation)
         {
-            var performerSpace = map.WhereIs(Performer);
-            var targetSpace = map.WhereIs(Target);
+            var performerSpace = situation.WhereIs(Performer);
+            var targetSpace = situation.WhereIs(Target);
 
             var combat = new Combat
             (

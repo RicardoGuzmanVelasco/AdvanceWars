@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.DataStructures;
-using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -9,7 +9,7 @@ using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Map
 {
-    public partial record Map(int SizeX, int SizeY)
+    public partial record Map(int SizeX, int SizeY) : IEnumerable<KeyValuePair<Vector2Int, Map.Space>>
     {
         readonly LazyBoard<Space> spaces = new();
 
@@ -141,7 +141,7 @@ namespace AdvanceWars.Runtime.Domain.Map
                    coord.y >= 0 &&
                    coord.y < SizeY;
         }
-        
+
         [CanBeNull]
         public virtual Space WhereIs(Terrain what)
         {
@@ -159,11 +159,29 @@ namespace AdvanceWars.Runtime.Domain.Map
             return spaces.CoordsOf(space);
         }
 
-        public IEnumerable<Space> AllySpaces(CommandingOfficer co)
+        public IEnumerable<Space> FriendlyTerrainSpaces(Allegiance other)
         {
             return spaces
                 .Select(keyValuePair => keyValuePair.Value)
-                .Where(space => space.Occupant.IsAlly(co));
+                .Where(space => space.Terrain.IsAlly(other));
+        }
+
+        public IEnumerable<Space> SpaceOccupiedByAlly(Allegiance other)
+        {
+            return spaces
+                .Select(keyValuePair => keyValuePair.Value)
+                .Where(space => space.Occupant.IsAlly(other));
+        }
+
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<KeyValuePair<Vector2Int, Space>> GetEnumerator()
+        {
+            return spaces.GetEnumerator();
         }
     }
 }

@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Terrains
+    uniqueID: 2032508003
+    locked: 0
+  - name: Battalions
+    uniqueID: 3388000027
+    locked: 0
+  - name: Selector
+    uniqueID: 3660066455
+    locked: 0
