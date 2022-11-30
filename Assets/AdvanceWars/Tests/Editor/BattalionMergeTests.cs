@@ -3,6 +3,7 @@ using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
+using AdvanceWars.Tests.Builders;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using NUnit.Framework;
@@ -16,121 +17,74 @@ namespace AdvanceWars.Tests
 {
     public class BattalionMergeTests
     {
-        [Test]
-        public void MoveTactic_Available_WhenBattalionsCanJoin()
-        {
-            var fullHealthAllyBattalion = Battalion().WithNation("sameNation").WithForces(100).WithMoveRate(1).Build();
-            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(10).WithMoveRate(1).Build();
-            var map = new Map(1, 2);
-            map.Put(Vector2Int.zero, fullHealthAllyBattalion);
-            map.Put(Vector2Int.up, damagedAllyBattalion);
-            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
-
-            sut.AvailableTacticsAt(map.WhereIs(fullHealthAllyBattalion)!)
-                .Should().Contain(Tactic.Move);
-        }
+        BattalionBuilder FreshBattalion => Battalion().WithForces(100).WithMoveRate(1);
+        BattalionBuilder ADamagedBattalion => Battalion().WithForces(40).WithMoveRate(1);
 
         [Test]
-        public void MoveTactic_NotAvailable_WhenBattalionsCanNotJoin()
+        public void MergeTactic_NotAvailableForEnemies()
         {
-            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(10).WithMoveRate(1).Build();
-            var fullHealthAllyBattalion = Battalion().WithNation("sameNation").WithForces(100).WithMoveRate(1).Build();
+            var invalidDonor = ADamagedBattalion.Ally().Build();
+            var recipient = ADamagedBattalion.Enemy().Build();
             var map = new Map(1, 2);
-            map.Put(Vector2Int.zero, damagedAllyBattalion);
-            map.Put(Vector2Int.up, fullHealthAllyBattalion);
-            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
+            map.Put(Vector2Int.zero, invalidDonor);
+            map.Put(Vector2Int.up, recipient);
+            var sut = CommandingOfficer().Ally().WithMap(map).Build();
 
-            sut.AvailableTacticsAt(map.WhereIs(damagedAllyBattalion)!)
-                .Should().NotContain(Tactic.Move);
-        }
-
-        [Test]
-        public void MoveTactic_NotAvailable_WhenBattalionsAreEnemies()
-        {
-            var allyBattalion = Battalion().WithNation("sameNation").WithForces(50).WithMoveRate(1).Build();
-            var enemyBattalion = Battalion().WithNation("enemyNation").WithForces(50).WithMoveRate(1).Build();
-            var map = new Map(1, 2);
-            map.Put(Vector2Int.zero, allyBattalion);
-            map.Put(Vector2Int.up, enemyBattalion);
-            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
-
-            sut.AvailableTacticsAt(map.WhereIs(allyBattalion)!)
-                .Should().NotContain(Tactic.Move);
-        }
-
-        [Test]
-        public void Battalion_BecomesGuest_WhenMovingToSpaceOccupiedByJoinableBattalion()
-        {
-            var map = new Map(1, 2);
-            var anAllyBattalion = Battalion().WithNation("sameNation").WithForces(100).WithMoveRate(1).Build();
-            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(10).WithMoveRate(1).Build();
-            map.Put(Vector2Int.zero, anAllyBattalion);
-            map.Put(Vector2Int.up, damagedAllyBattalion);
-            var itinerary = new List<Map.Space>
-            {
-                map.SpaceAt(new Vector2Int(0, 1)),
-            };
-
-            var sut = Maneuver.Move(anAllyBattalion, itinerary);
-            sut.Apply(Situation().WithMap(map).Build());
-
-            using var _ = new AssertionScope();
-            map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
-            map.WhereIs(anAllyBattalion).Should().Be(map.SpaceAt(new Vector2Int(0, 1)));
-            map.SpaceAt(new Vector2Int(0, 1)).Guest.Should().Be(anAllyBattalion);
+            sut.AvailableTacticsAt(map.WhereIs(invalidDonor)!)
+                .Should().NotContain(Tactic.Merge);
         }
 
         [Test]
         public void MergeTactic_Available_WhenBattalionsCanJoin()
         {
-            var anAllyBattalion = Battalion().WithNation("sameNation").WithForces(100).WithMoveRate(1).Build();
-            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(10).WithMoveRate(1).Build();
-            var map = new Map(1, 1);
-            map.Put(Vector2Int.zero, damagedAllyBattalion);
-            map.SpaceAt(Vector2Int.zero).StopBy(anAllyBattalion);
-            var sut = CommandingOfficer().WithNation("sameNation").WithMap(map).Build();
+            var donor = FreshBattalion.Ally().Build();
+            var recipient = ADamagedBattalion.Ally().Build();
+            var map = new Map(1, 2);
+            map.Put(Vector2Int.zero, donor);
+            map.Put(Vector2Int.up, recipient);
+            var sut = CommandingOfficer().Ally().WithMap(map).Build();
 
-            sut.AvailableTacticsAt(map.WhereIs(anAllyBattalion)!)
+            sut.AvailableTacticsAt(map.WhereIs(donor)!)
                 .Should().BeEquivalentTo(new List<Tactic> { Tactic.Merge });
         }
 
         [Test]
         public void MergeManeuver_WhenTotalPlatoonsLessThanMax()
         {
-            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(3).WithMoveRate(1).Build();
-            var anotherDamagedAllyBattalion =
-                Battalion().WithNation("sameNation").WithForces(4).WithMoveRate(1).Build();
-            var map = new Map(1, 1);
-            map.Put(Vector2Int.zero, damagedAllyBattalion);
-            map.SpaceAt(Vector2Int.zero).StopBy(anotherDamagedAllyBattalion);
+            var donor = Battalion().Ally().WithForces(3).WithMoveRate(1).Build();
+            var recipient =
+                Battalion().Ally().WithForces(4).WithMoveRate(1).Build();
+            var map = new Map(1, 2);
+            map.Put(Vector2Int.zero, donor);
+            map.Put(Vector2Int.up, recipient);
             var treasury = new Treasury();
-            var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
+            var sut = Maneuver.Merge(donor, recipient, treasury);
 
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(7);
-            map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
+            map.SpaceAt(Vector2Int.up).Occupant.Forces.Should().Be(7);
+            map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
             treasury.WarFunds.Should().Be(0);
         }
 
         [Test]
         public void MergeManeuver_WhenForcesOverflow()
         {
-            var damagedAllyBattalion = Battalion().WithNation("sameNation").WithForces(95).WithPrice(1000).Build();
-            var anotherDamagedAllyBattalion =
-                Battalion().WithNation("sameNation").WithForces(90).WithPrice(1000).Build();
+            var donor = Battalion().Ally().WithForces(95).WithPrice(1000).Build();
+            var recipient =
+                Battalion().Ally().WithForces(90).WithPrice(1000).Build();
             var map = new Map(1, 1);
-            map.Put(Vector2Int.zero, damagedAllyBattalion);
-            map.SpaceAt(Vector2Int.zero).StopBy(anotherDamagedAllyBattalion);
-            var treasury = new Treasury(0);
-            var sut = Maneuver.Merge(anotherDamagedAllyBattalion, treasury);
+            map.Put(Vector2Int.zero, donor);
+            map.Put(Vector2Int.up, recipient);
+            var treasury = new Treasury();
+            var sut = Maneuver.Merge(donor, recipient, treasury);
 
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            map.SpaceAt(Vector2Int.zero).Occupant.Forces.Should().Be(100);
-            map.SpaceAt(Vector2Int.zero).Guest.Should().Be(Battalion.Null);
+            map.SpaceAt(Vector2Int.up).Occupant.Forces.Should().Be(Battalion.MaxForces);
+            map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
             treasury.WarFunds.Should().Be(850); //Price Per Soldier x (ForcesA + ForcesB - MaxForces)
         }
     }

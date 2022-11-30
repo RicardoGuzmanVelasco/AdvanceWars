@@ -79,7 +79,10 @@ namespace AdvanceWars.Runtime.Domain.Orders
 
             List<Tactic> tactics = new List<Tactic>();
 
-            if(situation.WhereIs(battalion)!.HasGuest)
+            if(situation.RangeOfMovement(battalion)
+               .Any(coords => 
+                   situation.SpaceAt(coords).Occupant.IsAlly(battalion) &&
+                   situation.SpaceAt(coords).Occupant != battalion))
             {
                 return new List<Tactic>
                 {

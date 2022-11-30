@@ -151,7 +151,7 @@ namespace AdvanceWars.Runtime.Domain.Map
         [CanBeNull]
         public virtual Space WhereIs(Battalion what)
         {
-            return spaces.Values.SingleOrDefault(x => x.Occupant == what || x.Guest == what);
+            return spaces.Values.SingleOrDefault(x => x.Occupant == what);
         }
 
         Vector2Int CoordOf([NotNull] Space space)

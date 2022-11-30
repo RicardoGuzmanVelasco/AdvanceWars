@@ -19,7 +19,7 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         public override void Apply(Situation situation)
         {
             situation.WhereIs(Performer)!.Unoccupy();
-            Itinerary.Last().Enter(Performer);
+            Itinerary.Last().Occupy(Performer);
         }
     }
 }
