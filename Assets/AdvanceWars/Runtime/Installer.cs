@@ -32,12 +32,20 @@ namespace AdvanceWars.Runtime
             Container.Bind<Game>().FromInstance(game).AsSingle().NonLazy();
 
             Container.BindInstance(map).AsSingle();
+            Container.BindInstance(situation).AsSingle();
 
-            Container.Bind<MapView>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<SelectionView>().FromComponentInHierarchy().AsSingle();
+            InstallViews();
+
             Container.BindInterfacesTo<Selector>().FromComponentInHierarchy().AsSingle();
 
             InstallControllers();
+        }
+
+        void InstallViews()
+        {
+            Container.Bind<MapView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<SelectionView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<MovementView>().To<TweenMovementView>().AsSingle();
         }
 
         void InstallControllers()
@@ -45,6 +53,7 @@ namespace AdvanceWars.Runtime
             Container.Bind<DrawMap>().AsSingle();
             Container.Bind<CursorController>().AsSingle();
             Container.Bind<SelectBattalion>().AsSingle();
+            Container.Bind<MoveBattalion>().AsSingle();
         }
     }
 }
