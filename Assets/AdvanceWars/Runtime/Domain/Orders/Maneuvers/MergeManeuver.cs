@@ -1,5 +1,4 @@
-﻿using System;
-using AdvanceWars.Runtime.Domain.Troops;
+﻿using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
@@ -27,7 +26,7 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
         void RecoupFunds(Battalion battalion)
         {
             var extraForces = Performer.Forces + battalion.Forces - Battalion.MaxForces;
-            if (extraForces > 0)
+            if(extraForces > 0)
             {
                 treasury.Earn(extraForces * battalion.PricePerSoldier);
             }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
 using static RGV.DesignByContract.Runtime.Contract;
@@ -12,9 +11,7 @@ namespace AdvanceWars.Runtime
 
         internal override IEnumerable<Unit> SpawnableUnits => spawnableUnits;
 
-        public Spawner(int maxSiegePoints, Nation motherland) : base(maxSiegePoints, motherland)
-        {
-        }
+        public Spawner(int maxSiegePoints, Nation motherland) : base(maxSiegePoints, motherland) { }
 
         public void Add(Unit unit)
         {

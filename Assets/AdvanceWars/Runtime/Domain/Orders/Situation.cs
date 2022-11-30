@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.Domain.Troops;
 using UnityEngine;
@@ -35,12 +34,12 @@ namespace AdvanceWars.Runtime.Domain.Orders
         public void ManageLogistics()
         {
             HealFriendlyStationedBattalions();
-            
-            foreach (var space in FriendlyTerrainSpaces(this))
+
+            foreach(var space in FriendlyTerrainSpaces(this))
             {
                 space.ReportIncome(Treasury);
-                
-                if (space.FriendlyOccupant)
+
+                if(space.FriendlyOccupant)
                 {
                     space.ReplenishOccupantAmmo();
                 }
@@ -51,17 +50,16 @@ namespace AdvanceWars.Runtime.Domain.Orders
         {
             var spaces = FriendlyTerrainSpaces(this).Where(x => x.CanHealOccupant(Treasury));
 
-            foreach (var space in spaces)
+            foreach(var space in spaces)
             {
                 space.HealOccupant(Treasury);
             }
         }
-        
+
 
         private IEnumerable<Map.Map.Space> FriendlyTerrainSpaces(Allegiance allegiance)
         {
             return Map.FriendlyTerrainSpaces(allegiance);
         }
-
     }
 }

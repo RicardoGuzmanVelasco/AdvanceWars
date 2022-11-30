@@ -13,8 +13,7 @@ namespace AdvanceWars.Runtime.Domain.Map
         public int DefensiveRating { get; init; }
 
         public virtual int Income => 0;
-        
-        // Only for ease of debugging.
+
         public string Id { get; init; } = string.Empty;
 
         #region Ctors /FactoryMethods
@@ -67,20 +66,18 @@ namespace AdvanceWars.Runtime.Domain.Map
         {
             return false;
         }
-        
-        public virtual void Heal(Battalion patient, Treasury treasury)
-        {
-        }
+
+        public virtual void Heal(Battalion patient, Treasury treasury) { }
 
         public Battalion SpawnBattalion(Unit ofUnit)
         {
             Require(SpawnableUnits).Contains(ofUnit);
-            return new Battalion {Unit = ofUnit, Motherland = Motherland};
+            return new Battalion { Unit = ofUnit, Motherland = Motherland };
         }
-        
+
         public void ReportIncome([NotNull] Treasury treasury)
         {
-            if (Income > 0)
+            if(Income > 0)
             {
                 treasury.Earn(Income);
             }

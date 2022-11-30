@@ -25,6 +25,9 @@ namespace AdvanceWars.Runtime.Application
             if(!game.CursorIsEnabled)
                 return;
 
+            if(!game.CanMoveCursorTowards(direction))
+                return;
+
             game.MoveCursorTowards(direction);
         }
 

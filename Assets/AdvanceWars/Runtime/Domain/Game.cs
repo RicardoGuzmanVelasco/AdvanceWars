@@ -79,5 +79,8 @@ namespace AdvanceWars.Runtime.Domain
 
             PutCursorAt(CursorCoord + direction);
         }
+
+        public bool CanMoveCursorTowards(Vector2Int direction) =>
+            operation.Battleground.IsInsideBounds(CursorCoord + direction);
     }
 }
