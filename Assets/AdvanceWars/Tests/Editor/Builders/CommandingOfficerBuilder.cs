@@ -24,7 +24,9 @@ namespace AdvanceWars.Tests.Builders
             return result;
         }
         #endregion
-
+        public CommandingOfficerBuilder Ally() => WithNation("IsAlly");
+        public CommandingOfficerBuilder Enemy() => WithNation("IsEnemy");
+        
         public CommandingOfficerBuilder WithNation(Nation motherland)
         {
             situation.WithNation(motherland);

@@ -15,6 +15,7 @@ namespace AdvanceWars.Runtime.Domain.Orders
         public Map.Map.Space WhereIs(Battalion battalion) => Map.WhereIs(battalion);
 
         public Map.Map.Space WhereIs(Spawner spawner) => Map.WhereIs(spawner);
+        public Map.Map.Space SpaceAt(Vector2Int coords) => Map.SpaceAt(coords);
 
         public IEnumerable<Battalion> EnemyBattalionsInRangeOfFire(Battalion battalion)
         {

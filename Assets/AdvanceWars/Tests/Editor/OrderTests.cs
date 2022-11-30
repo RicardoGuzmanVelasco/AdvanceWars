@@ -16,6 +16,7 @@ using static AdvanceWars.Tests.Builders.SituationBuilder;
 using static AdvanceWars.Tests.Builders.TerrainBuilder;
 using static AdvanceWars.Tests.Builders.WeaponBuilder;
 using Battalion = AdvanceWars.Runtime.Domain.Troops.Battalion;
+using Weapon = AdvanceWars.Runtime.Domain.Troops.Weapon;
 
 namespace AdvanceWars.Tests
 {
@@ -261,6 +262,7 @@ namespace AdvanceWars.Tests
 
             sut.Apply(Situation().WithMap(map).Build());
 
+            using var _ = new AssertionScope();
             performer.AmmoRounds.Should().Be(9);
             target.AmmoRounds.Should().Be(4);
         }
@@ -284,6 +286,39 @@ namespace AdvanceWars.Tests
             var sut = CommandingOfficer().WithNation(aNation).WithMap(map).Build();
 
             sut.AvailableTacticsAt(map.WhereIs(ally)!).Should().NotContain(Tactic.Fire);
+        }
+        
+        [Test]
+        public void DoesNotCounterAttack_WhenNoAmmo()
+        {
+            var map = Map().Of(1,2).Build();
+            
+            var performer = Battalion()
+                .Ally()
+                .WithForces(100)
+                .WithArmor("Performer")
+                .WithPrimaryWeapon(Weapon().WithDamage(new Armor("Target"), 1).Build())
+                .WithAmmo(10)
+                .Build();
+            map.Put(Vector2Int.zero, performer);
+            map.Put(Vector2Int.zero, Terrain().Build());
+            
+            var target = Battalion().Enemy()
+                .WithArmor("Target")
+                .WithPrimaryWeapon(Weapon().MaxDmgTo("Performer").Build())
+                .WithAmmo(0)
+                .Build();
+            map.Put(Vector2Int.up, target);
+            map.Put(Vector2Int.up, Terrain().Build());
+            
+            var sut = Maneuver.Fire(performer, target);
+            
+            sut.Apply(Situation().WithMap(map).Build());
+
+            using var _ = new AssertionScope();
+            performer.AmmoRounds.Should().Be(9);
+            target.AmmoRounds.Should().Be(0);
+            performer.Forces.Should().Be(100);
         }
     }
 }

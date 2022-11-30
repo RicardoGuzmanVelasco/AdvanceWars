@@ -22,11 +22,14 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
 
             var outcome = combat.PredictOutcome();
 
-            performerSpace.ReportCasualties(outcome.Atk.Forces);
-            performerSpace.ConsumeAmmoRound();
+            if (targetSpace.Occupant.AmmoRounds > 0)
+            {
+                performerSpace.ReportCasualties(outcome.Atk.Forces);
+                targetSpace.ConsumeAmmoRound();
+            }
             
             targetSpace.ReportCasualties(outcome.Def.Forces);
-            targetSpace.ConsumeAmmoRound();
+            performerSpace.ConsumeAmmoRound();
         }
     }
 }

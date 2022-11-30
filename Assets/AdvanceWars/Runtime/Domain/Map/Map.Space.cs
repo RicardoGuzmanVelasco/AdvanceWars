@@ -12,10 +12,8 @@ namespace AdvanceWars.Runtime.Domain.Map
             public Terrain Terrain { get; set; } = Terrain.Null;
 
             public Battalion Occupant { get; private set; } = Battalion.Null;
-            public Battalion Guest { get; private set; } = Battalion.Null;
 
             public bool IsOccupied => Occupant is not INull;
-            public bool HasGuest => Guest is not INull;
 
             public bool FriendlyOccupant => IsOccupied && Terrain.IsAlly(Occupant);
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
@@ -43,19 +41,6 @@ namespace AdvanceWars.Runtime.Domain.Map
                 Terrain.SiegePoints = outcome.SiegePoints;
             }
 
-
-            public void Enter(Battalion battalion)
-            {
-                if(IsOccupied)
-                {
-                    StopBy(battalion);
-                }
-                else
-                {
-                    Occupy(battalion);
-                }
-            }
-
             public void Occupy(Battalion occupant)
             {
                 Require(IsOccupied).False();
@@ -70,18 +55,6 @@ namespace AdvanceWars.Runtime.Domain.Map
 
                 if(Terrain.IsUnderSiege)
                     Terrain.LiftSiege();
-            }
-
-            public void StopBy(Battalion battalion)
-            {
-                Require(CanBeInvited(battalion)).True();
-                Guest = battalion;
-            }
-
-            public void ExpelGuest()
-            {
-                Require(HasGuest).True();
-                Guest = Battalion.Null;
             }
 
             public void ReportCasualties(int forcesAfter)
