@@ -59,6 +59,8 @@ namespace AdvanceWars.Runtime.Domain
             }
         }
 
+        public int Day => operation.Day;
+
         public void Begin()
         {
             cursor.Enable();
@@ -99,5 +101,10 @@ namespace AdvanceWars.Runtime.Domain
 
         public bool CanMoveCursorTowards(Vector2Int direction) =>
             operation.Battleground.IsInsideBounds(CursorCoord + direction);
+
+        public void EndTurn()
+        {
+            operation.EndTurn();
+        }
     }
 }

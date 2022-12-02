@@ -54,6 +54,17 @@ namespace AdvanceWars.Tests
         }
 
         [Test]
+        public void SinglePlayerTurnEnd()
+        {
+            var commandingOfficers = CommandingOfficers(1);
+            var sut = new Operation(commandingOfficers);
+
+            sut.EndTurn();
+
+            sut.Day.Should().Be(2);
+        }
+
+        [Test]
         public void WhenTurnOfEachNationEnds_aNewDayStarts()
         {
             var commandingOfficers = CommandingOfficers(2);

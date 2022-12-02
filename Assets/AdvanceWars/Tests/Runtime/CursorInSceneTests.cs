@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using static UnityEngine.Object;
 
 namespace AdvanceWars.Tests.Runtime
 {
@@ -13,7 +16,7 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void CursorStartsAtZero()
         {
-            Object.FindObjectOfType<Selector>()
+            FindObjectOfType<Selector>()
                 .transform.position
                 .Should().Be(Vector3.zero);
         }
@@ -21,9 +24,9 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void MoveCursorUpwards()
         {
-            Object.FindObjectOfType<MoveCursorInput>().Upwards();
+            FindObjectOfType<MoveCursorInput>().Upwards();
 
-            Object.FindObjectOfType<Selector>()
+            FindObjectOfType<Selector>()
                 .transform.position
                 .Should().Be(Vector3.up);
         }
@@ -31,11 +34,11 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void MoveCursorDownwards()
         {
-            Object.FindObjectOfType<MoveCursorInput>().Upwards();
+            FindObjectOfType<MoveCursorInput>().Upwards();
 
-            Object.FindObjectOfType<MoveCursorInput>().Downwards();
+            FindObjectOfType<MoveCursorInput>().Downwards();
 
-            Object.FindObjectOfType<Selector>()
+            FindObjectOfType<Selector>()
                 .transform.position
                 .Should().Be(Vector3.zero);
         }
@@ -43,11 +46,11 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void MoveCursorLeftwards()
         {
-            Object.FindObjectOfType<MoveCursorInput>().Rightwards();
+            FindObjectOfType<MoveCursorInput>().Rightwards();
 
-            Object.FindObjectOfType<MoveCursorInput>().Leftwards();
+            FindObjectOfType<MoveCursorInput>().Leftwards();
 
-            Object.FindObjectOfType<Selector>()
+            FindObjectOfType<Selector>()
                 .transform.position
                 .Should().Be(Vector3.zero);
         }
@@ -55,9 +58,9 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void MoveCursorRightwards()
         {
-            Object.FindObjectOfType<MoveCursorInput>().Rightwards();
+            FindObjectOfType<MoveCursorInput>().Rightwards();
 
-            Object.FindObjectOfType<Selector>()
+            FindObjectOfType<Selector>()
                 .transform.position
                 .Should().Be(Vector3.right);
         }
@@ -65,10 +68,10 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void MoveCursor_aDiagonal()
         {
-            Object.FindObjectOfType<MoveCursorInput>().Upwards();
-            Object.FindObjectOfType<MoveCursorInput>().Rightwards();
+            FindObjectOfType<MoveCursorInput>().Upwards();
+            FindObjectOfType<MoveCursorInput>().Rightwards();
 
-            Object.FindObjectOfType<Selector>()
+            FindObjectOfType<Selector>()
                 .transform.position
                 .Should().Be(Vector3.up + Vector3.right);
         }
@@ -76,12 +79,29 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public void CanNotMoveOutOfBounds()
         {
-            Action act = () => Object.FindObjectOfType<MoveCursorInput>().Leftwards();
+            Action act = () => FindObjectOfType<MoveCursorInput>().Leftwards();
 
             act.Should().NotThrow();
-            Object.FindObjectOfType<MoveCursorInput>()
+            FindObjectOfType<MoveCursorInput>()
                 .transform.position
                 .Should().Be(Vector3.zero);
+        }
+
+        [Test]
+        public void StartDay()
+        {
+            FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>()
+                .text.Should().Be("Day 1");
+        }
+
+        [Test]
+        public async Task EndDayStartsNextOne()
+        {
+            FindObjectOfType<EndTurnInput>().Interact();
+
+            await Task.Delay(1.Seconds());
+
+            FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Day 2");
         }
     }
 }
