@@ -36,7 +36,7 @@ namespace AdvanceWars.Runtime
 
             InstallViews();
 
-            Container.BindInterfacesTo<Selector>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<CursorView>().To<Selector>().FromComponentInHierarchy().AsSingle();
 
             InstallControllers();
         }

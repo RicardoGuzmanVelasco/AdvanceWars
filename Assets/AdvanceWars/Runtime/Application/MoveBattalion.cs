@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
-using AdvanceWars.Runtime.Domain.Troops;
 using UnityEngine;
+using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Application
 {
@@ -13,20 +14,40 @@ namespace AdvanceWars.Runtime.Application
     {
         readonly Situation situation;
         readonly MovementView movementView;
+        readonly SelectionView selectView;
+        readonly SelectBattalion selectBattalion;
+        readonly Game game;
 
-        public MoveBattalion(Situation situation, MovementView movementView)
+        public MoveBattalion(Situation situation, MovementView movementView, SelectionView selectView, Game game)
         {
             this.situation = situation;
             this.movementView = movementView;
+            this.selectView = selectView;
+            this.game = game;
         }
-        
-        public Task Execute(Battalion battalion, Vector2Int targetPos)
-        {
-            if (situation.SpaceAt(targetPos).Occupant == battalion) return Task.CompletedTask;
 
-            var movementManeuver= new MovementManeuver(battalion, new List<Map.Space>() {situation.SpaceAt(targetPos) });
+        public Task Execute(Vector2Int targetPos)
+        {
+            Require(game.AnythingSelected).True();
+
+            var selectedBattalion = game.SelectedBattalion;
+            if(situation.SpaceAt(targetPos).Occupant == selectedBattalion)
+                throw new NotImplementedException("Sacar el menú para esperar");
+
+            var movementManeuver = new MovementManeuver
+            (
+                selectedBattalion,
+                new List<Map.Space> { situation.SpaceAt(targetPos) }
+            );
+
             movementManeuver.Apply(situation);
-            return movementView.Move(battalion, targetPos);
+            game.Deselect();
+
+            return Task.WhenAll
+            (
+                movementView.Move(selectedBattalion, targetPos),
+                selectView.Hide()
+            );
         }
     }
 }

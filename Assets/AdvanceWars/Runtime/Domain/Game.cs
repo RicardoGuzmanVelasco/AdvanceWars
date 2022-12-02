@@ -15,6 +15,8 @@ namespace AdvanceWars.Runtime.Domain
         readonly Operation operation;
         protected Cursor cursor;
 
+        Vector2Int? selected;
+
         public event Action<Vector2Int> CursorMoved = _ => { };
 
         public event Action<bool> CursorEnableChanged
@@ -46,6 +48,16 @@ namespace AdvanceWars.Runtime.Domain
         public Player ActivePlayer => players[operation.NationInTurn];
         public Vector2Int CursorCoord => cursor.WhereIs;
         public bool CursorIsEnabled => cursor.IsEnabled;
+        public bool AnythingSelected => selected.HasValue;
+
+        public Battalion SelectedBattalion
+        {
+            get
+            {
+                Require(selected).Not.Null();
+                return operation.BattalionAt(selected!.Value);
+            }
+        }
 
         public void Begin()
         {
@@ -79,6 +91,11 @@ namespace AdvanceWars.Runtime.Domain
 
             PutCursorAt(CursorCoord + direction);
         }
+
+        public void SelectAtCursor() => selected = CursorCoord;
+
+        public void Deselect() => selected = null;
+
 
         public bool CanMoveCursorTowards(Vector2Int direction) =>
             operation.Battleground.IsInsideBounds(CursorCoord + direction);

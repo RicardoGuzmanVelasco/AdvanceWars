@@ -5,6 +5,7 @@ using AdvanceWars.Runtime.DataStructures;
 using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
+using UnityEngine;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain
@@ -33,6 +34,11 @@ namespace AdvanceWars.Runtime.Domain
             officers.Next();
             officers.Current.BeginTurn();
             NewTurnOfDay.Invoke(new NewTurnOfDayArgs(NationInTurn, Day));
+        }
+
+        public Battalion BattalionAt(Vector2Int selected)
+        {
+            return Battleground.SpaceAt(selected).Occupant;
         }
     }
 
