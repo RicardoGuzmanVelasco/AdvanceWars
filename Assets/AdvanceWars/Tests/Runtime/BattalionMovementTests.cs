@@ -65,5 +65,16 @@ namespace AdvanceWars.Tests.Runtime
 
             Object.FindObjectOfType<BattalionView>().transform.position.Should().Be(Vector3.up);
         }
+
+        [Test]
+        public async Task BattalionWait()
+        {
+            await Task.Yield();
+            await Object.FindObjectOfType<Interact>().Select();
+            
+            await Object.FindObjectOfType<Interact>().Select();
+            
+            Object.FindObjectOfType<BattalionView>().Tired.Should().BeTrue();
+        }
     }
 }

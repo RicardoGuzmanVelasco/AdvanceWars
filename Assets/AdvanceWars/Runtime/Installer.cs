@@ -63,6 +63,7 @@ namespace AdvanceWars.Runtime
             Container.Bind<MovementView>().To<TweenMovementView>().AsSingle();
             Container.Bind<DayView>().FromComponentInHierarchy().AsSingle();
             Container.Bind<TurnView>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<WaitView>().To<ColorWaitView>().AsSingle();
         }
 
         void InstallControllers()
@@ -72,6 +73,7 @@ namespace AdvanceWars.Runtime
             Container.Bind<SelectBattalion>().AsSingle();
             Container.Bind<MoveBattalion>().AsSingle();
             Container.Bind<EndTurn>().AsSingle();
+            Container.Bind<WaitBattalion>().AsSingle();
         }
     }
 }

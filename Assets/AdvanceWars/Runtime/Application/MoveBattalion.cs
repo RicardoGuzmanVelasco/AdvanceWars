@@ -15,14 +15,15 @@ namespace AdvanceWars.Runtime.Application
     {
         readonly MovementView movementView;
         readonly SelectionView selectView;
-        readonly SelectBattalion selectBattalion;
+        readonly WaitBattalion waitBattalion;
         readonly Game game;
         readonly Map map;
 
-        public MoveBattalion(Game game, Map map, MovementView movementView, SelectionView selectView)
+        public MoveBattalion(Game game, Map map, MovementView movementView, SelectionView selectView, WaitBattalion waitBattalion)
         {
             this.movementView = movementView;
             this.selectView = selectView;
+            this.waitBattalion = waitBattalion;
             this.game = game;
             this.map = map;
         }
@@ -33,13 +34,13 @@ namespace AdvanceWars.Runtime.Application
 
             var selectedBattalion = game.SelectedBattalion;
             var originSpace = map.WhereIs(selectedBattalion)!;
-            if(map.SpaceAt(targetPos) == originSpace)
-                throw new NotImplementedException("Sacar el menú para esperar");
+            if (map.SpaceAt(targetPos) == originSpace)
+                return waitBattalion.Execute(targetPos);
 
             if (!game.CurrentCommandingOfficer.AvailableTacticsAt(originSpace).Contains(Tactic.Move))
                 return Task.CompletedTask;
             
-            var movementManeuver = new MovementManeuver
+            var movementManeuver = Maneuver.Move
             (
                 selectedBattalion,
                 new List<Map.Space> { map.SpaceAt(targetPos) }
@@ -53,6 +54,7 @@ namespace AdvanceWars.Runtime.Application
                 movementView.Move(selectedBattalion, targetPos),
                 selectView.Hide()
             );
+            
         }
     }
 }
