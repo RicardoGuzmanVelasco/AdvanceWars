@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
 using FluentAssertions.Extensions;
@@ -43,6 +44,21 @@ namespace AdvanceWars.Tests.Runtime
         {
             Object.FindObjectOfType<TurnPanel>().GetComponentInChildren<TMP_Text>()
                 .text.Should().Be("Nation n1");
+        }
+
+        [Test]
+        public async Task BattalionsAreFreshWhenNewDayStarts()
+        {
+            await Task.Yield();
+            await Object.FindObjectOfType<Interact>().Select();
+            await Object.FindObjectOfType<Interact>().Select();
+            Object.FindObjectOfType<EndTurnInput>().Interact();
+            
+            Object.FindObjectOfType<EndTurnInput>().Interact();
+
+            await Task.Delay(1.Seconds());
+
+            Object.FindObjectOfType<BattalionView>().Tired.Should().BeFalse();
         }
     }
 }

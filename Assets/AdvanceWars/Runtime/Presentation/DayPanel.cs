@@ -13,6 +13,12 @@ namespace AdvanceWars.Runtime.Presentation
             GetComponentInChildren<TMP_Text>().text = "CHANCHAN";
             await Task.Delay(500);
             GetComponentInChildren<TMP_Text>().text = "Day " + day;
+            
+            
+            foreach (var battalionView in Object.FindObjectsOfType<BattalionView>())
+            {
+                battalionView.ShowFresh();
+            }
         }
     }
 }
