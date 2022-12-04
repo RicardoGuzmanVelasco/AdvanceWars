@@ -19,7 +19,7 @@ namespace AdvanceWars.Runtime.Presentation
         public void Show()
         {
             DOTween.Sequence(this)
-                .Append(transform.DOScale(0.8f, 0.67f).SetLoops(1, LoopType.Yoyo))
+                .Append(transform.DOScale(0.9f, 0.67f).SetLoops(1, LoopType.Yoyo))
                 .AppendInterval(0.4f)
                 .SetLoops(-1);
         }

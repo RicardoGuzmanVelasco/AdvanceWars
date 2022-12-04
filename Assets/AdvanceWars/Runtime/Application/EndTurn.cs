@@ -7,17 +7,24 @@ namespace AdvanceWars.Runtime.Application
     {
         readonly Game game;
         readonly DayView dayView;
+        readonly TurnView turnView;
 
-        public EndTurn(Game game, DayView dayView)
+        public EndTurn(Game game, DayView dayView, TurnView turnView)
         {
             this.game = game;
             this.dayView = dayView;
+            this.turnView = turnView;
         }
 
-        public Task Run()
+        public async Task Run()
         {
+            var currentDay = game.Day;
             game.EndTurn();
-            return dayView.StartDay(game.Day);
+
+            if (currentDay != game.Day)
+                await dayView.StartDay(game.Day);
+            
+            await turnView.SetTurn(game.NationInTurn);
         }
     }
 }

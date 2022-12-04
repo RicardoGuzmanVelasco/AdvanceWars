@@ -14,9 +14,9 @@ namespace AdvanceWars.Runtime.Presentation
                 Interact();
         }
 
-        public void Interact()
+        public async void Interact()
         {
-            endTurn.Run();
+            await endTurn.Run();
         }
     }
 }

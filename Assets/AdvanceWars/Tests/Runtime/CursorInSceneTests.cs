@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
-using FluentAssertions.Extensions;
 using NUnit.Framework;
-using TMPro;
 using UnityEngine;
 using static UnityEngine.Object;
 
@@ -85,23 +82,6 @@ namespace AdvanceWars.Tests.Runtime
             FindObjectOfType<MoveCursorInput>()
                 .transform.position
                 .Should().Be(Vector3.zero);
-        }
-
-        [Test]
-        public void StartDay()
-        {
-            FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>()
-                .text.Should().Be("Day 1");
-        }
-
-        [Test]
-        public async Task EndDayStartsNextOne()
-        {
-            FindObjectOfType<EndTurnInput>().Interact();
-
-            await Task.Delay(1.Seconds());
-
-            FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Day 2");
         }
     }
 }

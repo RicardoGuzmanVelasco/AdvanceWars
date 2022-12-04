@@ -8,11 +8,11 @@ namespace AdvanceWars.Runtime.Data
     {
         [field: SerializeField] public Color Color { get; private set; }
 
-        public Battalion CreateBattalion()
+        public Battalion CreateBattalion(Nation motherland)
         {
             return new Battalion
             {
-                Motherland = default,
+                Motherland = motherland,
                 Unit = new Domain.Troops.Unit() { Id = name },
                 Forces = 100,
                 AmmoRounds = 0

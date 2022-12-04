@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.Domain.Orders;
+using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -60,6 +61,8 @@ namespace AdvanceWars.Runtime.Domain
         }
 
         public int Day => operation.Day;
+        public Nation NationInTurn => operation.NationInTurn;
+        public CommandingOfficer CurrentCommandingOfficer => operation.CommandingOfficer;
 
         public void Begin()
         {

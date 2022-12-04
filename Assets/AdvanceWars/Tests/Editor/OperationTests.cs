@@ -9,10 +9,10 @@ namespace AdvanceWars.Tests
 {
     public class OperationTests
     {
-        private Nation Ally => new Nation("Ally");
-        private Nation Enemy => new Nation("Enemy");
-        private Nation SomeNation => new Nation("A");
-        private int SomeForces => 50;
+        Nation Ally => new Nation("Ally");
+        Nation Enemy => new Nation("Enemy");
+        Nation SomeNation => new Nation("A");
+        int SomeForces => 50;
 
         [Test]
         public void FirstActiveCommandingOfficer_IsTheFirst()
