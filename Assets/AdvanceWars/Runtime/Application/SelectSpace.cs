@@ -4,26 +4,21 @@ using AdvanceWars.Runtime.Domain.Map;
 
 namespace AdvanceWars.Runtime.Application
 {
-    public class SelectBattalion
+    public class SelectSpace
     {
         readonly Game game;
         readonly Map map;
         readonly SelectionView selectionView;
-        readonly MoveBattalion moveBattalion;
 
-        public SelectBattalion(Game game, Map map, SelectionView selectionView, MoveBattalion moveBattalion)
+        public SelectSpace(Game game, Map map, SelectionView selectionView)
         {
             this.game = game;
             this.map = map;
             this.selectionView = selectionView;
-            this.moveBattalion = moveBattalion;
         }
 
         public Task Select()
         {
-            if(game.AnythingSelected)
-                return moveBattalion.Execute(game.CursorCoord);
-
             game.SelectAtCursor();
 
             return selectionView.Show(game.CursorCoord);

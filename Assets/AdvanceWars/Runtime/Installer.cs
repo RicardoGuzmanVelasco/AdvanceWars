@@ -70,10 +70,11 @@ namespace AdvanceWars.Runtime
         {
             Container.Bind<DrawMap>().AsSingle();
             Container.Bind<CursorController>().AsSingle();
-            Container.Bind<SelectBattalion>().AsSingle();
+            Container.Bind<SelectSpace>().AsSingle();
             Container.Bind<MoveBattalion>().AsSingle();
             Container.Bind<EndTurn>().AsSingle();
             Container.Bind<WaitBattalion>().AsSingle();
+            Container.Bind<OrderBattalion>().AsSingle();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AdvanceWars.Runtime.Application;
+using AdvanceWars.Runtime.Domain;
 using UnityEngine;
 using Zenject;
 
@@ -7,8 +8,9 @@ namespace AdvanceWars.Runtime
 {
     public class Interact : MonoBehaviour
     {
-        [Inject] SelectBattalion controller;
-
+        [Inject] SelectSpace selectSpace;
+        [Inject] OrderBattalion orderBattalion;
+        [Inject] Game game; //Esto no se puede conocer de aqui
         void Update()
         {
             if(Input.GetKeyDown(KeyCode.Z))
@@ -20,12 +22,18 @@ namespace AdvanceWars.Runtime
 
         public async Task Select()
         {
-            await controller.Select();
+            if (game.AnythingSelected)
+            {
+                await orderBattalion.Execute(game.CursorCoord);
+                return;
+            }
+            
+            await selectSpace.Select();
         }
 
         public async Task Deselect()
         {
-            await controller.Deselect();
+            await selectSpace.Deselect();
         }
     }
 }

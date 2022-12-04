@@ -25,13 +25,10 @@ namespace AdvanceWars.Runtime.Application
             this.selectView = selectView;
         }
 
-        public Task Execute(Vector2Int targetPos)
+        public Task Execute()
         {
-            Contract.Require(game.AnythingSelected).True();
             var selectedBattalion = game.SelectedBattalion;
             var originSpace = map.WhereIs(selectedBattalion);
-
-            Contract.Require(map.SpaceAt(targetPos) == originSpace).True();
             
             if (!game.CurrentCommandingOfficer.AvailableTacticsAt(originSpace).Contains(Tactic.Wait))
                 return Task.CompletedTask;
@@ -39,13 +36,8 @@ namespace AdvanceWars.Runtime.Application
             var waitManeuver = Maneuver.Wait(selectedBattalion);
             
             game.CurrentCommandingOfficer.Order(waitManeuver);
-            game.Deselect();
 
-            return Task.WhenAll
-            (
-                waitView.Wait(selectedBattalion),
-                selectView.Hide()
-            );
+            return waitView.Wait(selectedBattalion);
         }
     }
 }

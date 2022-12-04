@@ -14,28 +14,20 @@ namespace AdvanceWars.Runtime.Application
     public class MoveBattalion
     {
         readonly MovementView movementView;
-        readonly SelectionView selectView;
-        readonly WaitBattalion waitBattalion;
         readonly Game game;
         readonly Map map;
 
-        public MoveBattalion(Game game, Map map, MovementView movementView, SelectionView selectView, WaitBattalion waitBattalion)
+        public MoveBattalion(Game game, Map map, MovementView movementView)
         {
             this.movementView = movementView;
-            this.selectView = selectView;
-            this.waitBattalion = waitBattalion;
             this.game = game;
             this.map = map;
         }
 
         public Task Execute(Vector2Int targetPos)
         {
-            Require(game.AnythingSelected).True();
-
             var selectedBattalion = game.SelectedBattalion;
             var originSpace = map.WhereIs(selectedBattalion)!;
-            if (map.SpaceAt(targetPos) == originSpace)
-                return waitBattalion.Execute(targetPos);
 
             if (!game.CurrentCommandingOfficer.AvailableTacticsAt(originSpace).Contains(Tactic.Move))
                 return Task.CompletedTask;
@@ -47,14 +39,8 @@ namespace AdvanceWars.Runtime.Application
             );
             
             game.CurrentCommandingOfficer.Order(movementManeuver);
-            game.Deselect();
 
-            return Task.WhenAll
-            (
-                movementView.Move(selectedBattalion, targetPos),
-                selectView.Hide()
-            );
-            
+            return movementView.Move(selectedBattalion, targetPos);
         }
     }
 }
