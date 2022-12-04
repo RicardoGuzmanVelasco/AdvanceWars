@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: Plain
   m_EditorClassIdentifier: 
   <Color>k__BackingField: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  <PropulsionCosts>k__BackingField:
+  - <Propulsion>k__BackingField: {fileID: 11400000, guid: 00ef657d5bcfc8c4784a5f6b3cdd1fd2, type: 2}
+    <MoveCost>k__BackingField: 1
+  <BlockedPropulsions>k__BackingField: []

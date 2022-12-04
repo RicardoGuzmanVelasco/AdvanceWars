@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
@@ -31,9 +32,13 @@ namespace AdvanceWars.Runtime.Application
             Require(game.AnythingSelected).True();
 
             var selectedBattalion = game.SelectedBattalion;
-            if(map.SpaceAt(targetPos).Occupant == selectedBattalion)
+            var originSpace = map.WhereIs(selectedBattalion)!;
+            if(map.SpaceAt(targetPos) == originSpace)
                 throw new NotImplementedException("Sacar el menú para esperar");
 
+            if (!game.CurrentCommandingOfficer.AvailableTacticsAt(originSpace).Contains(Tactic.Move))
+                return Task.CompletedTask;
+            
             var movementManeuver = new MovementManeuver
             (
                 selectedBattalion,

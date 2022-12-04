@@ -7,13 +7,20 @@ namespace AdvanceWars.Runtime.Data
     public class Unit : ScriptableObject
     {
         [field: SerializeField] public Color Color { get; private set; }
-
+        [field: SerializeField] public int MovementRate { get; private set; } = 1;
+        [field: SerializeField] public Propulsion Propulsion { get; private set; }
+        
         public Battalion CreateBattalion(Nation motherland)
         {
             return new Battalion
             {
                 Motherland = motherland,
-                Unit = new Domain.Troops.Unit() { Id = name },
+                Unit = new Domain.Troops.Unit()
+                {
+                    Id = name,
+                    Mobility = MovementRate,
+                    Propulsion = this.Propulsion
+                },
                 Forces = 100,
                 AmmoRounds = 0
             };

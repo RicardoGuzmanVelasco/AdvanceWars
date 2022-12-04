@@ -49,5 +49,21 @@ namespace AdvanceWars.Tests.Runtime
 
             Object.FindObjectOfType<BattalionView>().transform.position.Should().Be(Vector3.up);
         }
+
+        [Test]
+        public async Task CanNotMoveSameBattalionInOneTurn()
+        {
+            await Task.Yield();
+            await Object.FindObjectOfType<Interact>().Select();
+            Object.FindObjectOfType<MoveCursorInput>().Upwards();
+            await Object.FindObjectOfType<Interact>().Select();
+            await Object.FindObjectOfType<Interact>().Select();
+            Object.FindObjectOfType<MoveCursorInput>().Upwards();
+
+            await Object.FindObjectOfType<Interact>().Select();
+            await Task.Yield();
+
+            Object.FindObjectOfType<BattalionView>().transform.position.Should().Be(Vector3.up);
+        }
     }
 }
