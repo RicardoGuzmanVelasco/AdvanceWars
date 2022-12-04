@@ -60,5 +60,19 @@ namespace AdvanceWars.Tests.Runtime
 
             Object.FindObjectOfType<BattalionView>().Tired.Should().BeFalse();
         }
+        
+        [Test]
+        public async Task DeselectAfterTurnEnds()
+        {
+            await Task.Yield();
+            await Object.FindObjectOfType<Interact>().Select();
+            Object.FindObjectOfType<EndTurnInput>().Interact();
+            
+            Object.FindObjectOfType<EndTurnInput>().Interact();
+
+            await Task.Delay(1.Seconds());
+
+            Object.FindObjectOfType<SelectionArea>().GetComponentInChildren<TMP_Text>().text.Should().Be("");
+        }
     }
 }

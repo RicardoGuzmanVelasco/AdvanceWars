@@ -8,12 +8,14 @@ namespace AdvanceWars.Runtime.Application
         readonly Game game;
         readonly DayView dayView;
         readonly TurnView turnView;
+        readonly SelectSpace selectSpace;
 
-        public EndTurn(Game game, DayView dayView, TurnView turnView)
+        public EndTurn(Game game, DayView dayView, TurnView turnView, SelectSpace selectSpace)
         {
             this.game = game;
             this.dayView = dayView;
             this.turnView = turnView;
+            this.selectSpace = selectSpace;
         }
 
         public async Task Run()
@@ -21,6 +23,7 @@ namespace AdvanceWars.Runtime.Application
             var currentDay = game.Day;
             game.EndTurn();
 
+            await selectSpace.Deselect();
             if (currentDay != game.Day)
                 await dayView.StartDay(game.Day);
             
