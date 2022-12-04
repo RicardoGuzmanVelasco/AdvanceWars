@@ -19,10 +19,8 @@ namespace AdvanceWars.Runtime.Domain.Map
             public virtual bool IsBesiegable => Terrain.IsBesiegable(besieger: Occupant);
             public IEnumerable<Unit> SpawnableUnits => Terrain.SpawnableUnits;
 
-            public bool CanEnter(Battalion battalion) => !IsOccupied || CanBeInvited(battalion);
-
-            bool CanBeInvited(Battalion other) => IsOccupied && other.CanMergeInto(Occupant);
-
+            public bool CanEnter(Battalion battalion) => !IsOccupied || battalion.CanMergeInto(Occupant);
+            
             public bool IsCrossableBy(Battalion battalion) => !IsHostileTo(battalion);
 
             public int MoveCostOf(Battalion battalion) => Terrain.MoveCostOf(battalion.Propulsion);
