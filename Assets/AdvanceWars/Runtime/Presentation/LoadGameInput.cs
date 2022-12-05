@@ -8,7 +8,7 @@ namespace AdvanceWars.Runtime.Presentation
 {
     public class LoadGameInput : MonoBehaviour
     {
-        [Inject] readonly LoadGameplay load;
+        [Inject] readonly ConfigGameplay config;
 
         void Update()
         {
@@ -20,7 +20,7 @@ namespace AdvanceWars.Runtime.Presentation
 
         public void Interact()
         {
-            load.Run();
+            config.Run();
         }
     }
 }
