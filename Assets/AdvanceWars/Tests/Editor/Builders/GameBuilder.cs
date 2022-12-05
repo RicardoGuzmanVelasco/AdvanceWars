@@ -14,7 +14,7 @@ namespace AdvanceWars.Tests.Builders
             Cursor cursorToInject,
             [NotNull] IEnumerable<CommandingOfficer> officers,
             [NotNull] IDictionary<Nation, Player> players,
-            Map battleground = null
+            Map battleground
         ) : base(officers, players, battleground)
         {
             cursor = cursorToInject;

@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/AdvanceWars/Scenes/WalkingSkeleton.unity
     guid: a75c1e22b60fdaa43a3e24b8602597ff
+  - enabled: 1
+    path: Assets/AdvanceWars/Scenes/ModeSelection.unity
+    guid: a3ed6dec9dd0994449762dbcb6cab18a
   m_configObjects: {}

@@ -36,7 +36,7 @@ namespace AdvanceWars.Runtime.Domain
         (
             [NotNull] IEnumerable<CommandingOfficer> officers,
             [NotNull] IDictionary<Nation, Player> players,
-            Map.Map battleground = null
+            Map.Map battleground
         )
         {
             Require(players.Values.All(p => p != null)).True();

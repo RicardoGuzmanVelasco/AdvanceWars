@@ -22,6 +22,8 @@ namespace AdvanceWars.Tests.Runtime
         public async Task EndDayStartsNextOne()
         {
             Object.FindObjectOfType<EndTurnInput>().Interact();
+            await Task.Delay(1.Seconds());
+
             Object.FindObjectOfType<EndTurnInput>().Interact();
 
             await Task.Delay(1.Seconds());
@@ -53,7 +55,7 @@ namespace AdvanceWars.Tests.Runtime
             await Object.FindObjectOfType<Interact>().Select();
             await Object.FindObjectOfType<Interact>().Select();
             Object.FindObjectOfType<EndTurnInput>().Interact();
-            
+            await Task.Delay(1.Seconds());
             Object.FindObjectOfType<EndTurnInput>().Interact();
 
             await Task.Delay(1.Seconds());
@@ -67,7 +69,8 @@ namespace AdvanceWars.Tests.Runtime
             await Task.Yield();
             await Object.FindObjectOfType<Interact>().Select();
             Object.FindObjectOfType<EndTurnInput>().Interact();
-            
+            await Task.Delay(1.Seconds());
+
             Object.FindObjectOfType<EndTurnInput>().Interact();
 
             await Task.Delay(1.Seconds());
