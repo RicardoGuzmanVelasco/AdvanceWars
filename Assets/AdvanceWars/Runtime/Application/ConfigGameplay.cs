@@ -12,15 +12,18 @@ namespace AdvanceWars.Runtime.Application
         readonly ZenjectSceneLoader sceneLoader;
 
         int players = 1;
-        public ConfigGameplay(ZenjectSceneLoader sceneLoader)
+        PlayersConfigurationView playersConfigurationView;
+        public ConfigGameplay(ZenjectSceneLoader sceneLoader, PlayersConfigurationView playersConfigurationView)
         {
             this.sceneLoader = sceneLoader;
+            this.playersConfigurationView = playersConfigurationView;
         }
 
         
         public void AddPlayer()
         {
             players++;
+            playersConfigurationView.SetPlayers(players);
         }
         
         public void Run()

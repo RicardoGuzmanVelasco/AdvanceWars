@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
 using AdvanceWars.Runtime.Presentation;
+using AdvanceWars.Runtime.Presenters;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
 using TMPro;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
+using static UnityEngine.Object;
 
 namespace AdvanceWars.Tests.Runtime
 {
@@ -25,30 +26,50 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public async Task DefaultStartGameWithOnePlayer()
         {
-            Object.FindObjectOfType<LoadGameInput>().Interact();
+            FindObjectOfType<LoadGameInput>().Interact();
             await Task.Delay(3000);
 
-            Object.FindObjectOfType<Button>().onClick?.Invoke();
-            Object.FindObjectOfType<EndTurnInput>().Interact();
+            FindObjectOfType<Button>().onClick?.Invoke();
+            FindObjectOfType<EndTurnInput>().Interact();
             await Task.Delay(1.Seconds());
 
-            Object.FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Day 2");
+            FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Day 2");
         }
 
         [Test]
         public async Task CreateGameWithMorePlayers()
         {
-            Object.FindObjectOfType<PlayerAmountInput>().Add();
-            Object.FindObjectOfType<PlayerAmountInput>().Add();
-            Object.FindObjectOfType<LoadGameInput>().Interact();
+            FindObjectOfType<PlayerAmountInput>().Add();
+            FindObjectOfType<PlayerAmountInput>().Add();
+            FindObjectOfType<LoadGameInput>().Interact();
             await Task.Delay(3000);
-            Object.FindObjectOfType<Button>().onClick?.Invoke();
-            Object.FindObjectOfType<EndTurnInput>().Interact();
+            FindObjectOfType<Button>().onClick?.Invoke();
+            FindObjectOfType<EndTurnInput>().Interact();
             await Task.Delay(1.Seconds());
-            Object.FindObjectOfType<EndTurnInput>().Interact();
+            FindObjectOfType<EndTurnInput>().Interact();
             await Task.Delay(1.Seconds());
 
-            Object.FindObjectOfType<TurnPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Nation n3");
+            FindObjectOfType<TurnPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Nation n3");
+        }
+
+        [Test]
+        public void DefaultPlayerAmountIsOne()
+        {
+            FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 1");
+        }
+        
+        [Test]
+        public void AddPlayer()
+        {
+            FindObjectOfType<PlayerAmountInput>().Add();
+
+            FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 2");
+        }
+        
+        [Test]
+        public async Task AddPlayerAmount()
+        {
+            FindObjectOfType<PlayerAmountInput>().Add();
         }
     }
 }
