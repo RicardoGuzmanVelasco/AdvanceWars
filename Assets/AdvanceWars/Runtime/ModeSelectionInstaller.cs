@@ -8,6 +8,6 @@ public class ModeSelectionInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<LoadGameplay>().AsSingle();
+        Container.Bind<ConfigGameplay>().AsSingle();
     }
 }

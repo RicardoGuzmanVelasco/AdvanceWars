@@ -7,17 +7,25 @@ using Zenject;
 
 namespace AdvanceWars.Runtime.Application
 {
-    public class LoadGameplay
+    public class ConfigGameplay
     {
         readonly ZenjectSceneLoader sceneLoader;
-        public LoadGameplay(ZenjectSceneLoader sceneLoader)
+
+        int players = 1;
+        public ConfigGameplay(ZenjectSceneLoader sceneLoader)
         {
             this.sceneLoader = sceneLoader;
         }
 
+        
+        public void AddPlayer()
+        {
+            players++;
+        }
+        
         public void Run()
         {
-            var game = GameBuilder.Game().OfPlayers(1).Build();
+            var game = GameBuilder.Game().OfPlayers(players).Build();
             sceneLoader.LoadSceneAsync("WalkingSkeleton", LoadSceneMode.Single, (container) =>
             {
                 container.BindInstance(game).WhenInjectedInto<GameplayInstaller>();

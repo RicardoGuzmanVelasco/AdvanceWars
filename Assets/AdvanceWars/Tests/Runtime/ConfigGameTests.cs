@@ -33,7 +33,22 @@ namespace AdvanceWars.Tests.Runtime
             await Task.Delay(1.Seconds());
 
             Object.FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Day 2");
+        }
 
+        [Test]
+        public async Task CreateGameWithMorePlayers()
+        {
+            Object.FindObjectOfType<PlayerAmountInput>().Add();
+            Object.FindObjectOfType<PlayerAmountInput>().Add();
+            Object.FindObjectOfType<LoadGameInput>().Interact();
+            await Task.Delay(3000);
+            Object.FindObjectOfType<Button>().onClick?.Invoke();
+            Object.FindObjectOfType<EndTurnInput>().Interact();
+            await Task.Delay(1.Seconds());
+            Object.FindObjectOfType<EndTurnInput>().Interact();
+            await Task.Delay(1.Seconds());
+
+            Object.FindObjectOfType<TurnPanel>().GetComponentInChildren<TMP_Text>().text.Should().Be("Nation n3");
         }
     }
 }
