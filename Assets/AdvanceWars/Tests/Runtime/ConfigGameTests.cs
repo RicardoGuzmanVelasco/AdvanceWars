@@ -59,10 +59,10 @@ namespace AdvanceWars.Tests.Runtime
         }
         
         [Test]
-        public void AddPlayer()
+        public async Task AddPlayer()
         {
             FindObjectOfType<PlayerAmountInput>().Add();
-
+            await Task.Yield();
             FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 2");
         }
         
@@ -70,6 +70,24 @@ namespace AdvanceWars.Tests.Runtime
         public async Task AddPlayerAmount()
         {
             FindObjectOfType<PlayerAmountInput>().Add();
+            await Task.Yield();
+        }
+
+        [Test]
+        public async Task RemovePlayer()
+        {
+            FindObjectOfType<PlayerAmountInput>().Add();
+            FindObjectOfType<PlayerAmountInput>().Remove();
+            await Task.Yield();
+            FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 1");
+        }
+        
+        [Test]
+        public async Task MayNotRemoveOnlyPlayer()
+        {
+            FindObjectOfType<PlayerAmountInput>().Remove();
+            await Task.Yield();
+            FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 1");
         }
     }
 }

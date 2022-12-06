@@ -11,15 +11,25 @@ namespace AdvanceWars.Runtime.Presentation
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 Add();
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Remove();
             }
         }
 
         public void Add()
         {
             configGameplay.AddPlayer();
+        }
+
+        public void Remove()
+        {
+            configGameplay.RemovePlayer();
         }
     }
 }
