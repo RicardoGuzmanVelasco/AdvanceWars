@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
+using AdvanceWars.Runtime;
 using AdvanceWars.Runtime.Presentation;
 using AdvanceWars.Runtime.Presenters;
 using FluentAssertions;
 using FluentAssertions.Extensions;
 using NUnit.Framework;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -22,7 +24,7 @@ namespace AdvanceWars.Tests.Runtime
             SceneManager.LoadScene("ModeSelection");
             yield return null;
         }
-        
+
         [Test]
         public async Task DefaultStartGameWithOnePlayer()
         {
@@ -57,7 +59,7 @@ namespace AdvanceWars.Tests.Runtime
         {
             FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 1");
         }
-        
+
         [Test]
         public async Task AddPlayer()
         {
@@ -65,7 +67,7 @@ namespace AdvanceWars.Tests.Runtime
             await Task.Yield();
             FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 2");
         }
-        
+
         [Test]
         public async Task AddPlayerAmount()
         {
@@ -81,13 +83,30 @@ namespace AdvanceWars.Tests.Runtime
             await Task.Yield();
             FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 1");
         }
-        
+
         [Test]
         public async Task MayNotRemoveOnlyPlayer()
         {
             FindObjectOfType<PlayerAmountInput>().Remove();
             await Task.Yield();
             FindObjectOfType<PlayerAmountText>().GetComponentInChildren<TMP_Text>().text.Should().Be("Players: 1");
+        }
+
+        [Test]
+        public async Task MoveBattalion_AfterLoad()
+        {
+            FindObjectOfType<PlayerAmountInput>().Add();
+            FindObjectOfType<PlayerAmountInput>().Add();
+            FindObjectOfType<LoadGameInput>().Interact();
+            await Task.Delay(3000);
+            FindObjectOfType<Button>().onClick?.Invoke();
+
+            await FindObjectOfType<Interact>().Select();
+            FindObjectOfType<MoveCursorInput>().Upwards();
+            await FindObjectOfType<Interact>().Select();
+            await Task.Delay(1.Seconds());
+
+            FindObjectOfType<BattalionView>().transform.position.Should().Be(Vector3.up);
         }
     }
 }

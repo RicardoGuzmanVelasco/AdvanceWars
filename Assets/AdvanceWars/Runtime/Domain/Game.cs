@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.Domain.Orders;
-using AdvanceWars.Runtime.Domain.Orders.Maneuvers;
 using AdvanceWars.Runtime.Domain.Troops;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -18,6 +17,7 @@ namespace AdvanceWars.Runtime.Domain
 
         Vector2Int? selected;
 
+        public Map.Map Battleground => operation.Battleground;
         public event Action<Vector2Int> CursorMoved = _ => { };
 
         public event Action<bool> CursorEnableChanged

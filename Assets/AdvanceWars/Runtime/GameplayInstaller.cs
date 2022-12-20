@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using AdvanceWars.Runtime.Application;
 using AdvanceWars.Runtime.Data;
 using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
-using AdvanceWars.Runtime.Domain.Orders;
 using AdvanceWars.Runtime.Domain.Troops;
 using AdvanceWars.Runtime.Presentation;
 using UnityEngine;
@@ -16,18 +14,19 @@ namespace AdvanceWars.Runtime
     public class GameplayInstaller : MonoInstaller
     {
         [InjectOptional] Game game;
+
         public override void InstallBindings()
         {
             var map = new Map(5, 5);
             map.Put(Vector2Int.zero, Resources.Load<Terrain>("Plain"));
             map.Put(Vector2Int.zero, Resources.Load<Unit>("Infantry").CreateBattalion(new Nation("n1")));
             map.Put(Vector2Int.up, Resources.Load<Terrain>("Forest"));
-            
+
             game ??= GameBuilder.Game().OfPlayers(2).WithMap(map).Build();
-            
+
             Container.Bind<Game>().FromInstance(game).AsCached().NonLazy();
 
-            Container.BindInstance(map).AsSingle();
+            Container.BindInstance(game.Battleground).AsSingle();
 
             InstallViews();
 
