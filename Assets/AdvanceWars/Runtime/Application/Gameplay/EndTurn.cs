@@ -8,15 +8,13 @@ namespace AdvanceWars.Runtime.Application
     {
         readonly Game game;
         readonly DayView dayView;
-        readonly TurnView turnView;
         readonly SelectSpace selectSpace;
         readonly EndTurnInput endTurnInput;
 
-        public EndTurn(Game game, DayView dayView, TurnView turnView, SelectSpace selectSpace, EndTurnInput endTurnInput)
+        public EndTurn(Game game, DayView dayView, SelectSpace selectSpace, EndTurnInput endTurnInput)
         {
             this.game = game;
             this.dayView = dayView;
-            this.turnView = turnView;
             this.selectSpace = selectSpace;
             this.endTurnInput = endTurnInput;
         }
@@ -35,8 +33,6 @@ namespace AdvanceWars.Runtime.Application
             await selectSpace.Deselect();
             if (currentDay != game.Day)
                 await dayView.StartDay(game.Day);
-            
-            await turnView.SetTurn(game.NationInTurn);
         }
     }
 }

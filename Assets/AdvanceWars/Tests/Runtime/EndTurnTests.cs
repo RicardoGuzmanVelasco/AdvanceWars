@@ -42,8 +42,10 @@ namespace AdvanceWars.Tests.Runtime
         }
 
         [Test]
-        public void StartTurn()
+        public async Task StartTurn()
         {
+            await Task.Delay(1.Seconds());
+
             Object.FindObjectOfType<TurnPanel>().GetComponentInChildren<TMP_Text>()
                 .text.Should().Be("Nation n1");
         }
@@ -62,7 +64,7 @@ namespace AdvanceWars.Tests.Runtime
 
             Object.FindObjectOfType<BattalionView>().Tired.Should().BeFalse();
         }
-        
+
         [Test]
         public async Task DeselectAfterTurnEnds()
         {

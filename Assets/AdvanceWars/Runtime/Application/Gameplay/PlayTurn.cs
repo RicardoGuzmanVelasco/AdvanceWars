@@ -5,17 +5,21 @@ namespace AdvanceWars.Runtime.Application
 {
     public class PlayTurn
     {
-        private readonly Game game;
-        private readonly EndTurn endTurn;
-
-        public PlayTurn(Game game, EndTurn endTurn)
+        readonly Game game;
+        readonly EndTurn endTurn;
+        readonly TurnView turnView;
+        
+        public PlayTurn(Game game, EndTurn endTurn, TurnView turnView)
         {
             this.game = game;
             this.endTurn = endTurn;
+            this.turnView = turnView;
         }
 
         public async Task Run()
         {
+            await turnView.SetTurn(game.NationInTurn);
+
             await endTurn.Listen();
         }
     }
