@@ -90,14 +90,14 @@ namespace AdvanceWars.Tests
         }
         
         [Test]
-        public void NewTurnIsNotFirstTurn()
+        public void FirstTurnOfDayOnSecondDay()
         {
-            var sut = Game().Of(2).Began().Build();
+            var sut = Game().Of(1).Began().Build();
             sut.Begin();
 
             sut.EndTurn();
             
-            sut.FirstTurnOfDay.Should().BeFalse();
+            sut.FirstTurnOfDay.Should().BeTrue();
         }
     }
 }

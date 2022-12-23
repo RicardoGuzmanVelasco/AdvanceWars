@@ -31,7 +31,7 @@ namespace AdvanceWars.Runtime.Application
             game.EndTurn();
 
             await selectSpace.Deselect();
-            if (currentDay != game.Day)
+            if (game.FirstTurnOfDay)
                 await dayView.StartDay(game.Day);
         }
     }

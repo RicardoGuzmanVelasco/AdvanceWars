@@ -25,7 +25,7 @@ namespace AdvanceWars.Runtime.Domain
         }
 
         public int Day => officers.Round;
-        public int Turn => officers.Turn;
+        public int Turn => officers.TurnOfRound;
         public Nation NationInTurn => officers.Current.Motherland;
         public CommandingOfficer CommandingOfficer => officers.Current;
 
