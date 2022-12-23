@@ -78,5 +78,26 @@ namespace AdvanceWars.Tests
 
             monitoredSut.Should().NotRaise(nameof(sut.CursorEnableChanged));
         }
+
+        [Test]
+        public void GameBeginsAtFirstTurn()
+        {
+            var sut = Game().Of(2).Began().Build();
+            sut.Begin();
+
+            sut.FirstTurnOfDay
+                .Should().BeTrue();
+        }
+        
+        [Test]
+        public void NewTurnIsNotFirstTurn()
+        {
+            var sut = Game().Of(2).Began().Build();
+            sut.Begin();
+
+            sut.EndTurn();
+            
+            sut.FirstTurnOfDay.Should().BeFalse();
+        }
     }
 }

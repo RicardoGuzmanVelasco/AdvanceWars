@@ -33,6 +33,7 @@ namespace AdvanceWars.Runtime
             Container.Bind<CursorView>().To<Selector>().FromComponentInHierarchy().AsSingle();
 
             InstallControllers();
+            InstallInputs();
         }
 
         void InstallViews()
@@ -54,6 +55,13 @@ namespace AdvanceWars.Runtime
             Container.Bind<EndTurn>().AsSingle();
             Container.Bind<WaitBattalion>().AsSingle();
             Container.Bind<OrderBattalion>().AsSingle();
+            Container.Bind<Gameplay>().AsSingle();
+            Container.Bind<PlayTurn>().AsSingle();
+        }
+
+        void InstallInputs()
+        {
+            Container.Bind<EndTurnInput>().FromComponentInHierarchy().AsSingle();
         }
     }
 }
