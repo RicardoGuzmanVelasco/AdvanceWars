@@ -31,7 +31,6 @@ namespace AdvanceWars.Tests.Runtime
             FindObjectOfType<LoadGameInput>().Interact();
             await Task.Delay(3000);
 
-            FindObjectOfType<Button>().onClick?.Invoke();
             FindObjectOfType<EndTurnInput>().Interact();
             await Task.Delay(1.Seconds());
 
@@ -45,7 +44,6 @@ namespace AdvanceWars.Tests.Runtime
             FindObjectOfType<PlayerAmountInput>().Add();
             FindObjectOfType<LoadGameInput>().Interact();
             await Task.Delay(3000);
-            FindObjectOfType<Button>().onClick?.Invoke();
             FindObjectOfType<EndTurnInput>().Interact();
             await Task.Delay(1.Seconds());
             FindObjectOfType<EndTurnInput>().Interact();
@@ -99,7 +97,6 @@ namespace AdvanceWars.Tests.Runtime
             FindObjectOfType<PlayerAmountInput>().Add();
             FindObjectOfType<LoadGameInput>().Interact();
             await Task.Delay(3000);
-            FindObjectOfType<Button>().onClick?.Invoke();
 
             await FindObjectOfType<Interact>().Select();
             FindObjectOfType<MoveCursorInput>().Upwards();
