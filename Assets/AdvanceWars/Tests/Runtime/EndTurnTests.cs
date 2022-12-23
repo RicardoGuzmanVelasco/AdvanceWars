@@ -12,8 +12,10 @@ namespace AdvanceWars.Tests.Runtime
     public class EndTurnTests : WithMapFixture
     {
         [Test]
-        public void StartDay()
+        public async Task StartDay()
         {
+            await Task.Delay(1.Seconds());
+
             Object.FindObjectOfType<DayPanel>().GetComponentInChildren<TMP_Text>()
                 .text.Should().Be("Day 1");
         }
@@ -21,6 +23,8 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public async Task EndDayStartsNextOne()
         {
+            await Task.Delay(1.Seconds());
+
             Object.FindObjectOfType<EndTurnInput>().Interact();
             await Task.Delay(1.Seconds());
 
@@ -34,6 +38,8 @@ namespace AdvanceWars.Tests.Runtime
         [Test]
         public async Task EndTurnStartsNewTurn()
         {
+            await Task.Delay(1.Seconds());
+
             Object.FindObjectOfType<EndTurnInput>().Interact();
 
             await Task.Delay(1.Seconds());
