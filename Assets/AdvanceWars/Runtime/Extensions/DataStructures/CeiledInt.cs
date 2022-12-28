@@ -18,5 +18,7 @@ namespace AdvanceWars.Runtime.Extensions.DataStructures
             get => Math.Min(value, ceil);
             set => this.value = value;
         }
+
+        public static implicit operator int(CeiledInt ci) => ci.Value;
     }
 }

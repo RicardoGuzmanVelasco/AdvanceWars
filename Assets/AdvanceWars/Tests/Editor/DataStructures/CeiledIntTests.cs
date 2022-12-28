@@ -34,5 +34,13 @@ namespace AdvanceWars.Tests.DataStructures
 
             sut.Value.Should().Be(ceil);
         }
+        
+        [Test]
+        public void ValueCanBeImplicitlyConvertedToInt()
+        {
+            int sut = new CeiledInt(value: 1, ceil: 1);
+            
+            sut.Should().Be(1);
+        }
     }
 }
