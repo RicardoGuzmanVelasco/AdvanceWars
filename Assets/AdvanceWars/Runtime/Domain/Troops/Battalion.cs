@@ -6,12 +6,11 @@ namespace AdvanceWars.Runtime.Domain.Troops
     public partial class Battalion : Allegiance
     {
         public const int MaxForces = 100;
-        private const int PlatoonSize = 10;
-        public const int MaxPlatoons = MaxForces / PlatoonSize;
+        const int PlatoonSize = 10;
 
         public Unit Unit { private get; init; } = Unit.Null;
 
-        private int forces = MaxForces;
+        int forces = MaxForces;
 
         public int Forces
         {
@@ -30,7 +29,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
         public Propulsion Propulsion => Unit.Propulsion;
         public Armor Armor => Unit.Armor;
         public RangeOfFire RangeOfFire => Unit.RangeOfFire;
-        public bool Damaged => Forces < MaxForces;
+        bool Damaged => Forces < MaxForces;
         public int AmmoRounds { get; set; }
         public Price Price => Unit.Price;
         public Military ServiceBranch => Unit.ServiceBranch;
