@@ -1,4 +1,5 @@
 ﻿using System;
+using AdvanceWars.Runtime.Extensions.DataStructures;
 using static RGV.DesignByContract.Runtime.Contract;
 
 namespace AdvanceWars.Runtime.Domain.Troops
@@ -10,7 +11,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
 
         public Unit Unit { private get; init; } = Unit.Null;
 
-        int forces = MaxForces;
+        CeiledInt forces = new(MaxForces, MaxForces);
 
         public int Forces
         {
@@ -18,8 +19,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
             set
             {
                 Require(value).GreaterOrEqualThan(0);
-                Require(value).LesserOrEqualThan(MaxForces);
-                forces = value;
+                forces = new CeiledInt(value, MaxForces);
             }
         }
 
@@ -60,7 +60,7 @@ namespace AdvanceWars.Runtime.Domain.Troops
         {
             Require(reinforces).Positive();
 
-            Forces = Math.Clamp(Forces + reinforces, 0, Battalion.MaxForces);
+            Forces += reinforces;
         }
 
         #region Formatting
