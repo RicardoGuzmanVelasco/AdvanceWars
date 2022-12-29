@@ -1,4 +1,5 @@
 ﻿using AdvanceWars.Runtime.Domain.Troops;
+using AdvanceWars.Runtime.Extensions.DataStructures;
 using JetBrains.Annotations;
 
 namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
@@ -7,24 +8,25 @@ namespace AdvanceWars.Runtime.Domain.Orders.Maneuvers
     {
         readonly Treasury treasury;
 
-        public MergeManeuver([NotNull] Battalion performer, Battalion target, Treasury treasury) : base(performer, Tactic.Merge, target)
+        public MergeManeuver([NotNull] Battalion performer, Battalion target, Treasury treasury)
+            : base(performer, Tactic.Merge, target)
         {
             this.treasury = treasury;
         }
 
         public override void Apply(Situation situation)
         {
-            var performerSpace = situation.WhereIs(Performer);
-            
-            var extraForces = Performer.Forces + Target.Forces - Battalion.MaxForces;
-            if(extraForces > 0)
+            var amount = OverflownForces() * Target.PricePerSoldier;
+            if(amount > 0)
             {
-                treasury.Earn(extraForces * Target.PricePerSoldier);
+                treasury.Earn(amount);
             }
 
             Target.Heal(Performer.Forces);
-            
-            performerSpace.Unoccupy();
+
+            situation.WhereIs(Performer).Unoccupy();
         }
+
+        int OverflownForces() => Performer.Forces.Value + Target.Forces.Value - Battalion.MaxForces;
     }
 }

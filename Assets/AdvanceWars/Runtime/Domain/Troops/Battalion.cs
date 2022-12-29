@@ -13,12 +13,12 @@ namespace AdvanceWars.Runtime.Domain.Troops
 
         CeiledInt forces = new(MaxForces, MaxForces);
 
-        public int Forces
+        public CeiledInt Forces
         {
             get => forces;
             set
             {
-                Require(value).GreaterOrEqualThan(0);
+                Require(value.Value).GreaterOrEqualThan(0);
                 forces = new CeiledInt(value, MaxForces);
             }
         }

@@ -30,7 +30,7 @@ namespace AdvanceWars.Tests
 
             sut.BeginTurn();
 
-            enemyBattalion.Forces.Should().Be(1);
+            enemyBattalion.Forces.Value.Should().Be(1);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace AdvanceWars.Tests
 
             sut.BeginTurn();
 
-            battalion.Forces.Should().Be(30);
+            battalion.Forces.Value.Should().Be(30);
         }
 
         //Idem
@@ -75,7 +75,7 @@ namespace AdvanceWars.Tests
 
             sut.BeginTurn();
 
-            battalion.Forces.Should().Be(SomeForces);
+            battalion.Forces.Value.Should().Be(SomeForces);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace AdvanceWars.Tests
 
             sut.BeginTurn();
 
-            battalion.Forces.Should().Be(SomeForces);
+            battalion.Forces.Value.Should().Be(SomeForces);
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace AdvanceWars.Tests
 
             sut.ManageLogistics();
 
-            battalion.Forces.Should().Be(95);
+            battalion.Forces.Value.Should().Be(95);
             sut.WarFunds.Should().Be(0);
         }
 
@@ -136,7 +136,7 @@ namespace AdvanceWars.Tests
 
             sut.ManageLogistics();
 
-            battalion.Forces.Should().Be(10);
+            battalion.Forces.Value.Should().Be(10);
         }
     }
 }

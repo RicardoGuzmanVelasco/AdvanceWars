@@ -99,8 +99,8 @@ namespace AdvanceWars.Tests
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            atk.Forces.Should().BeLessThan(AnyForces);
-            def.Forces.Should().BeLessThan(AnyForces);
+            atk.Forces.Value.Should().BeLessThan(AnyForces);
+            def.Forces.Value.Should().BeLessThan(AnyForces);
         }
 
         [Test]
@@ -131,8 +131,8 @@ namespace AdvanceWars.Tests
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            atk.Forces.Should().Be(AnyForces);
-            def.Forces.Should().Be(0);
+            atk.Forces.Value.Should().Be(AnyForces);
+            def.Forces.Value.Should().Be(0);
             map.WhereIs(def).Should().BeNull();
         }
 
@@ -164,7 +164,7 @@ namespace AdvanceWars.Tests
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            atk.Forces.Should().Be(0);
+            atk.Forces.Value.Should().Be(0);
             map.WhereIs(atk).Should().BeNull();
         }
 
@@ -318,7 +318,7 @@ namespace AdvanceWars.Tests
             using var _ = new AssertionScope();
             performer.AmmoRounds.Should().Be(9);
             target.AmmoRounds.Should().Be(0);
-            performer.Forces.Should().Be(100);
+            performer.Forces.Value.Should().Be(100);
         }
     }
 }

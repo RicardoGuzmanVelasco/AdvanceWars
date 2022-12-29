@@ -20,5 +20,7 @@ namespace AdvanceWars.Runtime.Extensions.DataStructures
         }
 
         public static implicit operator int(CeiledInt ci) => ci.Value;
+        public static implicit operator CeiledInt(int ci) => new CeiledInt(ci, ci);
+        public static CeiledInt operator +(CeiledInt a, int b) => new CeiledInt(value: a.Value + b, ceil: a.ceil);
     }
 }

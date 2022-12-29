@@ -63,7 +63,7 @@ namespace AdvanceWars.Tests
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            map.SpaceAt(Vector2Int.up).Occupant.Forces.Should().Be(7);
+            map.SpaceAt(Vector2Int.up).Occupant.Forces.Value.Should().Be(7);
             map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
             treasury.WarFunds.Should().Be(0);
         }
@@ -83,7 +83,7 @@ namespace AdvanceWars.Tests
             sut.Apply(Situation().WithMap(map).Build());
 
             using var _ = new AssertionScope();
-            map.SpaceAt(Vector2Int.up).Occupant.Forces.Should().Be(Battalion.MaxForces);
+            map.SpaceAt(Vector2Int.up).Occupant.Forces.Value.Should().Be(Battalion.MaxForces);
             map.SpaceAt(Vector2Int.zero).Occupant.Should().Be(Battalion.Null);
             treasury.WarFunds.Should().Be(850); //Price Per Soldier x (ForcesA + ForcesB - MaxForces)
         }
