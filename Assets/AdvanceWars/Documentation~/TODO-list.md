@@ -1,8 +1,5 @@
 ﻿### Refactor
 
-- Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
-  - Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
-  - Tambien la vida, la municion...
 - Reusar cosa de coordenadas/grafos/etc. los rangos de fuego y de movimiento.
 - Renombrar RangeOfFire para que no se llame igual la clase, la property y el metodo del mapa.
 - Tenemos 2 metodos Range of movement, uno le pasamos un batallon y busca el espacio y llama al otro. El otro coge el espacio y pilla el batallon. Esto se hace por tests.
@@ -20,6 +17,10 @@
 
 ### WIP
 
+- [X] Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
+  - [X] Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
+  - Tambien la vida, la municion...
+  - Faltaría revisar lo del suelo cero también + munición + germinación del .Value
 - Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
