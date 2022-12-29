@@ -58,8 +58,7 @@ namespace AdvanceWars.Tests
 
             sut.Order(Maneuver.Siege(battalion));
 
-            building.SiegePoints
-                .Should().Be(19);
+            building.SiegePoints.Value.Should().Be(19);
         }
     }
 }

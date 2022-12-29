@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AdvanceWars.Runtime.Domain.Troops;
+using AdvanceWars.Runtime.Extensions.DataStructures;
 using JetBrains.Annotations;
 using static RGV.DesignByContract.Runtime.Contract;
 
@@ -8,11 +9,11 @@ namespace AdvanceWars.Runtime.Domain.Map
 {
     public class Terrain : Allegiance
     {
-        readonly Dictionary<Propulsion, int> costs = new Dictionary<Propulsion, int>();
+        readonly Dictionary<Propulsion, int> costs = new();
 
         public int DefensiveRating { get; init; }
 
-        public virtual int Income => 0;
+        protected virtual int Income => 0;
 
         public string Id { get; init; } = string.Empty;
 
@@ -33,9 +34,9 @@ namespace AdvanceWars.Runtime.Domain.Map
                 this.costs[propulsion] = int.MaxValue;
         }
 
-        public static Terrain Null { get; } = new Terrain(new Dictionary<Propulsion, int>());
+        public static Terrain Null { get; } = new(new Dictionary<Propulsion, int>());
 
-        public static Terrain Air { get; } = new Terrain(new Dictionary<Propulsion, int>()) { Id = "Air" };
+        public static Terrain Air { get; } = new(new Dictionary<Propulsion, int>()) { Id = "Air" };
         #endregion
 
         public int MoveCostOf(Propulsion propulsion)
@@ -45,7 +46,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         #region Siege-related pushed up stuff
         public virtual bool IsUnderSiege => false;
-        public int SiegePoints { get; set; } = int.MaxValue;
+        public CeiledInt SiegePoints { get; set; } = int.MaxValue;
         internal virtual IEnumerable<Unit> SpawnableUnits => Enumerable.Empty<Unit>();
 
         [Pure]
@@ -77,10 +78,8 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         public void ReportIncome([NotNull] Treasury treasury)
         {
-            if(Income > 0)
-            {
+            if(Income > 0) 
                 treasury.Earn(Income);
-            }
         }
     }
 }

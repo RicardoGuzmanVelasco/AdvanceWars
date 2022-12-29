@@ -38,7 +38,7 @@ namespace AdvanceWars.Tests
             sut.Besiege();
             sut.Unoccupy();
 
-            sut.Terrain.SiegePoints.Should().Be(11);
+            sut.Terrain.SiegePoints.Value.Should().Be(11);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace AdvanceWars.Tests
 
             sut.Besiege();
 
-            sut.Terrain.SiegePoints.Should().Be(3);
+            sut.Terrain.SiegePoints.Value.Should().Be(3);
         }
 
         [Test]

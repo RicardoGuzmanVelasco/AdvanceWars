@@ -16,7 +16,7 @@ namespace AdvanceWars.Tests
 
             var result = sut.SiegeOutcome(besieger: battalion);
 
-            result.SiegePoints.Should().Be(19);
+            result.SiegePoints.Value.Should().Be(19);
             result.IsNeutral(battalion).Should().BeTrue();
         }
 
@@ -28,7 +28,7 @@ namespace AdvanceWars.Tests
 
             var result = sut.SiegeOutcome(besieger: battalion);
 
-            result.SiegePoints.Should().Be(19);
+            result.SiegePoints.Value.Should().Be(19);
             result.IsEnemy(battalion).Should().BeTrue();
         }
 
@@ -41,7 +41,7 @@ namespace AdvanceWars.Tests
 
             var result = sut.SiegeOutcome(besieger: battalion);
 
-            result.SiegePoints.Should().Be(20);
+            result.SiegePoints.Value.Should().Be(20);
             result.IsAlly(battalion).Should().BeTrue();
         }
 
@@ -54,7 +54,7 @@ namespace AdvanceWars.Tests
 
             var result = sut.SiegeOutcome(besieger: battalion);
 
-            result.SiegePoints.Should().Be(20);
+            result.SiegePoints.Value.Should().Be(20);
             result.IsAlly(battalion).Should().BeTrue();
         }
     }

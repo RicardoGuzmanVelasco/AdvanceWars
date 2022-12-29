@@ -10,18 +10,18 @@ namespace AdvanceWars.Runtime.Domain.Map
         const int ReinforcesPerTurn = 20;
 
         readonly int maxSiegePoints;
-        readonly int income;
         readonly Military owner;
-        
-        public override int Income => income;
+
+        protected override int Income { get; }
 
         public Building(int maxSiegePoints, Nation motherland) : this(maxSiegePoints)
         {
             Motherland = motherland;
         }
+        
         public Building(int maxSiegePoints, Nation motherland, int income, Military owner) : this(maxSiegePoints, motherland)
         {
-            this.income = income;
+            Income = income;
             this.owner = owner;
         }
         
@@ -34,9 +34,9 @@ namespace AdvanceWars.Runtime.Domain.Map
         {
             get
             {
-                Require(this.Equals(Building.Unbesiegable)).False();
+                Require(Equals(Unbesiegable)).False();
 
-                return maxSiegePoints > SiegePoints;
+                return SiegePoints < maxSiegePoints;
             }
         }
 
@@ -53,7 +53,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         public override void LiftSiege()
         {
-            Require(SiegePoints).LesserThan(maxSiegePoints);
+            Require(SiegePoints.Value).LesserThan(maxSiegePoints);
             SiegePoints = maxSiegePoints;
         }
 
