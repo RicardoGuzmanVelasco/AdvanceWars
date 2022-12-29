@@ -9,25 +9,24 @@ namespace AdvanceWars.Runtime.Domain.Map
     {
         const int ReinforcesPerTurn = 20;
 
-        readonly int maxSiegePoints;
         readonly Military owner;
 
         protected override int Income { get; }
 
-        public Building(int maxSiegePoints, Nation motherland) : this(maxSiegePoints)
+        public Building(int maxSiegePoints, Nation motherland) : base(maxSiegePoints)
         {
             Motherland = motherland;
         }
-        
-        public Building(int maxSiegePoints, Nation motherland, int income, Military owner) : this(maxSiegePoints, motherland)
+
+        public Building(int maxSiegePoints, Nation motherland, int income, Military owner) 
+            : this(maxSiegePoints, motherland)
         {
             Income = income;
             this.owner = owner;
         }
-        
-        public Building(int maxSiegePoints)
+
+        public Building(int maxSiegePoints) : base(maxSiegePoints)
         {
-            this.maxSiegePoints = SiegePoints = maxSiegePoints;
         }
 
         public override bool IsUnderSiege
@@ -36,7 +35,7 @@ namespace AdvanceWars.Runtime.Domain.Map
             {
                 Require(Equals(Unbesiegable)).False();
 
-                return SiegePoints < maxSiegePoints;
+                return SiegePoints < SiegePoints.Ceil;
             }
         }
 
@@ -47,14 +46,14 @@ namespace AdvanceWars.Runtime.Domain.Map
             var resultPoints = Math.Max(0, SiegePoints - besieger.Platoons);
 
             return resultPoints == 0
-                ? new Building(maxSiegePoints, besieger.Motherland)
+                ? new Building(SiegePoints.Ceil, besieger.Motherland)
                 : new Building(resultPoints, Motherland);
         }
 
         public override void LiftSiege()
         {
-            Require(SiegePoints.Value).LesserThan(maxSiegePoints);
-            SiegePoints = maxSiegePoints;
+            Require(SiegePoints.Value).LesserThan(SiegePoints.Ceil);
+            SiegePoints = SiegePoints.Ceil;
         }
 
         public override bool IsBesiegable(Battalion besieger)
@@ -64,9 +63,11 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         public override bool CanHeal(Battalion patient, Treasury treasury)
         {
-            return patient.ServiceBranch.Equals(owner) && ReinforcesAmount(patient, treasury) > 0 && patient.IsAlly(this);
+            return patient.ServiceBranch.Equals(owner) 
+                && ReinforcesAmount(patient, treasury) > 0 
+                && patient.IsAlly(this);
         }
-        
+
         public override void Heal(Battalion patient, Treasury treasury)
         {
             Require(CanHeal(patient, treasury)).True();
@@ -75,18 +76,19 @@ namespace AdvanceWars.Runtime.Domain.Map
             patient.Heal(reinforcesAmount);
 
             var repairPrice = reinforcesAmount * patient.PricePerSoldier;
-            if (repairPrice > 0)
-            {
+            if(repairPrice > 0)
                 treasury.Spend(repairPrice);
-            }
         }
 
         int ReinforcesAmount(Battalion patient, Treasury treasury)
         {
-            var idealReinforcesAmount = Mathf.Clamp(Battalion.MaxForces - patient.Forces, 0, ReinforcesPerTurn);
+            var idealReinforcesAmount = Mathf.Clamp(
+                Battalion.MaxForces - patient.Forces,
+                0,
+                ReinforcesPerTurn);
             var reinforcesCost = patient.PricePerSoldier * idealReinforcesAmount;
             var repairBudget = reinforcesCost < treasury.WarFunds ? reinforcesCost : treasury.WarFunds;
-            
+
             return patient.PricePerSoldier > 0
                 ? repairBudget / patient.PricePerSoldier
                 : idealReinforcesAmount;

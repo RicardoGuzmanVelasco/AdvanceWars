@@ -10,6 +10,7 @@ namespace AdvanceWars.Runtime.Domain.Map
     public class Terrain : Allegiance
     {
         readonly Dictionary<Propulsion, int> costs = new();
+        CeiledInt siegePoints;
 
         public int DefensiveRating { get; init; }
 
@@ -18,7 +19,11 @@ namespace AdvanceWars.Runtime.Domain.Map
         public string Id { get; init; } = string.Empty;
 
         #region Ctors /FactoryMethods
-        protected Terrain() { }
+
+        protected Terrain(int maxSiegePoints)
+        {
+            siegePoints = new CeiledInt(maxSiegePoints, maxSiegePoints);
+        }
 
         Terrain(Dictionary<Propulsion, int> costs)
             : this(costs, Enumerable.Empty<Propulsion>()) { }
@@ -46,7 +51,13 @@ namespace AdvanceWars.Runtime.Domain.Map
 
         #region Siege-related pushed up stuff
         public virtual bool IsUnderSiege => false;
-        public CeiledInt SiegePoints { get; set; } = int.MaxValue;
+
+        public CeiledInt SiegePoints
+        {
+            get => siegePoints;
+            set => siegePoints = new CeiledInt(value, SiegePoints.Ceil);
+        }
+
         internal virtual IEnumerable<Unit> SpawnableUnits => Enumerable.Empty<Unit>();
 
         [Pure]

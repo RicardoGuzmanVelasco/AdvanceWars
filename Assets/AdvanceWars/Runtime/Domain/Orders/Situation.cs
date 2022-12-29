@@ -40,10 +40,8 @@ namespace AdvanceWars.Runtime.Domain.Orders
             {
                 space.ReportIncome(Treasury);
 
-                if(space.FriendlyOccupant)
-                {
+                if(space.FriendlyOccupant) 
                     space.ReplenishOccupantAmmo();
-                }
             }
         }
 
