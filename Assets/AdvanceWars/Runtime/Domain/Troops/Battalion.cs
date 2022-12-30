@@ -11,15 +11,15 @@ namespace AdvanceWars.Runtime.Domain.Troops
 
         public Unit Unit { private get; init; } = Unit.Null;
 
-        CeiledInt forces = new(MaxForces, MaxForces);
+        ZeroClampedInt forces = new(MaxForces, MaxForces);
 
-        public CeiledInt Forces
+        public ZeroClampedInt Forces
         {
             get => forces;
             set
             {
                 Require(value.Value).GreaterOrEqualThan(0);
-                forces = new CeiledInt(value, MaxForces);
+                forces = new ZeroClampedInt(value, MaxForces);
             }
         }
 

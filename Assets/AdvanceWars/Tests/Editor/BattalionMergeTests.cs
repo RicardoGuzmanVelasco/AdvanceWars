@@ -72,8 +72,7 @@ namespace AdvanceWars.Tests
         public void MergeManeuver_WhenForcesOverflow()
         {
             var donor = Battalion().Ally().WithForces(95).WithPrice(1000).Build();
-            var recipient =
-                Battalion().Ally().WithForces(90).WithPrice(1000).Build();
+            var recipient = Battalion().Ally().WithForces(90).WithPrice(1000).Build();
             var map = new Map(1, 1);
             map.Put(Vector2Int.zero, donor);
             map.Put(Vector2Int.up, recipient);
