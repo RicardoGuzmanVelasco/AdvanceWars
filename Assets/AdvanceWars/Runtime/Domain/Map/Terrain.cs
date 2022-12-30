@@ -55,7 +55,11 @@ namespace AdvanceWars.Runtime.Domain.Map
         public ZeroClampedInt SiegePoints
         {
             get => siegePoints;
-            set => siegePoints = new ZeroClampedInt(value, SiegePoints.Ceil);
+            set
+            {
+                Require(SiegePoints).Not.Null();
+                siegePoints = new ZeroClampedInt(value, SiegePoints.Ceil);
+            }
         }
 
         internal virtual IEnumerable<Unit> SpawnableUnits => Enumerable.Empty<Unit>();

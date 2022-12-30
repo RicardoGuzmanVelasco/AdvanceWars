@@ -61,7 +61,7 @@ namespace AdvanceWars.Runtime.Domain.Map
 
                 Occupant.Forces = forcesAfter;
                 
-                if(Occupant.Forces <= 0)
+                if(Occupant.Forces == 0)
                     Unoccupy();
             }
 
