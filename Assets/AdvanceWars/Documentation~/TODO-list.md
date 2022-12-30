@@ -21,6 +21,7 @@
   - [X] Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
   - Tambien la vida, la municion...
   - Faltaría revisar lo del suelo cero también + munición + germinación del .Value
+    - La Munición de Armas todavía no tiene el concepto de Munición máxima. 
 - Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
@@ -72,3 +73,6 @@
 - Commanding Officers con habilidades/pasivas (únicas por cada uno).
 - Undo de maniobras cuando todavia no se ha hecho wait de la unit.
 - Maniobras automáticas al inicio del turno de un CO.
+- Soportar conceptos de Arma Principal y Secundaria.
+  - La Principal tiene Munición máxima.
+  - La Secundaria tiene Munición ilimitada.
