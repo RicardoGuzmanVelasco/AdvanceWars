@@ -46,6 +46,17 @@ namespace AdvanceWars.Tests.DataStructures
         }
 
         [Test]
+        public void DecrementOverFlooredValue_DoesNotSwallowLaterIncrements()
+        {
+            var sut = new ZeroClampedInt(value: 0, ceil: 1);
+            
+            sut.Value--;
+            sut.Value++;
+            
+            sut.Value.Should().Be(1);
+        }
+        
+        [Test]
         public void ValueCanBeImplicitlyConvertedToInt()
         {
             int sut = new ZeroClampedInt(value: 1, ceil: 1);
