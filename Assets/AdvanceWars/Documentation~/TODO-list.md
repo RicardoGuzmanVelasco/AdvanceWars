@@ -21,6 +21,8 @@
   - [X] Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
   - La Munición de Armas todavía no tiene el concepto de Munición máxima. 
   - Faltaría revisar lo de la germinación del .Value
+- Los battalions al ser mergeados, devuelven el porcentaje sobrante de fuerzas en fondos.
+  - Faltaría, quizá, revisar los tests de esto y ver si falta algún sad path por implementar. 
 - Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
@@ -54,7 +56,6 @@
 ### Features para hacer
 
 - Redondear 0.05 los outcomes de ataques y tal.
-- Los battalions al ser mergeados, devuelven el porcentaje sobrante de fuerzas en fondos.
 - Niebla de guerra.
   - Visibilidad de casillas por terreno.
   - Concepto de visibilidad en las unidades.
