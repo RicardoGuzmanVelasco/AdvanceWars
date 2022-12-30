@@ -19,9 +19,8 @@
 
 - [X] Sacar abstracción {número máximo, número actual}... ¿reutilizar gauge (con suelo cero)?
   - [X] Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
-  - Tambien la vida, la municion...
-  - Faltaría revisar lo del suelo cero también + munición + germinación del .Value
-    - La Munición de Armas todavía no tiene el concepto de Munición máxima. 
+  - La Munición de Armas todavía no tiene el concepto de Munición máxima. 
+  - Faltaría revisar lo de la germinación del .Value
 - Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
 - Ahora mismo está mockeado el caso de blocker.
   - Falta un algoritmo de camino mínimo y demás.
