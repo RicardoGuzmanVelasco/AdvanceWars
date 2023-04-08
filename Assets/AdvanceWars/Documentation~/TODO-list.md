@@ -21,6 +21,8 @@
   - [X] Es para el MaxSiegePoints y el SiegePoints. Es un patrón muy muy repetido y no es responsabilidad del buildin
   - La Munición de Armas todavía no tiene el concepto de Munición máxima. 
   - Faltaría revisar lo de la germinación del .Value
+  - `Require(value).GreaterThan(Floor)`.
+  - No debería tener conversión implícita de int a `ZeroClampedInt`.
 - Los battalions al ser mergeados, devuelven el porcentaje sobrante de fuerzas en fondos.
   - Faltaría, quizá, revisar los tests de esto y ver si falta algún sad path por implementar. 
 - Ahora mismo el itinerario de la maniobra de movimiento no está probado. Cuando se haga la niebla de guerra hace falta.
@@ -62,6 +64,7 @@
   - Emboscadas.
 - Unidades de una cierta Armada solo pueden ser curados en Edificios de dicha Armada.
 - Combustible.
+  - Requiere tener implementado el path finding.
 - Ataques de artillería.
   - Contrataque de artillería. (la artillería no contraataca / a la artillería nunca le contraatacan)
 - Seleccionar a qué enemigo atacar.
