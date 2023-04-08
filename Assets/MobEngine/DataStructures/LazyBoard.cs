@@ -12,7 +12,12 @@ namespace AdvanceWars.Runtime.DataStructures
 
         public T this[Vector2Int key]
         {
-            get => delegated.ContainsKey(key) ? delegated[key] : delegated[key] = new T();
+            get
+            {
+                if(!delegated.ContainsKey(key))
+                    delegated[key] = new T();
+                return delegated[key];
+            }
             set => delegated[key] = value;
         }
 

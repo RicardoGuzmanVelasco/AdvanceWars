@@ -15,7 +15,7 @@ namespace AdvanceWars.Runtime.Application
         readonly ZenjectSceneLoader sceneLoader;
         readonly GameBuilder gameBuilder;
 
-        PlayersConfigurationView playersConfigurationView;
+        readonly PlayersConfigurationView playersConfigurationView;
 
         public ConfigGameplay(ZenjectSceneLoader sceneLoader, PlayersConfigurationView playersConfigurationView)
         {

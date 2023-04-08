@@ -64,6 +64,7 @@ namespace AdvanceWars.Runtime.Domain
         public Nation NationInTurn => operation.NationInTurn;
         public bool FirstTurnOfDay => operation.Turn == 0;
         public CommandingOfficer CurrentCommandingOfficer => operation.CommandingOfficer;
+        public bool Playing => true;
 
         public void Begin()
         {

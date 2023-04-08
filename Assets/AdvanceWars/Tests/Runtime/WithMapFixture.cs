@@ -11,7 +11,6 @@ namespace AdvanceWars.Tests.Runtime
         {
             SceneManager.LoadScene("WalkingSkeleton");
             yield return null;
-            // Object.FindObjectOfType<Button>().onClick.Invoke();
             yield return null;
         }
     }
