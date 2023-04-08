@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Threading.Tasks;
 using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Inputs;
 using AdvanceWars.Runtime.Presentation;
 using AdvanceWars.Runtime.Presenters;
 using FluentAssertions;
@@ -10,7 +11,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
 using static UnityEngine.Object;
 
 namespace AdvanceWars.Tests.Runtime

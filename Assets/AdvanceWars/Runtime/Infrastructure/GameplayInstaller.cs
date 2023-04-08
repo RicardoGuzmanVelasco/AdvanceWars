@@ -3,6 +3,7 @@ using AdvanceWars.Runtime.Data;
 using AdvanceWars.Runtime.Domain;
 using AdvanceWars.Runtime.Domain.Map;
 using AdvanceWars.Runtime.Domain.Troops;
+using AdvanceWars.Runtime.Inputs;
 using AdvanceWars.Runtime.Presentation;
 using UnityEngine;
 using Zenject;
@@ -17,14 +18,16 @@ namespace AdvanceWars.Runtime
 
         public override void InstallBindings()
         {
-            var map = new Map(5, 5);
-            map.Put(Vector2Int.zero, Resources.Load<Terrain>("Plain"));
-            map.Put(Vector2Int.zero, Resources.Load<Unit>("Infantry").CreateBattalion(new Nation("n1")));
-            map.Put(Vector2Int.up, Resources.Load<Terrain>("Forest"));
+            if(game == null)
+            {
+                var map = new Map(5, 5);
+                map.Put(Vector2Int.zero, Resources.Load<Terrain>("Plain"));
+                map.Put(Vector2Int.zero, Resources.Load<Unit>("Infantry").CreateBattalion(new Nation("n1")));
+                map.Put(Vector2Int.up, Resources.Load<Terrain>("Forest"));
 
-            game ??= GameBuilder.Game().OfPlayers(2).WithMap(map).Build();
-
-            Container.Bind<Game>().FromInstance(game).AsCached().NonLazy();
+                game = GameBuilder.Game().OfPlayers(2).WithMap(map).Build();
+                Container.Bind<Game>().FromInstance(game).AsCached().NonLazy();
+            }
 
             Container.BindInstance(game.Battleground).AsSingle();
 

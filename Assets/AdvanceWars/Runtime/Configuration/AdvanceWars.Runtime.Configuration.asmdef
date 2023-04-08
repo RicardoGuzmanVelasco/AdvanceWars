@@ -1,0 +1,19 @@
+{
+    "name": "AdvanceWars.Runtime.Configuration",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bb5d1ebad6e9eda4698d475825d02079",
+        "GUID:59ce1e4b6f7a46b3a7a8f25669596277",
+        "GUID:3b131d485e6eaea4ca6276001568c265",
+        "GUID:4f3166ce75f1424a9d8c84f49b07f6c9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

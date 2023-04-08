@@ -1,27 +1,32 @@
 {
-  "name": "AdvanceWars.Tests",
-  "rootNamespace": "",
-  "references": [
-    "UnityEngine.TestRunner",
-    "UnityEditor.TestRunner",
-    "BoundfoxStudios.FluentAssertions",
-    "AdvanceWars.Runtime",
-    "AdvanceWars.DataStructures",
-    "RGV.DesignByContract",
-    "Unity.TextMeshPro"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": true,
-  "precompiledReferences": [
-    "nunit.framework.dll",
-    "NSubstitute.dll"
-  ],
-  "autoReferenced": false,
-  "defineConstraints": [
-    "UNITY_INCLUDE_TESTS"
-  ],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "AdvanceWars.Tests",
+    "rootNamespace": "",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "BoundfoxStudios.FluentAssertions",
+        "RGV.DesignByContract",
+        "Unity.TextMeshPro",
+        "MobEngine.DataStructures",
+        "AdvanceWars.Runtime.Inputs",
+        "AdvanceWars.Runtime.Presentation",
+        "AdvanceWars.Runtime.Domain",
+        "AdvanceWars.Runtime.Application",
+        "AdvanceWars.Runtime.Application.Config",
+        "AdvanceWars.Runtime.Inputs.OLD"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "NSubstitute.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

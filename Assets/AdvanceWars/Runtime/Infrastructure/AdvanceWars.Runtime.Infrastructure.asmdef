@@ -1,0 +1,23 @@
+{
+    "name": "AdvanceWars.Runtime.Infrastructure",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bb5d1ebad6e9eda4698d475825d02079",
+        "GUID:2e98ccc3285583b4ea17ade6cbbb1750",
+        "GUID:b1fd10cf56841ed40a5ace897c1b80dd",
+        "GUID:4f2f818363a1c1c4e9be16bf8ac190c3",
+        "GUID:381c85e239be58c49a4457a2abc0efeb",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:ba380d42af2285b42812768b5cdfa4a2",
+        "GUID:f9ba80b1ae5ef2e40bdbb80547b52595"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

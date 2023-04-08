@@ -1,12 +1,11 @@
 using System.Threading.Tasks;
-using AdvanceWars.Runtime.Application;
 using UnityEngine;
-using Zenject;
 
-namespace AdvanceWars.Runtime.Presentation
+namespace AdvanceWars.Runtime.Inputs
 {
     public class EndTurnInput : MonoBehaviour
     {
+        private bool listening;
         private bool interacted; 
         void Update()
         {

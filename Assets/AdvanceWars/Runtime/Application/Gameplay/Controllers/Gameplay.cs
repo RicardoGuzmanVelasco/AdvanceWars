@@ -1,7 +1,4 @@
 ﻿using System.Threading.Tasks;
-using AdvanceWars.Runtime.Domain;
-using AdvanceWars.Runtime.Presentation;
-using ModestTree;
 
 namespace AdvanceWars.Runtime.Application
 {

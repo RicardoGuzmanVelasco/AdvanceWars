@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AdvanceWars.Runtime.Domain;
-using AdvanceWars.Runtime.Presentation;
+using AdvanceWars.Runtime.Inputs;
 
 namespace AdvanceWars.Runtime.Application
 {

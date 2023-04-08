@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using AdvanceWars.Runtime;
+using AdvanceWars.Runtime.Inputs;
 using AdvanceWars.Runtime.Presentation;
 using FluentAssertions;
 using FluentAssertions.Extensions;

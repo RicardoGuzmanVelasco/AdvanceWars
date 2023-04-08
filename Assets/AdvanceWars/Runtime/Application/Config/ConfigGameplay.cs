@@ -39,7 +39,7 @@ namespace AdvanceWars.Runtime.Application
 
             var game = gameBuilder.WithMap(map).Build();
             sceneLoader.LoadSceneAsync("WalkingSkeleton", LoadSceneMode.Single,
-                (container) => { container.BindInstance(game).WhenInjectedInto<GameplayInstaller>(); });
+                (container) => { container.BindInstance(game); });
         }
 
         public Task RemovePlayer()

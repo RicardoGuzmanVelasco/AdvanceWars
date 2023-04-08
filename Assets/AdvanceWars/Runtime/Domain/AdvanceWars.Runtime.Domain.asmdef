@@ -1,12 +1,11 @@
 {
-    "name": "AdvanceWars.Runtime",
+    "name": "AdvanceWars.Runtime.Domain",
     "rootNamespace": "",
     "references": [
-        "GUID:4f3166ce75f1424a9d8c84f49b07f6c9",
         "GUID:59ce1e4b6f7a46b3a7a8f25669596277",
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:ec9ad1114b9f9254199cfb0056db56af"
+        "GUID:a5634780a5f9174498f270a33f0810ba",
+        "GUID:4f3166ce75f1424a9d8c84f49b07f6c9",
+        "GUID:3b131d485e6eaea4ca6276001568c265"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
